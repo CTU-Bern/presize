@@ -1,0 +1,68 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# presize
+
+**Warning: R-package in development.**
+
+The goal of presize is to provide functions for precision based sample size calculation. For a given sample size, the functions will return the precision (half the width of the confidence interval), and vice versa.
+
+## Installation
+
+You can install presize from github with:
+
+```{r gh-installation, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("a-lenz/presize")
+```
+
+## Overview
+presize will provide functions for
+
+* descriptive statistics
+    + mean (`prec_mean`)
+    + proportion (`prec_prop`)
+    + rate (`prec_rate`)
+  
+* absolute and relative differences
+    + mean difference
+    + risk difference
+    + odds ration
+    + risk ratio
+    + rate ratio
+    + hazard ratio
+  
+* correlation measures
+    + correlation coefficient
+    + Cohens kappa
+    + ICC
+    + limit of agreement from Bland Altman plot
+  
+* diagnostic measures
+    + sens
+    + spez
+    + positive LR
+    + negative LR
+    + AUC
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(presize)
+
+# calculate sample size for a proportion of 0.2 with a precision of 0.2
+prec_prop(p = .2, prec = .2, method = "wilson")
+```
