@@ -79,10 +79,9 @@ prec_mean <- function(mu, sd, n = NULL, prec = NULL, conf.level = 0.95) {
 #' Exactly one of the parameters \code{r, prec} must be passed as NULL, and that
 #' parameter is determined from the other.
 #'
-#' Currently, the \code{score}, variance stabilizing (\code{vs}), and \code{wald} method are
-#' implemented to calculate the rate and the precision. If you would like an
-#' exact conficence interval, use \code{\link[stats]{poisson.test}}. For small
-#' \code{r} (<5), the exact method is recommended.
+#' The \code{score}, variance stabilizing (\code{vs}), \code{exact}, and
+#' \code{wald} method are implemented to calculate the rate and the precision.
+#' For few events \code{x} (<5), the exact method is recommended.
 #'
 #' If more than one method is specified or the method is miss-specified, the
 #' 'score' method will be used.
@@ -101,13 +100,13 @@ prec_mean <- function(mu, sd, n = NULL, prec = NULL, conf.level = 0.95) {
 #' \href{https://doi.org/10.1198/000313002317572736}{DOI:
 #' 10.1198/000313002317572736}
 prec_rate <- function(r, x = NULL, prec = NULL, conf.level = 0.95,
-                      method = c("score", "vs", "wald"),
+                      method = c("score", "vs", "exact", "wald"),
                       tol = .Machine$double.eps^0.25) {
   if (length(method) > 1) {
     warning("more than one method was chosen, 'score' will be used")
     method <- "score"
   }
-  methods <- c("score", "vs", "wald")
+  methods <- c("score", "vs", "exact", "wald")
   i <- pmatch(method, methods)
   meth <- methods[i]
   if (is.na(i)) {
@@ -115,7 +114,7 @@ prec_rate <- function(r, x = NULL, prec = NULL, conf.level = 0.95,
     meth <- "score"
   }
   #x <- r * t
-  #alpha <- (1 - conf.level) / 2
+  alpha <- (1 - conf.level) / 2
   z <- qnorm((1 + conf.level) / 2)
   z2 <- z * z
   # Wald
@@ -155,27 +154,44 @@ prec_rate <- function(r, x = NULL, prec = NULL, conf.level = 0.95,
     radj <- r * (1 + z2 / (4 * x))
   }
 
-  # # exact
-  # if (meth == "exact") {
-  #   if (is.null(r))
-  #     stop("No method for calculation of rate based on precision for exact method")
-  #   lwr <- qgamma(alpha, x)
-  #   upr <- qgamma(1 - alpha, x + 1)
-  #   prec <- (upr - lwr) / 2
-  # }
 
-  lo <- radj - prec
-  if(lo < 0)
-    warning("The lower end of the confidence interval is numberically below 0 and non-sensible. Please choose another method.")
+  # exact
+  if (meth == "exact") {
+    ex <- function(x, r) {
+      t <- x / r
+      lwr <- qgamma(alpha, x) / t
+      upr <- qgamma(1 - alpha, x + 1) / t
+      prec <- (upr - lwr) / 2
+      list(lwr = lwr,
+           upr = upr,
+           prec = prec)
+    }
+    if (is.null(x)) {
+      x <- uniroot(function(x) ex(x, r)$prec - prec,
+                   c(1, 1e+07), tol = tol)$root
+    }
+    res <- ex(x, r)
+    lwr <- res$lwr
+    upr <- res$upr
+    radj <- r
+    if (is.null(prec))
+      prec <- res$prec
+  } else {
+    lwr <- radj - prec
+    upr <- radj + prec
+  }
+
+  if(lwr < 0)
+    warning("The lower end of the confidence interval is numerically below 0 and non-sensible. Please choose another method.")
 
   structure(list(r = r,
                  x = x,
                  prec = prec,
                  radj = radj,
-                 lo = lo,
-                 hi = radj + prec,
+                 lwr = lwr,
+                 upr = upr,
                  note = paste(round(x / r, 1), "units of time are needed to accumulate 'x' events."),
-                 method = paste("Sample size or precision for a rate with", meth)),
+                 method = paste("Sample size or precision for a rate with", meth, "confidence interval")),
             class = "power.htest")
 }
 
