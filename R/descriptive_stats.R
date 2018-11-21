@@ -87,8 +87,8 @@ prec_mean <- function(mu, sd, n = NULL, prec = NULL, conf.level = 0.95) {
 #' If more than one method is specified or the method is miss-specified, the
 #' 'score' method will be used.
 #'
-#' @param r rate or rate ratio. A vector of length one.
-#' @param t time base for event count. A vector of length one.
+#' @param r rate or rate ratio.
+#' @param x number of events
 #' @param method The method to use to calculate precision. Exactly one method
 #'   may be provided. Methods can be abbreviated.
 #' @inheritParams prec_mean
@@ -100,7 +100,9 @@ prec_mean <- function(mu, sd, n = NULL, prec = NULL, conf.level = 0.95) {
 #' The American Statistician, 56:2, 85-89,
 #' \href{https://doi.org/10.1198/000313002317572736}{DOI:
 #' 10.1198/000313002317572736}
-prec_rate <- function(r = NULL, t = 1, prec = NULL, conf.level = 0.95, method = c("score", "vs", "wald")) {
+prec_rate <- function(r, x = NULL, prec = NULL, conf.level = 0.95,
+                      method = c("score", "vs", "wald"),
+                      tol = .Machine$double.eps^0.25) {
   if (length(method) > 1) {
     warning("more than one method was chosen, 'score' will be used")
     method <- "score"
@@ -109,7 +111,7 @@ prec_rate <- function(r = NULL, t = 1, prec = NULL, conf.level = 0.95, method = 
   i <- pmatch(method, methods)
   meth <- methods[i]
   if (is.na(i)) {
-    warning("Method '", method, "' is not available. 'Score' will be used.")
+    warning("Method '", method, "' is not available. 'score' will be used.")
     meth <- "score"
   }
   #x <- r * t
@@ -119,34 +121,38 @@ prec_rate <- function(r = NULL, t = 1, prec = NULL, conf.level = 0.95, method = 
   # Wald
   if (meth == "wald") {
     if (is.null(prec)) {
-      prec <- z * sqrt(r / t)
+      prec <- z * r * sqrt(1 / x)
     }
-    if (is.null(r)) {
-      r <- (prec / z) ^ 2 * t
+    if (is.null(x)) {
+      x <- (z * r / prec) ^ 2
     }
     radj <- r
   }
 
   # score
   if (meth == "score") {
+    sc <- quote({
+      z * sqrt(r * (4 + z2 / x)) / sqrt(4 * x / r)
+    })
     if (is.null(prec)) {
-      prec <- z * sqrt((4 * r + z2) / t) / sqrt(4 * t)
+      prec <- eval(sc)
     }
-    if (is.null(r)) {
-      r <- (prec * t / z) ^ 2 - z2 / 4
+    if (is.null(x)) {
+      x <- uniroot(function(x) eval(sc) - prec,
+                   c(1, 1e+07), tol = tol)$root
     }
-    radj <- r + z2 / (2 * t)
+    radj <- r + z2 * r / (2 * x)
   }
 
   # variance stabilizing
   if (meth == "vs") {
     if (is.null(prec))
-      prec <- z * sqrt(r / t)
-    if (is.null(r))
-      r <- (prec / z) ^ 2 * t
+      prec <- z * r * sqrt(1 / x)
+    if (is.null(x))
+      x <- (z * r / prec) ^ 2
     if (r == 0)
       warning("The conficence interval is degenerate at z^2/(4t), if r is 0.")
-    radj <- r + z2 / (4 * t)
+    radj <- r * (1 + z2 / (4 * x))
   }
 
   # # exact
@@ -163,13 +169,12 @@ prec_rate <- function(r = NULL, t = 1, prec = NULL, conf.level = 0.95, method = 
     warning("The lower end of the confidence interval is numberically below 0 and non-sensible. Please choose another method.")
 
   structure(list(r = r,
-                 t = t,
-                 #x = x,
+                 x = x,
                  prec = prec,
                  radj = radj,
                  lo = lo,
                  hi = radj + prec,
-                 note = "radj is the adjusted rate, from which the ci is calculated.",
+                 note = paste(round(x / r, 1), "units of time are needed to accumulate 'x' events."),
                  method = paste("Sample size or precision for a rate with", meth)),
             class = "power.htest")
 }
