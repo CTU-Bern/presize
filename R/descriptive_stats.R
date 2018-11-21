@@ -41,9 +41,25 @@ prec_mean <- function(mu, sd, n = NULL, prec = NULL, conf.level = 0.95) {
     stop("'mu' must be numeric")
   if (!is.null(sd) && !is.numeric(sd))
     stop("'sd' must be numeric")
-  if (sum(sapply(list(n, prec), is.null)) != 1)
+  null_arg <- sapply(list(n, prec), is.null)
+  if (sum(null_arg) != 1)
     stop("exactly one of 'n', and 'prec' must be NULL")
   numrange_check(conf.level)
+
+  if (is.null(n) & sum(sapply(list(mu, sd, prec, conf.level), length) > 1) > 1) {
+    dat <- expand.grid(mu, sd, prec, conf.level)
+    mu <- dat[[1]]
+    sd <- dat[[2]]
+    prec <- dat[[3]]
+    conf.level <- dat[[4]]
+  }
+  if (is.null(prec) & sum(sapply(list(mu, sd, n, conf.level), length) > 1) > 1) {
+    dat <- expand.grid(mu, sd, n, conf.level)
+    mu <- dat[[1]]
+    sd <- dat[[2]]
+    n <- dat[[3]]
+    conf.level <- dat[[4]]
+  }
 
   z <- qnorm((1 + conf.level) / 2)
   if (is.null(prec)) {
@@ -61,7 +77,7 @@ prec_mean <- function(mu, sd, n = NULL, prec = NULL, conf.level = 0.95) {
                  upr = mu + prec,
                  #note = "n is number in *each* group",
                  method = "Sample size or precision for mean"),
-            class = "power.htest")
+            class = "power_prec")
 }
 
 
