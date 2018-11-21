@@ -4,9 +4,6 @@
 #  - mean
 #  - rate
 #  - proportion
-#
-# Armando Lenz
-# 2018-11-19
 
 
 
