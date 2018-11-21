@@ -4,13 +4,14 @@
 \alias{prec_rate}
 \title{Sample size or precision for a rate}
 \usage{
-prec_rate(r = NULL, t = 1, prec = NULL, conf.level = 0.95,
-  method = c("score", "vs", "wald"))
+prec_rate(r, x = NULL, prec = NULL, conf.level = 0.95,
+  method = c("score", "vs", "exact", "wald"),
+  tol = .Machine$double.eps^0.25)
 }
 \arguments{
-\item{r}{rate or rate ratio. A vector of length one.}
+\item{r}{rate or rate ratio.}
 
-\item{t}{time base for event count. A vector of length one.}
+\item{x}{number of events}
 
 \item{prec}{precision (half the width of the conficende interval)}
 
@@ -31,10 +32,9 @@ rate
 Exactly one of the parameters \code{r, prec} must be passed as NULL, and that
 parameter is determined from the other.
 
-Currently, the score, variance stabilizing (vs), and wald method are
-implemented to calculate the rate and the precision. If you would like an
-exact conficence interval, use \code{\link[stats]{poisson.test}}. For small
-rs (<5), the exact method is recommended.
+The \code{score}, variance stabilizing (\code{vs}), \code{exact}, and
+\code{wald} method are implemented to calculate the rate and the precision.
+For few events \code{x} (<5), the exact method is recommended.
 
 If more than one method is specified or the method is miss-specified, the
 'score' method will be used.

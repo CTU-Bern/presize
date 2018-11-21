@@ -5,7 +5,7 @@
 \title{Sample size or precision for a proportion}
 \usage{
 prec_prop(p, n = NULL, prec = NULL, conf.level = 0.95,
-  method = c("wald", "ac", "agresti-coull", "wilson"),
+  method = c("wilson", "agresti-coull", "wald"),
   tol = .Machine$double.eps^0.25)
 }
 \arguments{
@@ -35,14 +35,24 @@ proportion
 Exactly one of the parameters \code{n, prec} must be passed as NULL, and that
 parameter is determined from the other.
 
-Currently, the wald, agresti-coull, and wilson method are implemented.
+Currently, the wilson, agresti-coull, and wald method are implemented. The
+wilson mehtod is suggested for small n (< 40), and the agresti-coull method
+is suggested for larger n (see reference). The wald method is not suggested,
+but provided due to its widely distributed use.
+
 \code{\link[stats]{uniroot}} is used to solve n for the agresti-coull and
-wilson method.
+wilson method. Agresti-coull can be abbreviated by ac.
 }
 \examples{
-add(1, 1)
+prec_prop(1, 1)
 add(10, 1)
 }
+\references{
+Brown LD, Cai TT, DasGupta A (2001) \emph{Interval Estimation for
+  a Binomial Proportion}, Statistical Science, 16:2, 101-117,
+  \href{https://doi.org/10.1214/ss/1009213286}{doi:10.1214/ss/1009213286}
+}
 \seealso{
-\code{\link[stats]{binom.test}} \code{\link[binom]{binom.confint}} \code{\link[Hmisc]{binconf}}
+\code{\link[stats]{binom.test}}, \code{\link[binom]{binom.confint}},
+  \code{\link[Hmisc]{binconf}}
 }
