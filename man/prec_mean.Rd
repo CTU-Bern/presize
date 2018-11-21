@@ -24,8 +24,8 @@ Object of class "power.htest", a list with
   \item{sd}{standard deviation}
   \item{n}{sample size}
   \item{prec}{precision (half the width of the conficence interval)}
-  \item{lo}{lower end of confidence interval}
-  \item{hi}{higher end of confidence interval}
+  \item{lwr}{lower end of confidence interval}
+  \item{upr}{higher end of confidence interval}
   } augmented with method and note elements.
 }
 \description{

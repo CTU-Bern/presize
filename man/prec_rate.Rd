@@ -19,6 +19,9 @@ prec_rate(r, x = NULL, prec = NULL, conf.level = 0.95,
 
 \item{method}{The method to use to calculate precision. Exactly one method
 may be provided. Methods can be abbreviated.}
+
+\item{tol}{numerical tolerance used in root finding, the default providing
+(at least) four significant digits}
 }
 \value{
 Object of class "power.htest", a list of arguments (including the
@@ -38,6 +41,9 @@ For few events \code{x} (<5), the exact method is recommended.
 
 If more than one method is specified or the method is miss-specified, the
 'score' method will be used.
+
+#' \code{\link[stats]{uniroot}} is used to solve n for the score and
+exact method. Agresti-coull can be abbreviated by ac.
 }
 \references{
 Barker, L. (2002) \emph{A Comparison of Nine Confidence Intervals
