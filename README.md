@@ -53,19 +53,14 @@ This is a basic example which shows you how to solve a common problem:
 ``` r
 library(presize)
 
-# calculate sample size for a proportion of 0.2 with a precision of 0.2
-prec_prop(p = .2, prec = .2, method = "wilson")
+# calculate sample size for a proportion of 0.2, or 0.4 with a precision of 0.2
+prec_prop(p = c(.2, .4), n = 10, method = "wilson")
 #> 
-#>      Sample size or precision for a proportion withwilson.
-#> 95% confidence level was chosen. 
+#>      Sample size or precision for a proportion with wilson confidence interval. 
 #> 
-#>               p = 0.2
-#>               n = 13.44511
-#>            prec = 0.2
-#>            padj = 0.2666667
-#>              lo = 0.06666666
-#>              hi = 0.4666667
+#>     p  n      prec      padj conf.level        lwr       upr
+#> 1 0.2 10 0.2265777 0.2832598       0.95 0.05668215 0.5098375
+#> 2 0.4 10 0.2595730 0.4277533       0.95 0.16818033 0.6873262
 #> 
 #> NOTE: padj is the adjusted proportion, from which the ci is calculated.
-# n = 13.4
 ```

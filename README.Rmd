@@ -63,6 +63,6 @@ This is a basic example which shows you how to solve a common problem:
 ```{r example}
 library(presize)
 
-# calculate sample size for a proportion of 0.2 with a precision of 0.2
-prec_prop(p = .2, prec = .2, method = "wilson")
+# calculate sample size for a proportion of 0.2, or 0.4 with a precision of 0.2
+prec_prop(p = c(.2, .4), n = 10, method = "wilson")
 ```
