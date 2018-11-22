@@ -20,9 +20,7 @@ expand_args <- function(argg) {
   } else {
     res <- x
   }
-  for (name in names(res) ) {
-    assign(name, res[[name]], envir = parent.frame())
-  }
+  return(res)
 }
 
 
