@@ -11,7 +11,7 @@ numrange_check <- function(x, lo = 0, hi = 1) {
 
 
 # print definition for class
-print.power_prec <- function(x, ...) {
+print.presize <- function(x, ...) {
   cat("\n    ", x$method, "\n\n")
   note <- x$note
   x[c("method", "note")] <- NULL
@@ -22,7 +22,7 @@ print.power_prec <- function(x, ...) {
   invisible(x)
 }
 
-as.data.frame.power_prec <- function(x, ...) {
+as.data.frame.presize <- function(x, ...) {
   meth <- x$method
   x[c("method", "note")] <- NULL
   class(x) <- "list"
@@ -31,7 +31,7 @@ as.data.frame.power_prec <- function(x, ...) {
   return(res)
 }
 
-as.matrix.power_prec <- function(x, ...) {
+as.matrix.presize <- function(x, ...) {
   x <- as.data.frame(x)
   meth <- attr(x, "method")
   res <- as.matrix(x)

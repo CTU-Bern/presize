@@ -14,17 +14,17 @@
 #' mean and standard deviation
 #'
 #' Exactly one of the parameters \code{n, prec} must be passed as NULL, and that
-#' parameter is determined from the other.
+#' parameter is determined from the other. The confidence interval calculated as
+#' \eqn{z * sd / sqrt(n)}, with z from the standard normal distribution.
 #'
-#' The confidence interval calculated as \eqn{z * sd / sqrt(n)}, with z from
-#' the standard normal distribution.
+#' The function uses internally \code{\link[base]{expand.grid}} to expand arguments
 #'
-#' @param mu mean. A vector of length one.
-#' @param sd standard deviation. A vector of length one.
+#' @param mu mean.
+#' @param sd standard deviation.
 #' @param n number of observations
 #' @param prec precision (half the width of the conficende interval)
 #' @param conf.level confidence level
-#' @return Object of class "power.htest", a list with
+#' @return Object of class "presize", a list with
 #'   \describe{
 #'   \item{mu}{mean}
 #'   \item{sd}{standard deviation}
@@ -41,8 +41,7 @@ prec_mean <- function(mu, sd, n = NULL, prec = NULL, conf.level = 0.95) {
     stop("'mu' must be numeric")
   if (!is.null(sd) && !is.numeric(sd))
     stop("'sd' must be numeric")
-  null_arg <- sapply(list(n, prec), is.null)
-  if (sum(null_arg) != 1)
+  if (sum(sapply(list(n, prec), is.null)) != 1)
     stop("exactly one of 'n', and 'prec' must be NULL")
   numrange_check(conf.level)
 
@@ -77,7 +76,7 @@ prec_mean <- function(mu, sd, n = NULL, prec = NULL, conf.level = 0.95) {
                  upr = mu + prec,
                  #note = "n is number in *each* group",
                  method = "Sample size or precision for mean"),
-            class = "power_prec")
+            class = "presize")
 }
 
 
@@ -210,7 +209,7 @@ prec_rate <- function(r, x = NULL, prec = NULL, conf.level = 0.95,
                  upr = upr,
                  note = paste(round(x / r, 1), "units of time are needed to accumulate 'x' events."),
                  method = paste("Sample size or precision for a rate with", meth, "confidence interval")),
-            class = "power.htest")
+            class = "presize")
 }
 
 
@@ -355,5 +354,5 @@ prec_prop <- function(p, n = NULL, prec = NULL, conf.level = 0.95,
                  method = paste0("Sample size or precision for a proportion with ", meth,
                                 " confidence interval.\n",
                                 conf.level * 100, "% confidence level was chosen.")),
-            class = "power.htest")
+            class = "presize")
 }
