@@ -24,7 +24,7 @@ may be provided. Methods can be abbreviated.}
 (at least) four significant digits}
 }
 \value{
-Object of class "power.htest", a list of arguments (including the
+Object of class "presize", a list of arguments (including the
   computed one) augmented with method and note elements.
 }
 \description{
@@ -42,8 +42,11 @@ For few events \code{x} (<5), the exact method is recommended.
 If more than one method is specified or the method is miss-specified, the
 'score' method will be used.
 
-#' \code{\link[stats]{uniroot}} is used to solve n for the score and
+\code{\link[stats]{uniroot}} is used to solve n for the score and
 exact method. Agresti-coull can be abbreviated by ac.
+
+#' The function uses \code{\link[base]{expand.grid}} to provide an estimate of n
+or prec for every possible combination of supplied arguments.
 }
 \references{
 Barker, L. (2002) \emph{A Comparison of Nine Confidence Intervals

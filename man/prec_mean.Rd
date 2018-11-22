@@ -7,9 +7,9 @@
 prec_mean(mu, sd, n = NULL, prec = NULL, conf.level = 0.95)
 }
 \arguments{
-\item{mu}{mean. A vector of length one.}
+\item{mu}{mean}
 
-\item{sd}{standard deviation. A vector of length one.}
+\item{sd}{standard deviation}
 
 \item{n}{number of observations}
 
@@ -18,14 +18,14 @@ prec_mean(mu, sd, n = NULL, prec = NULL, conf.level = 0.95)
 \item{conf.level}{confidence level}
 }
 \value{
-Object of class "power.htest", a list with
+Object of class "presize", a list with
   \describe{
-  \item{mu}{mean}
-  \item{sd}{standard deviation}
-  \item{n}{sample size}
-  \item{prec}{precision (half the width of the conficence interval)}
-  \item{lwr}{lower end of confidence interval}
-  \item{upr}{higher end of confidence interval}
+    \item{mu}{mean}
+    \item{sd}{standard deviation}
+    \item{n}{sample size}
+    \item{prec}{precision (half the width of the conficence interval)}
+    \item{lwr}{lower end of confidence interval}
+    \item{upr}{higher end of confidence interval}
   } augmented with method and note elements.
 }
 \description{
@@ -34,12 +34,17 @@ mean and standard deviation
 }
 \details{
 Exactly one of the parameters \code{n, prec} must be passed as NULL, and that
-parameter is determined from the other.
+parameter is determined from the other. The confidence interval calculated as
+\eqn{z * sd / sqrt(n)}, with z from the standard normal distribution.
 
-The confidence interval calculated as \eqn{z * sd / sqrt(n)}, with z from
-the standard normal distribution.
+The function uses \code{\link[base]{expand.grid}} to provide an estimate of n
+or prec for every possible combination of supplied arguments.
 }
 \examples{
 prec_mean(mu = 5, sd = 2.5, n = 20)
-prec_mean(mu = 5, sd = 2.5, prec = 1.1)
+prec_mean(mu = 5, sd = 2.5, prec = 1.1)  # approximately the inverse of above
+
+# Expands arguments
+prec_mean(mu = c(5, 10, 15), sd = c(2.5, 5), n = 1:2 * 10)
+
 }

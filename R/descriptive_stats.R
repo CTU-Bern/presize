@@ -17,25 +17,30 @@
 #' parameter is determined from the other. The confidence interval calculated as
 #' \eqn{z * sd / sqrt(n)}, with z from the standard normal distribution.
 #'
-#' The function uses internally \code{\link[base]{expand.grid}} to expand arguments
+#' The function uses \code{\link[base]{expand.grid}} to provide an estimate of n
+#' or prec for every possible combination of supplied arguments.
 #'
-#' @param mu mean.
-#' @param sd standard deviation.
+#' @param mu mean
+#' @param sd standard deviation
 #' @param n number of observations
 #' @param prec precision (half the width of the conficende interval)
 #' @param conf.level confidence level
 #' @return Object of class "presize", a list with
 #'   \describe{
-#'   \item{mu}{mean}
-#'   \item{sd}{standard deviation}
-#'   \item{n}{sample size}
-#'   \item{prec}{precision (half the width of the conficence interval)}
-#'   \item{lwr}{lower end of confidence interval}
-#'   \item{upr}{higher end of confidence interval}
+#'     \item{mu}{mean}
+#'     \item{sd}{standard deviation}
+#'     \item{n}{sample size}
+#'     \item{prec}{precision (half the width of the conficence interval)}
+#'     \item{lwr}{lower end of confidence interval}
+#'     \item{upr}{higher end of confidence interval}
 #'   } augmented with method and note elements.
 #' @examples
 #' prec_mean(mu = 5, sd = 2.5, n = 20)
-#' prec_mean(mu = 5, sd = 2.5, prec = 1.1)
+#' prec_mean(mu = 5, sd = 2.5, prec = 1.1)  # approximately the inverse of above
+#'
+#' # Expands arguments
+#' prec_mean(mu = c(5, 10, 15), sd = c(2.5, 5), n = 1:2 * 10)
+#'
 prec_mean <- function(mu, sd, n = NULL, prec = NULL, conf.level = 0.95) {
   if (!is.null(mu) && !is.numeric(mu))
     stop("'mu' must be numeric")
@@ -45,20 +50,9 @@ prec_mean <- function(mu, sd, n = NULL, prec = NULL, conf.level = 0.95) {
     stop("exactly one of 'n', and 'prec' must be NULL")
   numrange_check(conf.level)
 
-  if (is.null(n) & sum(sapply(list(mu, sd, prec, conf.level), length) > 1) > 1) {
-    dat <- expand.grid(mu, sd, prec, conf.level)
-    mu <- dat[[1]]
-    sd <- dat[[2]]
-    prec <- dat[[3]]
-    conf.level <- dat[[4]]
-  }
-  if (is.null(prec) & sum(sapply(list(mu, sd, n, conf.level), length) > 1) > 1) {
-    dat <- expand.grid(mu, sd, n, conf.level)
-    mu <- dat[[1]]
-    sd <- dat[[2]]
-    n <- dat[[3]]
-    conf.level <- dat[[4]]
-  }
+  # capture all arguments and expand them
+  argg <- as.list(environment())
+  expand_args(argg)
 
   z <- qnorm((1 + conf.level) / 2)
   if (is.null(prec)) {
@@ -72,6 +66,7 @@ prec_mean <- function(mu, sd, n = NULL, prec = NULL, conf.level = 0.95) {
                  sd = sd,
                  n = n,
                  prec = prec,
+                 conf.level = conf.level,
                  lwr = mu - prec,
                  upr = mu + prec,
                  #note = "n is number in *each* group",
@@ -98,8 +93,11 @@ prec_mean <- function(mu, sd, n = NULL, prec = NULL, conf.level = 0.95) {
 #' If more than one method is specified or the method is miss-specified, the
 #' 'score' method will be used.
 #'
-#' #' \code{\link[stats]{uniroot}} is used to solve n for the score and
+#' \code{\link[stats]{uniroot}} is used to solve n for the score and
 #' exact method. Agresti-coull can be abbreviated by ac.
+#'
+#' #' The function uses \code{\link[base]{expand.grid}} to provide an estimate of n
+#' or prec for every possible combination of supplied arguments.
 #'
 #' @param r rate or rate ratio.
 #' @param x number of events
@@ -108,7 +106,7 @@ prec_mean <- function(mu, sd, n = NULL, prec = NULL, conf.level = 0.95) {
 #' @param tol numerical tolerance used in root finding, the default providing
 #'   (at least) four significant digits
 #' @inheritParams prec_mean
-#' @return Object of class "power.htest", a list of arguments (including the
+#' @return Object of class "presize", a list of arguments (including the
 #'   computed one) augmented with method and note elements.
 #' @seealso \code{\link[stats]{poisson.test}}
 #' @references Barker, L. (2002) \emph{A Comparison of Nine Confidence Intervals
@@ -119,6 +117,11 @@ prec_mean <- function(mu, sd, n = NULL, prec = NULL, conf.level = 0.95) {
 prec_rate <- function(r, x = NULL, prec = NULL, conf.level = 0.95,
                       method = c("score", "vs", "exact", "wald"),
                       tol = .Machine$double.eps^0.25) {
+  # first, capture the arguments
+  argg <- as.list(environment())
+  argg <- argg[setdiff(names(argg), c("method", "tol"))]
+
+  # checks for the method
   if (length(method) > 1) {
     warning("more than one method was chosen, 'score' will be used")
     method <- "score"
@@ -130,7 +133,10 @@ prec_rate <- function(r, x = NULL, prec = NULL, conf.level = 0.95,
     warning("Method '", method, "' is not available. 'score' will be used.")
     meth <- "score"
   }
-  #x <- r * t
+
+  # expand the arguments, expand_args uses assignement in the parent.frame(), and thus replaces the arguments
+  expand_args(argg)
+
   alpha <- (1 - conf.level) / 2
   z <- qnorm((1 + conf.level) / 2)
   z2 <- z * z
@@ -198,16 +204,17 @@ prec_rate <- function(r, x = NULL, prec = NULL, conf.level = 0.95,
     upr <- radj + prec
   }
 
-  if(lwr < 0)
+  if(any(lwr < 0))
     warning("The lower end of the confidence interval is numerically below 0 and non-sensible. Please choose another method.")
 
   structure(list(r = r,
                  x = x,
                  prec = prec,
                  radj = radj,
+                 conf.level = conf.level,
                  lwr = lwr,
                  upr = upr,
-                 note = paste(round(x / r, 1), "units of time are needed to accumulate 'x' events."),
+                 note = "'x / r' units of time are needed to accumulate 'x' events.",
                  method = paste("Sample size or precision for a rate with", meth, "confidence interval")),
             class = "presize")
 }
@@ -232,12 +239,15 @@ prec_rate <- function(r, x = NULL, prec = NULL, conf.level = 0.95,
 #' \code{\link[stats]{uniroot}} is used to solve n for the agresti-coull,
 #' wilson, and exact method. Agresti-coull can be abbreviated by ac.
 #'
+#' #' The function uses \code{\link[base]{expand.grid}} to provide an estimate of n
+#' or prec for every possible combination of supplied arguments.
+#'
 #' @param p proportion
 #' @param method The method to use to calculate sample size or precision.
 #'   Exactly one method may be provided. Methods can be abbreviated.
 #' @inheritParams prec_mean
 #' @inheritParams prec_rate
-#' @return Object of class "power.htest", a list of arguments (including the
+#' @return Object of class "presize", a list of arguments (including the
 #'   computed one) augmented with method and note elements.
 #' @seealso \code{\link[stats]{binom.test}}, \code{\link[binom]{binom.confint}},
 #'   \code{\link[Hmisc]{binconf}}
@@ -245,6 +255,7 @@ prec_rate <- function(r, x = NULL, prec = NULL, conf.level = 0.95,
 #'   a Binomial Proportion}, Statistical Science, 16:2, 101-117,
 #'   \href{https://doi.org/10.1214/ss/1009213286}{doi:10.1214/ss/1009213286}
 #' @examples
+#' prec_prop(p = 1:9 / 10, n = 1:2 * 100, method = "wilson")
 prec_prop <- function(p, n = NULL, prec = NULL, conf.level = 0.95,
                       method = c("wilson", "agresti-coull", "exact", "wald"),
                       tol = .Machine$double.eps^0.25) {
@@ -252,6 +263,9 @@ prec_prop <- function(p, n = NULL, prec = NULL, conf.level = 0.95,
     stop("exactly one of 'n', and 'prec' must be NULL")
   numrange_check(conf.level)
   numrange_check(p)
+
+  # first, capture the arguments
+  argg <- as.list(environment())
 
   if (length(method) > 1) {
     warning("more than one method was chosen, 'wilson' will be used")
@@ -267,6 +281,9 @@ prec_prop <- function(p, n = NULL, prec = NULL, conf.level = 0.95,
     warning("Method '", method, "' is not available, 'wilson' will be used.")
     meth <- "wilson"
   }
+
+  # expand the arguments, expand_args uses assignement in the parent.frame(), and thus replaces the arguments
+  expand_args(argg)
 
   alpha <- (1 - conf.level) / 2
   z <- qnorm(1 - alpha)
@@ -339,20 +356,20 @@ prec_prop <- function(p, n = NULL, prec = NULL, conf.level = 0.95,
   }
 
 
-  if(lwr < 0)
-    warning("The lower end of the confidence interval is numerically below 0 and non-sensible. Please choose 'wilson' method.")
-  if(upr > 1)
-    warning("The upper end of the confidence interval is numerically above 1 and non-sensible. Please choose 'wilson' method.")
+  if(any(lwr < 0))
+    warning("The lower end of at least one confidence interval is below 0 and non-sensible. Please choose 'wilson' or 'exact' method.")
+  if(any(upr > 1))
+    warning("The upper end of at least one confidence interval is above 1 and non-sensible. Please choose 'wilson' or 'exact' method.")
 
   structure(list(p = p,
                  n = n,
                  prec = prec,
                  padj = padj,
+                 conf.level = conf.level,
                  lwr = lwr,
                  upr = upr,
                  note = "padj is the adjusted proportion, from which the ci is calculated.",
-                 method = paste0("Sample size or precision for a proportion with ", meth,
-                                " confidence interval.\n",
-                                conf.level * 100, "% confidence level was chosen.")),
+                 method = paste("Sample size or precision for a proportion with",
+                                meth, "confidence interval.")),
             class = "presize")
 }

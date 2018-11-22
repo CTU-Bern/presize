@@ -24,7 +24,7 @@ Exactly one method may be provided. Methods can be abbreviated.}
 (at least) four significant digits}
 }
 \value{
-Object of class "power.htest", a list of arguments (including the
+Object of class "presize", a list of arguments (including the
   computed one) augmented with method and note elements.
 }
 \description{
@@ -42,6 +42,12 @@ but provided due to its widely distributed use.
 
 \code{\link[stats]{uniroot}} is used to solve n for the agresti-coull,
 wilson, and exact method. Agresti-coull can be abbreviated by ac.
+
+#' The function uses \code{\link[base]{expand.grid}} to provide an estimate of n
+or prec for every possible combination of supplied arguments.
+}
+\examples{
+prec_prop(p = 1:9 / 10, n = 1:2 * 100, method = "wilson")
 }
 \references{
 Brown LD, Cai TT, DasGupta A (2001) \emph{Interval Estimation for

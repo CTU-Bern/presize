@@ -10,6 +10,23 @@ numrange_check <- function(x, lo = 0, hi = 1) {
 # calc_zval <- function(conf.level) qnorm((1 + conf.level) / 2)
 
 
+# function to expand all non-null arguments
+expand_args <- function(argg) {
+  id <- !vapply(argg, is.null, T)
+  x <- argg[id]
+  if (sum(lengths(argg) > 1) > 1) {
+    res <- expand.grid(x)
+    res <- as.list(res)
+  } else {
+    res <- x
+  }
+  for (name in names(res) ) {
+    assign(name, res[[name]], envir = parent.frame())
+  }
+}
+
+
+
 # print definition for class
 print.presize <- function(x, ...) {
   cat("\n    ", x$method, "\n\n")
