@@ -52,13 +52,18 @@ prec_mean <- function(mu, sd, n = NULL, prec = NULL, conf.level = 0.95) {
 
   # capture all arguments and expand them
   argg <- as.list(environment())
-  expand_args(argg)
+  d <- expand_args(argg)
+  mu <- d$mu
+  sd <- d$sd
+  conf.level <- d$conf.level
 
   z <- qnorm((1 + conf.level) / 2)
   if (is.null(prec)) {
+    n <- d$n
     prec <- z * sd / sqrt(n)
   }
   if (is.null(n)) {
+    prec <- d$prec
     n <- (z * sd / prec) ^ 2
   }
 
@@ -134,11 +139,17 @@ prec_rate <- function(r, x = NULL, prec = NULL, conf.level = 0.95,
     meth <- "score"
   }
 
-  # expand the arguments, expand_args uses assignement in the parent.frame(), and thus replaces the arguments
-  expand_args(argg)
+  # expand the arguments, and assign them back to vectors
+  d <- expand_args(argg)
+  r <- d$r
+  conf.level <- d$conf.level
+  if (is.null(x))
+    prec <- d$prec
+  if (is.null(prec))
+    x <- d$x
 
   alpha <- (1 - conf.level) / 2
-  z <- qnorm((1 + conf.level) / 2)
+  z <- qnorm(1 - alpha)
   z2 <- z * z
   # Wald
   if (meth == "wald") {
@@ -160,8 +171,10 @@ prec_rate <- function(r, x = NULL, prec = NULL, conf.level = 0.95,
       prec <- eval(sc)
     }
     if (is.null(x)) {
-      x <- uniroot(function(x) eval(sc) - prec,
-                   c(1, 1e+07), tol = tol)$root
+      f <- function(r, prec, z, z2) uniroot(function(x) eval(sc) - prec,
+                                            c(1, 1e+07), tol = tol)$root
+      f2 <- Vectorize(f)
+      x <- f2(r, prec, z, z2)
     }
     radj <- r + z2 * r / (2 * x)
   }
@@ -177,29 +190,30 @@ prec_rate <- function(r, x = NULL, prec = NULL, conf.level = 0.95,
     radj <- r * (1 + z2 / (4 * x))
   }
 
-
   # exact
   if (meth == "exact") {
-    ex <- function(x, r) {
+    ex <- quote({
       t <- x / r
       lwr <- qgamma(alpha, x) / t
       upr <- qgamma(1 - alpha, x + 1) / t
-      prec <- (upr - lwr) / 2
+      ps <- (upr - lwr) / 2
       list(lwr = lwr,
            upr = upr,
-           prec = prec)
-    }
+           ps = ps)
+    })
     if (is.null(x)) {
-      x <- uniroot(function(x) ex(x, r)$prec - prec,
-                   c(1, 1e+07), tol = tol)$root
+      f <- function(r, alpha, prec) uniroot(function(x) eval(ex)$ps - prec,
+                                            c(1, 1e+07), tol = tol)$root
+      f2 <- Vectorize(f)
+      x <- f2(r, alpha, prec)
     }
-    res <- ex(x, r)
+    res <- eval(ex)
     lwr <- res$lwr
     upr <- res$upr
     radj <- r
     if (is.null(prec))
-      prec <- res$prec
-  } else {
+      prec <- res$ps
+  } else { # if method is not exact, define upper and lower boundary of ci
     lwr <- radj - prec
     upr <- radj + prec
   }
@@ -209,6 +223,7 @@ prec_rate <- function(r, x = NULL, prec = NULL, conf.level = 0.95,
 
   structure(list(r = r,
                  x = x,
+                 time = x / r,
                  prec = prec,
                  radj = radj,
                  conf.level = conf.level,
@@ -239,7 +254,7 @@ prec_rate <- function(r, x = NULL, prec = NULL, conf.level = 0.95,
 #' \code{\link[stats]{uniroot}} is used to solve n for the agresti-coull,
 #' wilson, and exact method. Agresti-coull can be abbreviated by ac.
 #'
-#' #' The function uses \code{\link[base]{expand.grid}} to provide an estimate of n
+#' The function uses \code{\link[base]{expand.grid}} to provide an estimate of n
 #' or prec for every possible combination of supplied arguments.
 #'
 #' @param p proportion
@@ -283,7 +298,13 @@ prec_prop <- function(p, n = NULL, prec = NULL, conf.level = 0.95,
   }
 
   # expand the arguments, expand_args uses assignement in the parent.frame(), and thus replaces the arguments
-  expand_args(argg)
+  d <- expand_args(argg)
+  p <- d$p
+  if (is.null(n))
+    prec <- d$prec
+  if (is.null(prec))
+    n <- d$n
+  conf.level <- d$conf.level
 
   alpha <- (1 - conf.level) / 2
   z <- qnorm(1 - alpha)
@@ -309,8 +330,10 @@ prec_prop <- function(p, n = NULL, prec = NULL, conf.level = 0.95,
       prec <- eval(ac)
     }
     if (is.null(n)) {
-      n <- uniroot(function(n) eval(ac) - prec,
-                   c(1, 1e+07), tol = tol)$root
+      f <- function(p, prec, z, z2) uniroot(function(n) eval(ac) - prec,
+                                            c(1, 1e+07), tol = tol)$root
+      f2 <- Vectorize(f)
+      n <- f2(p, prec, z, z2)
     }
     padj <- (p * n + 0.5 * z2) / (n + z2)   # check for correctness
   }
@@ -320,37 +343,39 @@ prec_prop <- function(p, n = NULL, prec = NULL, conf.level = 0.95,
     if (is.null(prec))
       prec <- eval(wil)
     if (is.null(n)) {
-      n <- uniroot(function(n) eval(wil) - prec,
-                   c(1, 1e+07), tol = tol)$root
+      f <- function(p, prec, z, z2) uniroot(function(n) eval(wil) - prec,
+                                            c(1, 1e+07), tol = tol)$root
+      f2 <- Vectorize(f)
+      n <- f2(p, prec, z, z2)
     }
     padj <- (n * p + z2 / 2) / (n + z2)
   }
 
   if (meth == "exact") {
-    ex <- function(n, p) {
+    ex <- quote({
       x <- p * n
       lwr <- qbeta(alpha, x, n - x + 1)
-      if (x == 0)
-        lwr <- 0
+      lwr[x == 0] <- 0
       upr <- qbeta(1 - alpha, x + 1, n - x)
-      if (x == 1)
-        upr <- 1
-      prec <- (upr - lwr) / 2
+      upr[x == 1] <- 1
+      ps <- (upr - lwr) / 2
       list(lwr = lwr,
            upr = upr,
-           prec = prec)
-    }
+           ps = ps)
+    })
     if (is.null(n)) {
-      n <- uniroot(function(n) ex(n, p)$prec - prec,
-                   c(1, 1e+07), tol = tol)$root
+      f <- function(p, prec, alpha) uniroot(function(n) eval(ex)$ps - prec,
+                                            c(1, 1e+07), tol = tol)$root
+      f2 <- Vectorize(f)
+      n <- f2(p, prec, alpha)
     }
-    res <- ex(n, p)
+    res <- eval(ex)
     lwr <- res$lwr
     upr <- res$upr
     padj <- p
     if (is.null(prec))
-      prec <- res$prec
-  } else {
+      prec <- res$ps
+  } else {  # lwr and upr ci for all other methods
     lwr <- padj - prec
     upr <- padj + prec
   }
