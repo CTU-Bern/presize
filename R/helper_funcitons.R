@@ -26,11 +26,14 @@ expand_args <- function(argg) {
 
 
 # print definition for class
-print.presize <- function(x, ...) {
+print.presize <- function(x, n = 10L, ...) {
   cat("\n    ", x$method, "\n\n")
   note <- x$note
   x[c("method", "note")] <- NULL
-  print(data.frame(x), max = 50)
+  dd <- data.frame(x)
+  print(head(dd, n = n))
+  if (n < nrow(dd))
+    cat("\n", "[Output truncated at", n, "rows]")
   if (!is.null(note))
     cat("\n", "NOTE: ", note, "\n\n", sep = "")
   else cat("\n")
