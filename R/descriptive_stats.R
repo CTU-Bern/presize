@@ -21,11 +21,16 @@
 #' The function uses \code{\link[base]{expand.grid}} to provide an estimate of n
 #' or prec for every possible combination of supplied arguments.
 #'
+#' \code{\link[stats]{uniroot}} is used to solve n for the score and
+#' exact method. Agresti-coull can be abbreviated by ac.
+#'
 #' @param mu mean
 #' @param sd standard deviation
 #' @param n number of observations
 #' @param prec precision (half the width of the conficende interval)
 #' @param conf.level confidence level
+#' @param tol numerical tolerance used in root finding, the default providing
+#'   (at least) four significant digits
 #' @return Object of class "presize", a list with
 #'   \describe{
 #'     \item{mu}{mean}
@@ -118,8 +123,6 @@ prec_mean <- function(mu, sd, n = NULL, prec = NULL, conf.level = 0.95,
 #' @param x number of events
 #' @param method The method to use to calculate precision. Exactly one method
 #'   may be provided. Methods can be abbreviated.
-#' @param tol numerical tolerance used in root finding, the default providing
-#'   (at least) four significant digits
 #' @inheritParams prec_mean
 #' @return Object of class "presize", a list of arguments (including the
 #'   computed one) augmented with method and note elements.

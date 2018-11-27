@@ -4,7 +4,8 @@
 \alias{prec_mean}
 \title{Sample size or precision for a mean}
 \usage{
-prec_mean(mu, sd, n = NULL, prec = NULL, conf.level = 0.95)
+prec_mean(mu, sd, n = NULL, prec = NULL, conf.level = 0.95,
+  tol = .Machine$double.eps^0.25)
 }
 \arguments{
 \item{mu}{mean}
@@ -16,6 +17,9 @@ prec_mean(mu, sd, n = NULL, prec = NULL, conf.level = 0.95)
 \item{prec}{precision (half the width of the conficende interval)}
 
 \item{conf.level}{confidence level}
+
+\item{tol}{numerical tolerance used in root finding, the default providing
+(at least) four significant digits}
 }
 \value{
 Object of class "presize", a list with
@@ -35,10 +39,14 @@ mean and standard deviation
 \details{
 Exactly one of the parameters \code{n, prec} must be passed as NULL, and that
 parameter is determined from the other. The confidence interval calculated as
-\eqn{z * sd / sqrt(n)}, with z from the standard normal distribution.
+\eqn{t(n - 1) * sd / sqrt(n)}, with t(n-1) from the t-distribution with n-1
+degrees of freedom.
 
 The function uses \code{\link[base]{expand.grid}} to provide an estimate of n
 or prec for every possible combination of supplied arguments.
+
+\code{\link[stats]{uniroot}} is used to solve n for the score and
+exact method. Agresti-coull can be abbreviated by ac.
 }
 \examples{
 prec_mean(mu = 5, sd = 2.5, n = 20)
