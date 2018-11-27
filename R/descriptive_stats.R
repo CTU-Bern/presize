@@ -15,7 +15,8 @@
 #'
 #' Exactly one of the parameters \code{n, prec} must be passed as NULL, and that
 #' parameter is determined from the other. The confidence interval calculated as
-#' \eqn{z * sd / sqrt(n)}, with z from the standard normal distribution.
+#' \eqn{t(n - 1) * sd / sqrt(n)}, with t(n-1) from the t-distribution with n-1
+#' degrees of freedom.
 #'
 #' The function uses \code{\link[base]{expand.grid}} to provide an estimate of n
 #' or prec for every possible combination of supplied arguments.
@@ -41,7 +42,8 @@
 #' # Expands arguments
 #' prec_mean(mu = c(5, 10, 15), sd = c(2.5, 5), n = 1:2 * 10)
 #'
-prec_mean <- function(mu, sd, n = NULL, prec = NULL, conf.level = 0.95) {
+prec_mean <- function(mu, sd, n = NULL, prec = NULL, conf.level = 0.95,
+                      tol = .Machine$double.eps^0.25) {
   if (!is.null(mu) && !is.numeric(mu))
     stop("'mu' must be numeric")
   if (!is.null(sd) && !is.numeric(sd))
@@ -56,15 +58,23 @@ prec_mean <- function(mu, sd, n = NULL, prec = NULL, conf.level = 0.95) {
   mu <- d$mu
   sd <- d$sd
   conf.level <- d$conf.level
+  alpha <- (1 - conf.level) / 2
+
+  ci <- quote({
+    tval <- qt(1 - alpha, n - 1)
+    tval * sd / sqrt(n)
+  })
 
   z <- qnorm((1 + conf.level) / 2)
   if (is.null(prec)) {
     n <- d$n
-    prec <- z * sd / sqrt(n)
+    prec <- eval(ci)
   }
   if (is.null(n)) {
     prec <- d$prec
-    n <- (z * sd / prec) ^ 2
+    f <- function(sd, prec, alpha) uniroot(function(n) eval(ci) - prec,
+                                    c(2, 1e+07), tol = tol)$root
+    n <- mapply(f, sd = sd, prec = prec, alpha = alpha)
   }
 
   structure(list(mu = mu,
