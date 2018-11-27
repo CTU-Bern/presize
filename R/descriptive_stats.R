@@ -173,8 +173,7 @@ prec_rate <- function(r, x = NULL, prec = NULL, conf.level = 0.95,
     if (is.null(x)) {
       f <- function(r, prec, z, z2) uniroot(function(x) eval(sc) - prec,
                                             c(1, 1e+07), tol = tol)$root
-      f2 <- Vectorize(f)
-      x <- f2(r, prec, z, z2)
+      x <- mapply(f, r = r, prec = prec, z = z, z2 = z2)
     }
     radj <- r + z2 * r / (2 * x)
   }
@@ -204,8 +203,7 @@ prec_rate <- function(r, x = NULL, prec = NULL, conf.level = 0.95,
     if (is.null(x)) {
       f <- function(r, alpha, prec) uniroot(function(x) eval(ex)$ps - prec,
                                             c(1, 1e+07), tol = tol)$root
-      f2 <- Vectorize(f)
-      x <- f2(r, alpha, prec)
+      x <- mapply(f, r = r, alpha = alpha, prec = prec)
     }
     res <- eval(ex)
     lwr <- res$lwr
@@ -332,8 +330,7 @@ prec_prop <- function(p, n = NULL, prec = NULL, conf.level = 0.95,
     if (is.null(n)) {
       f <- function(p, prec, z, z2) uniroot(function(n) eval(ac) - prec,
                                             c(1, 1e+07), tol = tol)$root
-      f2 <- Vectorize(f)
-      n <- f2(p, prec, z, z2)
+      n <- mapply(f, p = p, prec = prec, z = z, z2 = z2)
     }
     padj <- (p * n + 0.5 * z2) / (n + z2)   # check for correctness
   }
@@ -345,8 +342,7 @@ prec_prop <- function(p, n = NULL, prec = NULL, conf.level = 0.95,
     if (is.null(n)) {
       f <- function(p, prec, z, z2) uniroot(function(n) eval(wil) - prec,
                                             c(1, 1e+07), tol = tol)$root
-      f2 <- Vectorize(f)
-      n <- f2(p, prec, z, z2)
+      n <- mapply(f, p = p, prec = prec, z = z, z2 = z2)
     }
     padj <- (n * p + z2 / 2) / (n + z2)
   }
@@ -366,8 +362,7 @@ prec_prop <- function(p, n = NULL, prec = NULL, conf.level = 0.95,
     if (is.null(n)) {
       f <- function(p, prec, alpha) uniroot(function(n) eval(ex)$ps - prec,
                                             c(1, 1e+07), tol = tol)$root
-      f2 <- Vectorize(f)
-      n <- f2(p, prec, alpha)
+      n <- mapply(f, p = p, prec = prec, alpha = alpha)
     }
     res <- eval(ex)
     lwr <- res$lwr
