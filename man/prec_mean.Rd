@@ -4,7 +4,7 @@
 \alias{prec_mean}
 \title{Sample size or precision for a mean}
 \usage{
-prec_mean(mu, sd, n = NULL, prec = NULL, conf.level = 0.95,
+prec_mean(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
   tol = .Machine$double.eps^0.25)
 }
 \arguments{
@@ -14,7 +14,7 @@ prec_mean(mu, sd, n = NULL, prec = NULL, conf.level = 0.95,
 
 \item{n}{number of observations}
 
-\item{prec}{precision (half the width of the conficende interval)}
+\item{conf.width}{precision (the full width of the conficende interval)}
 
 \item{conf.level}{confidence level}
 
@@ -27,7 +27,7 @@ Object of class "presize", a list with
     \item{mu}{mean}
     \item{sd}{standard deviation}
     \item{n}{sample size}
-    \item{prec}{precision (half the width of the conficence interval)}
+    \item{conf.width}{precision (the width of the conficence interval)}
     \item{lwr}{lower end of confidence interval}
     \item{upr}{higher end of confidence interval}
   } augmented with method and note elements.
@@ -37,20 +37,21 @@ Object of class "presize", a list with
 mean and standard deviation
 }
 \details{
-Exactly one of the parameters \code{n, prec} must be passed as NULL, and that
-parameter is determined from the other. The confidence interval calculated as
-\eqn{t(n - 1) * sd / sqrt(n)}, with t(n-1) from the t-distribution with n-1
-degrees of freedom.
+Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
+and that parameter is determined from the other.
+
+The precision is defined as the full width of the conficence interval. The
+confidence interval calculated as \eqn{t(n - 1) * sd / sqrt(n)}, with t(n-1)
+from the t-distribution with n-1 degrees of freedom.
 
 The function uses \code{\link[base]{expand.grid}} to provide an estimate of n
 or prec for every possible combination of supplied arguments.
 
-\code{\link[stats]{uniroot}} is used to solve n for the score and
-exact method. Agresti-coull can be abbreviated by ac.
+\code{\link[stats]{uniroot}} is used to solve \code{n}.
 }
 \examples{
 prec_mean(mu = 5, sd = 2.5, n = 20)
-prec_mean(mu = 5, sd = 2.5, prec = 1.1)  # approximately the inverse of above
+prec_mean(mu = 5, sd = 2.5, conf.width = 2.34)  # approximately the inverse of above
 
 # Expands arguments
 prec_mean(mu = c(5, 10, 15), sd = c(2.5, 5), n = 1:2 * 10)

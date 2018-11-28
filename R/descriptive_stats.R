@@ -13,21 +13,22 @@
 #' \code{prec_mean} returns the sample size or the precision for the provided
 #' mean and standard deviation
 #'
-#' Exactly one of the parameters \code{n, prec} must be passed as NULL, and that
-#' parameter is determined from the other. The confidence interval calculated as
-#' \eqn{t(n - 1) * sd / sqrt(n)}, with t(n-1) from the t-distribution with n-1
-#' degrees of freedom.
+#' Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
+#' and that parameter is determined from the other.
+#'
+#' The precision is defined as the full width of the conficence interval. The
+#' confidence interval calculated as \eqn{t(n - 1) * sd / sqrt(n)}, with t(n-1)
+#' from the t-distribution with n-1 degrees of freedom.
 #'
 #' The function uses \code{\link[base]{expand.grid}} to provide an estimate of n
 #' or prec for every possible combination of supplied arguments.
 #'
-#' \code{\link[stats]{uniroot}} is used to solve n for the score and
-#' exact method. Agresti-coull can be abbreviated by ac.
+#' \code{\link[stats]{uniroot}} is used to solve \code{n}.
 #'
 #' @param mu mean
 #' @param sd standard deviation
 #' @param n number of observations
-#' @param prec precision (half the width of the conficende interval)
+#' @param conf.width precision (the full width of the conficende interval)
 #' @param conf.level confidence level
 #' @param tol numerical tolerance used in root finding, the default providing
 #'   (at least) four significant digits
@@ -36,25 +37,25 @@
 #'     \item{mu}{mean}
 #'     \item{sd}{standard deviation}
 #'     \item{n}{sample size}
-#'     \item{prec}{precision (half the width of the conficence interval)}
+#'     \item{conf.width}{precision (the width of the conficence interval)}
 #'     \item{lwr}{lower end of confidence interval}
 #'     \item{upr}{higher end of confidence interval}
 #'   } augmented with method and note elements.
 #' @examples
 #' prec_mean(mu = 5, sd = 2.5, n = 20)
-#' prec_mean(mu = 5, sd = 2.5, prec = 1.1)  # approximately the inverse of above
+#' prec_mean(mu = 5, sd = 2.5, conf.width = 2.34)  # approximately the inverse of above
 #'
 #' # Expands arguments
 #' prec_mean(mu = c(5, 10, 15), sd = c(2.5, 5), n = 1:2 * 10)
 #'
-prec_mean <- function(mu, sd, n = NULL, prec = NULL, conf.level = 0.95,
+prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
                       tol = .Machine$double.eps^0.25) {
   if (!is.null(mu) && !is.numeric(mu))
     stop("'mu' must be numeric")
   if (!is.null(sd) && !is.numeric(sd))
     stop("'sd' must be numeric")
-  if (sum(sapply(list(n, prec), is.null)) != 1)
-    stop("exactly one of 'n', and 'prec' must be NULL")
+  if (sum(sapply(list(n, conf.width), is.null)) != 1)
+    stop("exactly one of 'n', and 'conf.width' must be NULL")
   numrange_check(conf.level)
 
   # capture all arguments and expand them
@@ -71,12 +72,12 @@ prec_mean <- function(mu, sd, n = NULL, prec = NULL, conf.level = 0.95,
   })
 
   z <- qnorm((1 + conf.level) / 2)
-  if (is.null(prec)) {
+  if (is.null(conf.width)) {
     n <- d$n
     prec <- eval(ci)
   }
   if (is.null(n)) {
-    prec <- d$prec
+    prec <- d$conf.width / 2
     f <- function(sd, prec, alpha) uniroot(function(n) eval(ci) - prec,
                                     c(2, 1e+07), tol = tol)$root
     n <- mapply(f, sd = sd, prec = prec, alpha = alpha)
@@ -85,7 +86,7 @@ prec_mean <- function(mu, sd, n = NULL, prec = NULL, conf.level = 0.95,
   structure(list(mu = mu,
                  sd = sd,
                  n = n,
-                 prec = prec,
+                 conf.width = 2 * prec,
                  conf.level = conf.level,
                  lwr = mu - prec,
                  upr = mu + prec,
@@ -103,8 +104,8 @@ prec_mean <- function(mu, sd, n = NULL, prec = NULL, conf.level = 0.95,
 #' \code{prec_rate} returns the sample size or the precision for the provided
 #' rate
 #'
-#' Exactly one of the parameters \code{r, prec} must be passed as NULL, and that
-#' parameter is determined from the other.
+#' Exactly one of the parameters \code{r, conf.width} must be passed as NULL,
+#' and that parameter is determined from the other.
 #'
 #' The \code{score}, variance stabilizing (\code{vs}), \code{exact}, and
 #' \code{wald} method are implemented to calculate the rate and the precision.
@@ -132,9 +133,19 @@ prec_mean <- function(mu, sd, n = NULL, prec = NULL, conf.level = 0.95,
 #' The American Statistician, 56:2, 85-89,
 #' \href{https://doi.org/10.1198/000313002317572736}{DOI:
 #' 10.1198/000313002317572736}
-prec_rate <- function(r, x = NULL, prec = NULL, conf.level = 0.95,
+#' @examples
+#' prec_rate(2.5, x = 20, met = "score")
+#' prec_rate(2.5, x = 20, met = "exact")
+#' # vs and wald have the same conf.width, but different lwr and upr
+#' prec_rate(2.5, x = 20, met = "wald")
+#' prec_rate(2.5, x = 20, met = "vs")
+prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
                       method = c("score", "vs", "exact", "wald"),
                       tol = .Machine$double.eps^0.25) {
+
+  if (sum(sapply(list(x, conf.width), is.null)) != 1)
+    stop("exactly one of 'x', and 'conf.width' must be NULL")
+
   # first, capture the arguments
   argg <- as.list(environment())
   argg <- argg[setdiff(names(argg), c("method", "tol"))]
@@ -156,9 +167,11 @@ prec_rate <- function(r, x = NULL, prec = NULL, conf.level = 0.95,
   d <- expand_args(argg)
   r <- d$r
   conf.level <- d$conf.level
-  if (is.null(x))
-    prec <- d$prec
-  if (is.null(prec))
+  if (is.null(x)) {
+    conf.width <- d$conf.width
+    prec <- conf.width * 0.5
+  }
+  if (is.null(conf.width))
     x <- d$x
 
   alpha <- (1 - conf.level) / 2
@@ -166,7 +179,7 @@ prec_rate <- function(r, x = NULL, prec = NULL, conf.level = 0.95,
   z2 <- z * z
   # Wald
   if (meth == "wald") {
-    if (is.null(prec)) {
+    if (is.null(conf.width)) {
       prec <- z * r * sqrt(1 / x)
     }
     if (is.null(x)) {
@@ -180,7 +193,7 @@ prec_rate <- function(r, x = NULL, prec = NULL, conf.level = 0.95,
     sc <- quote({
       z * sqrt(r * (4 + z2 / x)) / sqrt(4 * x / r)
     })
-    if (is.null(prec)) {
+    if (is.null(conf.width)) {
       prec <- eval(sc)
     }
     if (is.null(x)) {
@@ -193,7 +206,7 @@ prec_rate <- function(r, x = NULL, prec = NULL, conf.level = 0.95,
 
   # variance stabilizing
   if (meth == "vs") {
-    if (is.null(prec))
+    if (is.null(conf.width))
       prec <- z * r * sqrt(1 / x)
     if (is.null(x))
       x <- (z * r / prec) ^ 2
@@ -222,21 +235,22 @@ prec_rate <- function(r, x = NULL, prec = NULL, conf.level = 0.95,
     lwr <- res$lwr
     upr <- res$upr
     radj <- r
-    if (is.null(prec))
-      prec <- res$ps
+    if (is.null(conf.width))
+      conf.width <- upr - lwr
   } else { # if method is not exact, define upper and lower boundary of ci
     lwr <- radj - prec
     upr <- radj + prec
+    conf.width <- 2 * prec
   }
 
   if(any(lwr < 0))
     warning("The lower end of the confidence interval is numerically below 0 and non-sensible. Please choose another method.")
 
   structure(list(r = r,
+                 radj = radj,
                  x = x,
                  time = x / r,
-                 prec = prec,
-                 radj = radj,
+                 conf.width = conf.width,
                  conf.level = conf.level,
                  lwr = lwr,
                  upr = upr,
@@ -254,8 +268,8 @@ prec_rate <- function(r, x = NULL, prec = NULL, conf.level = 0.95,
 #' \code{prec_prop} returns the sample size or the precision for the provided
 #' proportion
 #'
-#' Exactly one of the parameters \code{n, prec} must be passed as NULL, and that
-#' parameter is determined from the other.
+#' Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
+#' and that parameter is determined from the other.
 #'
 #' The wilson, agresti-coull, exact, and wald method are implemented. The
 #' wilson mehtod is suggested for small n (< 40), and the agresti-coull method
@@ -282,11 +296,11 @@ prec_rate <- function(r, x = NULL, prec = NULL, conf.level = 0.95,
 #'   \href{https://doi.org/10.1214/ss/1009213286}{doi:10.1214/ss/1009213286}
 #' @examples
 #' prec_prop(p = 1:9 / 10, n = 1:2 * 100, method = "wilson")
-prec_prop <- function(p, n = NULL, prec = NULL, conf.level = 0.95,
+prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
                       method = c("wilson", "agresti-coull", "exact", "wald"),
                       tol = .Machine$double.eps^0.25) {
-  if (sum(sapply(list(n, prec), is.null)) != 1)
-    stop("exactly one of 'n', and 'prec' must be NULL")
+  if (sum(sapply(list(n, conf.width), is.null)) != 1)
+    stop("exactly one of 'n', and 'conf.width' must be NULL")
   numrange_check(conf.level)
   numrange_check(p)
 
@@ -311,9 +325,11 @@ prec_prop <- function(p, n = NULL, prec = NULL, conf.level = 0.95,
   # expand the arguments, expand_args uses assignement in the parent.frame(), and thus replaces the arguments
   d <- expand_args(argg)
   p <- d$p
-  if (is.null(n))
-    prec <- d$prec
-  if (is.null(prec))
+  if (is.null(n)) {
+    conf.width <- d$conf.width
+    prec <- conf.width / 2
+  }
+  if (is.null(conf.width))
     n <- d$n
   conf.level <- d$conf.level
 
@@ -322,7 +338,7 @@ prec_prop <- function(p, n = NULL, prec = NULL, conf.level = 0.95,
   z2 <- z * z
 
   if (meth == "wald") {
-    if (is.null(prec)) {
+    if (is.null(conf.width)) {
       prec <- z * sqrt(p * (1 - p) / n)
     }
     if (is.null(n))
@@ -337,7 +353,7 @@ prec_prop <- function(p, n = NULL, prec = NULL, conf.level = 0.95,
       padj <- x_ / n_
       z * sqrt(padj * (1 - padj) / n_)
     })
-    if (is.null(prec)) {
+    if (is.null(conf.width)) {
       prec <- eval(ac)
     }
     if (is.null(n)) {
@@ -350,7 +366,7 @@ prec_prop <- function(p, n = NULL, prec = NULL, conf.level = 0.95,
 
   if (meth == "wilson") {
     wil <- quote({(z * sqrt(n) / (n + z2)) * sqrt(p * (1 - p) + z2 / (4 * n))})
-    if (is.null(prec))
+    if (is.null(conf.width))
       prec <- eval(wil)
     if (is.null(n)) {
       f <- function(p, prec, z, z2) uniroot(function(n) eval(wil) - prec,
@@ -380,12 +396,13 @@ prec_prop <- function(p, n = NULL, prec = NULL, conf.level = 0.95,
     res <- eval(ex)
     lwr <- res$lwr
     upr <- res$upr
-    padj <- p
-    if (is.null(prec))
-      prec <- res$ps
+    padj <- NA
+    if (is.null(conf.width))
+      conf.width <- upr - lwr
   } else {  # lwr and upr ci for all other methods
     lwr <- padj - prec
     upr <- padj + prec
+    conf.width <- prec * 2
   }
 
 
@@ -395,9 +412,9 @@ prec_prop <- function(p, n = NULL, prec = NULL, conf.level = 0.95,
     warning("The upper end of at least one confidence interval is above 1 and non-sensible. Please choose 'wilson' or 'exact' method.")
 
   structure(list(p = p,
-                 n = n,
-                 prec = prec,
                  padj = padj,
+                 n = n,
+                 conf.width = conf.width,
                  conf.level = conf.level,
                  lwr = lwr,
                  upr = upr,

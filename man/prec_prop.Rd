@@ -4,7 +4,7 @@
 \alias{prec_prop}
 \title{Sample size or precision for a proportion}
 \usage{
-prec_prop(p, n = NULL, prec = NULL, conf.level = 0.95,
+prec_prop(p, n = NULL, conf.width = NULL, conf.level = 0.95,
   method = c("wilson", "agresti-coull", "exact", "wald"),
   tol = .Machine$double.eps^0.25)
 }
@@ -13,7 +13,7 @@ prec_prop(p, n = NULL, prec = NULL, conf.level = 0.95,
 
 \item{n}{number of observations}
 
-\item{prec}{precision (half the width of the conficende interval)}
+\item{conf.width}{precision (the full width of the conficende interval)}
 
 \item{conf.level}{confidence level}
 
@@ -32,8 +32,8 @@ Object of class "presize", a list of arguments (including the
 proportion
 }
 \details{
-Exactly one of the parameters \code{n, prec} must be passed as NULL, and that
-parameter is determined from the other.
+Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
+and that parameter is determined from the other.
 
 The wilson, agresti-coull, exact, and wald method are implemented. The
 wilson mehtod is suggested for small n (< 40), and the agresti-coull method
