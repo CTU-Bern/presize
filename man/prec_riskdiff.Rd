@@ -5,7 +5,7 @@
 \title{Sample size or precision for risk difference}
 \usage{
 prec_riskdiff(p1, p2, n1 = NULL, conf.width = NULL, r = 1,
-  conf.level = 0.95, method = c("newcombe", "wald"),
+  conf.level = 0.95, method = c("newcombe", "ac", "wald"),
   tol = .Machine$double.eps^0.25)
 }
 \arguments{
@@ -22,8 +22,8 @@ prec_riskdiff(p1, p2, n1 = NULL, conf.width = NULL, r = 1,
 
 \item{conf.level}{confidence level}
 
-\item{method}{The method to use to calculate precision. Exactly one method
-may be provided. Methods can be abbreviated.}
+\item{method}{Exactly one of \code{newcombe} (\emph{default}), \code{ac}
+(Agresti-Caffo), \code{wald}. Methods can be abbreviated.}
 
 \item{tol}{numerical tolerance used in root finding, the default providing
 (at least) four significant digits}
@@ -36,8 +36,14 @@ precision for the provided proportions
 Exactly one of the parameters \code{n1, conf.width} must be passed as NULL,
 and that parameter is determined from the other.
 
-Newcombe (without continuity correction) is implemented as equation 10 in
+Newcombe (\code{newcombe}) proposed a confidence interval based on the wilson
+score method for the single proportion (see \link{prec_prop}). The confidence
+interval without continuity correction is implemented from equation 10 in
 Newcombe (1998)
+
+Agresti-Caffo (\code{ac}) confidence interval is based on the Wald confidence
+interval, adding 1 success to each cell of the 2 x 2 table (see Agresti and
+Caffo 2000).
 
 \code{\link[stats]{uniroot}} is used to solve n for the newcombe method.
 
@@ -50,7 +56,11 @@ prec_riskdiff(p1 = 56/70, p2 = 48/80, n1 = 70, r = 70/80, met = "newcombe")  # T
 prec_riskdiff(p1 = 10/10, p2 = 0/10, n1 = 10, met = "newcombe")  # Table IIh
 }
 \references{
-Newcombe RG (1998) \emph{Interval estimation for the difference
-  between independent proportions: comparison of eleven methods}, Statistics
-  in Medicine, 17:873-890
+Agresti A and Caffo B (2000) \emph{Simple and Effective Confidence Intervals
+for Proportions and Differences of Proportions Result from Adding Two
+Successes and Two Failures}, The American Statistician, 54(4):280-288
+
+Newcombe RG (1998) \emph{Interval estimation for the difference between
+independent proportions: comparison of eleven methods}, Statistics in
+Medicine, 17:873-890
 }
