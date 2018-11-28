@@ -283,8 +283,6 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
 #' or prec for every possible combination of supplied arguments.
 #'
 #' @param p proportion
-#' @param method The method to use to calculate sample size or precision.
-#'   Exactly one method may be provided. Methods can be abbreviated.
 #' @inheritParams prec_mean
 #' @inheritParams prec_rate
 #' @return Object of class "presize", a list of arguments (including the

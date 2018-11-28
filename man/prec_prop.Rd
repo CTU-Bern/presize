@@ -17,8 +17,8 @@ prec_prop(p, n = NULL, conf.width = NULL, conf.level = 0.95,
 
 \item{conf.level}{confidence level}
 
-\item{method}{The method to use to calculate sample size or precision.
-Exactly one method may be provided. Methods can be abbreviated.}
+\item{method}{The method to use to calculate precision. Exactly one method
+may be provided. Methods can be abbreviated.}
 
 \item{tol}{numerical tolerance used in root finding, the default providing
 (at least) four significant digits}
