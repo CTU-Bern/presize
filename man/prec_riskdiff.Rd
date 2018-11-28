@@ -5,7 +5,7 @@
 \title{Sample size or precision for risk difference}
 \usage{
 prec_riskdiff(p1, p2, n1 = NULL, conf.width = NULL, r = 1,
-  conf.level = 0.95, method = c("newcombe"),
+  conf.level = 0.95, method = c("newcombe", "wald"),
   tol = .Machine$double.eps^0.25)
 }
 \arguments{
@@ -36,7 +36,8 @@ precision for the provided proportions
 Exactly one of the parameters \code{n1, conf.width} must be passed as NULL,
 and that parameter is determined from the other.
 
-Newcombe is implemented as equation 10 in Newcombe (1998)
+Newcombe (without continuity correction) is implemented as equation 10 in
+Newcombe (1998)
 
 \code{\link[stats]{uniroot}} is used to solve n for the newcombe method.
 

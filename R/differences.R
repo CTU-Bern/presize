@@ -18,7 +18,8 @@
 #' Exactly one of the parameters \code{n1, conf.width} must be passed as NULL,
 #' and that parameter is determined from the other.
 #'
-#' Newcombe is implemented as equation 10 in Newcombe (1998)
+#' Newcombe (without continuity correction) is implemented as equation 10 in
+#' Newcombe (1998)
 #'
 #' \code{\link[stats]{uniroot}} is used to solve n for the newcombe method.
 #'
@@ -44,7 +45,7 @@
 #' prec_riskdiff(p1 = 10/10, p2 = 0/10, n1 = 10, met = "newcombe")  # Table IIh
 prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
                      r = 1, conf.level = 0.95,
-                     method = c("newcombe"),
+                     method = c("newcombe", "wald"),
                      tol = .Machine$double.eps^0.25) {
   if (sum(sapply(list(n1, conf.width), is.null)) != 1)
     stop("exactly one of 'n1', and 'conf.width' must be NULL")
@@ -61,7 +62,7 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
     method <- "newcombe"
   }
 
-  methods <- c("newcombe")
+  methods <- c("newcombe", "wald")
   id <- pmatch(method, methods)
   meth <- methods[id]
   if (is.na(id)) {
@@ -87,6 +88,7 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
 
   alpha <- (1 - conf.level)
   z <- qnorm(1 - alpha / 2)
+  z2 <- z * z
 
   if(meth == "newcombe") {
     nc <- quote({
@@ -120,6 +122,18 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
     upr <- ci$upr
   }
 
+  if (meth == "wald") {
+    if (is.null(conf.width)) {
+      prec <- z * sqrt(p1 * (1 - p1) / n1 + p2 * (1 - p2) / n2)
+      conf.width <- 2 * prec
+    }
+    if (is.null(n1)) {
+      n1 <- z2 * (p1 * (1 - p1) + p2 * (1 - p2) * r) / (prec ^ 2)
+      n2 <- n1 / r
+    }
+      lwr <- delta - prec
+      upr <- delta + prec
+  }
 
   structure(list(p1 = p1,
                  p2 = p2,
@@ -132,10 +146,9 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
                  upr = upr,
                  conf.width = conf.width,
                  conf.level = conf.level,
-                 note = "n is number in *each* group",
-                 method = "Blablabla"),
+                 #note = "n is number in *each* group",
+                 method = meth),
             class = "presize")
-
 }
 
 
