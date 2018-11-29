@@ -5,7 +5,7 @@
 \title{Sample size or precision for risk difference}
 \usage{
 prec_riskdiff(p1, p2, n1 = NULL, conf.width = NULL, r = 1,
-  conf.level = 0.95, method = c("newcombe", "ac", "wald"),
+  conf.level = 0.95, method = c("newcombe", "mn", "ac", "wald"),
   tol = .Machine$double.eps^0.25)
 }
 \arguments{
@@ -22,8 +22,9 @@ prec_riskdiff(p1, p2, n1 = NULL, conf.width = NULL, r = 1,
 
 \item{conf.level}{confidence level}
 
-\item{method}{Exactly one of \code{newcombe} (\emph{default}), \code{ac}
-(Agresti-Caffo), \code{wald}. Methods can be abbreviated.}
+\item{method}{Exactly one of \code{newcombe} (\emph{default}), \code{mn}
+(Miettinen-Nurminen), \code{ac} (Agresti-Caffo), \code{wald}. Methods can
+be abbreviated.}
 
 \item{tol}{numerical tolerance used in root finding, the default providing
 (at least) four significant digits}
@@ -41,11 +42,17 @@ score method for the single proportion (see \link{prec_prop}). The confidence
 interval without continuity correction is implemented from equation 10 in
 Newcombe (1998)
 
+Miettinen-Nurminen (\code{mn}) provide a closed from equation for the
+restricted maximum likelihood estimate . The implementation is based on
+code provided by Yongyi Min on
+\url{http://users.stat.ufl.edu/~aa/cda/R/two-sample/R2/index.html}
+
 Agresti-Caffo (\code{ac}) confidence interval is based on the Wald confidence
 interval, adding 1 success to each cell of the 2 x 2 table (see Agresti and
 Caffo 2000).
 
-\code{\link[stats]{uniroot}} is used to solve n for the newcombe method.
+\code{\link[stats]{uniroot}} is used to solve n for the newcombe and ac
+method.
 
 The function uses \code{\link[base]{expand.grid}} to provide an estimate of n
 or conf.width for every possible combination of supplied arguments.
@@ -56,9 +63,16 @@ prec_riskdiff(p1 = 56/70, p2 = 48/80, n1 = 70, r = 70/80, met = "newcombe")  # T
 prec_riskdiff(p1 = 10/10, p2 = 0/10, n1 = 10, met = "newcombe")  # Table IIh
 }
 \references{
+Agresti A (2003) \emph{Categorical Data Analysis}, Second Edition, Wiley
+Series in Probability and Statistics,
+\href{https://doi.org/10.1002/0471249688}{doi:10.1002/0471249688}
+
 Agresti A and Caffo B (2000) \emph{Simple and Effective Confidence Intervals
 for Proportions and Differences of Proportions Result from Adding Two
 Successes and Two Failures}, The American Statistician, 54(4):280-288
+
+Miettinen O and Nurminen M (1985) \emph{Comparative analysis of two rates},
+Statistics in Medicine, 4:213-226
 
 Newcombe RG (1998) \emph{Interval estimation for the difference between
 independent proportions: comparison of eleven methods}, Statistics in
