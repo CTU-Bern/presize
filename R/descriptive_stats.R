@@ -65,12 +65,14 @@ prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
   z <- qnorm((1 + conf.level) / 2)
   if (is.null(conf.width)) {
     prec <- eval(ci)
+    est <- "precision"
   }
   if (is.null(n)) {
     prec <- conf.width / 2
     f <- function(sd, prec, alpha) uniroot(function(n) eval(ci) - prec,
                                     c(2, 1e+07), tol = tol)$root
     n <- mapply(f, sd = sd, prec = prec, alpha = alpha)
+    est <- "sample size"
   }
 
   structure(list(mu = mu,
@@ -81,7 +83,7 @@ prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
                  lwr = mu - prec,
                  upr = mu + prec,
                  #note = "n is number in *each* group",
-                 method = "Sample size or precision for mean"),
+                 method = paste(est, "for mean")),
             class = "presize")
 }
 
@@ -148,6 +150,9 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
 
   if (is.null(x)) {
     prec <- conf.width * 0.5
+    est <- "sample size"
+  } else {
+    est <- "precision"
   }
 
   alpha <- (1 - conf.level) / 2
@@ -231,7 +236,7 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
                  lwr = lwr,
                  upr = upr,
                  note = "'x / r' units of time are needed to accumulate 'x' events.",
-                 method = paste("Sample size or precision for a rate with", meth, "confidence interval")),
+                 method = paste(est, "for a rate with", meth, "confidence interval")),
             class = "presize")
 }
 
@@ -260,12 +265,19 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
 #' @inheritParams prec_mean
 #' @inheritParams prec_rate
 #' @return Object of class "presize", a list of arguments (including the
-#'   computed one) augmented with method and note elements.
-#' @seealso \code{\link[stats]{binom.test}}, \code{\link[binom]{binom.confint}},
-#'   \code{\link[Hmisc]{binconf}}
+#'   computed one) augmented with method and note elements. In the wilson and
+#'   agresti-coull formula, the p from wich the confidence interval is
+#'   calculated is adjusted by a term (i.e. \eqn{p + term \pm ci}). This
+#'   adjusted p is returned in \code{padj}.
+#'
+#' @seealso \code{\link[stats]{binom.test}}, \code{\link[binom]{binom.confint}}
+#'   in package \pkg{binom}, and \code{\link[Hmisc]{binconf}} in package
+#'   \pkg{Hmisc}
+#'
 #' @references Brown LD, Cai TT, DasGupta A (2001) \emph{Interval Estimation for
 #'   a Binomial Proportion}, Statistical Science, 16:2, 101-117,
 #'   \href{https://doi.org/10.1214/ss/1009213286}{doi:10.1214/ss/1009213286}
+#'
 #' @examples
 #' prec_prop(p = 1:9 / 10, n = 1:2 * 100, method = "wilson")
 prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
@@ -291,9 +303,10 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
     meth <- "wilson"
   }
 
-  # expand the arguments, expand_args uses assignement in the parent.frame(), and thus replaces the arguments
-  if (is.null(n))
+  if (is.null(n)) {
     prec <- conf.width / 2
+    est <- "sample size"
+  } else est <- "precision"
 
   alpha <- (1 - conf.level) / 2
   z <- qnorm(1 - alpha)
@@ -381,7 +394,7 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
                  lwr = lwr,
                  upr = upr,
                  note = "padj is the adjusted proportion, from which the ci is calculated.",
-                 method = paste("Sample size or precision for a proportion with",
+                 method = paste(est, "for a proportion with",
                                 meth, "confidence interval.")),
             class = "presize")
 }

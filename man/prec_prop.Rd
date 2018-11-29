@@ -25,7 +25,10 @@ may be provided. Methods can be abbreviated.}
 }
 \value{
 Object of class "presize", a list of arguments (including the
-  computed one) augmented with method and note elements.
+  computed one) augmented with method and note elements. In the wilson and
+  agresti-coull formula, the p from wich the confidence interval is
+  calculated is adjusted by a term (i.e. \eqn{p + term \pm ci}). This
+  adjusted p is returned in \code{padj}.
 }
 \description{
 \code{prec_prop} returns the sample size or the precision for the provided
@@ -52,6 +55,7 @@ Brown LD, Cai TT, DasGupta A (2001) \emph{Interval Estimation for
   \href{https://doi.org/10.1214/ss/1009213286}{doi:10.1214/ss/1009213286}
 }
 \seealso{
-\code{\link[stats]{binom.test}}, \code{\link[binom]{binom.confint}},
-  \code{\link[Hmisc]{binconf}}
+\code{\link[stats]{binom.test}}, \code{\link[binom]{binom.confint}}
+  in package \pkg{binom}, and \code{\link[Hmisc]{binconf}} in package
+  \pkg{Hmisc}
 }

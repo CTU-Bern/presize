@@ -16,11 +16,12 @@ numrange_check <- function(x, lo = 0, hi = 1) {
 print.presize <- function(x, n = 10L, ...) {
   cat("\n    ", x$method, "\n\n")
   note <- x$note
-  x[c("method", "note")] <- NULL
+  #x[c("method", "note")] <- NULL
   dd <- data.frame(x)
   print(head(dd, n = n))
-  if (n < nrow(dd))
-    cat("\n", "[Output truncated at", n, "rows]")
+  l <- nrow(dd)
+  if (n < l)
+    cat("\n", "[Output truncated at", n, "of", l, "rows]")
   if (!is.null(note))
     cat("\n", "NOTE: ", note, "\n\n", sep = "")
   else cat("\n")

@@ -51,7 +51,7 @@ Agresti-Caffo (\code{ac}) confidence interval is based on the Wald confidence
 interval, adding 1 success to each cell of the 2 x 2 table (see Agresti and
 Caffo 2000).
 
-\code{\link[stats]{uniroot}} is used to solve n for the newcombe and ac
+\code{\link[stats]{uniroot}} is used to solve n for the newcombe, ac, and mn
 method.
 }
 \examples{

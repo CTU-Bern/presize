@@ -32,7 +32,7 @@
 #' interval, adding 1 success to each cell of the 2 x 2 table (see Agresti and
 #' Caffo 2000).
 #'
-#' \code{\link[stats]{uniroot}} is used to solve n for the newcombe and ac
+#' \code{\link[stats]{uniroot}} is used to solve n for the newcombe, ac, and mn
 #' method.
 #'
 #'
@@ -98,10 +98,14 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
   }
 
   delta <- p1 - p2
-  if (is.null(n1))
+  if (is.null(n1)) {
     prec <- conf.width / 2
-  if (is.null(conf.width))
+    est <- "sample size"
+  }
+  if (is.null(conf.width)) {
     n2 <- n1 / r
+    est <- "precision"
+  }
 
   alpha <- (1 - conf.level)
   z <- qnorm(1 - alpha / 2)
@@ -279,7 +283,7 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
                  conf.width = conf.width,
                  conf.level = conf.level,
                  #note = "n is number in *each* group",
-                 method = meth),
+                 method = paste(est, "for a risk difference with", meth, "confidence interval")),
             class = "presize")
 }
 
