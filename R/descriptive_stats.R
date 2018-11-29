@@ -41,10 +41,6 @@
 #' @examples
 #' prec_mean(mu = 5, sd = 2.5, n = 20)
 #' prec_mean(mu = 5, sd = 2.5, conf.width = 2.34)  # approximately the inverse of above
-#'
-#' # Expands arguments
-#' prec_mean(mu = c(5, 10, 15), sd = c(2.5, 5), n = 1:2 * 10)
-#'
 prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
                       tol = .Machine$double.eps^0.25) {
   if (!is.null(mu) && !is.numeric(mu))

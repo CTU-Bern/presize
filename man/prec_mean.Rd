@@ -49,8 +49,4 @@ from the t-distribution with n-1 degrees of freedom.
 \examples{
 prec_mean(mu = 5, sd = 2.5, n = 20)
 prec_mean(mu = 5, sd = 2.5, conf.width = 2.34)  # approximately the inverse of above
-
-# Expands arguments
-prec_mean(mu = c(5, 10, 15), sd = c(2.5, 5), n = 1:2 * 10)
-
 }
