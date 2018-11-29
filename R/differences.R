@@ -1,9 +1,130 @@
 # functions for precision based sample size
 #
 # Absolute and relative differences
+# - mean difference
 # - risk difference
 
 
+
+
+# Mean difference ---------------
+#' Sample size or precision for a mean difference
+#'
+#' \code{prec_meandiff} returns the sample size or the precision for the
+#' provided mean difference and standard deviations
+#'
+#' Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
+#' and that parameter is determined from the other.
+#'
+#'
+#' @param delta difference in means between the two groups.
+#' @param sd1 standard deviation in group 1.
+#' @param sd2 standard deviation in group 2.
+#' @param variance \code{equal} (\emph{default}) or \code{unequal} variance.
+#' @inheritParams prec_riskdiff
+#' @return Object of class "presize", a list of arguments (including the
+#'   computed one) augmented with method and note elements.
+#' @examples
+#' prec_meandiff(delta = 5, sd1 = 2.5, n1 = 20, var = "equal")
+#' prec_meandiff(delta = 5, sd1 = 2.5, conf.width = 3, var = "equal")
+prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.95,
+                          variance = c("equal", "unequal"),
+                          tol = .Machine$double.eps^0.25) {
+  if (!is.null(delta) && !is.numeric(delta))
+    stop("'delta' must be numeric")
+  if (!is.null(sd1) && !is.numeric(sd1))
+    stop("'sd1' must be numeric")
+  if (!is.null(sd2) && !is.numeric(sd2))
+    stop("'sd2' must be numeric")
+  if (!is.null(r) && !is.numeric(r))
+    stop("'r' must be numeric")
+  if (sum(sapply(list(n1, conf.width), is.null)) != 1)
+    stop("exactly one of 'n', and 'conf.width' must be NULL")
+  numrange_check(conf.level)
+  numrange_check(r, 0, Inf)
+
+  alpha <- 1 - conf.level
+  if (is.null(n1)) {
+    prec <- conf.width * 0.5
+    est <- "sample size"
+  } else est <- "precision"
+
+  fac <- sd1 / sd2
+  if (length(variance) > 1) {
+    if (any(2/3 > fac | fac > 1.5)) {
+      variance <- "unequal"
+    } else {
+      variance <- "equal"
+    }
+    message("more than one variance was chosen. Variance was changed to ", variance)
+  }
+
+  variances <- c("equal", "unequal")
+  id <- pmatch(variance, variances)
+  var <- variances[id]
+
+  if (is.na(id)) {
+    stop("variance is not correctly specified. Specify it as either 'equal' or 'unequal'.")
+  }
+
+
+  # assume equal standard deviation
+  if (var == "equal") {
+    if (any(2/3 > fac | fac > 1.5))
+      message("equal variance was chosen, but at least one variance appears to be unequal.")
+
+    md <- quote({
+      n2 <- n1 * r
+      s <- sqrt(((n1 - 1) * sd1 ^ 2 + (n2 - 1) * sd2 ^ 2) / (n1 + n2 + 2))
+      se <- s * sqrt(1/n1 + 1/n2)
+      t <- qt(1 - alpha / 2, n1 + n2 - 2)
+      t * se
+    })
+
+    if (is.null(conf.width))
+      prec <- eval(md)
+    if (is.null(n1)) {
+      f <- function(r, sd1, sd2, alpha, prec) uniroot(function(n1) eval(md) - prec,
+                                                      c(2, 1e+07), tol = tol)$root
+      n1 <- mapply(f, r = r, sd1 = sd1, sd2 = sd2, alpha = alpha, prec = prec)
+    }
+  }
+
+  # assume unequal standard deviation
+  if (var == "unequal") {
+    md_ueq <- quote({
+      n2 <- n1 * r
+      s <- sd1 ^ 2 / n1 + sd2 ^ 2 / n2
+      v <- s ^ 2 / (sd1 ^ 4 / (n1 ^ 2 * (n1 - 1)) + sd2 ^ 4 / (n2 ^ 2 * (n2 - 1)))
+      t <- qt(1 - alpha / 2, v)
+      t * sqrt(s)
+    })
+    if (is.null(conf.width))
+      prec <- eval(md_ueq)
+    if (is.null(n1)){
+      f <- function(sd1, sd2, r, alpha, prec) uniroot(function(n1) eval(md_ueq) - prec,
+                                                      c(2, 1e+07), tol = tol)$root
+      n1 <- mapply(f, sd1 = sd1, sd2 = sd2, r = r, alpha = alpha, prec = prec)
+    }
+  }
+
+  n2 <- n1 * r
+  if (is.null(conf.width))
+    conf.width <- prec * 2
+
+  structure(list(delta = delta,
+                 sd1 = sd1,
+                 sd2 = sd2,
+                 n1 = n1,
+                 n2 = n2,
+                 conf.width = conf.width,
+                 conf.level = conf.level,
+                 lwr = delta - prec,
+                 upr = delta + prec,
+                 #note = paste(var, "variance"),
+                 method = paste(est, "for mean difference with", var, "variance")),
+            class = "presize")
+}
 
 
 
