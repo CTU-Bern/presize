@@ -35,8 +35,6 @@
 #' \code{\link[stats]{uniroot}} is used to solve n for the newcombe and ac
 #' method.
 #'
-#' The function uses \code{\link[base]{expand.grid}} to provide an estimate of n
-#' or conf.width for every possible combination of supplied arguments.
 #'
 #' @param p1 Risk among unexposed
 #' @param p2 Risk among exposed
@@ -79,9 +77,6 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
   if (!is.null(p2) && !is.numeric(p2) || any(0 > p2 | p2 > 1))
     stop("'p2' must be numeric in [0, 1]")
 
-  # first, capture the arguments
-  argg <- as.list(environment())
-
   if (length(method) > 1) {
     warning("more than one method was chosen, 'newcombe' will be used")
     method <- "newcombe"
@@ -95,21 +90,11 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
     meth <- "newcombe"
   }
 
-  # expand the arguments
-  d <- expand_args(argg)
-  p1 <- d$p1
-  p2 <- d$p2
   delta <- p1 - p2
-  r <- d$r
-  if (is.null(n1)) {
-    conf.width <- d$conf.width
+  if (is.null(n1))
     prec <- conf.width / 2
-  }
-  if (is.null(conf.width)) {
-    n1 <- d$n1
+  if (is.null(conf.width))
     n2 <- n1 / r
-  }
-  conf.level <- d$conf.level
 
   alpha <- (1 - conf.level)
   z <- qnorm(1 - alpha / 2)

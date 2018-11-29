@@ -44,9 +44,6 @@ The precision is defined as the full width of the conficence interval. The
 confidence interval calculated as \eqn{t(n - 1) * sd / sqrt(n)}, with t(n-1)
 from the t-distribution with n-1 degrees of freedom.
 
-The function uses \code{\link[base]{expand.grid}} to provide an estimate of n
-or prec for every possible combination of supplied arguments.
-
 \code{\link[stats]{uniroot}} is used to solve \code{n}.
 }
 \examples{

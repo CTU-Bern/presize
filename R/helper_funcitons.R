@@ -10,19 +10,6 @@ numrange_check <- function(x, lo = 0, hi = 1) {
 # calc_zval <- function(conf.level) qnorm((1 + conf.level) / 2)
 
 
-# function to expand all non-null arguments
-expand_args <- function(argg) {
-  id <- !vapply(argg, is.null, T)
-  x <- argg[id]
-  if (sum(lengths(argg) > 1) > 1) {
-    res <- expand.grid(x)
-    res <- as.list(res)
-  } else {
-    res <- x
-  }
-  return(res)
-}
-
 
 
 # print definition for class

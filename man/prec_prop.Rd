@@ -42,9 +42,6 @@ but provided due to its widely distributed use.
 
 \code{\link[stats]{uniroot}} is used to solve n for the agresti-coull,
 wilson, and exact method. Agresti-coull can be abbreviated by ac.
-
-The function uses \code{\link[base]{expand.grid}} to provide an estimate of n
-or prec for every possible combination of supplied arguments.
 }
 \examples{
 prec_prop(p = 1:9 / 10, n = 1:2 * 100, method = "wilson")

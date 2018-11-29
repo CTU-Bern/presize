@@ -44,9 +44,6 @@ If more than one method is specified or the method is miss-specified, the
 
 \code{\link[stats]{uniroot}} is used to solve n for the score and
 exact method. Agresti-coull can be abbreviated by ac.
-
-#' The function uses \code{\link[base]{expand.grid}} to provide an estimate of n
-or prec for every possible combination of supplied arguments.
 }
 \examples{
 prec_rate(2.5, x = 20, met = "score")

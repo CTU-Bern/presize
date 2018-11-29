@@ -20,9 +20,6 @@
 #' confidence interval calculated as \eqn{t(n - 1) * sd / sqrt(n)}, with t(n-1)
 #' from the t-distribution with n-1 degrees of freedom.
 #'
-#' The function uses \code{\link[base]{expand.grid}} to provide an estimate of n
-#' or prec for every possible combination of supplied arguments.
-#'
 #' \code{\link[stats]{uniroot}} is used to solve \code{n}.
 #'
 #' @param mu mean
@@ -58,12 +55,6 @@ prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
     stop("exactly one of 'n', and 'conf.width' must be NULL")
   numrange_check(conf.level)
 
-  # capture all arguments and expand them
-  argg <- as.list(environment())
-  d <- expand_args(argg)
-  mu <- d$mu
-  sd <- d$sd
-  conf.level <- d$conf.level
   alpha <- (1 - conf.level) / 2
 
   ci <- quote({
@@ -73,11 +64,10 @@ prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
 
   z <- qnorm((1 + conf.level) / 2)
   if (is.null(conf.width)) {
-    n <- d$n
     prec <- eval(ci)
   }
   if (is.null(n)) {
-    prec <- d$conf.width / 2
+    prec <- conf.width / 2
     f <- function(sd, prec, alpha) uniroot(function(n) eval(ci) - prec,
                                     c(2, 1e+07), tol = tol)$root
     n <- mapply(f, sd = sd, prec = prec, alpha = alpha)
@@ -117,9 +107,6 @@ prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
 #' \code{\link[stats]{uniroot}} is used to solve n for the score and
 #' exact method. Agresti-coull can be abbreviated by ac.
 #'
-#' #' The function uses \code{\link[base]{expand.grid}} to provide an estimate of n
-#' or prec for every possible combination of supplied arguments.
-#'
 #' @param r rate or rate ratio.
 #' @param x number of events
 #' @param method The method to use to calculate precision. Exactly one method
@@ -146,10 +133,6 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
   if (sum(sapply(list(x, conf.width), is.null)) != 1)
     stop("exactly one of 'x', and 'conf.width' must be NULL")
 
-  # first, capture the arguments
-  argg <- as.list(environment())
-  argg <- argg[setdiff(names(argg), c("method", "tol"))]
-
   # checks for the method
   if (length(method) > 1) {
     warning("more than one method was chosen, 'score' will be used")
@@ -163,16 +146,9 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
     meth <- "score"
   }
 
-  # expand the arguments, and assign them back to vectors
-  d <- expand_args(argg)
-  r <- d$r
-  conf.level <- d$conf.level
   if (is.null(x)) {
-    conf.width <- d$conf.width
     prec <- conf.width * 0.5
   }
-  if (is.null(conf.width))
-    x <- d$x
 
   alpha <- (1 - conf.level) / 2
   z <- qnorm(1 - alpha)
@@ -279,8 +255,6 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
 #' \code{\link[stats]{uniroot}} is used to solve n for the agresti-coull,
 #' wilson, and exact method. Agresti-coull can be abbreviated by ac.
 #'
-#' The function uses \code{\link[base]{expand.grid}} to provide an estimate of n
-#' or prec for every possible combination of supplied arguments.
 #'
 #' @param p proportion
 #' @inheritParams prec_mean
@@ -302,9 +276,6 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
   numrange_check(conf.level)
   numrange_check(p)
 
-  # first, capture the arguments
-  argg <- as.list(environment())
-
   if (length(method) > 1) {
     warning("more than one method was chosen, 'wilson' will be used")
     method <- "wilson"
@@ -321,15 +292,8 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
   }
 
   # expand the arguments, expand_args uses assignement in the parent.frame(), and thus replaces the arguments
-  d <- expand_args(argg)
-  p <- d$p
-  if (is.null(n)) {
-    conf.width <- d$conf.width
+  if (is.null(n))
     prec <- conf.width / 2
-  }
-  if (is.null(conf.width))
-    n <- d$n
-  conf.level <- d$conf.level
 
   alpha <- (1 - conf.level) / 2
   z <- qnorm(1 - alpha)

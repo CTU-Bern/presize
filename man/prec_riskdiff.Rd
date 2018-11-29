@@ -53,9 +53,6 @@ Caffo 2000).
 
 \code{\link[stats]{uniroot}} is used to solve n for the newcombe and ac
 method.
-
-The function uses \code{\link[base]{expand.grid}} to provide an estimate of n
-or conf.width for every possible combination of supplied arguments.
 }
 \examples{
 # Validate Newcombe (1998)
