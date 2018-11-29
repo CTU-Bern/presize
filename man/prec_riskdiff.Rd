@@ -64,6 +64,7 @@ prec_riskdiff(p1 = c(56/70, 9/10, 6/7, 5/56),
               n1 = c(70, 10, 7, 56),
               r = c(70/80, 1, 1, 56/29),
               method = "wald")
+
 }
 \references{
 Agresti A (2003) \emph{Categorical Data Analysis}, Second Edition, Wiley

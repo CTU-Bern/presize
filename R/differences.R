@@ -193,7 +193,8 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1, conf.width = 
 #'               n1 = c(70, 10, 7, 56),
 #'               r = c(70/80, 1, 1, 56/29),
 #'               method = "wald")
-
+#'
+#' @importFrom stats qchisq
 prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
                      r = 1, conf.level = 0.95,
                      method = c("newcombe", "mn", "ac", "wald"),

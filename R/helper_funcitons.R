@@ -13,6 +13,7 @@ numrange_check <- function(x, lo = 0, hi = 1) {
 
 
 # print definition for class
+#' @importFrom utils head
 print.presize <- function(x, n = 10L, ...) {
   cat("\n    ", x$method, "\n\n")
   note <- x$note
