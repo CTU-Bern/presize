@@ -51,7 +51,7 @@ presize will provide functions for
   
 * diagnostic measures
     + sens
-    + spez
+    + spec
     + positive LR
     + negative LR
     + AUC
