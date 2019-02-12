@@ -183,6 +183,10 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1, conf.width = 
 #' independent proportions: comparison of eleven methods}, Statistics in
 #' Medicine, 17:873-890
 #'
+#' Fagerland MW, Lydersen S, and Laake P (2015). \emph{Recommended confidence
+#' intervals for two independent binomial proportions}, Statistical methods in
+#' medical research 24(2):224-254.
+#'
 #' @examples
 #' # Validate Newcombe (1998)
 #' prec_riskdiff(p1 = 56/70, p2 = 48/80, n1 = 70, r = 70/80, met = "newcombe")  # Table IIa
@@ -408,5 +412,200 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
                  method = paste(est, "for a risk difference with", meth, "confidence interval")),
             class = "presize")
 }
+
+
+
+
+# risk ratio --------------------
+#' Sample size or precision for risk ratio
+#'
+#' \code{prec_riskratio} returns the risk ratio and the sample size or the
+#' precision for the provided proportions
+#'
+#' Exactly one of the parameters \code{n1, conf.width} must be passed as NULL,
+#' and that parameter is determined from the other.
+#'
+#' Koopman (\code{koopman}) provides an asymptotic score confidence interval
+#' that is always consistent with Pearsons chi-squared test. It is the
+#' recommended interval (Fagerland et al.).
+#'
+#' Katz (\code{katz}) use a logarithmic transformation to calculate the
+#' confidence interval. The CI cannot be computed if one of the proportions is
+#' zero. If both proportions are 1, the estimate of the standard error becomes
+#' zero, resulting in a CI of [1, 1].
+#'
+#' \code{\link[stats]{uniroot}} is used to solve n for the katz, and koopman
+#' method.
+#'
+#' @param method Exactly one of \code{koopman} (\emph{default}), \code{katz}.
+#'   Methods can be abbreviated.
+#' @inheritParams prec_mean
+#' @inheritParams prec_riskdiff
+#'
+#' @references
+#' Fagerland MW, Lydersen S, and Laake P (2015). \emph{Recommended confidence
+#' intervals for two independent binomial proportions}, Statistical methods in
+#' medical research 24(2):224-254.
+#'
+#' Katz D, Baptista J, Azen SP, and Pike MC (1978) \emph{Obtaining Confidence
+#' Intervals for the Risk Ratio in Cohort Studies}, Biometrics 34:469-474
+#'
+#' Koopman PAR (1984) \emph{Confidence Intervals for the Ratio of Two Binomial
+#' Proportions}, Biometrics 40:513-517
+#'
+#' @importFrom stats qchisq
+#' @examples
+#' # Validate funciton with example in Fagerland et al. (2015), Table 5.
+#' prec_riskratio(p1 = 7/34, p2 = 1/34, n1 = 34, r = 1, met = "katz")
+#' # 7 (0.91 to 54)
+#' prec_riskratio(p1 = 7/34, p2 = 1/34, n1 = 34, r = 1, met = "koopman")
+#' # 7 (1.21 to 43)
+#'
+#' # Validate the Koopman method with example in Koopman (1984)
+#' prec_riskratio(p1 = 36/40, p2 = 16/80, n1 = 40, r = 2, met = "koopman")
+#' # 4.5 (2.94 to 7.15)
+
+prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
+                           conf.level = 0.95,
+                           method = c("koopman", "katz", "agresti-min"),
+                           tol = .Machine$double.eps^0.25) {
+  # check input
+  if (sum(sapply(list(n1, conf.width), is.null)) != 1)
+    stop("exactly one of 'n1', and 'conf.width' must be NULL")
+  if (!is.null(p1) && !is.numeric(p1) || any(0 > p1 | p1 > 1))
+    stop("'p1' must be numeric in [0, 1]")
+  if (!is.null(p2) && !is.numeric(p2) || any(0 > p2 | p2 > 1))
+    stop("'p2' must be numeric in [0, 1]")
+
+  default_meth <- "koopman"
+  if (length(method) > 1) {
+    warning("more than one method was chosen, '", default_meth, "' will be used")
+    method <- default_meth
+  }
+
+  methods <- c("koopman", "katz")
+  id <- pmatch(method, methods)
+  meth <- methods[id]
+  if (is.na(id)) {
+    warning("Method '", method, "' is not available, '", default_meth, "' will be used.")
+    meth <- default_meth
+  }
+
+
+  # General parameters
+  rr <- p1 / p2
+
+  alpha <- (1 - conf.level)
+  z <- qnorm(1 - alpha / 2)
+  z2 <- z * z
+
+  if (is.null(n1)) {
+    prec <- conf.width / 2
+    est <- "sample size"
+  }
+  if (is.null(conf.width)) {
+    n2 <- n1 * r
+    est <- "precision"
+  }
+
+  # Koopman CI (default)
+  if (meth == "koopman") {
+    # function to wrap kp and call uniroot for the lower and upper ci.
+    fkp <- function(n1, p1, p2, r, conf.level) {
+      zchi <- qchisq(conf.level, 1)
+      n2 <- n1 * r
+      x1 <- n1 * p1
+      x2 <- n2 * p2
+      ntot <- n1 + n2
+      midp <- rr
+
+      kp <- quote({
+        A <- phi * (n1 + x2) + x1 + n2
+        pp <- (A - sqrt(A ^ 2 - 4 * phi * (n1 + n2) * (x1 + x2))) / (2 * (n1 + n2))
+        U <- (x1 - n1 * pp) ^ 2 / (n1 * pp * (1 - pp)) * (1 + n1 * (phi - pp) / (n2 * (1 - pp)))
+        U
+      })
+
+      if(x2 == 0) {
+        upr <- Inf
+        midp <- 1e+07
+      }
+      if(x1 == 0) {
+        lwr <- 0
+        midp <- .1
+      }
+      if(x2 > 0) {
+        upr <- uniroot(function(phi) eval(kp) - zchi,
+                       c(midp, 1e+07), tol = tol, extendInt = "upX")$root
+      }
+      if(x1 > 0) {
+        lwr <- uniroot(function(phi) eval(kp) - zchi,
+                       c(0, midp), tol = tol, extendInt = "downX")$root
+      }
+      c(lwr, upr)
+    }
+
+    if (is.null(n1)) {
+      fkpn <- function(p1, p2, r, conf.width, conf.level)
+        uniroot(function(n1) {
+          ci <- fkp(n1 = n1, p1 = p1, p2 = p2, r = r, conf.level = conf.level)
+          ci[2] - ci[1] - conf.width
+        },
+        c(2, 1e+07), tol = tol)$root
+
+      n1 <- mapply(fkpn, p1 = p1, p2 = p2, r = r, conf.width = conf.width, conf.level = conf.level)
+      n2 <- n1 * r
+    }
+    # the ci must be solved for an unknown conf.width, and an unknown n.
+    ci <- mapply(fkp, p1 = p1, p2 = p2, n1 = n1, r = r, conf.level = conf.level)
+    lwr <- ci[1,]
+    upr <- ci[2,]
+    conf.width <- upr - lwr
+  }
+
+  # Katz log ci
+  if (meth == "katz") {
+    kt <- quote({
+      n2 <- n1 * r
+      prec <- z * sqrt((1 - p1) / (n1 * p1) + (1 - p2) / (n2 * p2))
+      upr <- rr * exp(prec)
+      lwr <- rr / exp(prec)
+      cw <- upr - lwr
+      list(n2 = n2,
+           upr = upr,
+           lwr = lwr,
+           cw = cw)})
+    if (is.null(conf.width)) {
+      ci <- eval(kt)
+      conf.width <- ci$cw
+    }
+    if (is.null(n1)) {
+      f <- function(p1, p2, rr, r, z, conf.width) uniroot(function(n1) eval(kt)$cw - conf.width,
+                                                          c(2, 1e+07), tol = tol)$root
+      n1 <- mapply(f, p1 = p1, p2 = p2, rr = rr, r = r, z = z, conf.width = conf.width)
+      ci <- eval(kt)
+      n2 <- ci$n2
+    }
+    lwr <- ci$lwr
+    upr <- ci$upr
+  }
+
+  structure(list(p1 = p1,
+                 p2 = p2,
+                 n1 = n1,
+                 n2 = n2,
+                 ntot = n1 + n2,
+                 r = r,
+                 rr = rr,
+                 lwr = lwr,
+                 upr = upr,
+                 conf.width = conf.width,
+                 conf.level = conf.level,
+                 #note = "n is number in *each* group",
+                 method = paste(est, "for a relative risk with", meth, "confidence interval")),
+            class = "presize")
+}
+
+
 
 
