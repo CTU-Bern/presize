@@ -3,6 +3,8 @@
 # Absolute and relative differences
 # - mean difference
 # - risk difference
+# - risk ratio
+# - odds ratio
 
 
 
@@ -467,7 +469,7 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
 
 prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
                            conf.level = 0.95,
-                           method = c("koopman", "katz", "agresti-min"),
+                           method = c("koopman", "katz"),
                            tol = .Machine$double.eps^0.25) {
   # check input
   if (sum(sapply(list(n1, conf.width), is.null)) != 1)
@@ -606,6 +608,189 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
             class = "presize")
 }
 
+
+
+
+# Odds ratio ---------------
+#' Sample size or precision for an odds ratio
+#'
+#' \code{prec_oddsratio} returns the sample size or the precision for the
+#' provided proportions
+#'
+#' Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
+#' and that parameter is determined from the other.
+#'
+#' Woolf (\code{woolf}), Gart (\code{gart}), and Independence-smoothed logit
+#' (\code{indip_smooth}) belong to a general family of adjusted confidence
+#' intervals, adding 0 (woolf) to each cell, 0.5 (gart) to each cell, or an
+#' adjustment for each cell based on observed data (independence-smoothed). In
+#' gart and indip_smooth, estimate of the CI is not possible if $p1 == 0$, in
+#' which case the OR becomes 0, but the lower level of the CI is $> 0$. Further,
+#' if $p1 == 1$ and $p2 < 1$, or if $p1 > 0$ and $p2 == 0$, the OR becomes
+#' $\inf$, but the upper limit of the CI is finite. For the approximate
+#' intervals, \code{gart} and \code{indip_smooth} are the recommended intervals
+#' (Fagerland et al. 2011).
+#'
+#' \code{\link[stats]{uniroot}} is used to solve n for the indip_smooth
+#' method.
+#'
+#' @references
+#' Fagerland MW, Lydersen S, Laake P (2015). \emph{Recommended
+#' confidence intervals for two independent binomial proportions}. Statistical
+#' Methods in Medical Research, 24(2):224–254.
+#' \href{https://doi.org/10.1177/0962280211415469}{doi:10.1177/0962280211415469}
+#'
+#' @param method Exactly one of \code{indip_smooth} (\emph{default}),
+#'   \code{baptista-pike}. Methods can be abbreviated.
+#' @inheritParams prec_riskdiff
+#' @return Object of class "presize", a list of arguments (including the
+#'   computed one) augmented with method and note elements.
+
+prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.95,
+                    method = c("gart", "woolf", "indip_smooth", "baptista-pike"),
+                    tol = .Machine$double.eps^0.25)  {
+  # check input
+  if (sum(sapply(list(n1, conf.width), is.null)) != 1)
+    stop("exactly one of 'n1', and 'conf.width' must be NULL")
+  if (!is.null(p1) && !is.numeric(p1) || any(0 > p1 | p1 > 1))
+    stop("'p1' must be numeric in [0, 1]")
+  if (!is.null(p2) && !is.numeric(p2) || any(0 > p2 | p2 > 1))
+    stop("'p2' must be numeric in [0, 1]")
+
+  default_meth <- "indip_smooth"
+  if (length(method) > 1) {
+    warning("more than one method was chosen, '", default_meth, "' will be used")
+    method <- default_meth
+  }
+
+  meths <- c("gart", "woolf", "indip_smooth", "baptista-pike")
+  id <- pmatch(method, meths)
+  meth <- meths[id]
+  if (is.na(id)) {
+    warning("Method '", method, "' is not available, '", default_meth, "' will be used.")
+    meth <- default_meth
+  }
+
+  # General parameters
+  or <- (p1 / (1 - p1)) / (p2 / (1 - p2))
+
+  alpha <- (1 - conf.level)
+  z <- qnorm(1 - alpha / 2)
+  z2 <- z * z
+
+  if (is.null(n1)) {
+    prec <- conf.width / 2
+    est <- "sample size"
+  }
+  if (is.null(conf.width)) {
+    n2 <- n1 * r
+    est <- "precision"
+  }
+
+
+
+
+  # Woolf, Gart, or indip_smooth
+  if (meth %in% c("gart", "indip_smooth", "woolf")) {
+    # Quote to adjust the cell frequencies, for Woolf, gart, and indip_smooth method
+    adjust_cells <- quote({
+      n2 <- n1 * r
+      x1 <- p1 * n1
+      x2 <- p2 * n2
+      y1 <- n1 - x1
+      y2 <- n2 - x2
+      m1 <- x1 + x2
+      m2 <- y1 + y2
+      n <- n1 + n2
+
+      x1. <- x1 + eval(c1)
+      x2. <- x2 + eval(c2)
+      y1. <- y1 + eval(c3)
+      y2. <- y2 + eval(c4)
+
+      theta <- (x1. * y2.) / (x2. * y1.)
+
+      prec <- z * sqrt(1/x1. + 1/y1. + 1/x2. + 1/y2.)
+
+      lwr <- exp(log(theta) - prec)
+      upr <- exp(log(theta) + prec)
+      list(lwr = lwr,
+           upr = upr,
+           cw = upr - lwr,
+           n2 = n2)
+    })
+
+    if (meth == "woolf")
+      c1 <- c2 <- c3 <- c4 <- 0
+    if (meth == "gart")
+      c1 <- c2 <- c3 <- c4 <- 0.5
+    if (meth == "indip_smooth") {
+      c1 <- expression(2 * n1 * m1 / n ^ 2)
+      c2 <- expression(2 * n2 * m1 / n ^ 2)
+      c3 <- expression(2 * n1 * m2 / n ^ 2)
+      c4 <- expression(2 * n2 * m2 / n ^ 2)
+    }
+
+    if (is.null(conf.width)) {
+      ci <- eval(adjust_cells)
+      conf.width <- ci$cw
+    }
+
+    if (is.null(n1)) {
+      f <- function(p1, p2, conf.width) uniroot(function(n1)
+        eval(adjust_cells)$cw - conf.width,
+        c(1, 1e+07), tol = tol)$root
+      n1 <- mapply(f, p1 = p1, p2 = p2, conf.width = conf.width)
+      ci <- eval(adjust_cells)
+      n2 <- ci$n2
+    }
+  }
+
+  # if(meth == "indip_smooth") {
+  #   c1 <- expression(2 * n1 * m1 / n ^ 2)
+  #   c2 <- expression(2 * n2 * m1 / n ^ 2)
+  #   c3 <- expression(2 * n1 * m2 / n ^ 2)
+  #   c4 <- expression(2 * n2 * m2 / n ^ 2)
+  #
+  #   if (is.null(conf.width)) {
+  #     ci <- eval(adjust_cells)
+  #     conf.width <- ci$cw
+  #   }
+  #
+  #   if (is.null(n1)) {
+  #     f <- function(p1, p2, conf.width) uniroot(function(n1)
+  #       eval(adjust_cells)$cw - conf.width,
+  #       c(1, 1e+07), tol = tol)$root
+  #     n1 <- mapply(f, p1 = p1, p2 = p2, conf.width = conf.width)
+  #     ci <- eval(adjust_cells)
+  #     n2 <- ci$n2
+  #   }
+  # }
+
+
+  # Baptista Pike mid-p
+  if (meth == "baptista-pike") {
+
+
+  }
+
+
+  structure(list(p1 = p1,
+                 p2 = p2,
+                 n1 = n1,
+                 n2 = n2,
+                 ntot = n1 + n2,
+                 r = r,
+                 or = or,
+                 lwr = lwr,
+                 upr = upr,
+                 conf.width = conf.width,
+                 conf.level = conf.level,
+                 #note = "n is number in *each* group",
+                 method = paste(est, "for an odds ratio with", meth, "confidence interval")),
+            class = "presize")
+
+}
 
 
 
