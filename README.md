@@ -27,10 +27,10 @@ presize will provide functions for
     -   proportion (`prec_prop`)
     -   rate (`prec_rate`)
 -   absolute and relative differences
-    -   mean difference
-    -   risk difference
-    -   odds ration
-    -   risk ratio
+    -   mean difference (`prec_meandiff`)
+    -   risk difference (`prec_riskdiff`)
+    -   odds ration (`prec_or`)
+    -   risk ratio (`prec_riskratio`)
     -   rate ratio
     -   hazard ratio
 -   correlation measures
@@ -40,7 +40,7 @@ presize will provide functions for
     -   limit of agreement from Bland Altman plot
 -   diagnostic measures
     -   sens
-    -   spez
+    -   spec
     -   positive LR
     -   negative LR
     -   AUC

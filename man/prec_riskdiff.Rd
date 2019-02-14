@@ -81,4 +81,8 @@ Statistics in Medicine, 4:213-226
 Newcombe RG (1998) \emph{Interval estimation for the difference between
 independent proportions: comparison of eleven methods}, Statistics in
 Medicine, 17:873-890
+
+Fagerland MW, Lydersen S, and Laake P (2015). \emph{Recommended confidence
+intervals for two independent binomial proportions}, Statistical methods in
+medical research 24(2):224-254.
 }
