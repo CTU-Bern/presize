@@ -5,7 +5,7 @@
 \title{Sample size or precision for risk ratio}
 \usage{
 prec_riskratio(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
-  conf.level = 0.95, method = c("koopman", "katz", "agresti-min"),
+  conf.level = 0.95, method = c("koopman", "katz"),
   tol = .Machine$double.eps^0.25)
 }
 \arguments{

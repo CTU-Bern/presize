@@ -614,7 +614,7 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
 # Odds ratio ---------------
 #' Sample size or precision for an odds ratio
 #'
-#' \code{prec_oddsratio} returns the sample size or the precision for the
+#' \code{prec_or} returns the sample size or the precision for the
 #' provided proportions
 #'
 #' Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
@@ -627,12 +627,12 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
 #' gart and indip_smooth, estimate of the CI is not possible if $p1 == 0$, in
 #' which case the OR becomes 0, but the lower level of the CI is $> 0$. Further,
 #' if $p1 == 1$ and $p2 < 1$, or if $p1 > 0$ and $p2 == 0$, the OR becomes
-#' $\inf$, but the upper limit of the CI is finite. For the approximate
+#' $\infty$, but the upper limit of the CI is finite. For the approximate
 #' intervals, \code{gart} and \code{indip_smooth} are the recommended intervals
 #' (Fagerland et al. 2011).
 #'
-#' \code{\link[stats]{uniroot}} is used to solve n for the indip_smooth
-#' method.
+#' \code{\link[stats]{uniroot}} is used to solve n for the woolf, gart, and
+#' indip_smooth method.
 #'
 #' @references
 #' Fagerland MW, Lydersen S, Laake P (2015). \emph{Recommended
@@ -641,13 +641,13 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
 #' \href{https://doi.org/10.1177/0962280211415469}{doi:10.1177/0962280211415469}
 #'
 #' @param method Exactly one of \code{indip_smooth} (\emph{default}),
-#'   \code{baptista-pike}. Methods can be abbreviated.
+#'   \code{gart}, or \code{wolf}. Methods can be abbreviated.
 #' @inheritParams prec_riskdiff
 #' @return Object of class "presize", a list of arguments (including the
 #'   computed one) augmented with method and note elements.
 
 prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.95,
-                    method = c("gart", "woolf", "indip_smooth", "baptista-pike"),
+                    method = c("gart", "woolf", "indip_smooth"),
                     tol = .Machine$double.eps^0.25)  {
   # check input
   if (sum(sapply(list(n1, conf.width), is.null)) != 1)
@@ -663,7 +663,7 @@ prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.
     method <- default_meth
   }
 
-  meths <- c("gart", "woolf", "indip_smooth", "baptista-pike")
+  meths <- c("gart", "woolf", "indip_smooth")
   id <- pmatch(method, meths)
   meth <- meths[id]
   if (is.na(id)) {
@@ -746,33 +746,6 @@ prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.
     }
   }
 
-  # if(meth == "indip_smooth") {
-  #   c1 <- expression(2 * n1 * m1 / n ^ 2)
-  #   c2 <- expression(2 * n2 * m1 / n ^ 2)
-  #   c3 <- expression(2 * n1 * m2 / n ^ 2)
-  #   c4 <- expression(2 * n2 * m2 / n ^ 2)
-  #
-  #   if (is.null(conf.width)) {
-  #     ci <- eval(adjust_cells)
-  #     conf.width <- ci$cw
-  #   }
-  #
-  #   if (is.null(n1)) {
-  #     f <- function(p1, p2, conf.width) uniroot(function(n1)
-  #       eval(adjust_cells)$cw - conf.width,
-  #       c(1, 1e+07), tol = tol)$root
-  #     n1 <- mapply(f, p1 = p1, p2 = p2, conf.width = conf.width)
-  #     ci <- eval(adjust_cells)
-  #     n2 <- ci$n2
-  #   }
-  # }
-
-
-  # Baptista Pike mid-p
-  if (meth == "baptista-pike") {
-
-
-  }
 
 
   structure(list(p1 = p1,
