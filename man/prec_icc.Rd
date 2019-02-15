@@ -4,8 +4,7 @@
 \alias{prec_icc}
 \title{Sample size or precision for an intraclass correlation}
 \usage{
-prec_icc(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95,
-  tol = .Machine$double.eps^0.25)
+prec_icc(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95)
 }
 \arguments{
 \item{rho}{Desired intraclass correlation.}
@@ -15,9 +14,6 @@ prec_icc(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95,
 \item{conf.width}{precision (the full width of the conficende interval)}
 
 \item{conf.level}{confidence level}
-
-\item{tol}{numerical tolerance used in root finding, the default providing
-(at least) four significant digits}
 }
 \description{
 \code{prec_icc} returns the sample size or the precision for the given

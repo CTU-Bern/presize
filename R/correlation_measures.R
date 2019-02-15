@@ -2,6 +2,7 @@
 #
 # Correlation measures
 # - intraclass correlation
+# - pearsons r
 
 
 # intraclass correlation ---------------
@@ -26,9 +27,7 @@
 #' @param rho Desired intraclass correlation.
 #' @param k number of observations per n (subject).
 #' @inheritParams prec_riskdiff
-prec_icc <- function(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95,
-                     #aov = c(1, 2, 3),
-                          tol = .Machine$double.eps^0.25) {
+prec_icc <- function(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95) {
   is.wholenumber <-
     function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol
   if (!is.null(k) && !is.numeric(k) &&!is.wholenumber(k))
@@ -72,4 +71,118 @@ prec_icc <- function(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95,
                  method = paste(est, "for intraclass correlation")),
             class = "presize")
 }
+
+
+
+# Correlation coefficients ---------------
+#' Sample size or precision for correlation coefficient
+#'
+#' \code{prec_cor} returns the sample size or the precision for the given
+#' pearson, spearman, or kendall correlation coefficient
+#'
+#' Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
+#' and that parameter is determined from the other.
+#'
+#' Sample size or precision is calculated according to formula 2 in Bonett and
+#' Wright (2000). The use of pearson is only recommended, if \eqn{n \ge 25}. The
+#' pearson correlation coefficient assumes bivariate normality. If the
+#' assumption of bivariate normality cannot be met, spearman or kendall should
+#' be considered.
+#'
+#' n is rounded up to the next whole number using \code{ceiling}.
+#'
+#' \code{\link[stats]{uniroot}} is used to solve n.
+#'
+#' @references Bonett DG, and Wright TA (2000) \emph{Sample size requirements
+#'   for estimating Pearson, Kendall and Spearman correlations} Psychometrika
+#'   65:23-28. \href{https://doi.org/10.1007/BF02294183}{doi:10.1007/BF02294183}
+#'
+#' @param r Desired correlation coefficient.
+#' @param method Exactly one of \code{pearson} (\emph{default}), \code{kendall},
+#'   or \code{spearman}. Methods can be abbreviated.
+#' @inheritParams prec_riskdiff
+
+prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
+                      method = c("pearson", "kendall", "spearman"),
+                      tol = .Machine$double.eps^0.25) {
+
+  if (sum(sapply(list(n, conf.width), is.null)) != 1)
+    stop("exactly one of 'n', and 'conf.width' must be NULL")
+  numrange_check(r)
+  numrange_check(conf.level)
+
+  default_meth <- "pearson"
+  if (length(method) > 1) {
+    warning("more than one method was chosen, '", default_meth, "' will be used")
+    method <- default_meth
+  }
+
+  methods <- c("pearson", "kendall", "spearman")
+  id <- pmatch(method, methods)
+  meth <- methods[id]
+  if (is.na(id)) {
+    warning("Method '", method, "' is not available, '", default_meth, "' will be used.")
+    meth <- default_meth
+  }
+
+
+  alpha <- 1 - conf.level
+  z <- qnorm(1 - alpha / 2)
+
+  if (is.null(n)) {
+    est <- "sample size"
+  } else
+    est <- "precision"
+
+
+  if (meth == "pearson") {
+    b <- 3
+    c <- 1
+  }
+  if (meth == "kendall") {
+    b <- 4
+    c <- sqrt(0.437)
+  }
+  if (meth == "spearman") {
+    b <- 3
+    c <- sqrt(1 + r ^ 2 / 2)
+  }
+
+  calc_ci <- quote({
+    Zz <- 0.5 * log((1 + r) / (1 - r))
+    A <- c * z / sqrt(n - b)
+    ll <- Zz - A
+    lu <- Zz + A
+    ell <- exp(2 * ll)
+    elu <- exp(2 * lu)
+    lwr <- (ell - 1) / (ell + 1)
+    upr <- (elu - 1) / (elu + 1)
+    list(lwr = lwr,
+         upr = upr,
+         cw = upr - lwr)
+  })
+
+  if (is.null(conf.width)) {
+    ci <- eval(calc_ci)
+    conf.width <- ci$cw
+  }
+  if (is.null(n)) {
+    f <- function(r, z, b, c, conf.width) uniroot(function(n) eval(calc_ci)$cw - conf.width,
+                                            c(5, 1e+07), tol = tol,
+                                            extendInt = "yes")$root
+    n <- mapply(f, r = r, z = z, b = b, c = c, conf.width = conf.width)
+    n <- ceiling(n)
+    eval(calc_ci)
+  }
+
+  structure(list(r = r,
+                 n = n,
+                 conf.width = conf.width,
+                 conf.level = conf.level,
+                 lwr = lwr,
+                 upr = upr,
+                 method = paste(est, "for", meth, "'s correlation coefficient")),
+            class = "presize")
+}
+
 
