@@ -624,12 +624,12 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
 #' (\code{indip_smooth}) belong to a general family of adjusted confidence
 #' intervals, adding 0 (woolf) to each cell, 0.5 (gart) to each cell, or an
 #' adjustment for each cell based on observed data (independence-smoothed). In
-#' gart and indip_smooth, estimate of the CI is not possible if $p1 == 0$, in
-#' which case the OR becomes 0, but the lower level of the CI is $> 0$. Further,
-#' if $p1 == 1$ and $p2 < 1$, or if $p1 > 0$ and $p2 == 0$, the OR becomes
-#' $\infty$, but the upper limit of the CI is finite. For the approximate
-#' intervals, \code{gart} and \code{indip_smooth} are the recommended intervals
-#' (Fagerland et al. 2011).
+#' gart and indip_smooth, estimate of the CI is not possible if \eqn{p1 = 0}, in
+#' which case the OR becomes 0, but the lower level of the CI is > 0. Further,
+#' if \eqn{p1 = 1} and \eqn{p2 < 1}, or if \eqn{p1 > 0} and \eqn{p2 = 0}, the OR
+#' becomes \eqn{\infty}, but the upper limit of the CI is finite. For the
+#' approximate intervals, \code{gart} and \code{indip_smooth} are the
+#' recommended intervals (Fagerland et al. 2011).
 #'
 #' \code{\link[stats]{uniroot}} is used to solve n for the woolf, gart, and
 #' indip_smooth method.
@@ -637,7 +637,7 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
 #' @references
 #' Fagerland MW, Lydersen S, Laake P (2015). \emph{Recommended
 #' confidence intervals for two independent binomial proportions}. Statistical
-#' Methods in Medical Research, 24(2):224–254.
+#' Methods in Medical Research, 24(2):224-254.
 #' \href{https://doi.org/10.1177/0962280211415469}{doi:10.1177/0962280211415469}
 #'
 #' @param method Exactly one of \code{indip_smooth} (\emph{default}),
