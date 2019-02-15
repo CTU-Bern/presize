@@ -14,7 +14,7 @@ You can install presize from github with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("a-lenz/presize")
+devtools::install_github("CTU-Bern/presize")
 ```
 
 Overview
@@ -34,9 +34,9 @@ presize will provide functions for
     -   rate ratio
     -   hazard ratio
 -   correlation measures
-    -   correlation coefficient
+    -   correlation coefficient (`prec_cor`)
     -   Cohens kappa
-    -   ICC
+    -   ICC (`prec_icc`)
     -   limit of agreement from Bland Altman plot
 -   diagnostic measures
     -   sens
