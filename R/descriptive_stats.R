@@ -44,6 +44,7 @@
 #' @importFrom stats qt
 #' @importFrom stats qnorm
 #' @importFrom stats uniroot
+#' @export
 prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
                       tol = .Machine$double.eps^0.25) {
   if (!is.null(mu) && !is.numeric(mu))
@@ -127,6 +128,7 @@ prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
 #' # vs and wald have the same conf.width, but different lwr and upr
 #' prec_rate(2.5, x = 20, met = "wald")
 #' prec_rate(2.5, x = 20, met = "vs")
+#' @export
 prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
                       method = c("score", "vs", "exact", "wald"),
                       tol = .Machine$double.eps^0.25) {
@@ -279,6 +281,7 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
 #'
 #' @examples
 #' prec_prop(p = 1:9 / 10, n = 1:2 * 100, method = "wilson")
+#' @export
 prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
                       method = c("wilson", "agresti-coull", "exact", "wald"),
                       tol = .Machine$double.eps^0.25) {

@@ -29,6 +29,7 @@
 #' @examples
 #' prec_meandiff(delta = 5, sd1 = 2.5, n1 = 20, var = "equal")
 #' prec_meandiff(delta = 5, sd1 = 2.5, conf.width = 3, var = "equal")
+#' @export
 prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.95,
                           variance = c("equal", "unequal"),
                           tol = .Machine$double.eps^0.25) {
@@ -201,6 +202,7 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1, conf.width = 
 #'               method = "wald")
 #'
 #' @importFrom stats qchisq
+#' @export
 prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
                      r = 1, conf.level = 0.95,
                      method = c("newcombe", "mn", "ac", "wald"),
@@ -466,7 +468,7 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
 #' # Validate the Koopman method with example in Koopman (1984)
 #' prec_riskratio(p1 = 36/40, p2 = 16/80, n1 = 40, r = 2, met = "koopman")
 #' # 4.5 (2.94 to 7.15)
-
+#' @export
 prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
                            conf.level = 0.95,
                            method = c("koopman", "katz"),
@@ -645,7 +647,7 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
 #' @inheritParams prec_riskdiff
 #' @return Object of class "presize", a list of arguments (including the
 #'   computed one) augmented with method and note elements.
-
+#' @export
 prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.95,
                     method = c("gart", "woolf", "indip_smooth"),
                     tol = .Machine$double.eps^0.25)  {

@@ -27,6 +27,7 @@
 #' @param rho Desired intraclass correlation.
 #' @param k number of observations per n (subject).
 #' @inheritParams prec_riskdiff
+#' @export
 prec_icc <- function(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95) {
   is.wholenumber <-
     function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol
@@ -67,7 +68,7 @@ prec_icc <- function(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95) {
                  conf.level = conf.level,
                  #lwr = rho - prec,
                  #upr = rho + prec,
-                 note = ifelse(any(k == 2 & rho >= 0.7), "5*rho is added to n if k == 2 and rho >= 0.7", NULL),
+                 note = ifelse(any(k == 2 & rho >= 0.7), "5*rho is added to n if k == 2 and rho >= 0.7", NA),
                  method = paste(est, "for intraclass correlation")),
             class = "presize")
 }
@@ -101,7 +102,7 @@ prec_icc <- function(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95) {
 #' @param method Exactly one of \code{pearson} (\emph{default}), \code{kendall},
 #'   or \code{spearman}. Methods can be abbreviated.
 #' @inheritParams prec_riskdiff
-
+#' @export
 prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
                       method = c("pearson", "kendall", "spearman"),
                       tol = .Machine$double.eps^0.25) {
