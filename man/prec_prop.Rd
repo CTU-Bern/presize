@@ -47,7 +47,7 @@ but provided due to its widely distributed use.
 wilson, and exact method. Agresti-coull can be abbreviated by ac.
 }
 \examples{
-prec_prop(p = 1:9 / 10, n = 1:2 * 100, method = "wilson")
+prec_prop(p = 1:9 / 10, n = 100, method = "wilson")
 }
 \references{
 Brown LD, Cai TT, DasGupta A (2001) \emph{Interval Estimation for

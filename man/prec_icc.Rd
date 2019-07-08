@@ -11,6 +11,8 @@ prec_icc(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95)
 
 \item{k}{number of observations per n (subject).}
 
+\item{n}{number of subjects.}
+
 \item{conf.width}{precision (the full width of the conficende interval)}
 
 \item{conf.level}{confidence level}
@@ -21,7 +23,7 @@ intraclass correlation
 }
 \details{
 Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
-and that parameter is determined from the other.
+and that parameter is determined from the others.
 
 Sample size or precision is calculated according to formula 3 in Bonett
 (2002), which is an approximation. Whether ICC is calculated for a one-way or
