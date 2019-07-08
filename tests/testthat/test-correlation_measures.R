@@ -15,5 +15,4 @@ test_that("icc", {
   expect_equal(p$n, n)
   expect_equal(p$conf.level, 0.95)
   expect_equivalent(p$conf.width, 0.3233102)
-
-  })
+})
