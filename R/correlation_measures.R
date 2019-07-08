@@ -27,6 +27,16 @@
 #' @param rho Desired intraclass correlation.
 #' @param k number of observations per n (subject).
 #' @param n number of subjects.
+#' @example
+#' # Bonett (2002) gives an example using 4 raters, with an ICC of 0.85 and want
+#' # a confidence width of 0.2. Bonett calculated that a sample size of 19.2 was
+#' # required. This can be done via
+#' prec_icc(0.85, 4, conf.width = 0.2)
+#' # note that \code{presamp} rounds up to the nearist integer.
+#'
+#' # Bonett then goes on to estimate the width given the sample size, finding a
+#' # with 'close to 0.2':
+#' prec_icc(0.85, 4, 20)
 #' @inheritParams prec_riskdiff
 #' @export
 prec_icc <- function(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95) {

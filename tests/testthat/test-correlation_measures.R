@@ -1,8 +1,6 @@
 context("Correlation measures")
 
 # ICC
-
-
 test_that("icc", {
   rho <- .5
   k <- 3
@@ -16,6 +14,7 @@ test_that("icc", {
   expect_equal(p$conf.level, 0.95)
   expect_equivalent(p$conf.width, 0.3233102)
 })
+
 
 test_that("icc (Bonett example)", {
   rho <- .85
