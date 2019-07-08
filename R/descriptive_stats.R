@@ -280,7 +280,7 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
 #'   \href{https://doi.org/10.1214/ss/1009213286}{doi:10.1214/ss/1009213286}
 #'
 #' @examples
-#' prec_prop(p = 1:9 / 10, n = 1:2 * 100, method = "wilson")
+#' prec_prop(p = 1:9 / 10, n = 100, method = "wilson")
 #' @export
 prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
                       method = c("wilson", "agresti-coull", "exact", "wald"),
