@@ -54,7 +54,6 @@ prec_sens_spec <- function(sens,
                            n = NULL,
                            conf.width = NULL,
                            conf.level = 0.95,
-                           conf.method =
                            tol = .Machine$double.eps^0.25){
 
   # Buderer 1996 Statistical Methodology 1 Incorporating Prevalence of disease into the sample size calculation for sensitivity and specificity. Acad. Emerg. Med 3:895-900
