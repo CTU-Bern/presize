@@ -1,6 +1,13 @@
 context("Sensitivity/specificity measures")
 
 
+test_that("errors", {
+  expect_error(prec_sens_spec(.1, 1.1, .1, conf.width = .1))
+  expect_error(prec_sens_spec(1.1, .1, .1, conf.width = .1))
+  expect_error(prec_sens_spec(.1, .1, 1.1, conf.width = .1))
+  expect_error(prec_sens_spec(.1, .1, .1, conf.width = 1.1))
+})
+
 test_that("Buderer example (n)", {
   sens <- .9
   spec <- .85
