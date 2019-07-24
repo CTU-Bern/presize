@@ -39,27 +39,12 @@ test_that("Fagerland et al. (2015), Table 5", {
   expect_equal(p$n1, n1)
   expect_equal(p$conf.level, 0.95)
   expect_equivalent(p$rr, 7)
-  expect_equivalent(round(p$lwr, 2), 1.21)
+  expect_equivalent(round(p$lwr, 1), 1.2)
   expect_equivalent(round(p$upr, 0), 43)
 
 })
 
 
-test_that("Buderer example (ci width)", {
-  sens <- .9
-  spec <- .85
-  prev <- .2
-  ci_width <- .1
-  n <- 173
-  p <- prec_sens_spec(sens, spec, prev, n = n)
-
-  expect_equal(class(p), "presize")
-  expect_equal(p$sens, sens)
-  expect_equal(p$spec, spec)
-  expect_equal(p$n, n)
-  expect_equal(p$conf.level, 0.95)
-  expect_equivalent(round(p$conf.width, 1), ci_width)
-})
 
 
 
