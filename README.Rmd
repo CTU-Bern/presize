@@ -13,6 +13,7 @@ knitr::opts_chunk$set(
 ```
 
 # presize
+![travis](https://travis-ci.com/CTU-Bern/presize.svg?branch=master) [![codecov](https://codecov.io/github/CTU-Bern/presize/branch/master/graphs/badge.svg)](https://codecov.io/github/CTU-Bern/presize)
 
 **Warning: R-package in development.**
 
