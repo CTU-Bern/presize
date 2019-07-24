@@ -35,7 +35,7 @@
 #' # note that \code{presamp} rounds up to the nearist integer.
 #'
 #' # Bonett then goes on to estimate the width given the sample size, finding a
-#' # with 'close to 0.2':
+#' # value 'close to 0.2':
 #' prec_icc(0.85, 4, 20)
 #' @inheritParams prec_riskdiff
 #' @export
