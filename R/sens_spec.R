@@ -105,7 +105,7 @@ prec_sens_spec <- function(sens,
     f <- function(w, sn, sp, z2, p) uniroot(function(w) eval(fn)$n_ - n,
                                         c(0, 1),
                                         tol = tol)$root
-    conf.width <- mapply(f, sn = sn, sp = sp, p = p, w = w, z2 = z2)
+    conf.width <- mapply(f, sn = sn, sp = sp, p = p, z2 = z2)
   }
 
   structure(list(n = n,
