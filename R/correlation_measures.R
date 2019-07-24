@@ -12,7 +12,7 @@
 #' intraclass correlation
 #'
 #' Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
-#' and that parameter is determined from the other.
+#' and that parameter is determined from the others.
 #'
 #' Sample size or precision is calculated according to formula 3 in Bonett
 #' (2002), which is an approximation. Whether ICC is calculated for a one-way or
@@ -26,6 +26,17 @@
 #'   21:1331-1335. \href{https://doi.org/10.1002/sim.1108}{doi:10.1002/sim.1108}
 #' @param rho Desired intraclass correlation.
 #' @param k number of observations per n (subject).
+#' @param n number of subjects.
+#' @example
+#' # Bonett (2002) gives an example using 4 raters, with an ICC of 0.85 and want
+#' # a confidence width of 0.2. Bonett calculated that a sample size of 19.2 was
+#' # required. This can be done via
+#' prec_icc(0.85, 4, conf.width = 0.2)
+#' # note that \code{presamp} rounds up to the nearist integer.
+#'
+#' # Bonett then goes on to estimate the width given the sample size, finding a
+#' # value 'close to 0.2':
+#' prec_icc(0.85, 4, 20)
 #' @inheritParams prec_riskdiff
 #' @export
 prec_icc <- function(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95) {

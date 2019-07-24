@@ -24,7 +24,7 @@ print.presize <- function(x, n = 10L, ...) {
   l <- nrow(dd)
   if (n < l)
     cat("\n", "[Output truncated at", n, "of", l, "rows]")
-  if (!is.null(note))
+  if (!is.null(note)) if(!is.na(note))
     cat("\n", "NOTE: ", note, "\n\n", sep = "")
   else cat("\n")
   invisible(x)

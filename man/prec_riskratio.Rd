@@ -49,7 +49,7 @@ zero, resulting in a CI of [1, 1].
 method.
 }
 \examples{
-# Validate funciton with example in Fagerland et al. (2015), Table 5.
+# Validate function with example in Fagerland et al. (2015), Table 5.
 prec_riskratio(p1 = 7/34, p2 = 1/34, n1 = 34, r = 1, met = "katz")
 # 7 (0.91 to 54)
 prec_riskratio(p1 = 7/34, p2 = 1/34, n1 = 34, r = 1, met = "koopman")
