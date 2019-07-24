@@ -60,7 +60,7 @@ prec_sens_spec <- function(sens,
     stop("exactly one of 'n', and 'conf.width' must be NULL")
   for (i in c("sens", "spec", "prev", "conf.width")){
     x <- get(i)
-    if (i < 0 | i > 1) stop(i, " must be between 0 and 1")
+    if (x < 0 | x > 1) stop(i, " must be between 0 and 1")
   }
 
   # Buderer 1996 Statistical Methodology 1 Incorporating Prevalence of disease into the sample size calculation for sensitivity and specificity. Acad. Emerg. Med 3:895-900
