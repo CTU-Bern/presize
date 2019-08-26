@@ -198,3 +198,53 @@ prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
 }
 
 
+
+
+
+# Limit of agreement ---------------
+#' Sample size or precision for limit of agreement on Bland Altman plots
+#'
+#' \code{prec_lim_agree} returns the sample size or the precision for the limit
+#' of agreement
+#'
+#' Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
+#' and that parameter is determined from the other.
+#'
+#' Sample size or precision is calculated according to formulae in Bland & Altman (1986).
+#'
+#' @param n Sample size
+#' @param conf.width precision (the full width of the conficende interval)
+#' @param conf.level confidence level
+#' @references Bland & Altman (1986) \emph{Statistical methods for assessing agreement
+#' between two methods of clinical measurement} Lancet i(8476):307-310 \href{https://doi.org/10.1016/S0140-6736(86)90837-8}{doi:10.1016/S0140-6736(86)90837-8}
+#' @export
+
+prec_lim_agree <- function(n = NULL, conf.width = NULL, conf.level = 0.95){
+
+  if (sum(sapply(list(n, conf.width), is.null)) != 1)
+    stop("exactly one of 'n', and 'conf.width' must be NULL")
+
+  alpha <- 1 - conf.level
+  z <- qnorm(1 - alpha / 2)
+
+  if (is.null(n)) {
+    est <- "sample size"
+  } else
+    est <- "precision"
+
+  if (is.null(conf.width)) {
+    cwidth <- z*sqrt(3/n)
+  }
+
+  if (!is.null(conf.width)) {
+    cwidth <- conf.width
+    n <- 3 / (conf.width / z)^2
+  }
+
+  structure(list(n = n,
+                 conf.width = cwidth,
+                 conf.level = conf.level,
+                 method = paste(est, "for limit of agreement")),
+            class = "presize")
+
+}
