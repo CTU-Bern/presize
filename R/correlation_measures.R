@@ -41,8 +41,8 @@
 #' @export
 prec_icc <- function(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95) {
   is.wholenumber <-
-    function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol
-  if (!is.null(k) && !is.numeric(k) &&!is.wholenumber(k))
+    function(x, tol = .Machine$double.eps ^ 0.5)  abs(x - round(x)) < tol
+  if (!is.null(k) && !is.numeric(k) && !is.wholenumber(k))
     stop("'k' must be numeric and a whole number")
   if (sum(sapply(list(n, conf.width), is.null)) != 1)
     stop("exactly one of 'n', and 'conf.width' must be NULL")
@@ -116,7 +116,7 @@ prec_icc <- function(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95) {
 #' @export
 prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
                       method = c("pearson", "kendall", "spearman"),
-                      tol = .Machine$double.eps^0.25) {
+                      ...) {
 
   if (sum(sapply(list(n, conf.width), is.null)) != 1)
     stop("exactly one of 'n', and 'conf.width' must be NULL")
@@ -161,7 +161,7 @@ prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
   }
 
   calc_ci <- quote({
-    Zz <- 0.5 * log((1 + r) / (1 - r))
+    Zz <- 0.5 * log( (1 + r) / (1 - r))
     A <- c * z / sqrt(n - b)
     ll <- Zz - A
     lu <- Zz + A
@@ -180,7 +180,7 @@ prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
   }
   if (is.null(n)) {
     f <- function(r, z, b, c, conf.width) uniroot(function(n) eval(calc_ci)$cw - conf.width,
-                                            c(5, 1e+07), tol = tol,
+                                            c(5, 1e+07), ...,
                                             extendInt = "yes")$root
     n <- mapply(f, r = r, z = z, b = b, c = c, conf.width = conf.width)
     n <- ceiling(n)
@@ -233,12 +233,12 @@ prec_lim_agree <- function(n = NULL, conf.width = NULL, conf.level = 0.95){
     est <- "precision"
 
   if (is.null(conf.width)) {
-    cwidth <- z*sqrt(3/n)
+    cwidth <- z * sqrt(3 / n)
   }
 
   if (!is.null(conf.width)) {
     cwidth <- conf.width
-    n <- 3 / (conf.width / z)^2
+    n <- 3 / (conf.width / z) ^ 2
   }
 
   structure(list(n = n,

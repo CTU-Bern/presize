@@ -6,7 +6,7 @@
 \usage{
 prec_meandiff(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
   conf.width = NULL, conf.level = 0.95, variance = c("equal",
-  "unequal"), tol = .Machine$double.eps^0.25)
+  "unequal"), ...)
 }
 \arguments{
 \item{delta}{difference in means between the two groups.}
@@ -26,8 +26,7 @@ prec_meandiff(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
 
 \item{variance}{\code{equal} (\emph{default}) or \code{unequal} variance.}
 
-\item{tol}{numerical tolerance used in root finding, the default providing
-(at least) four significant digits}
+\item{...}{other options to uniroot (e.g. \code{tol})}
 }
 \value{
 Object of class "presize", a list of arguments (including the

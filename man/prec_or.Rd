@@ -24,9 +24,6 @@ prec_or(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
 
 \item{method}{Exactly one of \code{indip_smooth} (\emph{default}),
 \code{gart}, or \code{wolf}. Methods can be abbreviated.}
-
-\item{tol}{numerical tolerance used in root finding, the default providing
-(at least) four significant digits}
 }
 \value{
 Object of class "presize", a list of arguments (including the

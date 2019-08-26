@@ -5,8 +5,7 @@
 \title{Sample size or precision for risk difference}
 \usage{
 prec_riskdiff(p1, p2, n1 = NULL, conf.width = NULL, r = 1,
-  conf.level = 0.95, method = c("newcombe", "mn", "ac", "wald"),
-  tol = .Machine$double.eps^0.25)
+  conf.level = 0.95, method = c("newcombe", "mn", "ac", "wald"), ...)
 }
 \arguments{
 \item{p1}{Risk among unexposed}
@@ -26,8 +25,7 @@ prec_riskdiff(p1, p2, n1 = NULL, conf.width = NULL, r = 1,
 (Miettinen-Nurminen), \code{ac} (Agresti-Caffo), \code{wald}. Methods can
 be abbreviated.}
 
-\item{tol}{numerical tolerance used in root finding, the default providing
-(at least) four significant digits}
+\item{...}{other options to uniroot (e.g. \code{tol})}
 }
 \description{
 \code{prec_riskdiff} returns the risk difference and the sample size or the

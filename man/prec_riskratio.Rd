@@ -24,9 +24,6 @@ prec_riskratio(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
 
 \item{method}{Exactly one of \code{koopman} (\emph{default}), \code{katz}.
 Methods can be abbreviated.}
-
-\item{tol}{numerical tolerance used in root finding, the default providing
-(at least) four significant digits}
 }
 \description{
 \code{prec_riskratio} returns the risk ratio and the sample size or the
