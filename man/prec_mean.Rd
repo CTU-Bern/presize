@@ -5,7 +5,7 @@
 \title{Sample size or precision for a mean}
 \usage{
 prec_mean(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
-  tol = .Machine$double.eps^0.25)
+  ...)
 }
 \arguments{
 \item{mu}{mean}
@@ -18,8 +18,7 @@ prec_mean(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
 
 \item{conf.level}{confidence level}
 
-\item{tol}{numerical tolerance used in root finding, the default providing
-(at least) four significant digits}
+\item{...}{other arguments to uniroot (e.g. \code{tol})}
 }
 \value{
 Object of class "presize", a list with

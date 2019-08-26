@@ -5,8 +5,7 @@
 \title{Sample size or precision for a proportion}
 \usage{
 prec_prop(p, n = NULL, conf.width = NULL, conf.level = 0.95,
-  method = c("wilson", "agresti-coull", "exact", "wald"),
-  tol = .Machine$double.eps^0.25)
+  method = c("wilson", "agresti-coull", "exact", "wald"), ...)
 }
 \arguments{
 \item{p}{proportion}
@@ -20,8 +19,7 @@ prec_prop(p, n = NULL, conf.width = NULL, conf.level = 0.95,
 \item{method}{The method to use to calculate precision. Exactly one method
 may be provided. Methods can be abbreviated.}
 
-\item{tol}{numerical tolerance used in root finding, the default providing
-(at least) four significant digits}
+\item{...}{other arguments to uniroot (e.g. \code{tol})}
 }
 \value{
 Object of class "presize", a list of arguments (including the

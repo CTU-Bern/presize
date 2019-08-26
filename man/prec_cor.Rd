@@ -5,8 +5,7 @@
 \title{Sample size or precision for correlation coefficient}
 \usage{
 prec_cor(r, n = NULL, conf.width = NULL, conf.level = 0.95,
-  method = c("pearson", "kendall", "spearman"),
-  tol = .Machine$double.eps^0.25)
+  method = c("pearson", "kendall", "spearman"), ...)
 }
 \arguments{
 \item{r}{Desired correlation coefficient.}
@@ -18,8 +17,7 @@ prec_cor(r, n = NULL, conf.width = NULL, conf.level = 0.95,
 \item{method}{Exactly one of \code{pearson} (\emph{default}), \code{kendall},
 or \code{spearman}. Methods can be abbreviated.}
 
-\item{tol}{numerical tolerance used in root finding, the default providing
-(at least) four significant digits}
+\item{...}{other options to uniroot (e.g. \code{tol})}
 }
 \description{
 \code{prec_cor} returns the sample size or the precision for the given

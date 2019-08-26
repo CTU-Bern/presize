@@ -41,8 +41,8 @@
 #' @export
 prec_icc <- function(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95) {
   is.wholenumber <-
-    function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol
-  if (!is.null(k) && !is.numeric(k) &&!is.wholenumber(k))
+    function(x, tol = .Machine$double.eps ^ 0.5)  abs(x - round(x)) < tol
+  if (!is.null(k) && !is.numeric(k) && !is.wholenumber(k))
     stop("'k' must be numeric and a whole number")
   if (sum(sapply(list(n, conf.width), is.null)) != 1)
     stop("exactly one of 'n', and 'conf.width' must be NULL")
@@ -116,7 +116,7 @@ prec_icc <- function(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95) {
 #' @export
 prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
                       method = c("pearson", "kendall", "spearman"),
-                      tol = .Machine$double.eps^0.25) {
+                      ...) {
 
   if (sum(sapply(list(n, conf.width), is.null)) != 1)
     stop("exactly one of 'n', and 'conf.width' must be NULL")
@@ -161,7 +161,7 @@ prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
   }
 
   calc_ci <- quote({
-    Zz <- 0.5 * log((1 + r) / (1 - r))
+    Zz <- 0.5 * log( (1 + r) / (1 - r))
     A <- c * z / sqrt(n - b)
     ll <- Zz - A
     lu <- Zz + A
@@ -180,7 +180,7 @@ prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
   }
   if (is.null(n)) {
     f <- function(r, z, b, c, conf.width) uniroot(function(n) eval(calc_ci)$cw - conf.width,
-                                            c(5, 1e+07), tol = tol,
+                                            c(5, 1e+07), ...,
                                             extendInt = "yes")$root
     n <- mapply(f, r = r, z = z, b = b, c = c, conf.width = conf.width)
     n <- ceiling(n)
@@ -198,3 +198,53 @@ prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
 }
 
 
+
+
+
+# Limit of agreement ---------------
+#' Sample size or precision for limit of agreement on Bland Altman plots
+#'
+#' \code{prec_lim_agree} returns the sample size or the precision for the limit
+#' of agreement
+#'
+#' Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
+#' and that parameter is determined from the other.
+#'
+#' Sample size or precision is calculated according to formulae in Bland & Altman (1986).
+#'
+#' @param n Sample size
+#' @param conf.width precision (the full width of the conficende interval)
+#' @param conf.level confidence level
+#' @references Bland & Altman (1986) \emph{Statistical methods for assessing agreement
+#' between two methods of clinical measurement} Lancet i(8476):307-310 \href{https://doi.org/10.1016/S0140-6736(86)90837-8}{doi:10.1016/S0140-6736(86)90837-8}
+#' @export
+
+prec_lim_agree <- function(n = NULL, conf.width = NULL, conf.level = 0.95){
+
+  if (sum(sapply(list(n, conf.width), is.null)) != 1)
+    stop("exactly one of 'n', and 'conf.width' must be NULL")
+
+  alpha <- 1 - conf.level
+  z <- qnorm(1 - alpha / 2)
+
+  if (is.null(n)) {
+    est <- "sample size"
+  } else
+    est <- "precision"
+
+  if (is.null(conf.width)) {
+    cwidth <- z * sqrt(3 / n)
+  }
+
+  if (!is.null(conf.width)) {
+    cwidth <- conf.width
+    n <- 3 / (conf.width / z) ^ 2
+  }
+
+  structure(list(n = n,
+                 conf.width = cwidth,
+                 conf.level = conf.level,
+                 method = paste(est, "for limit of agreement")),
+            class = "presize")
+
+}

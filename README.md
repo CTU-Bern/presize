@@ -40,14 +40,14 @@ presize will provide functions for
       - correlation coefficient (`prec_cor`)
       - Cohens kappa
       - ICC (`prec_icc`)
-      - limit of agreement from Bland Altman plot
+      - limit of agreement from Bland Altman plot (`prec_lim_agree`)
   - diagnostic measures
       - sens
       - spec
-      - sens and spec (`prec_sens_spec`)
+      - sens and spec jointly (`prec_sens_spec`)
       - positive LR
       - negative LR
-      - AUC
+      - AUC (`prec_auc`)
 
 ## Example
 
