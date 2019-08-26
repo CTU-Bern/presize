@@ -53,10 +53,10 @@ presize will provide functions for
 * diagnostic measures
     + sens
     + spec
-    + sens and spec (`prec_sens_spec`)
+    + sens and spec jointly (`prec_sens_spec`)
     + positive LR
     + negative LR
-    + AUC
+    + AUC (`prec_auc`)
 
 ## Example
 
