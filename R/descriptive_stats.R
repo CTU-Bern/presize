@@ -27,8 +27,7 @@
 #' @param n number of observations
 #' @param conf.width precision (the full width of the conficende interval)
 #' @param conf.level confidence level
-#' @param tol numerical tolerance used in root finding, the default providing
-#'   (at least) four significant digits
+#' @param ... other arguments to uniroot (e.g. \code{tol})
 #' @return Object of class "presize", a list with
 #'   \describe{
 #'     \item{mu}{mean}
@@ -46,7 +45,7 @@
 #' @importFrom stats uniroot
 #' @export
 prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
-                      tol = .Machine$double.eps^0.25) {
+                      ...) {
   if (!is.null(mu) && !is.numeric(mu))
     stop("'mu' must be numeric")
   if (!is.null(sd) && !is.numeric(sd))
@@ -62,7 +61,7 @@ prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
     tval * sd / sqrt(n)
   })
 
-  z <- qnorm((1 + conf.level) / 2)
+  z <- qnorm( (1 + conf.level) / 2)
   if (is.null(conf.width)) {
     prec <- eval(ci)
     est <- "precision"
@@ -70,7 +69,7 @@ prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
   if (is.null(n)) {
     prec <- conf.width / 2
     f <- function(sd, prec, alpha) uniroot(function(n) eval(ci) - prec,
-                                    c(2, 1e+07), tol = tol)$root
+                                    c(2, 1e+07), ...)$root
     n <- mapply(f, sd = sd, prec = prec, alpha = alpha)
     est <- "sample size"
   }
@@ -131,7 +130,7 @@ prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
 #' @export
 prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
                       method = c("score", "vs", "exact", "wald"),
-                      tol = .Machine$double.eps^0.25) {
+                      ...) {
 
   if (sum(sapply(list(x, conf.width), is.null)) != 1)
     stop("exactly one of 'x', and 'conf.width' must be NULL")
@@ -180,7 +179,7 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
     }
     if (is.null(x)) {
       f <- function(r, prec, z, z2) uniroot(function(x) eval(sc) - prec,
-                                            c(1, 1e+07), tol = tol)$root
+                                            c(1, 1e+07), ...)$root
       x <- mapply(f, r = r, prec = prec, z = z, z2 = z2)
     }
     radj <- r + z2 * r / (2 * x)
@@ -210,7 +209,7 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
     })
     if (is.null(x)) {
       f <- function(r, alpha, prec) uniroot(function(x) eval(ex)$ps - prec,
-                                            c(1, 1e+07), tol = tol)$root
+                                            c(1, 1e+07), ...)$root
       x <- mapply(f, r = r, alpha = alpha, prec = prec)
     }
     res <- eval(ex)
@@ -225,20 +224,22 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
     conf.width <- 2 * prec
   }
 
-  if(any(lwr < 0))
-    warning("The lower end of the confidence interval is numerically below 0 and non-sensible. Please choose another method.")
+  if (any(lwr < 0))
+    warning("The lower end of the confidence interval is numerically below 0",
+            "and non-sensible. Please choose another method.")
 
-  structure(list(r = r,
-                 radj = radj,
-                 x = x,
-                 time = x / r,
-                 conf.width = conf.width,
-                 conf.level = conf.level,
-                 lwr = lwr,
-                 upr = upr,
-                 note = "'x / r' units of time are needed to accumulate 'x' events.",
-                 method = paste(est, "for a rate with", meth, "confidence interval")),
-            class = "presize")
+  structure(
+    list(r = r,
+         radj = radj,
+         x = x,
+         time = x / r,
+         conf.width = conf.width,
+         conf.level = conf.level,
+         lwr = lwr,
+         upr = upr,
+         note = "'x / r' units of time are needed to accumulate 'x' events.",
+         method = paste(est, "for a rate with", meth, "confidence interval")),
+     class = "presize")
 }
 
 
@@ -263,6 +264,7 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
 #'
 #'
 #' @param p proportion
+#' @param ... other arguments to uniroot (e.g. \code{tol})
 #' @inheritParams prec_mean
 #' @inheritParams prec_rate
 #' @return Object of class "presize", a list of arguments (including the
@@ -284,7 +286,7 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
 #' @export
 prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
                       method = c("wilson", "agresti-coull", "exact", "wald"),
-                      tol = .Machine$double.eps^0.25) {
+                      ...) {
   if (sum(sapply(list(n, conf.width), is.null)) != 1)
     stop("exactly one of 'n', and 'conf.width' must be NULL")
   numrange_check(conf.level)
@@ -335,7 +337,7 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
     }
     if (is.null(n)) {
       f <- function(p, prec, z, z2) uniroot(function(n) eval(ac) - prec,
-                                            c(1, 1e+07), tol = tol)$root
+                                            c(1, 1e+07), ...)$root
       n <- mapply(f, p = p, prec = prec, z = z, z2 = z2)
     }
     padj <- (p * n + 0.5 * z2) / (n + z2)   # check for correctness
@@ -347,7 +349,7 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
       prec <- eval(wil)
     if (is.null(n)) {
       f <- function(p, prec, z, z2) uniroot(function(n) eval(wil) - prec,
-                                            c(1, 1e+07), tol = tol)$root
+                                            c(1, 1e+07), ...)$root
       n <- mapply(f, p = p, prec = prec, z = z, z2 = z2)
     }
     padj <- (n * p + z2 / 2) / (n + z2)
@@ -367,7 +369,7 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
     })
     if (is.null(n)) {
       f <- function(p, prec, alpha) uniroot(function(n) eval(ex)$ps - prec,
-                                            c(1, 1e+07), tol = tol)$root
+                                            c(1, 1e+07), ...)$root
       n <- mapply(f, p = p, prec = prec, alpha = alpha)
     }
     res <- eval(ex)

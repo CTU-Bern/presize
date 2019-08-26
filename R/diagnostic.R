@@ -129,6 +129,7 @@ prec_sens_spec <- function(sens,
 #' between the lower and upper limits of the confidence interval and
 #' \code{conf.width}.
 #'
+#' @param auc AUC value
 #' @param prev prevalence
 #' @param n number of observations
 #' @param conf.width precision (the full width of the confidence interval)

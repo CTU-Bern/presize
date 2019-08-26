@@ -5,8 +5,7 @@
 \title{Sample size or precision for risk ratio}
 \usage{
 prec_riskratio(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
-  conf.level = 0.95, method = c("koopman", "katz"),
-  tol = .Machine$double.eps^0.25)
+  conf.level = 0.95, method = c("koopman", "katz"), ...)
 }
 \arguments{
 \item{p1}{Risk among unexposed}
@@ -25,8 +24,7 @@ prec_riskratio(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
 \item{method}{Exactly one of \code{koopman} (\emph{default}), \code{katz}.
 Methods can be abbreviated.}
 
-\item{tol}{numerical tolerance used in root finding, the default providing
-(at least) four significant digits}
+\item{...}{other arguments to uniroot (e.g. \code{tol})}
 }
 \description{
 \code{prec_riskratio} returns the risk ratio and the sample size or the

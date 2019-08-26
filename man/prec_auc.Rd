@@ -8,6 +8,8 @@ prec_auc(auc, prev, n = NULL, conf.width = NULL, conf.level = 0.95,
   ...)
 }
 \arguments{
+\item{auc}{AUC value}
+
 \item{prev}{prevalence}
 
 \item{n}{number of observations}

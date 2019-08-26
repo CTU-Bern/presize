@@ -30,9 +30,10 @@
 #' prec_meandiff(delta = 5, sd1 = 2.5, n1 = 20, var = "equal")
 #' prec_meandiff(delta = 5, sd1 = 2.5, conf.width = 3, var = "equal")
 #' @export
-prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.95,
+prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
+                          conf.width = NULL, conf.level = 0.95,
                           variance = c("equal", "unequal"),
-                          tol = .Machine$double.eps^0.25) {
+                          ...) {
   if (!is.null(delta) && !is.numeric(delta))
     stop("'delta' must be numeric")
   if (!is.null(sd1) && !is.numeric(sd1))
@@ -88,7 +89,7 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1, conf.width = 
       prec <- eval(md)
     if (is.null(n1)) {
       f <- function(r, sd1, sd2, alpha, prec) uniroot(function(n1) eval(md) - prec,
-                                                      c(2, 1e+07), tol = tol)$root
+                                                      c(2, 1e+07), ...)$root
       n1 <- mapply(f, r = r, sd1 = sd1, sd2 = sd2, alpha = alpha, prec = prec)
     }
   }
@@ -106,7 +107,7 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1, conf.width = 
       prec <- eval(md_ueq)
     if (is.null(n1)){
       f <- function(sd1, sd2, r, alpha, prec) uniroot(function(n1) eval(md_ueq) - prec,
-                                                      c(2, 1e+07), tol = tol)$root
+                                                      c(2, 1e+07), ...)$root
       n1 <- mapply(f, sd1 = sd1, sd2 = sd2, r = r, alpha = alpha, prec = prec)
     }
   }
@@ -168,6 +169,7 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1, conf.width = 
 #' @param method Exactly one of \code{newcombe} (\emph{default}), \code{mn}
 #'   (Miettinen-Nurminen), \code{ac} (Agresti-Caffo), \code{wald}. Methods can
 #'   be abbreviated.
+#' @param ... other options to uniroot (e.g. \code{tol})
 #' @inheritParams prec_mean
 #'
 #' @references
@@ -206,7 +208,7 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1, conf.width = 
 prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
                      r = 1, conf.level = 0.95,
                      method = c("newcombe", "mn", "ac", "wald"),
-                     tol = .Machine$double.eps^0.25) {
+                     ...) {
   if (sum(sapply(list(n1, conf.width), is.null)) != 1)
     stop("exactly one of 'n1', and 'conf.width' must be NULL")
   if (!is.null(p1) && !is.numeric(p1) || any(0 > p1 | p1 > 1))
@@ -264,7 +266,7 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
     }
     if (is.null(n1)) {
       f <- function(p1, p2, conf.level, conf.width) uniroot(function(n1) eval(nc)$cw - conf.width,
-                                                            c(1, 1e+07), tol = tol)$root
+                                                            c(1, 1e+07), ...)$root
       n1 <- mapply(f, p1 = p1, p2 = p2, conf.level = conf.level, conf.width = conf.width)
       ci <- eval(nc)
       n2 <- ci$n2
@@ -305,7 +307,7 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
     }
     if (is.null(n1)) {
       f <- function(p1, p2, r, prec) uniroot(function(n1) eval(ac) - prec,
-                              c(1, 1e+07), tol = tol)$root
+                              c(1, 1e+07), ...)$root
       n1 <- mapply(f, p1 = p1, p2 = p2, r = r, prec = prec)
       n2 <- n1 / r
     }
@@ -389,7 +391,7 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
           ci <- diffscoreci(x1, n1, x2, n2, conf.level)
           ci[2] - ci[1] - conf.width
         },
-        c(2, 1e+07))$root
+        c(2, 1e+07), ...)$root
       }
       n1 <- mapply(f, p1 = p1, p2 = p2, conf.width = conf.width, r = r, conf.level = conf.level)
       n2 <- n1 / r
@@ -472,7 +474,7 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
 prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
                            conf.level = 0.95,
                            method = c("koopman", "katz"),
-                           tol = .Machine$double.eps^0.25) {
+                           ...) {
   # check input
   if (sum(sapply(list(n1, conf.width), is.null)) != 1)
     stop("exactly one of 'n1', and 'conf.width' must be NULL")
@@ -540,11 +542,11 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
       }
       if(x2 > 0) {
         upr <- uniroot(function(phi) eval(kp) - zchi,
-                       c(midp, 1e+07), tol = tol, extendInt = "upX")$root
+                       c(midp, 1e+07), ..., extendInt = "upX")$root
       }
       if(x1 > 0) {
         lwr <- uniroot(function(phi) eval(kp) - zchi,
-                       c(0, midp), tol = tol, extendInt = "downX")$root
+                       c(0, midp), ..., extendInt = "downX")$root
       }
       c(lwr, upr)
     }
@@ -555,7 +557,7 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
           ci <- fkp(n1 = n1, p1 = p1, p2 = p2, r = r, conf.level = conf.level)
           ci[2] - ci[1] - conf.width
         },
-        c(2, 1e+07), tol = tol)$root
+        c(2, 1e+07), ...)$root
 
       n1 <- mapply(fkpn, p1 = p1, p2 = p2, r = r, conf.width = conf.width, conf.level = conf.level)
       n2 <- n1 * r
@@ -585,7 +587,7 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
     }
     if (is.null(n1)) {
       f <- function(p1, p2, rr, r, z, conf.width) uniroot(function(n1) eval(kt)$cw - conf.width,
-                                                          c(2, 1e+07), tol = tol)$root
+                                                          c(2, 1e+07), ...)$root
       n1 <- mapply(f, p1 = p1, p2 = p2, rr = rr, r = r, z = z, conf.width = conf.width)
       ci <- eval(kt)
       n2 <- ci$n2
@@ -650,7 +652,7 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
 #' @export
 prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.95,
                     method = c("gart", "woolf", "indip_smooth"),
-                    tol = .Machine$double.eps^0.25)  {
+                    ...)  {
   # check input
   if (sum(sapply(list(n1, conf.width), is.null)) != 1)
     stop("exactly one of 'n1', and 'conf.width' must be NULL")
@@ -741,7 +743,7 @@ prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.
     if (is.null(n1)) {
       f <- function(p1, p2, conf.width) uniroot(function(n1)
         eval(adjust_cells)$cw - conf.width,
-        c(1, 1e+07), tol = tol)$root
+        c(1, 1e+07), ...)$root
       n1 <- mapply(f, p1 = p1, p2 = p2, conf.width = conf.width)
       ci <- eval(adjust_cells)
       n2 <- ci$n2

@@ -5,8 +5,7 @@
 \title{Sample size or precision for an odds ratio}
 \usage{
 prec_or(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
-  conf.level = 0.95, method = c("gart", "woolf", "indip_smooth"),
-  tol = .Machine$double.eps^0.25)
+  conf.level = 0.95, method = c("gart", "woolf", "indip_smooth"), ...)
 }
 \arguments{
 \item{p1}{Risk among unexposed}
@@ -25,8 +24,7 @@ prec_or(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
 \item{method}{Exactly one of \code{indip_smooth} (\emph{default}),
 \code{gart}, or \code{wolf}. Methods can be abbreviated.}
 
-\item{tol}{numerical tolerance used in root finding, the default providing
-(at least) four significant digits}
+\item{...}{other options to uniroot (e.g. \code{tol})}
 }
 \value{
 Object of class "presize", a list of arguments (including the
