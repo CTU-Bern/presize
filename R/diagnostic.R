@@ -27,7 +27,8 @@
 #' @param tol numerical tolerance used in root finding, the default providing
 #'   (at least) four significant digits
 #'
-#' @return
+#' @return Object of class "presize", a list of arguments (including the
+#'   computed one) augmented with method and note elements.
 #' @export
 #'
 #' @references Buderer, N.M.F. (1996) \emph{Statistical Methodology: I.
@@ -118,7 +119,54 @@ prec_sens_spec <- function(sens,
 }
 
 
-# AUC
+# sens/spec
+#' Sample size and precision of sensitivity and specificity
+#'
+#' These functions act as wrappers for \code{prec_prop}.
+#' @rdname sensspec
+#' @param sens,spec proportions
+#' @inheritParams prec_prop
+#' @aliases prec_sens prec_spec
+#' @return Object of class "presize", a list of arguments (including the
+#'   computed one) augmented with method and note elements.
+#' @seealso \code{prec_prop}
+prec_sens <- function(sens, n = NULL, conf.width = NULL, conf.level = .95, ...){
+
+  pp <- prec_prop(sens, n, conf.width, conf.level, ...)
+
+  structure(list(sens = pp$p,
+                 sensadj = pp$padj,
+                 n = pp$n,
+                 conf.width = pp$conf.width,
+                 conf.level = pp$conf.level,
+                 lwr = pp$lwr,
+                 upr = pp$upr,
+                 note = "padj is the adjusted proportion, from which the ci is calculated.",
+                 method = gsub("proportion", "sensitivity", pp$method)),
+            class = "presize")
+
+}
+#' @export
+#' @rdname sensspec
+prec_spec <- function(spec, n = NULL, conf.width = NULL, conf.level = .95, ...){
+
+  pp <- prec_prop(spec, n, conf.width, conf.level, ...)
+
+  structure(list(sens = pp$p,
+                 sensadj = pp$padj,
+                 n = pp$n,
+                 conf.width = pp$conf.width,
+                 conf.level = pp$conf.level,
+                 lwr = pp$lwr,
+                 upr = pp$upr,
+                 note = "padj is the adjusted proportion, from which the ci is calculated.",
+                 method = gsub("proportion", "Specificity", pp$method)),
+            class = "presize")
+
+}
+
+
+# AUC ----
 #' Sample size or precision for AUC
 #'
 #' Calculate the sample size from AUC, prevalence and confidence interval width
@@ -135,7 +183,9 @@ prec_sens_spec <- function(sens,
 #' @param conf.width precision (the full width of the confidence interval)
 #' @param conf.level confidence level
 #' @param ... other arguments to \code{optimize}
-#' @example
+#' @return Object of class "presize", a list of arguments (including the
+#'   computed one) augmented with method and note elements.
+#' @examples
 #' # confidence interval width
 #' N <- 500
 #' prev <- .1

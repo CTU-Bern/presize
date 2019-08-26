@@ -27,7 +27,7 @@
 #' @param rho Desired intraclass correlation.
 #' @param k number of observations per n (subject).
 #' @param n number of subjects.
-#' @example
+#' @examples
 #' # Bonett (2002) gives an example using 4 raters, with an ICC of 0.85 and want
 #' # a confidence width of 0.2. Bonett calculated that a sample size of 19.2 was
 #' # required. This can be done via

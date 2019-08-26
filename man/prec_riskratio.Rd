@@ -23,6 +23,7 @@ prec_riskratio(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
 
 \item{method}{Exactly one of \code{koopman} (\emph{default}), \code{katz}.
 Methods can be abbreviated.}
+
 \item{...}{other arguments to uniroot (e.g. \code{tol})}
 }
 \description{
