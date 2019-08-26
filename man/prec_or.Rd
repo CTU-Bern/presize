@@ -23,7 +23,6 @@ prec_or(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
 
 \item{method}{Exactly one of \code{indip_smooth} (\emph{default}),
 \code{gart}, or \code{wolf}. Methods can be abbreviated.}
-
 \item{...}{other options to uniroot (e.g. \code{tol})}
 }
 \value{
