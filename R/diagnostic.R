@@ -118,5 +118,115 @@ prec_sens_spec <- function(sens,
 }
 
 
+# AUC
+#' Sample size or precision for AUC
+#'
+#' Calculate the sample size from AUC, prevalence and confidence interval width
+#' or the expected confidence interval width from AUC, prevalence and sample
+#' size
+#'
+#' Sample size is derived by optimizing the difference between the difference
+#' between the lower and upper limits of the confidence interval and
+#' \code{conf.width}.
+#'
+#' @param prev prevalence
+#' @param n number of observations
+#' @param conf.width precision (the full width of the confidence interval)
+#' @param conf.level confidence level
+#' @param ... other arguments to \code{optimize}
+#' @example
+#' # confidence interval width
+#' N <- 500
+#' prev <- .1
+#' auc <- .65
+#' (prec <- prec_auc(auc, prev, n = N))
+#' cwidth <- prec$conf.width
+#' # sample size
+#' prec_auc(auc, prev, conf.width = cwidth)
+#' @export
+prec_auc <- function(auc, prev, n = NULL, conf.width = NULL, conf.level = .95,
+                     ...){
 
+  if (sum(sapply(list(n, conf.width), is.null)) != 1)
+    stop("exactly one of 'n', and 'conf.width' must be NULL")
+  if (prev < 0 | prev > 1) stop("'prev' must be numeric in [0, 1]")
+
+  fn <- function(n, prev, auc){
+    n1 <- n*prev
+    n2 <- n*(1-prev)
+    q0 <- auc*(1-auc)
+    q1 <- auc/(2-auc)-auc^2
+    q2 <- 2*auc^2/(1+auc)-auc^2
+    se <- sqrt((q0+(n1-1)*q1+(n2-1)*q2)/(n1*n2))
+
+    alpha <- (1 - conf.level) / 2
+    z <- qnorm(1 - alpha)
+
+    upr <- auc + z*se
+    lwr <- auc - z*se
+
+    conf.width <- upr - lwr
+    list(upr = upr,
+         lwr = lwr,
+         width = conf.width)
+  }
+  opti_fn <- function(n, prev, auc, conf.width){
+    n1 <- n*prev
+    n2 <- n*(1-prev)
+    q0 <- auc*(1-auc)
+    q1 <- auc/(2-auc)-auc^2
+    q2 <- 2*auc^2/(1+auc)-auc^2
+    se <- sqrt((q0+(n1-1)*q1+(n2-1)*q2)/(n1*n2))
+
+    alpha <- (1 - conf.level) / 2
+    z <- qnorm(1 - alpha)
+
+    upr <- auc + z*se
+    lwr <- auc - z*se
+
+    abs((upr - lwr) - conf.width)
+  }
+
+  if (is.null(n)) {
+    est <- "sample size"
+    op <- optimize(opti_fn,
+                   interval = c(0, 1e6),
+                   auc = auc,
+                   prev = prev,
+                   conf.width = conf.width,
+                   ...)
+    n <- op$minimum
+    n1 <- n*prev
+    n2 <- n*(1-prev)
+    res <- fn(n1, n2, auc)
+    lwr <- res$lwr
+    upr <- res$upr
+
+  } else {
+    res <- fn(n, prev, auc)
+    conf.width <- res$width
+    lwr <- res$lwr
+    upr <- res$upr
+
+    est <- "precision"
+
+  }
+
+
+
+
+
+  structure(list(auc = auc,
+                 n = n,
+                 prev = prev,
+                 n1 = n1,
+                 n2 = n2,
+                 lwr = lwr,
+                 upr = upr,
+                 conf.width = conf.width,
+                 conf.level = conf.level,
+                 method = paste(est, "for", "AUC")),
+            class = "presize")
+
+}
 
