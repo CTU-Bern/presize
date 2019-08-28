@@ -171,7 +171,7 @@ prec_spec <- function(spec, n = NULL, conf.width = NULL, conf.level = .95, ...){
 #'
 #' Calculate the sample size from AUC, prevalence and confidence interval width
 #' or the expected confidence interval width from AUC, prevalence and sample
-#' size
+#' size.
 #'
 #' Sample size is derived by optimizing the difference between the difference
 #' between the lower and upper limits of the confidence interval and
@@ -249,7 +249,7 @@ prec_auc <- function(auc, prev, n = NULL, conf.width = NULL, conf.level = .95,
     n <- op$minimum
     n1 <- n*prev
     n2 <- n*(1-prev)
-    res <- fn(n1, n2, auc)
+    res <- fn(n, prev, auc)
     lwr <- res$lwr
     upr <- res$upr
 
@@ -258,6 +258,8 @@ prec_auc <- function(auc, prev, n = NULL, conf.width = NULL, conf.level = .95,
     conf.width <- res$width
     lwr <- res$lwr
     upr <- res$upr
+    n1 <- n*prev
+    n2 <- n*(1-prev)
 
     est <- "precision"
 
