@@ -172,7 +172,8 @@ prec_spec <- function(spec, n = NULL, conf.width = NULL, conf.level = .95, ...){
 #'
 #' Calculate the sample size from AUC, prevalence and confidence interval width
 #' or the expected confidence interval width from AUC, prevalence and sample
-#' size.
+#' size, following Hanley and McNeil (1982).
+#'
 #'
 #' Sample size is derived by optimizing the difference between the difference
 #' between the lower and upper limits of the confidence interval and
@@ -186,6 +187,7 @@ prec_spec <- function(spec, n = NULL, conf.width = NULL, conf.level = .95, ...){
 #' @param ... other arguments to \code{optimize}
 #' @return Object of class "presize", a list of arguments (including the
 #'   computed one) augmented with method and note elements.
+#' @references Hanley, JA and McNeil, BJ (1982) \emph{The Meaning and Use of the Area under a Receiver Operating Characteristic (ROC) Curve.} Radiology 148, 29-36
 #' @examples
 #' # confidence interval width
 #' N <- 500
