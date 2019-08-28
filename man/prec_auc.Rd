@@ -27,7 +27,7 @@ Object of class "presize", a list of arguments (including the
 \description{
 Calculate the sample size from AUC, prevalence and confidence interval width
 or the expected confidence interval width from AUC, prevalence and sample
-size.
+size, following Hanley and McNeil (1982).
 }
 \details{
 Sample size is derived by optimizing the difference between the difference
@@ -43,4 +43,7 @@ auc <- .65
 cwidth <- prec$conf.width
 # sample size
 prec_auc(auc, prev, conf.width = cwidth)
+}
+\references{
+Hanley, JA and McNeil, BJ (1982) \emph{The Meaning and Use of the Area under a Receiver Operating Characteristic (ROC) Curve.} Radiology 148, 29-36
 }

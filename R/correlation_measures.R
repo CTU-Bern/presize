@@ -110,6 +110,7 @@ prec_icc <- function(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95) {
 #'   65:23-28. \href{https://doi.org/10.1007/BF02294183}{doi:10.1007/BF02294183}
 #'
 #' @param r Desired correlation coefficient.
+#' @param n sample size
 #' @param method Exactly one of \code{pearson} (\emph{default}), \code{kendall},
 #'   or \code{spearman}. Methods can be abbreviated.
 #' @inheritParams prec_riskdiff
