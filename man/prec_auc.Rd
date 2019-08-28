@@ -27,7 +27,7 @@ Object of class "presize", a list of arguments (including the
 \description{
 Calculate the sample size from AUC, prevalence and confidence interval width
 or the expected confidence interval width from AUC, prevalence and sample
-size
+size.
 }
 \details{
 Sample size is derived by optimizing the difference between the difference

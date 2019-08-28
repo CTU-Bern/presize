@@ -25,8 +25,9 @@ Object of class "presize", a list of arguments (including the
   computed one) augmented with method and note elements.
 }
 \description{
-These functions act as wrappers for \code{prec_prop}.
+Because sensitivity and specificity are simple proportions, these functions
+act as wrappers for \code{prec_prop}.
 }
 \seealso{
-\code{prec_prop}
+\code{prec_prop}, \code{prec_sens_spec}
 }
