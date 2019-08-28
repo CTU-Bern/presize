@@ -32,6 +32,17 @@ author, \eqn{5*rho} is added to n, if \eqn{k = 2} and \eqn{rho \ge 7}.
 
 n is rounded up to the next whole number using \code{ceiling}.
 }
+\examples{
+# Bonett (2002) gives an example using 4 raters, with an ICC of 0.85 and want
+# a confidence width of 0.2. Bonett calculated that a sample size of 19.2 was
+# required. This can be done via
+prec_icc(0.85, 4, conf.width = 0.2)
+# note that \\code{presamp} rounds up to the nearist integer.
+
+# Bonett then goes on to estimate the width given the sample size, finding a
+# value 'close to 0.2':
+prec_icc(0.85, 4, 20)
+}
 \references{
 Bonett DG (2002). \emph{Sample size requirements for estimating
   intraclass correlations with desired precision}. Statistics in Medicine,

@@ -24,7 +24,7 @@ may be provided. Methods can be abbreviated.}
 \value{
 Object of class "presize", a list of arguments (including the
   computed one) augmented with method and note elements. In the wilson and
-  agresti-coull formula, the p from wich the confidence interval is
+  agresti-coull formula, the p from which the confidence interval is
   calculated is adjusted by a term (i.e. \eqn{p + term \pm ci}). This
   adjusted p is returned in \code{padj}.
 }

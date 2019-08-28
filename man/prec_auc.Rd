@@ -20,13 +20,30 @@ prec_auc(auc, prev, n = NULL, conf.width = NULL, conf.level = 0.95,
 
 \item{...}{other arguments to \code{optimize}}
 }
+\value{
+Object of class "presize", a list of arguments (including the
+  computed one) augmented with method and note elements.
+}
 \description{
 Calculate the sample size from AUC, prevalence and confidence interval width
 or the expected confidence interval width from AUC, prevalence and sample
-size
+size, following Hanley and McNeil (1982).
 }
 \details{
 Sample size is derived by optimizing the difference between the difference
 between the lower and upper limits of the confidence interval and
 \code{conf.width}.
+}
+\examples{
+# confidence interval width
+N <- 500
+prev <- .1
+auc <- .65
+(prec <- prec_auc(auc, prev, n = N))
+cwidth <- prec$conf.width
+# sample size
+prec_auc(auc, prev, conf.width = cwidth)
+}
+\references{
+Hanley, JA and McNeil, BJ (1982) \emph{The Meaning and Use of the Area under a Receiver Operating Characteristic (ROC) Curve.} Radiology 148, 29-36
 }

@@ -24,6 +24,10 @@ prec_sens_spec(sens, spec, prev, n = NULL, conf.width = NULL,
 \item{tol}{numerical tolerance used in root finding, the default providing
 (at least) four significant digits}
 }
+\value{
+Object of class "presize", a list of arguments (including the
+  computed one) augmented with method and note elements.
+}
 \description{
 Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
 and that parameter is determined from the other.

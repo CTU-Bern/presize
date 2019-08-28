@@ -27,7 +27,8 @@
 #' @param tol numerical tolerance used in root finding, the default providing
 #'   (at least) four significant digits
 #'
-#' @return
+#' @return Object of class "presize", a list of arguments (including the
+#'   computed one) augmented with method and note elements.
 #' @export
 #'
 #' @references Buderer, N.M.F. (1996) \emph{Statistical Methodology: I.
@@ -61,7 +62,7 @@ prec_sens_spec <- function(sens,
   for (i in c("sens", "spec", "prev", "conf.width")){
     x <- get(i)
     if (!is.null(x)) {
-      if (x < 0 | x > 1) stop("'", i, "' must be numeric in [0, 1]")
+      if (any(sapply(x, function(x) x < 0 | x > 1))) stop("'", i, "' must be numeric in [0, 1]")
     }
   }
 
@@ -118,12 +119,61 @@ prec_sens_spec <- function(sens,
 }
 
 
-# AUC
+# sens/spec
+#' Sample size and precision of sensitivity and specificity
+#'
+#' Because sensitivity and specificity are simple proportions, these functions
+#' act as wrappers for \code{prec_prop}.
+#' @rdname sensspec
+#' @param sens,spec proportions
+#' @inheritParams prec_prop
+#' @aliases prec_sens prec_spec
+#' @return Object of class "presize", a list of arguments (including the
+#'   computed one) augmented with method and note elements.
+#' @seealso \code{prec_prop}, \code{prec_sens_spec}
+prec_sens <- function(sens, n = NULL, conf.width = NULL, conf.level = .95, ...){
+
+  pp <- prec_prop(sens, n, conf.width, conf.level, ...)
+
+  structure(list(sens = pp$p,
+                 sensadj = pp$padj,
+                 n = pp$n,
+                 conf.width = pp$conf.width,
+                 conf.level = pp$conf.level,
+                 lwr = pp$lwr,
+                 upr = pp$upr,
+                 note = "padj is the adjusted proportion, from which the ci is calculated.",
+                 method = gsub("proportion", "sensitivity", pp$method)),
+            class = "presize")
+
+}
+#' @export
+#' @rdname sensspec
+prec_spec <- function(spec, n = NULL, conf.width = NULL, conf.level = .95, ...){
+
+  pp <- prec_prop(spec, n, conf.width, conf.level, ...)
+
+  structure(list(sens = pp$p,
+                 sensadj = pp$padj,
+                 n = pp$n,
+                 conf.width = pp$conf.width,
+                 conf.level = pp$conf.level,
+                 lwr = pp$lwr,
+                 upr = pp$upr,
+                 note = "padj is the adjusted proportion, from which the ci is calculated.",
+                 method = gsub("proportion", "Specificity", pp$method)),
+            class = "presize")
+
+}
+
+
+# AUC ----
 #' Sample size or precision for AUC
 #'
 #' Calculate the sample size from AUC, prevalence and confidence interval width
 #' or the expected confidence interval width from AUC, prevalence and sample
-#' size
+#' size, following Hanley and McNeil (1982).
+#'
 #'
 #' Sample size is derived by optimizing the difference between the difference
 #' between the lower and upper limits of the confidence interval and
@@ -135,7 +185,10 @@ prec_sens_spec <- function(sens,
 #' @param conf.width precision (the full width of the confidence interval)
 #' @param conf.level confidence level
 #' @param ... other arguments to \code{optimize}
-#' @example
+#' @return Object of class "presize", a list of arguments (including the
+#'   computed one) augmented with method and note elements.
+#' @references Hanley, JA and McNeil, BJ (1982) \emph{The Meaning and Use of the Area under a Receiver Operating Characteristic (ROC) Curve.} Radiology 148, 29-36
+#' @examples
 #' # confidence interval width
 #' N <- 500
 #' prev <- .1
@@ -190,7 +243,7 @@ prec_auc <- function(auc, prev, n = NULL, conf.width = NULL, conf.level = .95,
 
   if (is.null(n)) {
     est <- "sample size"
-    op <- optimize(opti_fn,
+    op <- stats::optimize(opti_fn,
                    interval = c(0, 1e6),
                    auc = auc,
                    prev = prev,
@@ -199,7 +252,7 @@ prec_auc <- function(auc, prev, n = NULL, conf.width = NULL, conf.level = .95,
     n <- op$minimum
     n1 <- n*prev
     n2 <- n*(1-prev)
-    res <- fn(n1, n2, auc)
+    res <- fn(n, prev, auc)
     lwr <- res$lwr
     upr <- res$upr
 
@@ -208,14 +261,12 @@ prec_auc <- function(auc, prev, n = NULL, conf.width = NULL, conf.level = .95,
     conf.width <- res$width
     lwr <- res$lwr
     upr <- res$upr
+    n1 <- n*prev
+    n2 <- n*(1-prev)
 
     est <- "precision"
 
   }
-
-
-
-
 
   structure(list(auc = auc,
                  n = n,
