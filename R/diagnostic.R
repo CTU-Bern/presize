@@ -131,6 +131,7 @@ prec_sens_spec <- function(sens,
 #' @return Object of class "presize", a list of arguments (including the
 #'   computed one) augmented with method and note elements.
 #' @seealso \code{prec_prop}, \code{prec_sens_spec}
+#' @export
 prec_sens <- function(sens, n = NULL, conf.width = NULL, conf.level = .95, ...){
 
   pp <- prec_prop(sens, n, conf.width, conf.level, ...)
