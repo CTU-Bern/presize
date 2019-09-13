@@ -132,13 +132,27 @@ prec_sens_spec <- function(sens,
 #'   computed one) augmented with method and note elements.
 #' @seealso \code{prec_prop}, \code{prec_sens_spec}
 #' @export
-prec_sens <- function(sens, n = NULL, conf.width = NULL, conf.level = .95, ...){
+prec_sens <- function(sens, n = NULL, ntot = NULL, prev = NULL, conf.width = NULL, conf.level = .95, round = "ceiling", ...){
+  if (is.null(ntot) & !is.null(prev)) stop("specify ntot and prev together to calculate n")
+  if (!round %in% c("ceiling", "floor")) stop("choices for 'round' are 'ceiling' or 'floor'")
+  numrange_check(prev)
+  rounder <- switch(round,
+                    ceiling = ceiling,
+                    floor = floor)
+  if (!is.null(ntot) & !is.null(prev)){
+    n <- rounder(ntot * prev)
+  } else {
+    ntot <- NA
+    prev <- NA
+  }
 
   pp <- prec_prop(sens, n, conf.width, conf.level, ...)
 
   structure(list(sens = pp$p,
                  sensadj = pp$padj,
                  n = pp$n,
+                 prev = prev,
+                 ntot = ntot,
                  conf.width = pp$conf.width,
                  conf.level = pp$conf.level,
                  lwr = pp$lwr,
@@ -150,7 +164,13 @@ prec_sens <- function(sens, n = NULL, conf.width = NULL, conf.level = .95, ...){
 }
 #' @export
 #' @rdname sensspec
-prec_spec <- function(spec, n = NULL, conf.width = NULL, conf.level = .95, ...){
+prec_spec <- function(spec, n = NULL, ntot = NULL, prev = NULL, conf.width = NULL, conf.level = .95, round = "ceiling",...){
+  if (is.null(ntot) & !is.null(prev)) stop("specify ntot and prev together to calculate n")
+  if (!round %in% c("ceiling", "floor")) stop("choices for 'round' are 'ceiling' or 'floor'")
+  rounder <- switch(roundup,
+                    ceiling = ceiling,
+                    floor = floor)
+  if (!is.null(ntot) & !is.null(prev)) n <- rounder(ntot * prev)
 
   pp <- prec_prop(spec, n, conf.width, conf.level, ...)
 
@@ -162,7 +182,7 @@ prec_spec <- function(spec, n = NULL, conf.width = NULL, conf.level = .95, ...){
                  lwr = pp$lwr,
                  upr = pp$upr,
                  note = "padj is the adjusted proportion, from which the ci is calculated.",
-                 method = gsub("proportion", "Specificity", pp$method)),
+                 method = gsub("proportion", "specificity", pp$method)),
             class = "presize")
 
 }
