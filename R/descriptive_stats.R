@@ -323,6 +323,7 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
     if (is.null(n))
       n <- p * (1 - p) / (prec / z) ^ 2
     padj <- p
+    meth <- "Wald"
   }
 
   if (meth == "agresti-coull") {
@@ -341,6 +342,7 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
       n <- mapply(f, p = p, prec = prec, z = z, z2 = z2)
     }
     padj <- (p * n + 0.5 * z2) / (n + z2)   # check for correctness
+    meth <- "Agresti-Coull"
   }
 
   if (meth == "wilson") {
@@ -353,6 +355,7 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
       n <- mapply(f, p = p, prec = prec, z = z, z2 = z2)
     }
     padj <- (n * p + z2 / 2) / (n + z2)
+    meth <- "Wilson"
   }
 
   if (meth == "exact") {
@@ -389,6 +392,7 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
     warning("The lower end of at least one confidence interval is below 0 and non-sensible. Please choose 'wilson' or 'exact' method.")
   if(any(upr > 1))
     warning("The upper end of at least one confidence interval is above 1 and non-sensible. Please choose 'wilson' or 'exact' method.")
+
 
   structure(list(p = p,
                  padj = padj,
