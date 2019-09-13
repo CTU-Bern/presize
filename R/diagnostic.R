@@ -174,8 +174,8 @@ prec_spec <- function(spec, n = NULL, ntot = NULL, prev = NULL, conf.width = NUL
 
   pp <- prec_prop(spec, n, conf.width, conf.level, ...)
 
-  structure(list(sens = pp$p,
-                 sensadj = pp$padj,
+  structure(list(spec = pp$p,
+                 specadj = pp$padj,
                  n = pp$n,
                  conf.width = pp$conf.width,
                  conf.level = pp$conf.level,
