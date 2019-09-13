@@ -124,15 +124,23 @@ prec_sens_spec <- function(sens,
 #'
 #' Because sensitivity and specificity are simple proportions, these functions
 #' act as wrappers for \code{prec_prop}.
+#'
+#' If \code{ntot} and \code{prev} are given, they are used to calculate
+#'   \code{n}.
+#'
 #' @rdname sensspec
 #' @param sens,spec proportions
+#' @param ntot total sample size
+#' @param prev prevalence of cases/disease (i.e. proportion of \code{ntot} with the disease)
+#' @param ... options passed to prec_prop (e.g. method,
+#'   conf.width, conf.level)
 #' @inheritParams prec_prop
 #' @aliases prec_sens prec_spec
 #' @return Object of class "presize", a list of arguments (including the
 #'   computed one) augmented with method and note elements.
 #' @seealso \code{prec_prop}, \code{prec_sens_spec}
 #' @export
-prec_sens <- function(sens, n = NULL, ntot = NULL, prev = NULL, conf.width = NULL, conf.level = .95, round = "ceiling", ...){
+prec_sens <- function(sens, n = NULL, ntot = NULL, prev = NULL, conf.width = NULL, round = "ceiling", ...){
   if (is.null(ntot) & !is.null(prev)) stop("specify ntot and prev together to calculate n")
   if (!round %in% c("ceiling", "floor")) stop("choices for 'round' are 'ceiling' or 'floor'")
   numrange_check(prev)
@@ -146,7 +154,7 @@ prec_sens <- function(sens, n = NULL, ntot = NULL, prev = NULL, conf.width = NUL
     prev <- NA
   }
 
-  pp <- prec_prop(sens, n, conf.width, conf.level, ...)
+  pp <- prec_prop(sens, n, conf.width, ...)
 
   structure(list(sens = pp$p,
                  sensadj = pp$padj,
@@ -164,15 +172,15 @@ prec_sens <- function(sens, n = NULL, ntot = NULL, prev = NULL, conf.width = NUL
 }
 #' @export
 #' @rdname sensspec
-prec_spec <- function(spec, n = NULL, ntot = NULL, prev = NULL, conf.width = NULL, conf.level = .95, round = "ceiling",...){
+prec_spec <- function(spec, n = NULL, ntot = NULL, prev = NULL, conf.width = NULL, round = "ceiling",...){
   if (is.null(ntot) & !is.null(prev)) stop("specify ntot and prev together to calculate n")
   if (!round %in% c("ceiling", "floor")) stop("choices for 'round' are 'ceiling' or 'floor'")
   rounder <- switch(roundup,
                     ceiling = ceiling,
                     floor = floor)
-  if (!is.null(ntot) & !is.null(prev)) n <- rounder(ntot * prev)
+  if (!is.null(ntot) & !is.null(prev)) n <- rounder(ntot * (1-prev))
 
-  pp <- prec_prop(spec, n, conf.width, conf.level, ...)
+  pp <- prec_prop(spec, n, conf.width, ...)
 
   structure(list(spec = pp$p,
                  specadj = pp$padj,
