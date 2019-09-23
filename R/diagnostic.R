@@ -142,6 +142,7 @@ prec_sens_spec <- function(sens,
 #' @export
 prec_sens <- function(sens, n = NULL, ntot = NULL, prev = NULL, conf.width = NULL, round = "ceiling", ...){
   if (is.null(ntot) & !is.null(prev)) stop("specify ntot and prev together to calculate n")
+  if (!is.null(ntot) & !is.null(n)) stop("specify either ntot and prev together or n")
   if (!round %in% c("ceiling", "floor")) stop("choices for 'round' are 'ceiling' or 'floor'")
   numrange_check(prev)
   rounder <- switch(round,
@@ -174,11 +175,18 @@ prec_sens <- function(sens, n = NULL, ntot = NULL, prev = NULL, conf.width = NUL
 #' @rdname sensspec
 prec_spec <- function(spec, n = NULL, ntot = NULL, prev = NULL, conf.width = NULL, round = "ceiling",...){
   if (is.null(ntot) & !is.null(prev)) stop("specify ntot and prev together to calculate n")
+  if (!is.null(ntot) & !is.null(n)) stop("specify either ntot and prev together or n")
   if (!round %in% c("ceiling", "floor")) stop("choices for 'round' are 'ceiling' or 'floor'")
-  rounder <- switch(roundup,
+  numrange_check(prev)
+  rounder <- switch(round,
                     ceiling = ceiling,
                     floor = floor)
-  if (!is.null(ntot) & !is.null(prev)) n <- rounder(ntot * (1-prev))
+  if (!is.null(ntot) & !is.null(prev)){
+    n <- rounder(ntot * (1-prev))
+  } else {
+    ntot <- NA
+    prev <- NA
+  }
 
   pp <- prec_prop(spec, n, conf.width, ...)
 
