@@ -172,7 +172,7 @@ prec_sens <- function(sens, n = NULL, ntot = NULL, prev = NULL, conf.width = NUL
                  conf.level = pp$conf.level,
                  lwr = pp$lwr,
                  upr = pp$upr,
-                 note = "padj is the adjusted proportion, from which the ci is calculated.",
+                 note = "sensadj is the adjusted sensitivity, from which the ci is calculated.",
                  method = gsub("proportion", "sensitivity", pp$method)),
             class = "presize")
 
@@ -203,7 +203,7 @@ prec_spec <- function(spec, n = NULL, ntot = NULL, prev = NULL, conf.width = NUL
                  conf.level = pp$conf.level,
                  lwr = pp$lwr,
                  upr = pp$upr,
-                 note = "padj is the adjusted proportion, from which the ci is calculated.",
+                 note = "specadj is the adjusted specificity, from which the ci is calculated.",
                  method = gsub("proportion", "specificity", pp$method)),
             class = "presize")
 
