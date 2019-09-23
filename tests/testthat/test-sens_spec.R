@@ -41,5 +41,33 @@ test_that("Buderer example (ci width)", {
 })
 
 
+context("Sensitivity")
+
+test_that("throws error", {
+  expect_error(prec_sens(1.1, 100, method = "wilson"))
+  expect_error(prec_sens(.5, n = 100, ntot = 100, method = "wilson"))
+  expect_error(prec_sens(.5, prev = 1.1, ntot = 100, method = "wilson"))
+  expect_error(prec_sens(.5, ntot = 100, method = "wilson"))
+  expect_error(prec_sens(.5, prev = 100, method = "wilson"))
+  expect_error(prec_sens(.5, n = 100, ntot = 100, prev = .6, method = "wilson"))
+})
+
+test_that("rounding works", {
+  x <- prec_sens(.5, prev = .6, ntot = 52, method = "wilson")
+  expect_equal(x$n, 32)
+  x <- prec_sens(.5, prev = .6, ntot = 52, method = "wilson", round = "floor")
+  expect_equal(x$n, 31)
+})
+
+test_that("ntot + prev gives same as n", {
+  x1 <- prec_sens(.5, prev = .6, ntot = 52, method = "wilson")
+  x2 <- prec_sens(.5, n = 32, method = "wilson")
+
+  expect_equal(x1$conf.width, x2$conf.width)
+  expect_equal(x1$lwr, x2$lwr)
+  expect_equal(x1$upr, x2$upr)
+  expect_equal(x1$n, x2$n)
+
+})
 
 
