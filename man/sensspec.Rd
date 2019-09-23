@@ -5,20 +5,25 @@
 \alias{prec_spec}
 \title{Sample size and precision of sensitivity and specificity}
 \usage{
-prec_sens(sens, n = NULL, conf.width = NULL, conf.level = 0.95, ...)
+prec_sens(sens, n = NULL, ntot = NULL, prev = NULL,
+  conf.width = NULL, round = "ceiling", ...)
 
-prec_spec(spec, n = NULL, conf.width = NULL, conf.level = 0.95, ...)
+prec_spec(spec, n = NULL, ntot = NULL, prev = NULL,
+  conf.width = NULL, round = "ceiling", ...)
 }
 \arguments{
 \item{sens, spec}{proportions}
 
 \item{n}{number of observations}
 
+\item{ntot}{total sample size}
+
+\item{prev}{prevalence of cases/disease (i.e. proportion of \code{ntot} with the disease)}
+
 \item{conf.width}{precision (the full width of the conficende interval)}
 
-\item{conf.level}{confidence level}
-
-\item{...}{other arguments to uniroot (e.g. \code{tol})}
+\item{...}{options passed to prec_prop (e.g. method,
+conf.width, conf.level)}
 }
 \value{
 Object of class "presize", a list of arguments (including the
@@ -27,6 +32,10 @@ Object of class "presize", a list of arguments (including the
 \description{
 Because sensitivity and specificity are simple proportions, these functions
 act as wrappers for \code{prec_prop}.
+}
+\details{
+If \code{ntot} and \code{prev} are given, they are used to calculate
+  \code{n}.
 }
 \seealso{
 \code{prec_prop}, \code{prec_sens_spec}
