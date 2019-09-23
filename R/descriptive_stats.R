@@ -178,9 +178,9 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
       prec <- eval(sc)
     }
     if (is.null(x)) {
-      f <- function(r, prec, z, z2) uniroot(function(x) eval(sc) - prec,
+      sc <- function(r, prec, z, z2) uniroot(function(x) eval(sc) - prec,
                                             c(1, 1e+07), ...)$root
-      x <- mapply(f, r = r, prec = prec, z = z, z2 = z2)
+      x <- mapply(sc, r = r, prec = prec, z = z, z2 = z2)
     }
     radj <- r + z2 * r / (2 * x)
   }
@@ -208,9 +208,9 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
            ps = ps)
     })
     if (is.null(x)) {
-      f <- function(r, alpha, prec) uniroot(function(x) eval(ex)$ps - prec,
+      exn <- function(r, alpha, prec) uniroot(function(x) eval(ex)$ps - prec,
                                             c(1, 1e+07), ...)$root
-      x <- mapply(f, r = r, alpha = alpha, prec = prec)
+      x <- mapply(exn, r = r, alpha = alpha, prec = prec)
     }
     res <- eval(ex)
     lwr <- res$lwr
@@ -337,9 +337,9 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
       prec <- eval(ac)
     }
     if (is.null(n)) {
-      f <- function(p, prec, z, z2) uniroot(function(n) eval(ac) - prec,
+      acn <- function(p, prec, z, z2) uniroot(function(n) eval(ac) - prec,
                                             c(1, 1e+07), ...)$root
-      n <- mapply(f, p = p, prec = prec, z = z, z2 = z2)
+      n <- mapply(acn, p = p, prec = prec, z = z, z2 = z2)
     }
     padj <- (p * n + 0.5 * z2) / (n + z2)   # check for correctness
     meth <- "Agresti-Coull"
@@ -350,9 +350,9 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
     if (is.null(conf.width))
       prec <- eval(wil)
     if (is.null(n)) {
-      f <- function(p, prec, z, z2) uniroot(function(n) eval(wil) - prec,
+      wil <- function(p, prec, z, z2) uniroot(function(n) eval(wil) - prec,
                                             c(1, 1e+07), ...)$root
-      n <- mapply(f, p = p, prec = prec, z = z, z2 = z2)
+      n <- mapply(wil, p = p, prec = prec, z = z, z2 = z2)
     }
     padj <- (n * p + z2 / 2) / (n + z2)
     meth <- "Wilson"
@@ -371,9 +371,9 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
            ps = ps)
     })
     if (is.null(n)) {
-      f <- function(p, prec, alpha) uniroot(function(n) eval(ex)$ps - prec,
+      exn <- function(p, prec, alpha) uniroot(function(n) eval(ex)$ps - prec,
                                             c(1, 1e+07), ...)$root
-      n <- mapply(f, p = p, prec = prec, alpha = alpha)
+      n <- mapply(exn, p = p, prec = prec, alpha = alpha)
     }
     res <- eval(ex)
     lwr <- res$lwr

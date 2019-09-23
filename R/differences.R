@@ -88,9 +88,9 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
     if (is.null(conf.width))
       prec <- eval(md)
     if (is.null(n1)) {
-      f <- function(r, sd1, sd2, alpha, prec) uniroot(function(n1) eval(md) - prec,
+      eqn <- function(r, sd1, sd2, alpha, prec) uniroot(function(n1) eval(md) - prec,
                                                       c(2, 1e+07), ...)$root
-      n1 <- mapply(f, r = r, sd1 = sd1, sd2 = sd2, alpha = alpha, prec = prec)
+      n1 <- mapply(eqn, r = r, sd1 = sd1, sd2 = sd2, alpha = alpha, prec = prec)
     }
   }
 
@@ -106,9 +106,9 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
     if (is.null(conf.width))
       prec <- eval(md_ueq)
     if (is.null(n1)){
-      f <- function(sd1, sd2, r, alpha, prec) uniroot(function(n1) eval(md_ueq) - prec,
+      un <- function(sd1, sd2, r, alpha, prec) uniroot(function(n1) eval(md_ueq) - prec,
                                                       c(2, 1e+07), ...)$root
-      n1 <- mapply(f, sd1 = sd1, sd2 = sd2, r = r, alpha = alpha, prec = prec)
+      n1 <- mapply(un, sd1 = sd1, sd2 = sd2, r = r, alpha = alpha, prec = prec)
     }
   }
 
@@ -265,9 +265,9 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
       conf.width <- ci$cw
     }
     if (is.null(n1)) {
-      f <- function(p1, p2, conf.level, conf.width) uniroot(function(n1) eval(nc)$cw - conf.width,
+      nn <- function(p1, p2, conf.level, conf.width) uniroot(function(n1) eval(nc)$cw - conf.width,
                                                             c(1, 1e+07), ...)$root
-      n1 <- mapply(f, p1 = p1, p2 = p2, conf.level = conf.level, conf.width = conf.width)
+      n1 <- mapply(nn, p1 = p1, p2 = p2, conf.level = conf.level, conf.width = conf.width)
       ci <- eval(nc)
       n2 <- ci$n2
     }
@@ -306,9 +306,9 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
       conf.width <- prec * 2
     }
     if (is.null(n1)) {
-      f <- function(p1, p2, r, prec) uniroot(function(n1) eval(ac) - prec,
+      acn <- function(p1, p2, r, prec) uniroot(function(n1) eval(ac) - prec,
                               c(1, 1e+07), ...)$root
-      n1 <- mapply(f, p1 = p1, p2 = p2, r = r, prec = prec)
+      n1 <- mapply(acn, p1 = p1, p2 = p2, r = r, prec = prec)
       n2 <- n1 / r
     }
     lwr <- delta - prec
@@ -383,7 +383,7 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
       conf.width <- upr - lwr
     }
     if (is.null(n1)) {
-      f <- function(p1, p2, conf.width, r = r, conf.level = conf.level) {
+      mnn <- function(p1, p2, conf.width, r = r, conf.level = conf.level) {
         uniroot(function(n1) {
           n2 <- n1 / r
           x1 <- p1 * n1
@@ -393,7 +393,7 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
         },
         c(2, 1e+07), ...)$root
       }
-      n1 <- mapply(f, p1 = p1, p2 = p2, conf.width = conf.width, r = r, conf.level = conf.level)
+      n1 <- mapply(mnn, p1 = p1, p2 = p2, conf.width = conf.width, r = r, conf.level = conf.level)
       n2 <- n1 / r
       x1 <- n1 * p1
       x2 <- n2 * p2
@@ -690,7 +690,7 @@ prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.
     n2 <- n1 * r
     est <- "precision"
   }
-
+  lwr <- upr <- NA
 
 
 
