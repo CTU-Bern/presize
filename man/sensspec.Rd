@@ -18,9 +18,13 @@ prec_spec(spec, n = NULL, ntot = NULL, prev = NULL,
 
 \item{ntot}{total sample size}
 
-\item{prev}{prevalence of cases/disease (i.e. proportion of \code{ntot} with the disease)}
+\item{prev}{prevalence of cases/disease (i.e. proportion of \code{ntot} with
+the disease)}
 
 \item{conf.width}{precision (the full width of the conficende interval)}
+
+\item{round}{string, round calculated \code{n} up (\code{ceiling}) or down
+(\code{floor})}
 
 \item{...}{options passed to prec_prop (e.g. method,
 conf.width, conf.level)}
@@ -36,6 +40,11 @@ act as wrappers for \code{prec_prop}.
 \details{
 If \code{ntot} and \code{prev} are given, they are used to calculate
   \code{n}.
+}
+\note{
+Calculated \code{n} can take on non-integer numbers, but
+  \code{prec_prop} requires integers, so the calculated \code{n} is rounded
+  according to the approach indicated in \code{round}.
 }
 \seealso{
 \code{prec_prop}, \code{prec_sens_spec}

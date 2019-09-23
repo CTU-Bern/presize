@@ -131,9 +131,15 @@ prec_sens_spec <- function(sens,
 #' @rdname sensspec
 #' @param sens,spec proportions
 #' @param ntot total sample size
-#' @param prev prevalence of cases/disease (i.e. proportion of \code{ntot} with the disease)
+#' @param prev prevalence of cases/disease (i.e. proportion of \code{ntot} with
+#'   the disease)
+#' @param round string, round calculated \code{n} up (\code{ceiling}) or down
+#'   (\code{floor})
 #' @param ... options passed to prec_prop (e.g. method,
 #'   conf.width, conf.level)
+#' @note Calculated \code{n} can take on non-integer numbers, but
+#'   \code{prec_prop} requires integers, so the calculated \code{n} is rounded
+#'   according to the approach indicated in \code{round}.
 #' @inheritParams prec_prop
 #' @aliases prec_sens prec_spec
 #' @return Object of class "presize", a list of arguments (including the
