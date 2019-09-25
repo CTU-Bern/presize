@@ -805,6 +805,8 @@ prec_rateratio <- function(n_exp = NULL, # n exposed
 
   if (any(is.null(rate_exp), is.null(rate_control)))
     stop("both rate_exp and rate_control required")
+  if (sum(sapply(list(n_exp, conf.width), is.null)) != 1)
+    stop("exactly one of 'n_exp', and 'conf.width' must be NULL")
 
   if (is.null(conf.width)){
     est <- "precision"
