@@ -41,7 +41,7 @@ presize will provide functions for
     + risk difference (`prec_riskdiff`)
     + odds ration (`prec_or`)
     + risk ratio (`prec_riskratio`)
-    + rate ratio
+    + rate ratio (`prec_rateratio`)
     + hazard ratio
   
 * correlation measures
@@ -54,8 +54,8 @@ presize will provide functions for
     + sens (`prec_sens`<sup>1</sup>)
     + spec (`prec_spec`<sup>1</sup>)
     + sens and spec jointly (`prec_sens_spec`)
-    + positive LR
-    + negative LR
+<!--    + positive LR -->
+<!--    + negative LR -->
     + AUC (`prec_auc`)
     
 <sup>1</sup> Simple wrappers for `prec_prop`.

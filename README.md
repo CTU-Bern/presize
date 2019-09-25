@@ -34,7 +34,7 @@ presize will provide functions for
       - risk difference (`prec_riskdiff`)
       - odds ration (`prec_or`)
       - risk ratio (`prec_riskratio`)
-      - rate ratio
+      - rate ratio (`prec_rateratio`)
       - hazard ratio
   - correlation measures
       - correlation coefficient (`prec_cor`)
@@ -45,8 +45,7 @@ presize will provide functions for
       - sens (`prec_sens`<sup>1</sup>)
       - spec (`prec_spec`<sup>1</sup>)
       - sens and spec jointly (`prec_sens_spec`)
-      - positive LR
-      - negative LR
+        <!--    + positive LR --> <!--    + negative LR -->
       - AUC (`prec_auc`)
 
 <sup>1</sup> Simple wrappers for `prec_prop`.
@@ -61,7 +60,7 @@ library(presize)
 # calculate sample size for a proportion of 0.2, or 0.4 with a precision of 0.2
 prec_prop(p = c(.2, .4), n = 10, method = "wilson")
 #> 
-#>      precision for a proportion with wilson confidence interval. 
+#>      precision for a proportion with Wilson confidence interval. 
 #> 
 #>     p      padj  n conf.width conf.level        lwr       upr
 #> 1 0.2 0.2832598 10  0.4531554       0.95 0.05668215 0.5098375
