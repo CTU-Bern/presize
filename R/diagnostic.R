@@ -145,6 +145,13 @@ prec_sens_spec <- function(sens,
 #' @return Object of class "presize", a list of arguments (including the
 #'   computed one) augmented with method and note elements.
 #' @seealso \code{prec_prop}, \code{prec_sens_spec}
+#' @examples
+#'   # confidence interval width with n
+#'   prec_sens(.6, 50)
+#'   # confidence interval width with ntot and prevalence (assuming 50% prev)
+#'   prec_sens(.6, ntot = 100, prev = .5)
+#'   # sample size with confidence interval width
+#'   prec_sens(.6, conf.width = 0.262)
 #' @export
 prec_sens <- function(sens, n = NULL, ntot = NULL, prev = NULL, conf.width = NULL, round = "ceiling", ...){
   if (is.null(ntot) & !is.null(prev)) stop("specify ntot and prev together to calculate n")
