@@ -80,7 +80,7 @@ test_that("ntot + prev gives same as n", {
   expect_equal(x1$n, x2$n)
 
   x1 <- prec_spec(.5, prev = .6, ntot = 52, method = "wilson")
-  x2 <- prec_spec(.5, n = 32, method = "wilson")
+  x2 <- prec_spec(.5, n = 21, method = "wilson")
 
   expect_equal(x1$conf.width, x2$conf.width)
   expect_equal(x1$lwr, x2$lwr)
@@ -93,7 +93,7 @@ test_that("ntot + prev gives same as n", {
 
 context("AUC")
 
-text_that("errors issued", {
+test_that("errors issued", {
   expect_error(prec_auc(), "exactly one")
   expect_error(prec_auc(n = 20, prev = -1), "0, 1")
   expect_error(prec_auc(n = 20, prev = 2), "0, 1")
