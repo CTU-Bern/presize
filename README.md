@@ -34,11 +34,9 @@ presize will provide functions for
       - risk difference (`prec_riskdiff`)
       - odds ration (`prec_or`)
       - risk ratio (`prec_riskratio`)
-      - rate ratio (`prec_rateratio`)
-      - hazard ratio
+      - rate ratio (`prec_rateratio`) <!--    + hazard ratio -->
   - correlation measures
-      - correlation coefficient (`prec_cor`)
-      - Cohens kappa
+      - correlation coefficient (`prec_cor`) <!--    + Cohens kappa -->
       - ICC (`prec_icc`)
       - limit of agreement from Bland Altman plot (`prec_lim_agree`)
   - diagnostic measures
