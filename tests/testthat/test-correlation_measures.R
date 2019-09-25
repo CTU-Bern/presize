@@ -1,5 +1,29 @@
 context("Correlation measures")
 
+
+test_that("errors", {
+  expect_error(prec_icc(k = "foo"))
+  expect_error(prec_icc(k = .5))
+  expect_error(prec_icc(k = 2), "exactly one")
+  expect_error(prec_icc(k = 2, n = 15, conf.width = .3), "exactly one")
+
+  expect_error(prec_cor())
+  expect_error(prec_cor(n = 15, conf.width = .2))
+  expect_error(prec_cor(n = 15, r = 3))
+  expect_warning(prec_cor(r = .2, conf.width = .3))
+  expect_error(prec_cor(r = .2, conf.width = .3, method = "pearson"), NA)
+  expect_error(prec_cor(r = .2, conf.width = .3, method = "kendall"), NA)
+  expect_error(prec_cor(r = .2, conf.width = .3, method = "spearman"), NA)
+
+  expect_error(prec_lim_agree(), "exactly one")
+  expect_error(prec_lim_agree(15), NA)
+  expect_error(prec_lim_agree(conf.width = 15), NA)
+
+
+})
+
+
+
 # ICC
 test_that("icc", {
   rho <- .5
