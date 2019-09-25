@@ -9,6 +9,10 @@ test_that("printing works", {
   expect_error(capture.output(print(x)), regexp = NA)
   cap <- capture.output(print(x))
   expect_true(grepl("Output truncated at 10 of 12 rows", cap[length(cap)]))
+
+  y <- prec_rate(3, 10, method = "score")
+  cap <- capture.output(print(y))
+  expect_true(grepl("^NOTE", cap[length(cap)-1]))
 })
 
 

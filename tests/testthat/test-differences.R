@@ -32,6 +32,8 @@ test_that("errors", {
   expect_error(prec_meandiff(2, 1, n = 50, variance = "equal"), NA)
   expect_error(prec_meandiff(2, 1, n = 50, variance = "unequal"), NA)
   expect_message(prec_meandiff(2, 1, n = 50))
+  expect_error(prec_meandiff(2, 1, conf.width = .5, variance = "equal"), NA)
+  expect_error(prec_meandiff(2, 1, conf.width = .5, variance = "unequal"), NA)
 
   expect_error(prec_riskdiff())
   expect_error(prec_riskdiff(n = 100))
