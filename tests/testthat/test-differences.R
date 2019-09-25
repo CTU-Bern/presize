@@ -34,6 +34,16 @@ test_that("errors", {
   expect_message(prec_meandiff(2, 1, n = 50))
   expect_error(prec_meandiff(2, 1, conf.width = .5, variance = "equal"), NA)
   expect_error(prec_meandiff(2, 1, conf.width = .5, variance = "unequal"), NA)
+  expect_message(prec_meandiff(2, 1, 2, conf.width = .5),
+                 "Variance was changed")
+  expect_error(prec_meandiff(2, 1, 2, conf.width = .5, variance = "foo"),
+               "variance is not correctly specified")
+  expect_message(prec_meandiff(2, 1, 2, conf.width = .5, variance = "equal"),
+                 "equal variance was chosen")
+  expect_error(prec_meandiff(2, .5, n1 = 50, variance = "equal"), NA)
+  expect_error(prec_meandiff(2, .5, conf.width = .1, variance = "equal"), NA)
+  expect_error(prec_meandiff(2, .5, n1 = 50, variance = "unequal"), NA)
+  expect_error(prec_meandiff(2, .5, conf.width = .1, variance = "unequal"), NA)
 
   expect_error(prec_riskdiff())
   expect_error(prec_riskdiff(n = 100))
@@ -45,6 +55,15 @@ test_that("errors", {
   expect_error(prec_riskdiff(n = 100, p1 = .2, p2 = .4, method = "mn"), NA)
   expect_error(prec_riskdiff(n = 100, p1 = .2, p2 = .4, method = "ac"), NA)
   expect_error(prec_riskdiff(n = 100, p1 = .2, p2 = .4, method = "wald"), NA)
+  expect_error(prec_riskdiff(conf.width = .1,
+                             p1 = .2, p2 = .4, method = "new"), NA)
+  expect_error(prec_riskdiff(conf.width = .1,
+                             p1 = .2, p2 = .4, method = "mn"), NA)
+  expect_error(prec_riskdiff(conf.width = .1,
+                             p1 = .2, p2 = .4, method = "ac"), NA)
+  expect_error(prec_riskdiff(conf.width = .1,
+                             p1 = .2, p2 = .4, method = "wald"), NA)
+  expect_warning(prec_riskdiff(n = 100, p1 = .2, p2 = .4, method = "foo"), "Method 'foo' is not available")
 
   expect_error(prec_or(), "exactly one")
   expect_error(prec_or(n1 = 50), "p1")
@@ -60,6 +79,7 @@ test_that("errors", {
                        method = "indip_smooth"), NA)
   expect_error(prec_or(conf.width = .2, p1 = .5, p2 = .8, method = "woolf"), NA)
   expect_error(prec_or(conf.width = .2, p1 = .5, p2 = .8, method = "gart"), NA)
+  expect_warning(prec_or(conf.width = .2, p1 = .5, p2 = .8, method = "foo"), "Method 'foo' is not available")
 
 })
 
