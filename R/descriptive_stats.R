@@ -123,14 +123,15 @@ prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
 #' 10.1198/000313002317572736}
 #' @examples
 #' prec_rate(2.5, x = 20, met = "score")
+#' prec_rate(2.5, conf.width = 2.243, met = "score")
 #' prec_rate(2.5, x = 20, met = "exact")
 #' # vs and wald have the same conf.width, but different lwr and upr
 #' prec_rate(2.5, x = 20, met = "wald")
 #' prec_rate(2.5, x = 20, met = "vs")
 #' @export
 prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
-                      method = c("score", "vs", "exact", "wald"),
-                      ...) {
+                               method = c("score", "vs", "exact", "wald"),
+                               ...) {
 
   if (sum(sapply(list(x, conf.width), is.null)) != 1)
     stop("exactly one of 'x', and 'conf.width' must be NULL")
@@ -138,15 +139,16 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
   # checks for the method
   if (length(method) > 1) {
     warning("more than one method was chosen, 'score' will be used")
-    method <- "score"
   }
   methods <- c("score", "vs", "exact", "wald")
-  i <- pmatch(method, methods)
-  meth <- methods[i]
-  if (is.na(i)) {
-    warning("Method '", method, "' is not available. 'score' will be used.")
-    meth <- "score"
-  }
+  matched_meth <- match.arg(method,
+                            methods)
+  meth <- switch(matched_meth,
+                 score = "score",
+                 vs = "vs",
+                 exact = "exact",
+                 wald = "wald",
+                 "score")
 
   if (is.null(x)) {
     prec <- conf.width * 0.5
@@ -158,70 +160,69 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
   alpha <- (1 - conf.level) / 2
   z <- qnorm(1 - alpha)
   z2 <- z * z
-  # Wald
-  if (meth == "wald") {
+
+  quo <- switch(meth,
+                score = quote(z * sqrt(r * (4 + z2 / x)) / sqrt(4 * x / r)),
+                vs = quote(z * r * sqrt(1 / x)),
+                exact = quote({
+                  t <- x / r
+                  lwr <- qgamma(alpha, x) / t
+                  upr <- qgamma(1 - alpha, x + 1) / t
+                  ps <- (upr - lwr) / 2
+                  list(lwr = lwr,
+                       upr = upr,
+                       ps = ps)
+                }),
+                wald = quote(z * r * sqrt(1 / x)))
+  get_radj <- switch(meth,
+                     wald = quote(r),
+                     score = quote(r + z2 * r / (2 * x)),
+                     vs = quote(r * (1 + z2 / (4 * x))),
+                     exact = quote(r))
+  get_x <- switch(meth,
+                  wald = quote((z * r / prec) ^ 2),
+                  score = quote(
+                    mapply(function(r, prec, z, z2){
+                      uniroot(function(x) eval(quo) - prec,
+                              c(1, 1e+07), ...)$root
+                    },
+                    r = r, prec = prec, z = z, z2 = z2)
+                  ),
+                  vs = quote((z * r / prec) ^ 2),
+                  exact = quote(
+                    mapply(function(r, alpha, prec){
+                      uniroot(function(x) eval(quo)$ps - prec,
+                              c(1, 1e+07), ...)$root
+                    }, r = r, alpha = alpha, prec = prec)
+                  ))
+
+  if (meth %in% c("wald", "score", "vs")) {
     if (is.null(conf.width)) {
-      prec <- z * r * sqrt(1 / x)
+      prec <- eval(quo)
     }
     if (is.null(x)) {
-      x <- (z * r / prec) ^ 2
+      x <- eval(get_x)
     }
-    radj <- r
-  }
+    if (r == 0 & meth == "vs")
+      warning("The confidence interval is degenerate at z^2/(4t), if r is 0.")
 
-  # score
-  if (meth == "score") {
-    sc <- quote({
-      z * sqrt(r * (4 + z2 / x)) / sqrt(4 * x / r)
-    })
-    if (is.null(conf.width)) {
-      prec <- eval(sc)
-    }
-    if (is.null(x)) {
-      f <- function(r, prec, z, z2) uniroot(function(x) eval(sc) - prec,
-                                            c(1, 1e+07), ...)$root
-      x <- mapply(f, r = r, prec = prec, z = z, z2 = z2)
-    }
-    radj <- r + z2 * r / (2 * x)
-  }
-
-  # variance stabilizing
-  if (meth == "vs") {
-    if (is.null(conf.width))
-      prec <- z * r * sqrt(1 / x)
-    if (is.null(x))
-      x <- (z * r / prec) ^ 2
-    if (r == 0)
-      warning("The conficence interval is degenerate at z^2/(4t), if r is 0.")
-    radj <- r * (1 + z2 / (4 * x))
+    radj <- eval(get_radj)
+    lwr <- radj - prec
+    upr <- radj + prec
+    conf.width <- 2 * prec
   }
 
   # exact
   if (meth == "exact") {
-    ex <- quote({
-      t <- x / r
-      lwr <- qgamma(alpha, x) / t
-      upr <- qgamma(1 - alpha, x + 1) / t
-      ps <- (upr - lwr) / 2
-      list(lwr = lwr,
-           upr = upr,
-           ps = ps)
-    })
     if (is.null(x)) {
-      f <- function(r, alpha, prec) uniroot(function(x) eval(ex)$ps - prec,
-                                            c(1, 1e+07), ...)$root
-      x <- mapply(f, r = r, alpha = alpha, prec = prec)
+      x <- eval(get_x)
     }
-    res <- eval(ex)
+    res <- eval(quo)
+    radj <- eval(get_radj)
     lwr <- res$lwr
     upr <- res$upr
-    radj <- r
     if (is.null(conf.width))
       conf.width <- upr - lwr
-  } else { # if method is not exact, define upper and lower boundary of ci
-    lwr <- radj - prec
-    upr <- radj + prec
-    conf.width <- 2 * prec
   }
 
   if (any(lwr < 0))
@@ -239,7 +240,7 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
          upr = upr,
          note = "'x / r' units of time are needed to accumulate 'x' events.",
          method = paste(est, "for a rate with", meth, "confidence interval")),
-     class = "presize")
+    class = "presize")
 }
 
 
@@ -283,10 +284,11 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
 #'
 #' @examples
 #' prec_prop(p = 1:9 / 10, n = 100, method = "wilson")
+#' prec_prop(p = 1:9 / 10, conf.width = .192, method = "wilson")
 #' @export
 prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
-                      method = c("wilson", "agresti-coull", "exact", "wald"),
-                      ...) {
+                       method = c("wilson", "agresti-coull", "exact", "wald"),
+                       ...) {
   if (sum(sapply(list(n, conf.width), is.null)) != 1)
     stop("exactly one of 'n', and 'conf.width' must be NULL")
   numrange_check(conf.level)
@@ -298,14 +300,15 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
   }
 
   methods <- c("wald", "ac", "agresti-coull", "exact", "wilson")
-  id <- pmatch(method, methods)
-  meth <- methods[id]
-  if (meth == "ac")
-    meth <- "agresti-coull"
-  if (is.na(id)) {
-    warning("Method '", method, "' is not available, 'wilson' will be used.")
-    meth <- "wilson"
-  }
+  matched_meth <- match.arg(method,
+                            methods)
+  meth <- switch(matched_meth,
+                 wilson = "Wilson",
+                 ac = "Agresti-Coull",
+                 'agresti-coull' = "Agresti-Coull",
+                 exact = "exact",
+                 wald = "Wald",
+                 "wilson")
 
   if (is.null(n)) {
     prec <- conf.width / 2
@@ -316,69 +319,88 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
   z <- qnorm(1 - alpha)
   z2 <- z * z
 
-  if (meth == "wald") {
+  padj <- NA
+
+  if (meth == "Wald") {
     if (is.null(conf.width)) {
       prec <- z * sqrt(p * (1 - p) / n)
     }
     if (is.null(n))
       n <- p * (1 - p) / (prec / z) ^ 2
     padj <- p
-  }
+  } else {
 
-  if (meth == "agresti-coull") {
-    ac <- quote({
-      n_ <- n + z2
-      x_ <- p * n + 0.5 * z2
-      padj <- x_ / n_
-      z * sqrt(padj * (1 - padj) / n_)
-    })
-    if (is.null(conf.width)) {
-      prec <- eval(ac)
-    }
-    if (is.null(n)) {
-      f <- function(p, prec, z, z2) uniroot(function(n) eval(ac) - prec,
-                                            c(1, 1e+07), ...)$root
-      n <- mapply(f, p = p, prec = prec, z = z, z2 = z2)
-    }
-    padj <- (p * n + 0.5 * z2) / (n + z2)   # check for correctness
-  }
+    quo <- switch(meth,
+                  'Agresti-Coull' = quote({
+                    n_ <- n + z2
+                    x_ <- p * n + 0.5 * z2
+                    padj <- x_ / n_
+                    z * sqrt(padj * (1 - padj) / n_)
+                  }),
+                  Wilson = quote({(z * sqrt(n) / (n + z2)) *
+                      sqrt(p * (1 - p) + z2 / (4 * n))}),
+                  exact = quote({
+                    x <- p * n
+                    lwr <- qbeta(alpha, x, n - x + 1)
+                    lwr[x == 0] <- 0
+                    upr <- qbeta(1 - alpha, x + 1, n - x)
+                    upr[x == 1] <- 1
+                    ps <- (upr - lwr) / 2
+                    list(lwr = lwr,
+                         upr = upr,
+                         ps = ps)
+                  }))
 
-  if (meth == "wilson") {
-    wil <- quote({(z * sqrt(n) / (n + z2)) * sqrt(p * (1 - p) + z2 / (4 * n))})
-    if (is.null(conf.width))
-      prec <- eval(wil)
-    if (is.null(n)) {
-      f <- function(p, prec, z, z2) uniroot(function(n) eval(wil) - prec,
-                                            c(1, 1e+07), ...)$root
-      n <- mapply(f, p = p, prec = prec, z = z, z2 = z2)
-    }
-    padj <- (n * p + z2 / 2) / (n + z2)
-  }
+    uniroot_fun <- switch(meth,
+                          'Agresti-Coull' = {
+                            function(p, prec, z, z2) {
+                              uniroot(function(n) eval(quo) - prec,
+                                      c(1, 1e+07), ...)$root
+                            }
+                          },
+                          Wilson = {
+                            function(p, prec, z, z2) {
+                              uniroot(function(n) eval(quo) - prec,
+                                      c(1, 1e+07), ...)$root
+                            }
+                          },
+                          exact = {
+                            function(p, prec, alpha){
+                              uniroot(function(n) eval(quo)$ps - prec,
+                                      c(1, 1e+07), ...)$root
+                            }
+                          }
+    )
 
-  if (meth == "exact") {
-    ex <- quote({
-      x <- p * n
-      lwr <- qbeta(alpha, x, n - x + 1)
-      lwr[x == 0] <- 0
-      upr <- qbeta(1 - alpha, x + 1, n - x)
-      upr[x == 1] <- 1
-      ps <- (upr - lwr) / 2
-      list(lwr = lwr,
-           upr = upr,
-           ps = ps)
-    })
-    if (is.null(n)) {
-      f <- function(p, prec, alpha) uniroot(function(n) eval(ex)$ps - prec,
-                                            c(1, 1e+07), ...)$root
-      n <- mapply(f, p = p, prec = prec, alpha = alpha)
+    if (meth %in% c("Agresti-Coull", "Wilson")){
+      if (is.null(conf.width)) {
+        prec <- eval(quo)
+      }
+      if (is.null(n)) {
+        f <- uniroot_fun
+        n <- mapply(f, p = p, prec = prec, z = z, z2 = z2)
+      }
+      padj <- switch(meth,
+                     'Agresti-Coull' = (p * n + 0.5 * z2) / (n + z2),
+                     Wilson = (n * p + z2 / 2) / (n + z2))
+
     }
-    res <- eval(ex)
-    lwr <- res$lwr
-    upr <- res$upr
-    padj <- NA
-    if (is.null(conf.width))
-      conf.width <- upr - lwr
-  } else {  # lwr and upr ci for all other methods
+
+    if (meth == "exact") {
+      if (is.null(n)) {
+        f <- uniroot_fun
+        n <- mapply(f, p = p, prec = prec, alpha = alpha)
+      }
+      res <- eval(quo)
+      lwr <- res$lwr
+      upr <- res$upr
+      padj <- NA
+      if (is.null(conf.width))
+        conf.width <- upr - lwr
+    }
+
+  }
+  if (meth != "exact") { # lwr and upr ci for all other methods
     lwr <- padj - prec
     upr <- padj + prec
     conf.width <- prec * 2
@@ -389,6 +411,7 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
     warning("The lower end of at least one confidence interval is below 0 and non-sensible. Please choose 'wilson' or 'exact' method.")
   if(any(upr > 1))
     warning("The upper end of at least one confidence interval is above 1 and non-sensible. Please choose 'wilson' or 'exact' method.")
+
 
   structure(list(p = p,
                  padj = padj,

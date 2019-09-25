@@ -124,45 +124,94 @@ prec_sens_spec <- function(sens,
 #'
 #' Because sensitivity and specificity are simple proportions, these functions
 #' act as wrappers for \code{prec_prop}.
+#'
+#' If \code{ntot} and \code{prev} are given, they are used to calculate
+#'   \code{n}.
+#'
 #' @rdname sensspec
 #' @param sens,spec proportions
+#' @param ntot total sample size
+#' @param prev prevalence of cases/disease (i.e. proportion of \code{ntot} with
+#'   the disease)
+#' @param round string, round calculated \code{n} up (\code{ceiling}) or down
+#'   (\code{floor})
+#' @param ... options passed to prec_prop (e.g. method,
+#'   conf.width, conf.level)
+#' @note Calculated \code{n} can take on non-integer numbers, but
+#'   \code{prec_prop} requires integers, so the calculated \code{n} is rounded
+#'   according to the approach indicated in \code{round}.
 #' @inheritParams prec_prop
 #' @aliases prec_sens prec_spec
 #' @return Object of class "presize", a list of arguments (including the
 #'   computed one) augmented with method and note elements.
 #' @seealso \code{prec_prop}, \code{prec_sens_spec}
+#' @examples
+#'   # confidence interval width with n
+#'   prec_sens(.6, 50)
+#'   # confidence interval width with ntot and prevalence (assuming 50% prev)
+#'   prec_sens(.6, ntot = 100, prev = .5)
+#'   # sample size with confidence interval width
+#'   prec_sens(.6, conf.width = 0.262)
 #' @export
-prec_sens <- function(sens, n = NULL, conf.width = NULL, conf.level = .95, ...){
+prec_sens <- function(sens, n = NULL, ntot = NULL, prev = NULL, conf.width = NULL, round = "ceiling", ...){
+  if (is.null(ntot) & !is.null(prev)) stop("specify ntot and prev together to calculate n")
+  if (!is.null(ntot) & !is.null(n)) stop("specify either ntot and prev together or n")
+  if (!round %in% c("ceiling", "floor")) stop("choices for 'round' are 'ceiling' or 'floor'")
+  numrange_check(prev)
+  rounder <- switch(round,
+                    ceiling = ceiling,
+                    floor = floor)
+  if (!is.null(ntot) & !is.null(prev)){
+    n <- rounder(ntot * prev)
+  } else {
+    ntot <- NA
+    prev <- NA
+  }
 
-  pp <- prec_prop(sens, n, conf.width, conf.level, ...)
+  pp <- prec_prop(sens, n, conf.width, ...)
 
   structure(list(sens = pp$p,
                  sensadj = pp$padj,
                  n = pp$n,
+                 prev = prev,
+                 ntot = ntot,
                  conf.width = pp$conf.width,
                  conf.level = pp$conf.level,
                  lwr = pp$lwr,
                  upr = pp$upr,
-                 note = "padj is the adjusted proportion, from which the ci is calculated.",
+                 note = "sensadj is the adjusted sensitivity, from which the ci is calculated.",
                  method = gsub("proportion", "sensitivity", pp$method)),
             class = "presize")
 
 }
 #' @export
 #' @rdname sensspec
-prec_spec <- function(spec, n = NULL, conf.width = NULL, conf.level = .95, ...){
+prec_spec <- function(spec, n = NULL, ntot = NULL, prev = NULL, conf.width = NULL, round = "ceiling",...){
+  if (is.null(ntot) & !is.null(prev)) stop("specify ntot and prev together to calculate n")
+  if (!is.null(ntot) & !is.null(n)) stop("specify either ntot and prev together or n")
+  if (!round %in% c("ceiling", "floor")) stop("choices for 'round' are 'ceiling' or 'floor'")
+  numrange_check(prev)
+  rounder <- switch(round,
+                    ceiling = ceiling,
+                    floor = floor)
+  if (!is.null(ntot) & !is.null(prev)){
+    n <- rounder(ntot * (1-prev))
+  } else {
+    ntot <- NA
+    prev <- NA
+  }
 
-  pp <- prec_prop(spec, n, conf.width, conf.level, ...)
+  pp <- prec_prop(spec, n, conf.width, ...)
 
-  structure(list(sens = pp$p,
-                 sensadj = pp$padj,
+  structure(list(spec = pp$p,
+                 specadj = pp$padj,
                  n = pp$n,
                  conf.width = pp$conf.width,
                  conf.level = pp$conf.level,
                  lwr = pp$lwr,
                  upr = pp$upr,
-                 note = "padj is the adjusted proportion, from which the ci is calculated.",
-                 method = gsub("proportion", "Specificity", pp$method)),
+                 note = "specadj is the adjusted specificity, from which the ci is calculated.",
+                 method = gsub("proportion", "specificity", pp$method)),
             class = "presize")
 
 }

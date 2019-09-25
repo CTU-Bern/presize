@@ -45,6 +45,7 @@ exact method. Agresti-coull can be abbreviated by ac.
 }
 \examples{
 prec_rate(2.5, x = 20, met = "score")
+prec_rate(2.5, conf.width = 2.243, met = "score")
 prec_rate(2.5, x = 20, met = "exact")
 # vs and wald have the same conf.width, but different lwr and upr
 prec_rate(2.5, x = 20, met = "wald")

@@ -160,6 +160,7 @@ prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
     b <- 3
     c <- sqrt(1 + r ^ 2 / 2)
   }
+  lwr <- upr <- NA
 
   calc_ci <- quote({
     Zz <- 0.5 * log( (1 + r) / (1 - r))

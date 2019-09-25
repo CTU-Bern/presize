@@ -88,9 +88,9 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
     if (is.null(conf.width))
       prec <- eval(md)
     if (is.null(n1)) {
-      f <- function(r, sd1, sd2, alpha, prec) uniroot(function(n1) eval(md) - prec,
+      eqn <- function(r, sd1, sd2, alpha, prec) uniroot(function(n1) eval(md) - prec,
                                                       c(2, 1e+07), ...)$root
-      n1 <- mapply(f, r = r, sd1 = sd1, sd2 = sd2, alpha = alpha, prec = prec)
+      n1 <- mapply(eqn, r = r, sd1 = sd1, sd2 = sd2, alpha = alpha, prec = prec)
     }
   }
 
@@ -106,9 +106,9 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
     if (is.null(conf.width))
       prec <- eval(md_ueq)
     if (is.null(n1)){
-      f <- function(sd1, sd2, r, alpha, prec) uniroot(function(n1) eval(md_ueq) - prec,
+      un <- function(sd1, sd2, r, alpha, prec) uniroot(function(n1) eval(md_ueq) - prec,
                                                       c(2, 1e+07), ...)$root
-      n1 <- mapply(f, sd1 = sd1, sd2 = sd2, r = r, alpha = alpha, prec = prec)
+      n1 <- mapply(un, sd1 = sd1, sd2 = sd2, r = r, alpha = alpha, prec = prec)
     }
   }
 
@@ -265,9 +265,9 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
       conf.width <- ci$cw
     }
     if (is.null(n1)) {
-      f <- function(p1, p2, conf.level, conf.width) uniroot(function(n1) eval(nc)$cw - conf.width,
+      nn <- function(p1, p2, conf.level, conf.width) uniroot(function(n1) eval(nc)$cw - conf.width,
                                                             c(1, 1e+07), ...)$root
-      n1 <- mapply(f, p1 = p1, p2 = p2, conf.level = conf.level, conf.width = conf.width)
+      n1 <- mapply(nn, p1 = p1, p2 = p2, conf.level = conf.level, conf.width = conf.width)
       ci <- eval(nc)
       n2 <- ci$n2
     }
@@ -306,9 +306,9 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
       conf.width <- prec * 2
     }
     if (is.null(n1)) {
-      f <- function(p1, p2, r, prec) uniroot(function(n1) eval(ac) - prec,
+      acn <- function(p1, p2, r, prec) uniroot(function(n1) eval(ac) - prec,
                               c(1, 1e+07), ...)$root
-      n1 <- mapply(f, p1 = p1, p2 = p2, r = r, prec = prec)
+      n1 <- mapply(acn, p1 = p1, p2 = p2, r = r, prec = prec)
       n2 <- n1 / r
     }
     lwr <- delta - prec
@@ -383,7 +383,7 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
       conf.width <- upr - lwr
     }
     if (is.null(n1)) {
-      f <- function(p1, p2, conf.width, r = r, conf.level = conf.level) {
+      mnn <- function(p1, p2, conf.width, r = r, conf.level = conf.level) {
         uniroot(function(n1) {
           n2 <- n1 / r
           x1 <- p1 * n1
@@ -393,7 +393,7 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
         },
         c(2, 1e+07), ...)$root
       }
-      n1 <- mapply(f, p1 = p1, p2 = p2, conf.width = conf.width, r = r, conf.level = conf.level)
+      n1 <- mapply(mnn, p1 = p1, p2 = p2, conf.width = conf.width, r = r, conf.level = conf.level)
       n2 <- n1 / r
       x1 <- n1 * p1
       x2 <- n2 * p2
@@ -690,7 +690,7 @@ prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.
     n2 <- n1 * r
     est <- "precision"
   }
-
+  lwr <- upr <- NA
 
 
 
@@ -768,6 +768,96 @@ prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.
             class = "presize")
 
 }
+
+# rate ratio ----
+#' Sample size or precision for an odds ratio
+#'
+#' \code{prec_or} returns the sample size or the precision for the
+#' provided proportions
+#'
+#' Exactly one of the parameters \code{n_exp, conf.width} must be passed as
+#' NULL, and that parameter is determined from the other. Event rates in the two
+#' groups should also be provided (\code{rate_exp, rate_control}). If only
+#' \code{rate_exp} is provided, \code{rate_control} is assumed to be 2 times
+#' \code{rate_exp}.
+#'
+#' @inheritParams prec_riskdiff
+#' @param n_exp number of exposed individuals
+#' @param rate_exp event rate in the exposed group
+#' @param rate_control event rate in the unexposed group
+#' @param conf.width the ratio of the upper limit to the lower limit of the
+#'   rate ratio confidence interval
+#'
+#' @references
+#'   Rothman KJ, Greenland S (2018). \emph{Planning Study Size Based on
+#'   Precision Rather Than Power}. Epidemiology, 29:599-603.
+#'   \href{https://doi.org/10.1097/EDE.0000000000000876}{doi:10.1097/EDE.0000000000000876}
+#' @examples
+#' prec_rateratio(20, .5, 3)
+#' prec_rateratio(rate_exp = .5, rate_control = 3, conf.width = 3.81)
+#' @export
+prec_rateratio <- function(n_exp = NULL, # n exposed
+                           rate_exp = NULL,
+                           rate_control = 2*rate_exp,
+                           conf.width = NULL,
+                           r = 1,
+                           conf.level = 0.95){
+
+  if (any(is.null(rate_exp), is.null(rate_control)))
+    stop("both rate_exp and rate_control required")
+  if (sum(sapply(list(n_exp, conf.width), is.null)) != 1)
+    stop("exactly one of 'n_exp', and 'conf.width' must be NULL")
+
+  if (is.null(conf.width)){
+    est <- "precision"
+  } else {
+    est <- "sample size"
+  }
+
+  alpha <- (1 - conf.level)
+  z <- qnorm(1 - alpha / 2)
+  z2 <- z * z
+
+  if (est == "precision"){
+    num <- sqrt(r * rate_control + rate_exp)
+    denom <- sqrt(n_exp * (r * rate_exp * rate_control))
+    prec <- ((2 * z) * num) / denom
+    conf.width <- exp(prec)
+  }
+
+  if (est == "sample size"){
+    num <- r * rate_control + rate_exp
+    denom <- r * rate_control * rate_exp * (log(1/conf.width))^2
+    n_exp <- ((4 * z^2) * num) / denom
+  }
+
+  n_control <- n_exp * r
+
+  ntot <- n_exp + n_control
+
+  rr <- rate_exp / rate_control
+  sd <- sqrt(1 / (n_exp * rate_exp) + 1 / (n_control * rate_control))
+  lwr <- exp(log(rr) - z*sd)
+  upr <- exp(log(rr) + z*sd)
+
+  structure(list(n_exp = n_exp,
+                 n_control = n_control,
+                 r = r,
+                 ntot = ntot,
+                 rate_exp = rate_exp,
+                 rate_control = rate_control,
+                 rr = rr,
+                 lwr = lwr,
+                 upr = upr,
+                 conf.width = conf.width,
+                 conf.level = conf.level,
+                 #note = "n is number in *each* group",
+                 method = paste(est, "for a rate ratio")
+                 ),
+            class = "presize")
+
+}
+
 
 
 

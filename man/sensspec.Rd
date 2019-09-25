@@ -5,20 +5,29 @@
 \alias{prec_spec}
 \title{Sample size and precision of sensitivity and specificity}
 \usage{
-prec_sens(sens, n = NULL, conf.width = NULL, conf.level = 0.95, ...)
+prec_sens(sens, n = NULL, ntot = NULL, prev = NULL,
+  conf.width = NULL, round = "ceiling", ...)
 
-prec_spec(spec, n = NULL, conf.width = NULL, conf.level = 0.95, ...)
+prec_spec(spec, n = NULL, ntot = NULL, prev = NULL,
+  conf.width = NULL, round = "ceiling", ...)
 }
 \arguments{
 \item{sens, spec}{proportions}
 
 \item{n}{number of observations}
 
+\item{ntot}{total sample size}
+
+\item{prev}{prevalence of cases/disease (i.e. proportion of \code{ntot} with
+the disease)}
+
 \item{conf.width}{precision (the full width of the conficende interval)}
 
-\item{conf.level}{confidence level}
+\item{round}{string, round calculated \code{n} up (\code{ceiling}) or down
+(\code{floor})}
 
-\item{...}{other arguments to uniroot (e.g. \code{tol})}
+\item{...}{options passed to prec_prop (e.g. method,
+conf.width, conf.level)}
 }
 \value{
 Object of class "presize", a list of arguments (including the
@@ -27,6 +36,23 @@ Object of class "presize", a list of arguments (including the
 \description{
 Because sensitivity and specificity are simple proportions, these functions
 act as wrappers for \code{prec_prop}.
+}
+\details{
+If \code{ntot} and \code{prev} are given, they are used to calculate
+  \code{n}.
+}
+\note{
+Calculated \code{n} can take on non-integer numbers, but
+  \code{prec_prop} requires integers, so the calculated \code{n} is rounded
+  according to the approach indicated in \code{round}.
+}
+\examples{
+  # confidence interval width with n
+  prec_sens(.6, 50)
+  # confidence interval width with ntot and prevalence (assuming 50\% prev)
+  prec_sens(.6, ntot = 100, prev = .5)
+  # sample size with confidence interval width
+  prec_sens(.6, conf.width = 0.262)
 }
 \seealso{
 \code{prec_prop}, \code{prec_sens_spec}

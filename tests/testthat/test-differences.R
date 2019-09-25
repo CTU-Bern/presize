@@ -6,6 +6,11 @@ test_that("errors", {
   expect_error(prec_riskratio(1.1, .1, r = 1, conf.width = .1))
   expect_error(prec_riskratio(1.1, r = 1, conf.width = .1))
 
+  expect_error(prec_rateratio(rate_exp = 1, rate_control = NULL))
+  expect_error(prec_rateratio(rate_exp = NULL, rate_control = NULL))
+  expect_error(prec_rateratio(rate_exp = 1, rate_control = 1))
+  expect_error(prec_rateratio(20, rate_exp = 1, rate_control = 1), regexp = NA)
+
 })
 
 test_that("Fagerland et al. (2015), Table 5", {
@@ -47,5 +52,11 @@ test_that("Fagerland et al. (2015), Table 5", {
 
 
 
+context("rateratio")
 
+test_that("inverse", {
+  x <- prec_rateratio(20, rate_exp = 1, rate_control = 1)
+  y <- prec_rateratio(rate_exp = 1, rate_control = 1, conf.width = 3.454197)
+  expect_equal(x[1:11], y[1:11], tolerance = .05)
+})
 
