@@ -769,5 +769,93 @@ prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.
 
 }
 
+# rate ratio ----
+#' Sample size or precision for an odds ratio
+#'
+#' \code{prec_or} returns the sample size or the precision for the
+#' provided proportions
+#'
+#' Exactly one of the parameters \code{n_exp, conf.width} must be passed as
+#' NULL, and that parameter is determined from the other. Event rates in the two
+#' groups should also be provided (\code{rate_exp, rate_control}). If only
+#' \code{rate_exp} is provided, \code{rate_control} is assumed to be 2 times
+#' \code{rate_exp}.
+#'
+#' @inheritParams prec_riskdiff
+#' @param n_exp number of exposed individuals
+#' @param rate_exp event rate in the exposed group
+#' @param rate_control event rate in the unexposed group
+#' @param conf.width the ratio of the upper limit to the lower limit of the
+#'   rate ratio confidence interval
+#'
+#' @references
+#'   Rothman KJ, Greenland S (2018). \emph{Planning Study Size Based on
+#'   Precision Rather Than Power}. Epidemiology, 29:599-603.
+#'   \href{https://doi.org/10.1097/EDE.0000000000000876}{doi:10.1097/EDE.0000000000000876}
+#' @examples
+#' prec_rateratio(20, .5, 3)
+#' prec_rateratio(rate_exp = .5, rate_control = 3, conf.width = 3.81)
+#' @export
+prec_rateratio <- function(n_exp = NULL, # n exposed
+                           rate_exp = NULL,
+                           rate_control = 2*rate_exp,
+                           conf.width = NULL,
+                           r = 1,
+                           conf.level = 0.95){
+
+  if (any(is.null(rate_exp), is.null(rate_control)))
+    stop("both rate_exp and rate_control required")
+
+  if (is.null(conf.width)){
+    est <- "precision"
+  } else {
+    est <- "sample size"
+  }
+
+  alpha <- (1 - conf.level)
+  z <- qnorm(1 - alpha / 2)
+  z2 <- z * z
+
+  if (est == "precision"){
+    num <- sqrt(r * rate_control + rate_exp)
+    denom <- sqrt(n_exp * (r * rate_exp * rate_control))
+    prec <- ((2 * z) * num) / denom
+    conf.width <- exp(prec)
+  }
+
+  if (est == "sample size"){
+    num <- r * rate_control + rate_exp
+    denom <- r * rate_control * rate_exp * (log(1/conf.width))^2
+    n_exp <- ((4 * z^2) * num) / denom
+  }
+
+  n_control <- n_exp * r
+
+  ntot <- n_exp + n_control
+
+  rr <- rate_exp / rate_control
+  sd <- sqrt(1 / (n_exp * rate_exp) + 1 / (n_control * rate_control))
+  lwr <- exp(log(rr) - z*sd)
+  upr <- exp(log(rr) + z*sd)
+
+  structure(list(n_exp = n_exp,
+                 n_control = n_control,
+                 r = r,
+                 ntot = ntot,
+                 rate_exp = rate_exp,
+                 rate_control = rate_control,
+                 rr = rr,
+                 lwr = lwr,
+                 upr = upr,
+                 conf.width = conf.width,
+                 conf.level = conf.level,
+                 #note = "n is number in *each* group",
+                 method = paste(est, "for a rate ratio")
+                 ),
+            class = "presize")
+
+}
+
+
 
 
