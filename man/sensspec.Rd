@@ -46,6 +46,14 @@ Calculated \code{n} can take on non-integer numbers, but
   \code{prec_prop} requires integers, so the calculated \code{n} is rounded
   according to the approach indicated in \code{round}.
 }
+\examples{
+  # confidence interval width with n
+  prec_sens(.6, 50)
+  # confidence interval width with ntot and prevalence (assuming 50\% prev)
+  prec_sens(.6, ntot = 100, prev = .5)
+  # sample size with confidence interval width
+  prec_sens(.6, conf.width = 0.262)
+}
 \seealso{
 \code{prec_prop}, \code{prec_sens_spec}
 }
