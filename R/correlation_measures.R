@@ -42,7 +42,7 @@
 prec_icc <- function(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95) {
   is.wholenumber <-
     function(x, tol = .Machine$double.eps ^ 0.5)  abs(x - round(x)) < tol
-  if (!is.null(k) && !is.numeric(k) && !is.wholenumber(k))
+  if (!is.null(k) && (!is.numeric(k) || !is.wholenumber(k)))
     stop("'k' must be numeric and a whole number")
   if (sum(sapply(list(n, conf.width), is.null)) != 1)
     stop("exactly one of 'n', and 'conf.width' must be NULL")
