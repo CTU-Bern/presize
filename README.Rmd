@@ -53,7 +53,6 @@ presize will provide functions for
 * diagnostic measures
     + sens (`prec_sens`<sup>1</sup>)
     + spec (`prec_spec`<sup>1</sup>)
-    + sens and spec jointly (`prec_sens_spec`)
 <!--    + positive LR -->
 <!--    + negative LR -->
     + AUC (`prec_auc`)

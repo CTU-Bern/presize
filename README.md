@@ -41,9 +41,8 @@ presize will provide functions for
       - limit of agreement from Bland Altman plot (`prec_lim_agree`)
   - diagnostic measures
       - sens (`prec_sens`<sup>1</sup>)
-      - spec (`prec_spec`<sup>1</sup>)
-      - sens and spec jointly (`prec_sens_spec`)
-        <!--    + positive LR --> <!--    + negative LR -->
+      - spec (`prec_spec`<sup>1</sup>) <!--    + positive LR -->
+        <!--    + negative LR -->
       - AUC (`prec_auc`)
 
 <sup>1</sup> Simple wrappers for `prec_prop`.
