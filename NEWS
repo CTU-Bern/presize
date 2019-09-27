@@ -1,3 +1,11 @@
+presize 0.0.1.9003
+-----------------------------------------
+
+* `prec_sens` and `prec_spec` allow prev and conf.width
+
+* multiple notes and allowed in print method
+
+
 presize 0.0.1.9002
 -----------------------------------------
 
