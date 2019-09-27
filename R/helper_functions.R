@@ -18,6 +18,7 @@ numrange_check <- function(x, lo = 0, hi = 1) {
 print.presize <- function(x, n = 10L, ...) {
   cat("\n    ", x$method, "\n\n")
   note <- x$note
+  if (length(note) > 1) note <- paste(note, collapse = "\n")
   #x[c("method", "note")] <- NULL
   dd <- data.frame(x)
   print(head(dd, n = n))
