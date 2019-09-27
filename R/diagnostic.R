@@ -155,6 +155,7 @@ prec_sens_spec <- function(sens,
 #' @export
 prec_sens <- function(sens, n = NULL, ntot = NULL, prev = NULL,
                       conf.width = NULL, round = "ceiling", ...){
+  if (!is.null(n) & !is.null(ntot)) stop("supply 'n' or 'ntot' and 'prev'")
   if (!round %in% c("ceiling", "floor")) stop("choices for 'round' are 'ceiling' or 'floor'")
   numrange_check(prev)
   rounder <- switch(round,
@@ -196,6 +197,7 @@ prec_sens <- function(sens, n = NULL, ntot = NULL, prev = NULL,
 #' @export
 #' @rdname sensspec
 prec_spec <- function(spec, n = NULL, ntot = NULL, prev = NULL, conf.width = NULL, round = "ceiling",...){
+  if (!is.null(n) & !is.null(ntot)) stop("supply 'n' or 'ntot' and 'prev'")
   if (!round %in% c("ceiling", "floor")) stop("choices for 'round' are 'ceiling' or 'floor'")
   numrange_check(prev)
   rounder <- switch(round,
