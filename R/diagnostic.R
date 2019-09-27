@@ -153,22 +153,29 @@ prec_sens_spec <- function(sens,
 #'   # sample size with confidence interval width
 #'   prec_sens(.6, conf.width = 0.262)
 #' @export
-prec_sens <- function(sens, n = NULL, ntot = NULL, prev = NULL, conf.width = NULL, round = "ceiling", ...){
-  if (is.null(ntot) & !is.null(prev)) stop("specify ntot and prev together to calculate n")
-  if (!is.null(ntot) & !is.null(n)) stop("specify either ntot and prev together or n")
+prec_sens <- function(sens, n = NULL, ntot = NULL, prev = NULL,
+                      conf.width = NULL, round = "ceiling", ...){
   if (!round %in% c("ceiling", "floor")) stop("choices for 'round' are 'ceiling' or 'floor'")
   numrange_check(prev)
   rounder <- switch(round,
                     ceiling = ceiling,
                     floor = floor)
   if (!is.null(ntot) & !is.null(prev)){
+    message("estimating n from 'ntot' and 'prev'")
     n <- rounder(ntot * prev)
+  } else if (is.null(ntot) & is.null(n) & !is.null(prev)) {
+    ntot <- NA
+    n <- NULL
   } else {
     ntot <- NA
     prev <- NA
   }
 
   pp <- prec_prop(sens, n, conf.width, ...)
+
+  if (!is.null(prev) & is.na(ntot)) {
+    ntot <- pp$n * (1 / prev)
+  }
 
   structure(list(sens = pp$p,
                  sensadj = pp$padj,
@@ -184,18 +191,22 @@ prec_sens <- function(sens, n = NULL, ntot = NULL, prev = NULL, conf.width = NUL
             class = "presize")
 
 }
+
+
 #' @export
 #' @rdname sensspec
 prec_spec <- function(spec, n = NULL, ntot = NULL, prev = NULL, conf.width = NULL, round = "ceiling",...){
-  if (is.null(ntot) & !is.null(prev)) stop("specify ntot and prev together to calculate n")
-  if (!is.null(ntot) & !is.null(n)) stop("specify either ntot and prev together or n")
   if (!round %in% c("ceiling", "floor")) stop("choices for 'round' are 'ceiling' or 'floor'")
   numrange_check(prev)
   rounder <- switch(round,
                     ceiling = ceiling,
                     floor = floor)
   if (!is.null(ntot) & !is.null(prev)){
+    message("estimating n from 'ntot' and 'prev'")
     n <- rounder(ntot * (1-prev))
+  } else if (is.null(ntot) & is.null(n) & !is.null(prev)) {
+    ntot <- NA
+    n <- NULL
   } else {
     ntot <- NA
     prev <- NA
@@ -203,9 +214,15 @@ prec_spec <- function(spec, n = NULL, ntot = NULL, prev = NULL, conf.width = NUL
 
   pp <- prec_prop(spec, n, conf.width, ...)
 
+  if (!is.null(prev) & is.na(ntot)) {
+    ntot <- pp$n * (1 / (1 - prev))
+  }
+
   structure(list(spec = pp$p,
                  specadj = pp$padj,
                  n = pp$n,
+                 prev = prev,
+                 ntot = ntot,
                  conf.width = pp$conf.width,
                  conf.level = pp$conf.level,
                  lwr = pp$lwr,
