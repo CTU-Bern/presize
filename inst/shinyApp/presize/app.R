@@ -65,7 +65,7 @@ ui <- dashboardPage(skin = "red",
                               "Each statistic has a set of fields. Mandatory fields are marked with an asterisk (*). There are also two fields that pertain to the sample size and confidence interval width, indicated by a dagger (†). Only one of these should be entered."),
 
 
-
+# mean -----
                       tabItem(tabName = "mean",
                               h2("Precision of a mean"),
                               "Enter the mean and standard deviation you expect. To estimate the confidence interval width from a population of size X, enter the population size in 'Number of observations'. To estimate the number of observations required to get a confidence interval width of X, enter the width in 'Confidence interval width'.",
@@ -88,7 +88,7 @@ ui <- dashboardPage(skin = "red",
                               verbatimTextOutput("mean_code")
 
                       ),
-
+# proportion ----
                       tabItem(tabName = "proportion",
                               h2("Precision of a proportion"),
                               "Enter the proportion you expect. To estimate the confidence interval width from a population of size X, enter the population size in 'Number of observations'. To estimate the number of observations required to get a confidence interval width of X, enter the width in 'Confidence interval width'.",
@@ -145,7 +145,7 @@ ui <- dashboardPage(skin = "red",
                               h3("References"),
                               "Barker, L. (2002) A Comparison of Nine Confidence Intervals for a Poisson Parameter When the Expected Number of Events is ≤ 5, ", tags$i("The American Statistician"), ", 56:2, 85-89, ", tags$a(href="https://doi.org/10.1198/000313002317572736","DOI: 10.1198/000313002317572736")
                       ),
-                      # mean diff
+                      # mean diff ----
                       tabItem(tabName = "meandiff",
                               h2("Precision of a mean difference"),
                               "Enter the mean difference and standard deviations you expect. If you intend to use uneven allocation ratios (e.g. 2 allocated to group 1 for each participant allocated to group 2), adjust the allocation ratio accordingly. To estimate the confidence interval width from a number of events, enter the number of events in 'Number of events'. To estimate the number of observations required to get a confidence interval width of X, enter the width in 'Confidence interval width'.",
@@ -172,7 +172,7 @@ ui <- dashboardPage(skin = "red",
                               "Code to replicate in R:",
                               verbatimTextOutput("meandiff_code")
                       ),
-                    #  Risk diff
+                    #  Risk diff ----
                       tabItem(tabName = "riskdiff",
                               h2("Precision of a risk difference"),
                               "Enter the proportions of events you expect in the groups. If you intend to use uneven allocation ratios (e.g. 2 allocated to group 1 for each participant allocated to group 2), adjust the allocation ratio accordingly. To estimate the confidence interval width from a number of events, enter the number of events in 'Number of events'. To estimate the number of observations required to get a confidence interval width of X, enter the width in 'Confidence interval width'.",
@@ -212,7 +212,7 @@ ui <- dashboardPage(skin = "red",
                               tags$br(),
                               "Fagerland MW, Lydersen S, and Laake P (2015). Recommended confidence intervals for two independent binomial proportions, ", tags$i("Statistical methods in medical research"), "24(2):224-254."
                               ),
-                      #  OR
+                      #  OR ----
                       tabItem(tabName = "or",
                               h2("Precision of an odds ratio"),
                               "Enter the proportions of events you expect in the groups. If you intend to use uneven allocation ratios (e.g. 2 allocated to group 1 for each participant allocated to group 2), adjust the allocation ratio accordingly. To estimate the confidence interval width from a number of events, enter the number of events in 'Number of events'. To estimate the number of observations required to get a confidence interval width of X, enter the width in 'Confidence interval width'.",
@@ -243,7 +243,7 @@ ui <- dashboardPage(skin = "red",
                               "Fagerland MW, Lydersen S, Laake P (2015). Recommended confidence intervals for two independent binomial proportions. ", tags$i("Statistical Methods in Medical Research"), ", 24(2):224-254.", tags$a(href="https://doi.org/10.1177/0962280211415469","doi:10.1177/0962280211415469")
 
                       ),
-                    # risk ratio
+                    # risk ratio ----
                       tabItem(tabName = "riskratio",
                               h2("Precision of an risk ratio"),
                               "Enter the proportions of events you expect in the groups. If you intend to use uneven allocation ratios (e.g. 2 allocated to group 1 for each participant allocated to group 2), adjust the allocation ratio accordingly. To estimate the confidence interval width from a number of events, enter the number of events in 'Number of events'. To estimate the number of observations required to get a confidence interval width of X, enter the width in 'Confidence interval width'.",
@@ -277,6 +277,7 @@ ui <- dashboardPage(skin = "red",
                               "Koopman PAR (1984) Confidence Intervals for the Ratio of Two Binomial Proportions,", tags$i("Biometrics"), " 40:513-517"
 
                       ),
+                    # rate ratio ----
                       tabItem(tabName = "rateratio",
                               h2("Precision of an rate ratio"),
                               "Enter the proportions of events you expect in the groups. If you intend to use uneven allocation ratios (e.g. 2 allocated to group 1 for each participant allocated to group 2), adjust the allocation ratio accordingly. To estimate the confidence interval width from a number of events, enter the number of events in 'Number of events'. To estimate the number of observations required to get a confidence interval width of X, enter the width in 'Confidence interval width'.",
@@ -297,9 +298,13 @@ ui <- dashboardPage(skin = "red",
                               tags$hr(),
                               verbatimTextOutput("rateratio_out"),
                               "Code to replicate in R:",
-                              verbatimTextOutput("rateratio_code")
+                              verbatimTextOutput("rateratio_code"),
+                              h3("References"),
+                              "Rothamn KJ, Greenland S (2018) Planning Study Size Based on Precision Rather Than Power.", tags$i("Epidemiology"), "29:599-603", tags$a(href = "https://doi.org/10.1097/EDE.0000000000000876","doi:10.1097/EDE.0000000000000876")
 
                       ),
+
+# correlation coefficient ----
                       tabItem(tabName = "cor",
                               h2("Precision of a correlation coefficient"),
                               "Enter the correlation coefficient you expect. To estimate the confidence interval width from a number of events, enter the number of events in 'Number of events'. To estimate the number of observations required to get a confidence interval width of X, enter the width in 'Confidence interval width'.",
@@ -321,9 +326,13 @@ ui <- dashboardPage(skin = "red",
                               tags$hr(),
                               verbatimTextOutput("cor_out"),
                               "Code to replicate in R:",
-                              verbatimTextOutput("cor_code")
+                              verbatimTextOutput("cor_code"),
+                              h3("References"),
+                              "Bonett DG, and Wright TA (2000) Sample size requirements for estimating Pearson, Kendall and Spearman correlations. ",
+                              tags$i("Psychometrika"), " 65:23-28", tags$a(href = "https://doi.org/10.1007/BF02294183","doi:10.1007/BF02294183")
 
                       ),
+# ICC ----
                       tabItem(tabName = "icc",
                               h2("Precision of an intraclass correlation coefficient"),
                               "Enter the correlation coefficient you expect. To estimate the confidence interval width from a number of events, enter the number of events in 'Number of events'. To estimate the number of observations required to get a confidence interval width of X, enter the width in 'Confidence interval width'.",
@@ -341,9 +350,12 @@ ui <- dashboardPage(skin = "red",
                               tags$hr(),
                               verbatimTextOutput("icc_out"),
                               "Code to replicate in R:",
-                              verbatimTextOutput("icc_code")
+                              verbatimTextOutput("icc_code"),
+                              h3("References"),
+                              "Bonett DG (2002). Sample size requirements for estimating intraclass correlations with desired precision.", tags$i("Statistics in Medicine"), "21:1331-1335. ", tags$a(href = "https://doi.org/10.1002/sim.1108", "doi: 10.1002/sim.1108")
 
                       ),
+# limit of agreement
                       tabItem(tabName = "limit",
                               h2("Precision of limits of agreement"),
                               "Confidence interval width of the limit of agreement is only a function of sample size. Enter the sample size or confidence interval width to calculate the other.",
@@ -359,7 +371,9 @@ ui <- dashboardPage(skin = "red",
                               tags$hr(),
                               verbatimTextOutput("limit_out"),
                               "Code to replicate in R:",
-                              verbatimTextOutput("limit_code")
+                              verbatimTextOutput("limit_code"),
+                              h3("References"),
+                              "Bland & Altman (1986) Statistical methods for assessing agreement between two methods of clinical measurement.", tags$i("Lancet"), "i(8476):307-310", tags$a(href = "https://doi.org/10.1016/S0140-6736(86)90837-8", "doi: 10.1016/S0140-6736(86)90837-8")
 
                       ),
 
