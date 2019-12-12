@@ -3,6 +3,7 @@
 S3method(as.data.frame,presize)
 S3method(as.matrix,presize)
 S3method(print,presize)
+export(launch_presize_app)
 export(prec_auc)
 export(prec_cor)
 export(prec_icc)
