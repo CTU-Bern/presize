@@ -69,3 +69,7 @@ library(presize)
 # calculate sample size for a proportion of 0.2, or 0.4 with a precision of 0.2
 prec_prop(p = c(.2, .4), n = 10, method = "wilson")
 ```
+
+## Shiny app
+
+An online interactive version of the package is available [here](https://ctu-bern.shinyapps.io/presize). The app can also be launched locally via `launch_presize_app()` in RStudio.

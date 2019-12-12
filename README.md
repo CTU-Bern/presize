@@ -65,3 +65,9 @@ prec_prop(p = c(.2, .4), n = 10, method = "wilson")
 #> 
 #> NOTE: padj is the adjusted proportion, from which the ci is calculated.
 ```
+
+## Shiny app
+
+An online interactive version of the package is available
+[here](https://ctu-bern.shinyapps.io/presize). The app can also be
+launched locally via `launch_presize_app()` in RStudio.
