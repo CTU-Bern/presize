@@ -24,4 +24,5 @@ RoxygenNote: 6.1.1
 Suggests:
     testthat
 Depends:
+    kappaSize (>= 1.2),
     shiny
