@@ -204,15 +204,16 @@ prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
 
 
 # Limit of agreement ---------------
-#' Sample size or precision for limit of agreement on Bland Altman plots
+#' Sample size or precision for limit of agreement on Bland-Altman plots
 #'
 #' \code{prec_lim_agree} returns the sample size or the precision for the limit
-#' of agreement
+#' of agreement, i.e. the confidence interval around the limit of agreement.
 #'
 #' Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
 #' and that parameter is determined from the other.
 #'
-#' Sample size or precision is calculated according to formulae in Bland & Altman (1986).
+#' The sample size and precision are calculated according to formulae in Bland &
+#' Altman (1986).
 #'
 #' @param n Sample size
 #' @param conf.width precision (the full width of the confidence interval)

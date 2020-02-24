@@ -2,26 +2,27 @@
 % Please edit documentation in R/correlation_measures.R
 \name{prec_lim_agree}
 \alias{prec_lim_agree}
-\title{Sample size or precision for limit of agreement on Bland Altman plots}
+\title{Sample size or precision for limit of agreement on Bland-Altman plots}
 \usage{
 prec_lim_agree(n = NULL, conf.width = NULL, conf.level = 0.95)
 }
 \arguments{
 \item{n}{Sample size}
 
-\item{conf.width}{precision (the full width of the conficende interval)}
+\item{conf.width}{precision (the full width of the confidence interval)}
 
 \item{conf.level}{confidence level}
 }
 \description{
 \code{prec_lim_agree} returns the sample size or the precision for the limit
-of agreement
+of agreement, i.e. the confidence interval around the limit of agreement.
 }
 \details{
 Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
 and that parameter is determined from the other.
 
-Sample size or precision is calculated according to formulae in Bland & Altman (1986).
+The sample size and precision are calculated according to formulae in Bland &
+Altman (1986).
 }
 \references{
 Bland & Altman (1986) \emph{Statistical methods for assessing agreement
