@@ -775,16 +775,16 @@ prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.
 #' \code{prec_or} returns the sample size or the precision for the
 #' provided proportions
 #'
-#' Exactly one of the parameters \code{n_exp, conf.width} must be passed as
+#' Exactly one of the parameters \code{n1, conf.width} must be passed as
 #' NULL, and that parameter is determined from the other. Event rates in the two
-#' groups should also be provided (\code{rate_exp, rate_control}). If only
-#' \code{rate_exp} is provided, \code{rate_control} is assumed to be 2 times
-#' \code{rate_exp}.
+#' groups should also be provided (\code{rate1, rate2}). If only
+#' \code{rate1} is provided, \code{rate2} is assumed to be 2 times
+#' \code{rate1}.
 #'
 #' @inheritParams prec_riskdiff
-#' @param n_exp number of exposed individuals
-#' @param rate_exp event rate in the exposed group
-#' @param rate_control event rate in the unexposed group
+#' @param n1 number of exposed individuals
+#' @param rate1 event rate in the exposed group
+#' @param rate2 event rate in the unexposed group
 #' @param conf.width the ratio of the upper limit to the lower limit of the
 #'   rate ratio confidence interval
 #'
@@ -796,17 +796,17 @@ prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.
 #' prec_rateratio(20, .5, 3)
 #' prec_rateratio(rate_exp = .5, rate_control = 3, conf.width = 3.81)
 #' @export
-prec_rateratio <- function(n_exp = NULL, # n exposed
-                           rate_exp = NULL,
-                           rate_control = 2*rate_exp,
+prec_rateratio <- function(n1 = NULL, # n exposed
+                           rate1 = NULL,
+                           rate2 = 2*rate1,
                            conf.width = NULL,
                            r = 1,
                            conf.level = 0.95){
 
-  if (any(is.null(rate_exp), is.null(rate_control)))
+  if (any(is.null(rate1), is.null(rate2)))
     stop("both rate_exp and rate_control required")
-  if (sum(sapply(list(n_exp, conf.width), is.null)) != 1)
-    stop("exactly one of 'n_exp', and 'conf.width' must be NULL")
+  if (sum(sapply(list(n1, conf.width), is.null)) != 1)
+    stop("exactly one of 'n1', and 'conf.width' must be NULL")
 
   if (is.null(conf.width)){
     est <- "precision"
@@ -819,33 +819,33 @@ prec_rateratio <- function(n_exp = NULL, # n exposed
   z2 <- z * z
 
   if (est == "precision"){
-    num <- sqrt(r * rate_control + rate_exp)
-    denom <- sqrt(n_exp * (r * rate_exp * rate_control))
+    num <- sqrt(r * rate2 + rate1)
+    denom <- sqrt(n1 * (r * rate1 * rate2))
     prec <- ((2 * z) * num) / denom
     conf.width <- exp(prec)
   }
 
   if (est == "sample size"){
-    num <- r * rate_control + rate_exp
-    denom <- r * rate_control * rate_exp * (log(1/conf.width))^2
+    num <- r * rate2 + rate1
+    denom <- r * rate2 * rate1 * (log(1/conf.width))^2
     n_exp <- ((4 * z^2) * num) / denom
   }
 
-  n_control <- n_exp * r
+  n2 <- n1 * r
 
-  ntot <- n_exp + n_control
+  ntot <- n1 + n2
 
-  rr <- rate_exp / rate_control
-  sd <- sqrt(1 / (n_exp * rate_exp) + 1 / (n_control * rate_control))
+  rr <- rate1 / rate2
+  sd <- sqrt(1 / (n1 * rate1) + 1 / (n2 * rate2))
   lwr <- exp(log(rr) - z*sd)
   upr <- exp(log(rr) + z*sd)
 
-  structure(list(n_exp = n_exp,
-                 n_control = n_control,
+  structure(list(n1 = n1,
+                 n2 = n2,
                  r = r,
                  ntot = ntot,
-                 rate_exp = rate_exp,
-                 rate_control = rate_control,
+                 rate1 = rate1,
+                 rate2 = rate2,
                  rr = rr,
                  lwr = lwr,
                  upr = upr,
