@@ -109,13 +109,16 @@ server <- function(input, output, session) {
     output$mean_code <- renderPrint(mean_fn(input, TRUE))
     output$mean_tab <- renderTable({
         res_vars[res_vars$column %in%
-                     c("mu", "sd", "lwr", "upr", "conf.width", "conf.level"),]
+                     c("mu", "sd", "n", "lwr", "upr", "conf.width", "conf.level"),]
     })
 
     # proportion
     output$prop_code <- renderPrint(prop_fn(input, TRUE))
     output$prop_out <- renderPrint(prop_fn(input, FALSE))
-
+    output$prop_tab <- renderTable({
+        res_vars[res_vars$column %in%
+                     c("p", "padj", "n", "lwr", "upr", "conf.width", "conf.level"),]
+    })
 
     # rate
     output$rate_out <- renderPrint(rate_fn(input, FALSE))
