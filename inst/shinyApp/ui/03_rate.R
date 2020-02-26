@@ -27,6 +27,7 @@ ratepage <- tabItem(
     tags$hr(),
     h4("Results"),
     verbatimTextOutput("rate_out"),
+    tableOutput("rate_tab"),
     "Code to replicate in R:",
     verbatimTextOutput("rate_code"),
     h4("References"),

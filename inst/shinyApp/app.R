@@ -123,6 +123,10 @@ server <- function(input, output, session) {
     # rate
     output$rate_out <- renderPrint(rate_fn(input, FALSE))
     output$rate_code <- renderPrint(rate_fn(input, TRUE))
+    output$rate_tab <- renderTable({
+        res_vars[res_vars$column %in%
+                     c("r", "radj", "x", "time", "conf.width", "conf.level", "lwr", "upr"),]
+    })
 
     # meandiff
     output$meandiff_out <- renderPrint(meandiff_fn(input, FALSE))
