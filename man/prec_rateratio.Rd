@@ -35,7 +35,7 @@ groups should also be provided (\code{rate1, rate2}). If only
 }
 \examples{
 prec_rateratio(20, .5, 3)
-prec_rateratio(rate_exp = .5, rate_control = 3, conf.width = 3.81)
+prec_rateratio(rate1 = .5, rate2 = 3, conf.width = 3.81)
 }
 \references{
 Rothman KJ, Greenland S (2018). \emph{Planning Study Size Based on
