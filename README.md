@@ -36,7 +36,8 @@ presize will provide functions for
       - risk ratio (`prec_riskratio`)
       - rate ratio (`prec_rateratio`) <!--    + hazard ratio -->
   - correlation measures
-      - correlation coefficient (`prec_cor`) <!--    + Cohens kappa -->
+      - correlation coefficient (`prec_cor`)
+      - Cohens kappa (`prec_kappa`)
       - ICC (`prec_icc`)
       - limit of agreement from Bland Altman plot (`prec_lim_agree`)
   - diagnostic measures
@@ -53,6 +54,9 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(presize)
+#> Loading required package: ggplot2
+#> Loading required package: kappaSize
+#> Loading required package: shiny
 
 # calculate sample size for a proportion of 0.2, or 0.4 with a precision of 0.2
 prec_prop(p = c(.2, .4), n = 10, method = "wilson")
@@ -66,8 +70,19 @@ prec_prop(p = c(.2, .4), n = 10, method = "wilson")
 #> NOTE: padj is the adjusted proportion, from which the ci is calculated.
 ```
 
+THe problem being addressed is ‘how wide is the confidence interval
+width given proportions of events of 20 and 40% and only 10
+participants’.
+
 ## Shiny app
 
 An online interactive version of the package is available
 [here](https://ctu-bern.shinyapps.io/presize). The app can also be
 launched locally via `launch_presize_app()` in RStudio.
+
+## Funding
+
+`presize` was largely developed at CTU Bern, with collaboration from CTU
+Basel. Funding was provided by the Swiss Clinical Trials Organisation.
+
+![](inst/fig/scto_ctu_member_cmyk.jpg)

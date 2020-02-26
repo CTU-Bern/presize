@@ -1,3 +1,12 @@
+presize 0.0.1.9005
+-----------------------------------------
+
+* addition of function for Cohen's kappa
+
+* update shiny app to include kappa
+
+* POSSIBLE BREAKING CHANGE: arguments in `prec_rateratio` renamed from `*_exp` and `*_control` to `*1` and `*2` for consistency with other functions
+
 presize 0.0.1.9004
 -----------------------------------------
 
@@ -8,7 +17,7 @@ presize 0.0.1.9003
 
 * `prec_sens` and `prec_spec` allow prev and conf.width
 
-* multiple notes and allowed in print method
+* multiple notes allowed in print method
 
 * add contributing guidelines
 

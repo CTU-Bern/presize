@@ -4,15 +4,15 @@
 \alias{prec_rateratio}
 \title{Sample size or precision for an odds ratio}
 \usage{
-prec_rateratio(n_exp = NULL, rate_exp = NULL, rate_control = 2 *
-  rate_exp, conf.width = NULL, r = 1, conf.level = 0.95)
+prec_rateratio(n1 = NULL, rate1 = NULL, rate2 = 2 * rate1,
+  conf.width = NULL, r = 1, conf.level = 0.95)
 }
 \arguments{
-\item{n_exp}{number of exposed individuals}
+\item{n1}{number of exposed individuals}
 
-\item{rate_exp}{event rate in the exposed group}
+\item{rate1}{event rate in the exposed group}
 
-\item{rate_control}{event rate in the unexposed group}
+\item{rate2}{event rate in the unexposed group}
 
 \item{conf.width}{the ratio of the upper limit to the lower limit of the
 rate ratio confidence interval}
@@ -27,15 +27,15 @@ rate ratio confidence interval}
 provided proportions
 }
 \details{
-Exactly one of the parameters \code{n_exp, conf.width} must be passed as
+Exactly one of the parameters \code{n1, conf.width} must be passed as
 NULL, and that parameter is determined from the other. Event rates in the two
-groups should also be provided (\code{rate_exp, rate_control}). If only
-\code{rate_exp} is provided, \code{rate_control} is assumed to be 2 times
-\code{rate_exp}.
+groups should also be provided (\code{rate1, rate2}). If only
+\code{rate1} is provided, \code{rate2} is assumed to be 2 times
+\code{rate1}.
 }
 \examples{
 prec_rateratio(20, .5, 3)
-prec_rateratio(rate_exp = .5, rate_control = 3, conf.width = 3.81)
+prec_rateratio(rate1 = .5, rate2 = 3, conf.width = 3.81)
 }
 \references{
 Rothman KJ, Greenland S (2018). \emph{Planning Study Size Based on

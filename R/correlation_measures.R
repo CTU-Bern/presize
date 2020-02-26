@@ -204,18 +204,19 @@ prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
 
 
 # Limit of agreement ---------------
-#' Sample size or precision for limit of agreement on Bland Altman plots
+#' Sample size or precision for limit of agreement on Bland-Altman plots
 #'
 #' \code{prec_lim_agree} returns the sample size or the precision for the limit
-#' of agreement
+#' of agreement, i.e. the confidence interval around the limit of agreement.
 #'
 #' Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
 #' and that parameter is determined from the other.
 #'
-#' Sample size or precision is calculated according to formulae in Bland & Altman (1986).
+#' The sample size and precision are calculated according to formulae in Bland &
+#' Altman (1986).
 #'
 #' @param n Sample size
-#' @param conf.width precision (the full width of the conficende interval)
+#' @param conf.width precision (the full width of the confidence interval)
 #' @param conf.level confidence level
 #' @references Bland & Altman (1986) \emph{Statistical methods for assessing agreement
 #' between two methods of clinical measurement} Lancet i(8476):307-310 \href{https://doi.org/10.1016/S0140-6736(86)90837-8}{doi:10.1016/S0140-6736(86)90837-8}
@@ -250,3 +251,145 @@ prec_lim_agree <- function(n = NULL, conf.width = NULL, conf.level = 0.95){
             class = "presize")
 
 }
+
+
+
+
+
+
+
+
+# Cohens kappa ----
+#' Sample size or precision for Cohen's kappa
+#' Cohen's kappa is a measure of agreement between 2 or more raters and can be
+#' for rating schemes with 2 or more levels.
+#'
+#' @param kappa expected value of Cohen's kappa
+#' @param raters number of raters (maximum of 6)
+#' @param n_category number of categories of outcomes (maximum of 5)
+#' @param props expected proportions of each outcome (should have length
+#' \code{n_category})
+#' @param conf.width precision (the full width of the confidence interval)
+#' @param n sample size
+#' @param conf.level confidence level
+#' @details This function wraps the \code{FixedN} and \code{CI} functions in the
+#' \code{kappaSize} package.
+#' The \code{FixedN} functions in \code{kappaSize} return a one sided confidence
+#' interval. The values that are passed to \code{kappaSize} ensure that two-sided
+#' confidence intervals are returned, although we assume that confidence intervals
+#' are symetrical.
+#' @seealso \code{\link[kappaSize]{kappaSize}},
+#' \code{\link[kappaSize]{FixedNBinary}},
+#' \code{\link[kappaSize]{FixedN3Cats}},
+#' \code{\link[kappaSize]{CIBinary}},
+#' \code{\link[kappaSize]{CI3Cats}}
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' # precision based on sample size
+#' prec_kappa(kappa = .5, n = 200, raters = 4, n_category = 2, props = c(.3,.7))
+#' # sample size to get a given precision
+#' prec_kappa(kappa = .5, conf.width = .15, raters = 4, n_category = 2, props = c(.3,.7))
+#'
+#'
+#' prec_kappa(kappa = c(.5, .75), conf.width = .15, raters = 4, n_category = 2, props = c(.3,.7))
+#' prec_kappa(kappa = c(.5, .75), conf.width = c(.15, 0.3), raters = 4, n_category = 2, props = c(.3,.7))
+#'
+prec_kappa <- function(kappa,
+                       n = NULL,
+                       raters = 2,
+                       n_category = 2,
+                       props,
+                       conf.width = NULL,
+                       conf.level = 0.95){
+
+  if (n_category < 2) stop("there must be at least 2 outcome categories")
+  if (n_category > 5) stop("more than 5 outcome categories is not supported")
+  if (sum(sapply(list(n, conf.width), is.null)) != 1)
+    stop("exactly one of 'n', and 'conf.width' must be NULL")
+  numrange_check(conf.level)
+
+  alpha <- 1-conf.level
+
+  if (!all(is.null(n))){
+    est <- "precision"
+    vals <- data.frame(kappa = kappa,
+                       n = n)
+    fun <- switch(n_category - 1,
+                  kappaSize::FixedNBinary,
+                  kappaSize::FixedN3Cats,
+                  kappaSize::FixedN4Cats,
+                  kappaSize::FixedN5Cats)
+
+    res <- mapply(function(kap, N){
+             f <- fun(kappa0 = kap,
+               n = N,
+               props = props,
+               raters = raters,
+               alpha = alpha)
+               lwr <- f$kappaL
+               upr <- kappa + (kap - f$kappaL)
+               data.frame(
+                 kappa = kap,
+                 n = N,
+                 raters = raters,
+                 conf.level = conf.level,
+                 lwr = lwr,
+                 upr = upr,
+                 conf.width = upr - lwr)
+      }, kap = vals$kappa, N = vals$n, SIMPLIFY = FALSE)
+
+  }
+  if (!is.null(conf.width)){
+
+    est <- "sample size"
+
+    vals <- data.frame(kappa = kappa,
+                       conf.width = conf.width)
+
+    vals <- within(vals, {
+      kappa_L <- kappa - conf.width/2
+      kappa_U <- kappa + conf.width/2
+    })
+
+    fun <- switch(n_category - 1,
+                  kappaSize::CIBinary,
+                  kappaSize::CI3Cats,
+                  kappaSize::CI4Cats,
+                  kappaSize::CI5Cats)
+
+    res <- mapply(function(kappa, kappa_L, kappa_U, conf.width){
+                  f <- fun(kappa0 = kappa,
+                           kappaL = kappa_L,
+                           kappaU = kappa_U,
+                           props = props,
+                           raters = raters,
+                           alpha = alpha*2)
+                  data.frame(
+                    kappa = kappa,
+                    lwr = kappa_L,
+                    upr = kappa_U,
+                    conf.width = conf.width,
+                    conf.level = conf.level,
+                    n = f$n
+                  )
+    }, vals$kappa, vals$kappa_L, vals$kappa_U, vals$conf.width, SIMPLIFY = FALSE)
+
+  }
+
+  res <- do.call("rbind", res)
+
+
+  structure(list(kappa = kappa,
+                 n = res$n,
+                 lwr = res$lwr,
+                 upr = res$upr,
+                 conf.width = res$conf.width,
+                 conf.level = res$conf.level,
+                 method = paste(est, "for Cohen's kappa")),
+            class = "presize")
+
+}
+
