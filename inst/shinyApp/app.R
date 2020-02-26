@@ -182,8 +182,15 @@ server <- function(input, output, session) {
     })
 
     # rate ratio
-    output$rateratio_out <- renderPrint(rateratio_fn(input, FALSE))
+    output$rateratio_out <- renderPrint(rateratio_fn(input))
     output$rateratio_code <- renderPrint(rateratio_fn(input, TRUE))
+    output$rateratio_tab <- renderTable({
+        tmp <- rateratio_fn(input)
+        tmp1 <- res_vars[res_vars$column %in% c(names(tmp)),]
+        tmp1 <- tmp1[-which(tmp1$column == "r"), ]
+        tmp1$column[tmp1$column == "ar"] <- "r"
+        tmp1[na.omit(match(names(tmp), tmp1$column)),]
+    })
 
     # correlation coefficient
     output$cor_out <- renderPrint(cor_fn(input, FALSE))
