@@ -34,7 +34,7 @@ riskrpage <- tabItem(tabName = "riskratio",
 )
 
 # SERVER ----
-riskratio_fn <- function(input, code){
+riskratio_fn <- function(input, code = FALSE){
         if(is.na(input$riskratio_n1) & is.na(input$riskratio_ciwidth)) {
                 cat("Awaiting 'number of observations' or 'confidence interval width'")
         } else {

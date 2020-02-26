@@ -26,7 +26,7 @@ numericInput("cor_n", "Number of observations", value = NULL),
 )
 
 # SERVER ----
-cor_fn <- function(input, code){
+cor_fn <- function(input, code = FALSE){
         if(is.na(input$cor_n) & is.na(input$cor_ciwidth)) {
                 cat("Awaiting 'number of observations' or 'confidence interval width'")
         } else {

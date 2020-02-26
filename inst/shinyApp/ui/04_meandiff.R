@@ -27,7 +27,7 @@ meandiffpage <- tabItem(tabName = "meandiff",
 )
 
 # SERVER ----
-meandiff_fn <- function(input, code){
+meandiff_fn <- function(input, code = FALSE){
         db(input, "meandiff")
         if(is.na(input$meandiff_n) & is.na(input$meandiff_ciwidth)) {
                 cat("Awaiting 'number of observations' or 'confidence interval width'")

@@ -19,7 +19,7 @@ kappapage <- tabItem(tabName = "kappa",
 )
 
 # SERVER ----
-kappa_fn <- function(input, code){
+kappa_fn <- function(input, code = FALSE){
         db(input, "kappa")
         if(is.na(input$kappa_n) & is.na(input$kappa_ciwidth)) {
                 cat("Awaiting 'number of observations' or 'confidence interval width'")

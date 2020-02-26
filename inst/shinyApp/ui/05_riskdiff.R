@@ -39,7 +39,7 @@ riskdiffpage <- tabItem(tabName = "riskdiff",
 )
 
 #SERVER
-riskdiff_fn <- function(input, code){
+riskdiff_fn <- function(input, code = FALSE){
         if(is.na(input$riskdiff_n1) & is.na(input$riskdiff_ciwidth)) {
                 cat("Awaiting 'number of observations' or 'confidence interval width'")
         } else {

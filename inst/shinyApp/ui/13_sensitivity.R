@@ -35,7 +35,7 @@ senspage <- tabItem(tabName = "sens",
 )
 
 # SERVER ----
-sens_fn <- function(input, code){
+sens_fn <- function(input, code = FALSE){
         if(is.na(input$sens_ntot) & is.na(input$sens_ciwidth)) {
                 cat("Awaiting 'number of observations' or 'confidence interval width'")
         } else {

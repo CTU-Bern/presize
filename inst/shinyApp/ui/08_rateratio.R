@@ -26,7 +26,7 @@ raterpage <- tabItem(tabName = "rateratio",
 )
 
 # SERVER ----
-rateratio_fn <- function(input, code){
+rateratio_fn <- function(input, code = FALSE){
         if(is.na(input$rateratio_n_exp) & is.na(input$rateratio_ciwidth)) {
                 cat("Awaiting 'number of observations' or 'confidence interval width'")
         } else {

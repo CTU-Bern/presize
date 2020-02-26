@@ -22,7 +22,7 @@ limitpage <- tabItem(tabName = "limit",
 )
 
 # SERVER ----
-limit_fn <- function(input, code){
+limit_fn <- function(input, code= FALSE){
         if(is.na(input$limit_n) & is.na(input$limit_ciwidth)) {
                 cat("Awaiting 'number of observations' or 'confidence interval width'")
         } else {

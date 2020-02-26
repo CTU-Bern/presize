@@ -21,7 +21,7 @@ iccpage <- tabItem(tabName = "icc",
 )
 
 # SERVER ----
-icc_fn <- function(input, code){
+icc_fn <- function(input, code = FALSE){
         if(is.na(input$icc_n) & is.na(input$icc_ciwidth)) {
                 cat("Awaiting 'number of observations' or 'confidence interval width'")
         } else {

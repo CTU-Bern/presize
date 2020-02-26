@@ -22,7 +22,7 @@ aucpage <- tabItem(tabName = "auc",
         tags$i("Radiology"), "148, 29-36")
 
 # SERVER ----
-auc_fn <- function(input, code){
+auc_fn <- function(input, code = FALSE){
         db(input, "auc")
         if(is.na(input$auc_n) & is.na(input$auc_ciwidth)) {
                 cat("Awaiting 'number of observations' or 'confidence interval width'")

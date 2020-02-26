@@ -25,7 +25,7 @@ meanpage <- tabItem(tabName = "mean",
 )
 
 # SERVER ----
-mean_fn <- function(input, code){
+mean_fn <- function(input, code = FALSE){
         if(is.na(input$mean_n) & is.na(input$mean_ciwidth)) {
                 cat("Awaiting 'number of observations' or 'confidence interval width'")
         } else {

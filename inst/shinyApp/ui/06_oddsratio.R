@@ -31,7 +31,7 @@ orpage <- tabItem(tabName = "or",
 )
 
 # SERVER ----
-or_fn <- function(input, code){
+or_fn <- function(input, code = FALSE){
         if(is.na(input$or_n1) & is.na(input$or_ciwidth)) {
                 cat("Awaiting 'number of observations' or 'confidence interval width'")
         } else {
