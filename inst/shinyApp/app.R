@@ -256,12 +256,26 @@ server <- function(input, output, session) {
     })
 
     # sens
-    output$sens_out <- renderPrint(sens_fn(input, FALSE))
+    output$sens_out <- renderPrint(sens_fn(input))
     output$sens_code <- renderPrint(sens_fn(input, TRUE))
+    output$sens_tab <- renderTable({
+        tmp <- sens_fn(input)
+        tmp1 <- res_vars[res_vars$column %in% c(names(tmp), "nsens"),]
+        tmp1 <- tmp1[-which(tmp1$column == "n"), ]
+        tmp1$column[tmp1$column == "nsens"] <- "n"
+        tmp1[na.omit(match(names(tmp), tmp1$column)),]
+    })
 
     # spec
-    output$spec_out <- renderPrint(spec_fn(input, FALSE))
+    output$spec_out <- renderPrint(spec_fn(input))
     output$spec_code <- renderPrint(spec_fn(input, TRUE))
+    output$spec_tab <- renderTable({
+        tmp <- spec_fn(input)
+        tmp1 <- res_vars[res_vars$column %in% c(names(tmp), "nspec"),]
+        tmp1 <- tmp1[-which(tmp1$column == "n"), ]
+        tmp1$column[tmp1$column == "nspec"] <- "n"
+        tmp1[na.omit(match(names(tmp), tmp1$column)),]
+    })
 
     # auc
     output$auc_out <- renderPrint(auc_fn(input, FALSE))
