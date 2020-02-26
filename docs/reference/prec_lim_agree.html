@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sample size or precision for limit of agreement on Bland Altman plots — prec_lim_agree • presize</title>
+<title>Sample size or precision for limit of agreement on Bland-Altman plots — prec_lim_agree • presize</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,10 +32,10 @@
 
 
 
-<meta property="og:title" content="Sample size or precision for limit of agreement on Bland Altman plots — prec_lim_agree" />
+<meta property="og:title" content="Sample size or precision for limit of agreement on Bland-Altman plots — prec_lim_agree" />
 
 <meta property="og:description" content="prec_lim_agree returns the sample size or the precision for the limit
-of agreement" />
+of agreement, i.e. the confidence interval around the limit of agreement." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -67,7 +67,7 @@ of agreement" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">presize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9004</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9005</span>
       </span>
     </div>
 
@@ -107,7 +107,7 @@ of agreement" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Sample size or precision for limit of agreement on Bland Altman plots</h1>
+    <h1>Sample size or precision for limit of agreement on Bland-Altman plots</h1>
     <small class="dont-index">Source: <a href='https://github.com/CTU-Bern/presize/blob/master/R/correlation_measures.R'><code>R/correlation_measures.R</code></a></small>
     <div class="hidden name"><code>prec_lim_agree.Rd</code></div>
     </div>
@@ -115,7 +115,7 @@ of agreement" />
     <div class="ref-description">
     
     <p><code>prec_lim_agree</code> returns the sample size or the precision for the limit
-of agreement</p>
+of agreement, i.e. the confidence interval around the limit of agreement.</p>
     
     </div>
 
@@ -130,7 +130,7 @@ of agreement</p>
     </tr>
     <tr>
       <th>conf.width</th>
-      <td><p>precision (the full width of the conficende interval)</p></td>
+      <td><p>precision (the full width of the confidence interval)</p></td>
     </tr>
     <tr>
       <th>conf.level</th>
@@ -142,7 +142,8 @@ of agreement</p>
 
     <p>Exactly one of the parameters <code>n, conf.width</code> must be passed as NULL,
 and that parameter is determined from the other.</p>
-<p>Sample size or precision is calculated according to formulae in Bland &amp; Altman (1986).</p>
+<p>The sample size and precision are calculated according to formulae in Bland &amp;
+Altman (1986).</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 

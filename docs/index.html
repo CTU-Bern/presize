@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">presize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9004</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9005</span>
       </span>
     </div>
 
@@ -108,8 +108,8 @@
 </li>
 <li>correlation measures
 <ul>
-<li>correlation coefficient (<code>prec_cor</code>) <!--    + Cohens kappa -->
-</li>
+<li>correlation coefficient (<code>prec_cor</code>)</li>
+<li>Cohens kappa (<code>prec_kappa</code>)</li>
 <li>ICC (<code>prec_icc</code>)</li>
 <li>limit of agreement from Bland Altman plot (<code>prec_lim_agree</code>)</li>
 </ul>
@@ -130,22 +130,32 @@
 <a href="#example" class="anchor"></a>Example</h2>
 <p>This is a basic example which shows you how to solve a common problem:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(presize)</a>
-<a class="sourceLine" id="cb2-2" title="2"></a>
-<a class="sourceLine" id="cb2-3" title="3"><span class="co"># calculate sample size for a proportion of 0.2, or 0.4 with a precision of 0.2</span></a>
-<a class="sourceLine" id="cb2-4" title="4"><span class="kw"><a href="reference/prec_prop.html">prec_prop</a></span>(<span class="dt">p =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(.<span class="dv">2</span>, <span class="fl">.4</span>), <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">method =</span> <span class="st">"wilson"</span>)</a>
-<a class="sourceLine" id="cb2-5" title="5"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-6" title="6"><span class="co">#&gt;      precision for a proportion with Wilson confidence interval. </span></a>
-<a class="sourceLine" id="cb2-7" title="7"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-8" title="8"><span class="co">#&gt;     p      padj  n conf.width conf.level        lwr       upr</span></a>
-<a class="sourceLine" id="cb2-9" title="9"><span class="co">#&gt; 1 0.2 0.2832598 10  0.4531554       0.95 0.05668215 0.5098375</span></a>
-<a class="sourceLine" id="cb2-10" title="10"><span class="co">#&gt; 2 0.4 0.4277533 10  0.5191459       0.95 0.16818033 0.6873262</span></a>
-<a class="sourceLine" id="cb2-11" title="11"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-12" title="12"><span class="co">#&gt; </span><span class="al">NOTE</span><span class="co">: padj is the adjusted proportion, from which the ci is calculated.</span></a></code></pre></div>
+<a class="sourceLine" id="cb2-2" title="2"><span class="co">#&gt; Loading required package: ggplot2</span></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="co">#&gt; Loading required package: kappaSize</span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co">#&gt; Loading required package: shiny</span></a>
+<a class="sourceLine" id="cb2-5" title="5"></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="co"># calculate sample size for a proportion of 0.2, or 0.4 with a precision of 0.2</span></a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="kw"><a href="reference/prec_prop.html">prec_prop</a></span>(<span class="dt">p =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(.<span class="dv">2</span>, <span class="fl">.4</span>), <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">method =</span> <span class="st">"wilson"</span>)</a>
+<a class="sourceLine" id="cb2-8" title="8"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-9" title="9"><span class="co">#&gt;      precision for a proportion with Wilson confidence interval. </span></a>
+<a class="sourceLine" id="cb2-10" title="10"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-11" title="11"><span class="co">#&gt;     p      padj  n conf.width conf.level        lwr       upr</span></a>
+<a class="sourceLine" id="cb2-12" title="12"><span class="co">#&gt; 1 0.2 0.2832598 10  0.4531554       0.95 0.05668215 0.5098375</span></a>
+<a class="sourceLine" id="cb2-13" title="13"><span class="co">#&gt; 2 0.4 0.4277533 10  0.5191459       0.95 0.16818033 0.6873262</span></a>
+<a class="sourceLine" id="cb2-14" title="14"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-15" title="15"><span class="co">#&gt; </span><span class="al">NOTE</span><span class="co">: padj is the adjusted proportion, from which the ci is calculated.</span></a></code></pre></div>
+<p>THe problem being addressed is ‘how wide is the confidence interval width given proportions of events of 20 and 40% and only 10 participants’.</p>
 </div>
 <div id="shiny-app" class="section level2">
 <h2 class="hasAnchor">
 <a href="#shiny-app" class="anchor"></a>Shiny app</h2>
 <p>An online interactive version of the package is available <a href="https://ctu-bern.shinyapps.io/presize">here</a>. The app can also be launched locally via <code>launch_presize_app()</code> in RStudio.</p>
+</div>
+<div id="funding" class="section level2">
+<h2 class="hasAnchor">
+<a href="#funding" class="anchor"></a>Funding</h2>
+<p><code>presize</code> was largely developed at CTU Bern, with collaboration from CTU Basel. Funding was provided by the Swiss Clinical Trials Organisation.</p>
+<p><img src="inst/fig/scto_ctu_member_cmyk.jpg"></p>
 </div>
 </div>
   </div>
