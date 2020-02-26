@@ -142,7 +142,8 @@ server <- function(input, output, session) {
         tmp <- meandiff_fn(input, FALSE)
         tmp1 <- res_vars[res_vars$column %in%
                              c("delta", "sd1", "sd2", "n1", "n2", "conf.width",
-                               "conf.level", "lwr", "upr"),]
+                               "conf.level", "lwr", "upr", "ar"),]
+        tmp1$column[tmp1$column == "ar"] <- "r"
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
 
@@ -152,8 +153,9 @@ server <- function(input, output, session) {
     output$riskdiff_tab <- renderTable({
         tmp <- riskdiff_fn(input, FALSE)
         tmp1 <- res_vars[res_vars$column %in%
-                             c("p1", "p2", "n1", "n2", "r", "ntot", "delta",
+                             c("p1", "p2", "n1", "n2", "ar", "ntot", "delta",
                                "conf.width","conf.level", "lwr", "upr"),]
+        tmp1$column[tmp1$column == "ar"] <- "r"
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
 
