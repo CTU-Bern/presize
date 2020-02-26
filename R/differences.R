@@ -828,7 +828,7 @@ prec_rateratio <- function(n1 = NULL, # n exposed
   if (est == "sample size"){
     num <- r * rate2 + rate1
     denom <- r * rate2 * rate1 * (log(1/conf.width))^2
-    n_exp <- ((4 * z^2) * num) / denom
+    n1 <- ((4 * z^2) * num) / denom
   }
 
   n2 <- n1 * r

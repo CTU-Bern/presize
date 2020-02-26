@@ -19,10 +19,10 @@ test_that("errors", {
   expect_warning(prec_riskratio(p1 = 36/40, p2 = 16/80,
                               n1 = 40, r = 2, method = "foo"))
 
-  expect_error(prec_rateratio(rate_exp = 1, rate_control = NULL))
-  expect_error(prec_rateratio(rate_exp = NULL, rate_control = NULL))
-  expect_error(prec_rateratio(rate_exp = 1, rate_control = 1))
-  expect_error(prec_rateratio(20, rate_exp = 1, rate_control = 1), regexp = NA)
+  expect_error(prec_rateratio(rate1 = 1, rate2 = NULL))
+  expect_error(prec_rateratio(rate1 = NULL, rate2 = NULL))
+  expect_error(prec_rateratio(rate1 = 1, rate2 = 1))
+  expect_error(prec_rateratio(20, rate1 = 1, rate2 = 1), regexp = NA)
 
   expect_error(prec_meandiff("foo"), "'delta'")
   expect_error(prec_meandiff(2, "foo"), "'sd1'")
@@ -125,8 +125,8 @@ test_that("Fagerland et al. (2015), Table 5", {
 context("rateratio")
 
 test_that("inverse", {
-  x <- prec_rateratio(20, rate_exp = 1, rate_control = 1)
-  y <- prec_rateratio(rate_exp = 1, rate_control = 1, conf.width = 3.454197)
+  x <- prec_rateratio(20, rate1 = 1, rate2 = 1)
+  y <- prec_rateratio(rate1 = 1, rate2 = 1, conf.width = 3.454197)
   expect_equal(x[1:11], y[1:11], tolerance = .05)
 })
 
