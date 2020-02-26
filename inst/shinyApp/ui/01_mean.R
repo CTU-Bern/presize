@@ -18,6 +18,7 @@ meanpage <- tabItem(tabName = "mean",
         tags$hr(),
         h4("Results"),
         verbatimTextOutput("mean_out"),
+        tableOutput("mean_tab"),
         "Code to replicate in R:",
         verbatimTextOutput("mean_code")
 
