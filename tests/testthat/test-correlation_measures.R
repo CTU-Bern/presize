@@ -64,5 +64,27 @@ test_that("icc (Bonett example)", {
 })
 
 
+test_that("kappa", {
+  props <- c(.4, .6)
+  expect_error(prec_kappa(.5))
+  expect_error(prec_kappa(.5, 500, n_category = 9, props = c(rep(.1,8), .2)))
+  expect_error(prec_kappa(.5, 500, raters = 9, props = props))
+  expect_error(prec_kappa(.5, "500"))
+  expect_error(prec_kappa(.5, 500, props = c(1,2)))
+  expect_error(prec_kappa(.5, 500, props = props), regexp = NA)
+  expect_error(prec_kappa(.5, conf.width = .2, props = props), regexp = NA)
+
+  kappa <- .5
+  N <- c(50,100)
+  pk <- prec_kappa(kappa, N, props = props)
+  expect_equal(pk$kappa, kappa)
+  expect_equal(pk$n, N)
+
+  N <- 50
+  pk1 <- prec_kappa(kappa, N, props = props)
+  pk2 <- prec_kappa(kappa, props = props, conf.width = pk1$conf.width)
+  expect_equal(pk1$n, pk2$n)
+  expect_equal(pk1$conf.width, pk2$conf.width)
+})
 
 
