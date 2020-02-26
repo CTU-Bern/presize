@@ -138,10 +138,24 @@ server <- function(input, output, session) {
     # meandiff
     output$meandiff_out <- renderPrint(meandiff_fn(input, FALSE))
     output$meandiff_code <- renderPrint(meandiff_fn(input, TRUE))
+    output$meandiff_tab <- renderTable({
+        tmp <- meandiff_fn(input, FALSE)
+        tmp1 <- res_vars[res_vars$column %in%
+                             c("delta", "sd1", "sd2", "n1", "n2", "conf.width",
+                               "conf.level", "lwr", "upr"),]
+        tmp1[na.omit(match(names(tmp), tmp1$column)),]
+    })
 
     # riskdiff
     output$riskdiff_out <- renderPrint(riskdiff_fn(input, FALSE))
     output$riskdiff_code <- renderPrint(riskdiff_fn(input, TRUE))
+    output$riskdiff_tab <- renderTable({
+        tmp <- riskdiff_fn(input, FALSE)
+        tmp1 <- res_vars[res_vars$column %in%
+                             c("p1", "p2", "n1", "n2", "r", "ntot", "delta",
+                               "conf.width","conf.level", "lwr", "upr"),]
+        tmp1[na.omit(match(names(tmp), tmp1$column)),]
+    })
 
     # or
     output$or_out <- renderPrint(or_fn(input, FALSE))

@@ -22,6 +22,7 @@ meandiffpage <- tabItem(tabName = "meandiff",
         tags$hr(),
         h4("Results"),
         verbatimTextOutput("meandiff_out"),
+        tableOutput("meandiff_tab"),
         "Code to replicate in R:",
         verbatimTextOutput("meandiff_code")
 )
