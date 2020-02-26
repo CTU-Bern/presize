@@ -32,9 +32,9 @@ rateratio_fn <- function(input, code = FALSE){
         } else {
                 z <- ifelse(is.na(input$rateratio_n_exp),
                             paste0(", conf.width = ", input$rateratio_ciwidth),
-                            paste0(", n_exp = ", input$rateratio_n_exp))
-                x <- paste0("prec_rateratio(rate_exp = ", input$rateratio_rate_exp,
-                            ", rate_control = ", input$rateratio_rate_control,
+                            paste0(", n1 = ", input$rateratio_n_exp))
+                x <- paste0("prec_rateratio(rate1 = ", input$rateratio_rate_exp,
+                            ", rate2 = ", input$rateratio_rate_control,
                             ", r = ", input$rateratio_r,
                             z, ", conf.level = ", input$conflevel,
                             ")")
