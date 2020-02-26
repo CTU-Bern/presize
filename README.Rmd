@@ -13,9 +13,7 @@ knitr::opts_chunk$set(
 ```
 
 # presize
-![travis](https://travis-ci.com/CTU-Bern/presize.svg?branch=master) [![codecov](https://codecov.io/github/CTU-Bern/presize/branch/master/graphs/badge.svg)](https://codecov.io/github/CTU-Bern/presize)
-
-**Warning: R-package in development.**
+![travis](https://travis-ci.com/CTU-Bern/presize.svg?branch=master) [![codecov](https://codecov.io/github/CTU-Bern/presize/branch/master/graphs/badge.svg)](https://codecov.io/github/CTU-Bern/presize) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/CTU-Bern/presize?branch=master&svg=true)](https://ci.appveyor.com/project/CTU-Bern/presize) `r badger::badge_custom("dev version", installed.packages()["presize", "Version"], "blue", "https://github.com/CTU-Bern/presize")` `r badger::badge_lifecycle()`
 
 The goal of presize is to provide functions for precision based sample size calculation. For a given sample size, the functions will return the precision (half the width of the confidence interval), and vice versa.
 
