@@ -55,7 +55,20 @@ ui <- dashboardPage(skin = "red",
                           menuItem("Sensitivity", tabName = "sens", icon = icon),
                           menuItem("Specificity", tabName = "spec", icon = icon),
                           menuItem("AUC", tabName = "auc", icon = icon)
-                          )
+                          ),
+                 width = 12),
+             sidebarPanel(
+                 tags$style(HTML(".well {
+                                 background-color: #222d32;
+                                 border-color: #222d32;
+                                 }")),
+                 br(),
+                 br(),
+                 br(),
+                 "presize was developed by members of the Swiss Clinical Trials Organisation",
+                 br(),
+                 img(src = "scto_ctu_member_cmyk.jpg"),
+                 width = 12
              )
          ),
          dashboardBody(
