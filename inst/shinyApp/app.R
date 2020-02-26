@@ -13,13 +13,8 @@ library(presize)
 
 icon <- icon("calculator")
 
-
-
 lf <- list.files("ui", full.names = TRUE)
 sapply(lf, source)
-
-
-
 
 # Define UI for application that draws a histogram
 ui <- dashboardPage(skin = "red",
@@ -278,9 +273,15 @@ server <- function(input, output, session) {
     })
 
     # auc
-    output$auc_out <- renderPrint(auc_fn(input, FALSE))
+    output$auc_out <- renderPrint(auc_fn(input))
     output$auc_code <- renderPrint(auc_fn(input, TRUE))
-
+    output$auc_tab <- renderTable({
+        tmp <- auc_fn(input)
+        tmp1 <- res_vars[res_vars$column %in% c(names(tmp), "auc_n1", "auc_n2"),]
+        tmp1 <- tmp1[-which(tmp1$column %in% c("n1", "n2")), ]
+        tmp1$column[tmp1$column == "nspec"] <- "n"
+        tmp1[na.omit(match(names(tmp), tmp1$column)),]
+    })
 }
 
 # Run the application
