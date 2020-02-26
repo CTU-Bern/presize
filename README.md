@@ -4,9 +4,9 @@
 # presize
 
 ![travis](https://travis-ci.com/CTU-Bern/presize.svg?branch=master)
-[![codecov](https://codecov.io/github/CTU-Bern/presize/branch/master/graphs/badge.svg)](https://codecov.io/github/CTU-Bern/presize)
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/CTU-Bern/presize?branch=master&svg=true)](https://ci.appveyor.com/project/CTU-Bern/presize)
+[![codecov](https://codecov.io/github/CTU-Bern/presize/branch/master/graphs/badge.svg)](https://codecov.io/github/CTU-Bern/presize)
 [![](https://img.shields.io/badge/dev%20version-0.0.1.9005-blue.svg)](https://github.com/CTU-Bern/presize)
 [![](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 
