@@ -44,7 +44,7 @@ meandiff_fn <- function(input, code = FALSE){
                             ", ",
                             sd2,
                             ", r = ", input$meandiff_r,
-                            z, ", conf.level = ", input$conflevel,
+                            z, ",\n              conf.level = ", input$conflevel,
                             ", variance = '",
                             ifelse(input$meandiff_var, "unequal", "equal"), "')")
                 if(code){
