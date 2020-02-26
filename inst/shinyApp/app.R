@@ -108,24 +108,30 @@ server <- function(input, output, session) {
     output$mean_out <- renderPrint(mean_fn(input, FALSE))
     output$mean_code <- renderPrint(mean_fn(input, TRUE))
     output$mean_tab <- renderTable({
-        res_vars[res_vars$column %in%
+        tmp <- prec_mean(5, 1, 15)
+        tmp1 <- res_vars[res_vars$column %in%
                      c("mu", "sd", "n", "lwr", "upr", "conf.width", "conf.level"),]
+        tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
 
     # proportion
     output$prop_code <- renderPrint(prop_fn(input, TRUE))
     output$prop_out <- renderPrint(prop_fn(input, FALSE))
     output$prop_tab <- renderTable({
-        res_vars[res_vars$column %in%
+        tmp <- prec_prop(.5, 500)
+        tmp1 <- res_vars[res_vars$column %in%
                      c("p", "padj", "n", "lwr", "upr", "conf.width", "conf.level"),]
+        tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
 
     # rate
     output$rate_out <- renderPrint(rate_fn(input, FALSE))
     output$rate_code <- renderPrint(rate_fn(input, TRUE))
     output$rate_tab <- renderTable({
-        res_vars[res_vars$column %in%
+        tmp <- prec_rate(5, 50)
+        tmp1 <- res_vars[res_vars$column %in%
                      c("r", "radj", "x", "time", "conf.width", "conf.level", "lwr", "upr"),]
+        tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
 
     # meandiff
