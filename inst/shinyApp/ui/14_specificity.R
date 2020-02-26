@@ -25,6 +25,7 @@ specpage <- tabItem(tabName = "spec",
         "The number of cases is calculated as sample size * prev, which can result in fractions so rounding is necessary.",
         h4("Results"),
         verbatimTextOutput("spec_out"),
+        tableOutput("spec_tab"),
         "Code to replicate in R:",
         verbatimTextOutput("spec_code"),
         h4("References"),
@@ -33,7 +34,7 @@ specpage <- tabItem(tabName = "spec",
 )
 
 # SERVER ----
-spec_fn <- function(input, code){
+spec_fn <- function(input, code = FALSE){
         if(is.na(input$spec_ntot) & is.na(input$spec_ciwidth)) {
                 cat("Awaiting 'number of observations' or 'confidence interval width'")
         } else {

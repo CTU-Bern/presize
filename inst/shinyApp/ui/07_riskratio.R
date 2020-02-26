@@ -22,6 +22,7 @@ riskrpage <- tabItem(tabName = "riskratio",
                     selected = "koopman"),
         h4("Results"),
         verbatimTextOutput("riskratio_out"),
+        tableOutput("riskratio_tab"),
         "Code to replicate in R:",
         verbatimTextOutput("riskratio_code"),
         h4("References"),
@@ -34,7 +35,7 @@ riskrpage <- tabItem(tabName = "riskratio",
 )
 
 # SERVER ----
-riskratio_fn <- function(input, code){
+riskratio_fn <- function(input, code = FALSE){
         if(is.na(input$riskratio_n1) & is.na(input$riskratio_ciwidth)) {
                 cat("Awaiting 'number of observations' or 'confidence interval width'")
         } else {

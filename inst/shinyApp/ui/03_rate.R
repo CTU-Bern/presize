@@ -27,6 +27,7 @@ ratepage <- tabItem(
     tags$hr(),
     h4("Results"),
     verbatimTextOutput("rate_out"),
+    tableOutput("rate_tab"),
     "Code to replicate in R:",
     verbatimTextOutput("rate_code"),
     h4("References"),
@@ -37,7 +38,7 @@ ratepage <- tabItem(
   )
 
 # SERVER ----
-rate_fn <- function(input, code){
+rate_fn <- function(input, code = FALSE){
   if(is.na(input$rate_x) & is.na(input$rate_ciwidth)) {
     cat("Awaiting 'number of observations' or 'confidence interval width'")
   } else {

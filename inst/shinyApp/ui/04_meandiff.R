@@ -22,12 +22,13 @@ meandiffpage <- tabItem(tabName = "meandiff",
         tags$hr(),
         h4("Results"),
         verbatimTextOutput("meandiff_out"),
+        tableOutput("meandiff_tab"),
         "Code to replicate in R:",
         verbatimTextOutput("meandiff_code")
 )
 
 # SERVER ----
-meandiff_fn <- function(input, code){
+meandiff_fn <- function(input, code = FALSE){
         db(input, "meandiff")
         if(is.na(input$meandiff_n) & is.na(input$meandiff_ciwidth)) {
                 cat("Awaiting 'number of observations' or 'confidence interval width'")
@@ -43,7 +44,7 @@ meandiff_fn <- function(input, code){
                             ", ",
                             sd2,
                             ", r = ", input$meandiff_r,
-                            z, ", conf.level = ", input$conflevel,
+                            z, ",\n              conf.level = ", input$conflevel,
                             ", variance = '",
                             ifelse(input$meandiff_var, "unequal", "equal"), "')")
                 if(code){

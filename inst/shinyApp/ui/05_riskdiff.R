@@ -23,6 +23,7 @@ riskdiffpage <- tabItem(tabName = "riskdiff",
                     selected = "newcombe"),
         h4("Results"),
         verbatimTextOutput("riskdiff_out"),
+        tableOutput("riskdiff_tab"),
         "Code to replicate in R:",
         verbatimTextOutput("riskdiff_code"),
         h3("References"),
@@ -39,7 +40,7 @@ riskdiffpage <- tabItem(tabName = "riskdiff",
 )
 
 #SERVER
-riskdiff_fn <- function(input, code){
+riskdiff_fn <- function(input, code = FALSE){
         if(is.na(input$riskdiff_n1) & is.na(input$riskdiff_ciwidth)) {
                 cat("Awaiting 'number of observations' or 'confidence interval width'")
         } else {
@@ -49,7 +50,7 @@ riskdiff_fn <- function(input, code){
                 x <- paste0("prec_riskdiff(p1 = ", input$riskdiff_p1,
                             ", p2 = ", input$riskdiff_p2,
                             ", r = ", input$riskdiff_r,
-                            z, ", conf.level = ", input$conflevel,
+                            z, ",\n              conf.level = ", input$conflevel,
                             ", method = '", input$riskdiff_method, "')")
                 if(code){
                         cat(x)

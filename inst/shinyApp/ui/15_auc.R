@@ -15,6 +15,7 @@ aucpage <- tabItem(tabName = "auc",
                      value = NULL, min = 0, max = 1),
         tags$hr(),
         verbatimTextOutput("auc_out"),
+        tableOutput("auc_tab"),
         "Code to replicate in R:",
         verbatimTextOutput("auc_code"),
         h3("References"),
@@ -22,7 +23,7 @@ aucpage <- tabItem(tabName = "auc",
         tags$i("Radiology"), "148, 29-36")
 
 # SERVER ----
-auc_fn <- function(input, code){
+auc_fn <- function(input, code = FALSE){
         db(input, "auc")
         if(is.na(input$auc_n) & is.na(input$auc_ciwidth)) {
                 cat("Awaiting 'number of observations' or 'confidence interval width'")

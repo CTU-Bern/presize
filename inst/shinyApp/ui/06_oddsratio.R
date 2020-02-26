@@ -23,6 +23,7 @@ orpage <- tabItem(tabName = "or",
                     selected = "indip_smooth"),
         h4("Results"),
         verbatimTextOutput("or_out"),
+        tableOutput("or_tab"),
         "Code to replicate in R:",
         verbatimTextOutput("or_code"),
         h4("References"),
@@ -31,7 +32,7 @@ orpage <- tabItem(tabName = "or",
 )
 
 # SERVER ----
-or_fn <- function(input, code){
+or_fn <- function(input, code = FALSE){
         if(is.na(input$or_n1) & is.na(input$or_ciwidth)) {
                 cat("Awaiting 'number of observations' or 'confidence interval width'")
         } else {

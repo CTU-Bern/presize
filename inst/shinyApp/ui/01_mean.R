@@ -18,13 +18,14 @@ meanpage <- tabItem(tabName = "mean",
         tags$hr(),
         h4("Results"),
         verbatimTextOutput("mean_out"),
+        tableOutput("mean_tab"),
         "Code to replicate in R:",
         verbatimTextOutput("mean_code")
 
 )
 
 # SERVER ----
-mean_fn <- function(input, code){
+mean_fn <- function(input, code = FALSE){
         if(is.na(input$mean_n) & is.na(input$mean_ciwidth)) {
                 cat("Awaiting 'number of observations' or 'confidence interval width'")
         } else {

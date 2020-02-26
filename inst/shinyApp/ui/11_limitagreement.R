@@ -14,6 +14,7 @@ limitpage <- tabItem(tabName = "limit",
                      value = NULL, min = 0, max = 1),
         h4("Result"),
         verbatimTextOutput("limit_out"),
+        tableOutput("limit_tab"),
         "Code to replicate in R:",
         verbatimTextOutput("limit_code"),
         h4("References"),
@@ -22,7 +23,7 @@ limitpage <- tabItem(tabName = "limit",
 )
 
 # SERVER ----
-limit_fn <- function(input, code){
+limit_fn <- function(input, code= FALSE){
         if(is.na(input$limit_n) & is.na(input$limit_ciwidth)) {
                 cat("Awaiting 'number of observations' or 'confidence interval width'")
         } else {

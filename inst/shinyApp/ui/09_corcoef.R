@@ -17,6 +17,7 @@ numericInput("cor_n", "Number of observations", value = NULL),
                      value = NULL, min = 0, max = 1),
         h4("Results"),
         verbatimTextOutput("cor_out"),
+        tableOutput("cor_tab"),
         "Code to replicate in R:",
         verbatimTextOutput("cor_code"),
         h4("References"),
@@ -26,7 +27,7 @@ numericInput("cor_n", "Number of observations", value = NULL),
 )
 
 # SERVER ----
-cor_fn <- function(input, code){
+cor_fn <- function(input, code = FALSE){
         if(is.na(input$cor_n) & is.na(input$cor_ciwidth)) {
                 cat("Awaiting 'number of observations' or 'confidence interval width'")
         } else {

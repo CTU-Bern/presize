@@ -4,7 +4,7 @@ iccpage <- tabItem(tabName = "icc",
         h2("Precision of an intraclass correlation coefficient"),
         "Enter the correlation coefficient you expect. To estimate the confidence interval width from a number of events, enter the number of events in 'Number of events'. To estimate the number of observations required to get a confidence interval width of X, enter the width in 'Confidence interval width'.",
         h4("Please enter the following"),
-        numericInput("icc_rho", "ρ (Intraclass correlation coefficient)",
+        numericInput("icc_rho", "Intraclass correlation coefficient",
                      value = 0, min = 0, max = 1),
         numericInput("icc_k", "Number of observations per subject", value = NULL),
         h4("Please enter one of the following"),
@@ -13,6 +13,7 @@ iccpage <- tabItem(tabName = "icc",
                      value = NULL, min = 0, max = 1),
         h4("Results"),
         verbatimTextOutput("icc_out"),
+        tableOutput("icc_tab"),
         "Code to replicate in R:",
         verbatimTextOutput("icc_code"),
         h4("References"),
@@ -21,7 +22,7 @@ iccpage <- tabItem(tabName = "icc",
 )
 
 # SERVER ----
-icc_fn <- function(input, code){
+icc_fn <- function(input, code = FALSE){
         if(is.na(input$icc_n) & is.na(input$icc_ciwidth)) {
                 cat("Awaiting 'number of observations' or 'confidence interval width'")
         } else {
