@@ -14,6 +14,7 @@ kappapage <- tabItem(tabName = "kappa",
         numericInput("kappa_ciwidth", "Confidence interval width", min = 0, value = NULL),
         h3("Result"),
         verbatimTextOutput("kappa_out"),
+        tableOutput("kappa_tab"),
         "Code to replicate in R:",
         verbatimTextOutput("kappa_code")
 )

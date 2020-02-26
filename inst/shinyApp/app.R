@@ -204,11 +204,16 @@ server <- function(input, output, session) {
     })
 
     # ICC
-    output$icc_out <- renderPrint(icc_fn(input, FALSE))
+    output$icc_out <- renderPrint(icc_fn(input))
     output$icc_code <- renderPrint(icc_fn(input, TRUE))
+    output$icc_tab <- renderTable({
+        tmp <- icc_fn(input)
+        tmp1 <- res_vars[res_vars$column %in% names(tmp),]
+        tmp1[na.omit(match(names(tmp), tmp1$column)),]
+    })
 
     # limit of agreement
-    output$limit_out <- renderPrint(limit_fn(input, FALSE))
+    output$limit_out <- renderPrint(limit_fn(input))
     output$limit_code <- renderPrint(limit_fn(input, TRUE))
     output$limitplot <- renderPlot({
         source(system.file("extdata", "baplotdata", package = "presize"))
@@ -235,10 +240,20 @@ server <- function(input, output, session) {
             theme_classic() +
             xlab("Mean") + ylab("Difference")
     })
+    output$limit_tab <- renderTable({
+        tmp <- limit_fn(input)
+        tmp1 <- res_vars[res_vars$column %in% names(tmp),]
+        tmp1[na.omit(match(names(tmp), tmp1$column)),]
+    })
 
     # kappa
-    output$kappa_out <- renderPrint(kappa_fn(input, FALSE))
+    output$kappa_out <- renderPrint(kappa_fn(input))
     output$kappa_code <- renderPrint(kappa_fn(input, TRUE))
+    output$kappa_tab <- renderTable({
+        tmp <- kappa_fn(input)
+        tmp1 <- res_vars[res_vars$column %in% names(tmp),]
+        tmp1[na.omit(match(names(tmp), tmp1$column)),]
+    })
 
     # sens
     output$sens_out <- renderPrint(sens_fn(input, FALSE))
