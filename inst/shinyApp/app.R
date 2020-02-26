@@ -136,10 +136,10 @@ server <- function(input, output, session) {
     })
 
     # meandiff
-    output$meandiff_out <- renderPrint(meandiff_fn(input, FALSE))
+    output$meandiff_out <- renderPrint(meandiff_fn(input))
     output$meandiff_code <- renderPrint(meandiff_fn(input, TRUE))
     output$meandiff_tab <- renderTable({
-        tmp <- meandiff_fn(input, FALSE)
+        tmp <- meandiff_fn(input)
         tmp1 <- res_vars[res_vars$column %in%
                              c("delta", "sd1", "sd2", "n1", "n2", "conf.width",
                                "conf.level", "lwr", "upr", "ar"),]
@@ -148,10 +148,10 @@ server <- function(input, output, session) {
     })
 
     # riskdiff
-    output$riskdiff_out <- renderPrint(riskdiff_fn(input, FALSE))
+    output$riskdiff_out <- renderPrint(riskdiff_fn(input))
     output$riskdiff_code <- renderPrint(riskdiff_fn(input, TRUE))
     output$riskdiff_tab <- renderTable({
-        tmp <- riskdiff_fn(input, FALSE)
+        tmp <- riskdiff_fn(input)
         tmp1 <- res_vars[res_vars$column %in%
                              c("p1", "p2", "n1", "n2", "ar", "ntot", "delta",
                                "conf.width","conf.level", "lwr", "upr"),]
@@ -160,10 +160,10 @@ server <- function(input, output, session) {
     })
 
     # or
-    output$or_out <- renderPrint(or_fn(input, FALSE))
+    output$or_out <- renderPrint(or_fn(input))
     output$or_code <- renderPrint(or_fn(input, TRUE))
     output$or_tab <- renderTable({
-        tmp <- or_fn(input, FALSE)
+        tmp <- or_fn(input)
         tmp1 <- res_vars[res_vars$column %in% c(names(tmp), "ar"),]
         tmp1 <- tmp1[-which(tmp1$column == "r"), ]
         tmp1$column[tmp1$column == "ar"] <- "r"
@@ -171,10 +171,10 @@ server <- function(input, output, session) {
     })
 
     # risk ratio
-    output$riskratio_out <- renderPrint(riskratio_fn(input, FALSE))
+    output$riskratio_out <- renderPrint(riskratio_fn(input))
     output$riskratio_code <- renderPrint(riskratio_fn(input, TRUE))
     output$riskratio_tab <- renderTable({
-        tmp <- riskratio_fn(input, FALSE)
+        tmp <- riskratio_fn(input)
         tmp1 <- res_vars[res_vars$column %in% c(names(tmp), "ar"),]
         tmp1 <- tmp1[-which(tmp1$column == "r"), ]
         tmp1$column[tmp1$column == "ar"] <- "r"
