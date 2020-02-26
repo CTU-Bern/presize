@@ -162,10 +162,24 @@ server <- function(input, output, session) {
     # or
     output$or_out <- renderPrint(or_fn(input, FALSE))
     output$or_code <- renderPrint(or_fn(input, TRUE))
+    output$or_tab <- renderTable({
+        tmp <- or_fn(input, FALSE)
+        tmp1 <- res_vars[res_vars$column %in% c(names(tmp), "ar"),]
+        tmp1 <- tmp1[-which(tmp1$column == "r"), ]
+        tmp1$column[tmp1$column == "ar"] <- "r"
+        tmp1[na.omit(match(names(tmp), tmp1$column)),]
+    })
 
     # risk ratio
     output$riskratio_out <- renderPrint(riskratio_fn(input, FALSE))
     output$riskratio_code <- renderPrint(riskratio_fn(input, TRUE))
+    output$riskratio_tab <- renderTable({
+        tmp <- riskratio_fn(input, FALSE)
+        tmp1 <- res_vars[res_vars$column %in% c(names(tmp), "ar"),]
+        tmp1 <- tmp1[-which(tmp1$column == "r"), ]
+        tmp1$column[tmp1$column == "ar"] <- "r"
+        tmp1[na.omit(match(names(tmp), tmp1$column)),]
+    })
 
     # rate ratio
     output$rateratio_out <- renderPrint(rateratio_fn(input, FALSE))
