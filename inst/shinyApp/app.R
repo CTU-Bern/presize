@@ -193,8 +193,15 @@ server <- function(input, output, session) {
     })
 
     # correlation coefficient
-    output$cor_out <- renderPrint(cor_fn(input, FALSE))
+    output$cor_out <- renderPrint(cor_fn(input))
     output$cor_code <- renderPrint(cor_fn(input, TRUE))
+    output$cor_tab <- renderTable({
+        tmp <- cor_fn(input)
+        tmp1 <- res_vars[res_vars$column %in% c(names(tmp), "cr"),]
+        tmp1 <- tmp1[-which(tmp1$column == "r"), ]
+        tmp1$column[tmp1$column == "cr"] <- "r"
+        tmp1[na.omit(match(names(tmp), tmp1$column)),]
+    })
 
     # ICC
     output$icc_out <- renderPrint(icc_fn(input, FALSE))
