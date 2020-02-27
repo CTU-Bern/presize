@@ -2,10 +2,10 @@
 # UI ----
 kappapage <- tabItem(tabName = "kappa",
         h2("Cohen's kappa"),
-        "Kappa is used to assess the agreement between for multiple raters, each classiying items into mutually exclusive catoregories. This function supports up to 6 raters and 5 categories.",
+        "Kappa is used to assess the agreement between multiple raters, each classifying items into mutually exclusive categories. This function supports up to 6 raters and 5 categories.",
         tags$br(),
         "Please enter all of the following parameters:",
-        sliderInput("kappa", "Kappa", min = 0, max = 1, value = 0.5),
+        sliderInput("kappa", "Estimated kappa", min = 0, max = 1, value = 0.5),
         sliderInput("kappa_raters", "Number of raters", min = 2, max = 6, step = 1, value = 2),
         sliderInput("kappa_cats", "Number of categories", min = 2, max = 5, step = 1, value = 2),
         textInput("kappa_props", "Expected proportion of each category (must sum to 1, enter values separated by a comma)", value = ""),
