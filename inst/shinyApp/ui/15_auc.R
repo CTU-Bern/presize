@@ -2,7 +2,8 @@
 # UI ----
 aucpage <- tabItem(tabName = "auc",
         h2("AUC (Area under the curve)"),
-        "",
+        "The AUC refers to the areas under the Receiver Operating Characteristic (ROC) curve - the grey area in the figure below. The higher the AUC, the better a predictive model performs.",
+        plotOutput("auc_fig"),
         tags$br(),
         "Please enter the following",
         sliderInput("auc_auc", "AUC", min = 0, max = 1, value = NULL),

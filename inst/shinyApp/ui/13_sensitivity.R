@@ -2,7 +2,7 @@
 # UI ----
 senspage <- tabItem(tabName = "sens",
         h2("Precision of sensitivity"),
-        "",
+        "Sensitivity is the proportion of positive test results that are identified as such. It is also known as the true positive rate, recall or probability of detection. It is actually a simple proportion, but as the total sample size, rather than the number of cases, is typically of interect this function requires an estimate of the prevalence of cases.",
         tags$br(),
         h4("Please enter the following"),
         sliderInput("sens_sens", "Sensitivity", min = 0, max = 1, value = NULL),

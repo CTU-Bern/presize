@@ -282,6 +282,22 @@ server <- function(input, output, session) {
         tmp1$column[tmp1$column == "nspec"] <- "n"
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
+    output$auc_fig <- renderPlot({
+        x <- seq(0,1,.1)
+        y <- c(0, .6, .77, .85, .9, .92, .93, .94, .96, .99, 1)
+        dat <- data.frame(x = x, y = y)
+        ggplot(dat, aes(x = x, y = y)) +
+            geom_area(fill = "lightgrey") +
+            geom_line(col = "red", size = 1) +
+            geom_line(data = data.frame(x = c(0,1), y = c(0, 1)),
+                      mapping = aes(x = x, y = y), col = "darkgrey",
+                      linetype = 2) +
+            theme_classic() +
+            xlab("1-Specificity") +
+            ylab("Sensitivity") +
+            annotate("text", x = .6, y = .25, label = "AUC") +
+            annotate("text", x = .2, y = .85, label = "ROC")
+    })
 }
 
 # Run the application

@@ -2,7 +2,7 @@
 # UI ----
 specpage <- tabItem(tabName = "spec",
         h2("Precision of specificity"),
-        "",
+        "Specificity is the proportion of negative test results that are identified as such. It is also known as the true negative rate. It is actually a simple proportion, but as the total sample size, rather than the number of non-cases, is typically of interect this function requires an estimate of the prevalence of cases.",
         h4("Please enter the following"),
         sliderInput("spec_spec", "Specificity", min = 0, max = 1, value = NULL),
         sliderInput("spec_prev", "Prevalence", min = 0, max = 1, value = NULL),
