@@ -288,7 +288,7 @@ prec_auc <- function(auc, prev, n = NULL, conf.width = NULL, conf.level = .95,
 #' prec_lr(prev = .5, p1 = .1, p2 = .5, n = 160)
 #'
 prec_lr <- function(prev, p1, p2, n = NULL, conf.width = NULL, conf.level = 0.95, ...){
-
+  upr <- lwr <- n1 <- n2 <- lr <- NULL
   if (sum(sapply(list(n, conf.width), is.null)) != 1)
     stop("exactly one of 'n', and 'conf.width' must be NULL")
   numrange_check(prev)
