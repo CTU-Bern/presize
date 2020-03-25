@@ -234,3 +234,104 @@ prec_auc <- function(auc, prev, n = NULL, conf.width = NULL, conf.level = .95,
 
 }
 
+
+# likelihood ratios ----
+
+#' Precision or sample size for likelihood ratios
+#'
+#' This function calculates the precision or sample size for a likelihood ratio.
+#'
+#' @param prev disease/case prevalence in the study group
+#' @param p1 proportion of positives in group 1 (e.g. sensitivity)
+#' @param p2 proportion of positives in group 2 (e.g. 1 - specificity)
+#' @param n total group size
+#' @param conf.width desired width of the confidence interval
+#' @param conf.level confidence level (defaults to 0.95)
+#' @param ... other arguments to uniroot (e.g. \code{tol})
+#'
+#' @details
+#' This function implements formula 10 from Simel et al 1991.
+#' It is a generalized function allowing for many scenarios.
+#'
+#' For the positive likelihood ratio (LR+), in a 2x2 style experiment, \code{p1} should be sensitivity, \code{p2} should be 1-specificity.
+#'
+#' For the negative likelihood ratio (LR-), in a 2x2 style experiment, \code{p1} should be sensitivity, \code{p2} should be 1-specificity.
+#'
+#' For conditional likelihood ratios with 3x2 tables, such as positive or negative tests against inconclusive ones (yields), \code{p1} would be the proportion of positive or negative tests in the diseased group and \code{p2} would be the proportion of positive or negative tests in the non-diseased group.
+#'
+#' @references Simel, DL, Samsa, GP and Matchar, DB (1991) \emph{Likelihood ratios with confidence: Sample size estimation for diagnostic test studies.} J Clin Epidemiol 44(8), 763-770
+#' @return
+#' Object of class "presize", a list of arguments (including the
+#'   computed one) augmented with method and note elements.
+#' @export
+#'
+#' @examples
+#' # equal numbers of
+#' prec_lr(.5, .8, .27, 73.4)
+#'
+#' # Simel et al 1991, problem 1 - LR+ CI width from N
+#' # Sensitivity of a new test is at least 80%, specificity is 73% and the LR+
+#' # is 2.96 (= 0.8/(1-0.73)). We have as many diseased as not diseased
+#' # (n1 = n2, n = 2*n1 = 146.8, prevalence = .5)
+#' prec_lr(prev = .5, p1 = .8, p2 = 1-.73, n = 146.8)
+#'
+#' # problem 1 of Simel et al actually derives n1 rather than the width of the
+#' # confidence interval (ie N from CI width). If we know that the lower limit
+#' # of the CI should be 2.0, the confidence interval width is approximately
+#' # exp(2*(log(2.96) - log(2))) = 2.19 (approximate becuase the CI Of the LR
+#' # is only symetrical on the log(LR) scale), which we can put in conf.width
+#' prec_lr(prev = .5, p1 = .8, p2 = 1-.73, conf.width = 2.2)
+#'
+#' # Simel et al 1991, problem 2 - LR- CI width from N
+#' # p1 = 1 - sens = .1, p2 = spec = .5
+#' # n1 = n2, n = 160, prev = .5
+#' prec_lr(prev = .5, p1 = .1, p2 = .5, n = 160)
+#'
+prec_lr <- function(prev, p1, p2, n = NULL, conf.width = NULL, conf.level = 0.95, ...){
+
+  if (sum(sapply(list(n, conf.width), is.null)) != 1)
+    stop("exactly one of 'n', and 'conf.width' must be NULL")
+  numrange_check(prev)
+  numrange_check(p1)
+  numrange_check(p2)
+  numrange_check(conf.level)
+
+  quo <- quote({
+    n1 <- n * prev
+    n2 <- n - n1
+    lr <- p1/p2
+    se <- sqrt(((1 - p1)/(p1 * n1)) + ((1 - p2)/(p2 * n2)))
+    lwr <- exp(log(lr) + qnorm((1 - conf.level)/2) * se)
+    upr <- exp(log(lr) + qnorm(1 - (1 - conf.level)/2) * se)
+    upr - lwr
+  })
+
+  if(is.null(n)){
+    n_ <- mapply(function(p1, p2, conf.width, prev)
+                  uniroot(function(n) eval(quo) - conf.width,
+                          c(1, 1e7), ...)$root,
+                p1, p2, conf.width, prev)
+    n <- n_
+    eval(quo)
+    est <- "sample size"
+  } else {
+    eval(quo)
+    conf.width <- upr - lwr
+    est <- "precision"
+  }
+
+  structure(list(prev = prev,
+                 p1 = p1,
+                 p2 = p2,
+                 n = n,
+                 n1 = n1,
+                 n2 = n2,
+                 lr = lr,
+                 lwr = lwr,
+                 upr = upr,
+                 conf.width = conf.width,
+                 conf.level = conf.level,
+                 method = paste(est, "for likelihood ratios")),
+            class = "presize")
+
+}
