@@ -155,6 +155,7 @@ prec_auc <- function(auc, prev, n = NULL, conf.width = NULL, conf.level = .95,
   if (sum(sapply(list(n, conf.width), is.null)) != 1)
     stop("exactly one of 'n', and 'conf.width' must be NULL")
   if (prev < 0 | prev > 1) stop("'prev' must be numeric in [0, 1]")
+  numrange_check(conf.level)
 
   fn <- function(n, prev, auc){
     n1 <- n*prev
