@@ -25,6 +25,10 @@ prec_kappa(kappa, n = NULL, raters = 2, n_category = 2, props,
 
 \item{conf.level}{confidence level}
 }
+\value{
+Object of class "presize", a list of arguments (including the
+  computed one) augmented with method and note elements.
+}
 \description{
 Sample size or precision for Cohen's kappa
 Cohen's kappa is a measure of agreement between 2 or more raters and can be
@@ -42,15 +46,17 @@ are symetrical.
 # precision based on sample size
 prec_kappa(kappa = .5, n = 200, raters = 4, n_category = 2, props = c(.3,.7))
 # sample size to get a given precision
-prec_kappa(kappa = .5, conf.width = .15, raters = 4, n_category = 2, props = c(.3,.7))
+prec_kappa(kappa = .5, conf.width = .15, raters = 4, n_category = 2,
+           props = c(.3,.7))
 
 
-prec_kappa(kappa = c(.5, .75), conf.width = .15, raters = 4, n_category = 2, props = c(.3,.7))
-prec_kappa(kappa = c(.5, .75), conf.width = c(.15, 0.3), raters = 4, n_category = 2, props = c(.3,.7))
+prec_kappa(kappa = c(.5, .75), conf.width = .15, raters = 4, n_category = 2,
+           props = c(.3,.7))
+prec_kappa(kappa = c(.5, .75), conf.width = c(.15, 0.3), raters = 4,
+           n_category = 2, props = c(.3,.7))
 
 }
 \seealso{
-\code{\link[kappaSize]{kappaSize}},
 \code{\link[kappaSize]{FixedNBinary}},
 \code{\link[kappaSize]{FixedN3Cats}},
 \code{\link[kappaSize]{CIBinary}},

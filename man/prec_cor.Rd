@@ -21,6 +21,10 @@ or \code{spearman}. Methods can be abbreviated.}
 
 \item{...}{other options to uniroot (e.g. \code{tol})}
 }
+\value{
+Object of class "presize", a list of arguments (including the
+  computed one) augmented with method and note elements
+}
 \description{
 \code{prec_cor} returns the sample size or the precision for the given
 pearson, spearman, or kendall correlation coefficient

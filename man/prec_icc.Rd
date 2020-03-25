@@ -17,6 +17,10 @@ prec_icc(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95)
 
 \item{conf.level}{confidence level}
 }
+\value{
+Object of class "presize", a list of arguments (including the
+  computed one) augmented with method and note elements.
+}
 \description{
 \code{prec_icc} returns the sample size or the precision for the given
 intraclass correlation
