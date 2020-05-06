@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sample size or precision for a mean — prec_mean • presize</title>
+<title>Presize shiny app — launch_presize_app • presize</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -36,10 +36,9 @@
 
 
 
-<meta property="og:title" content="Sample size or precision for a mean — prec_mean" />
+<meta property="og:title" content="Presize shiny app — launch_presize_app" />
 
-<meta property="og:description" content="prec_mean returns the sample size or the precision for the provided
-mean and standard deviation" />
+<meta property="og:description" content="Besides the programmatic approach to using presize, we also supply a shiny app." />
 
 
 
@@ -112,81 +111,20 @@ mean and standard deviation" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Sample size or precision for a mean</h1>
-    <small class="dont-index">Source: <a href='http://github.com/CTU-Bern/presize/blob/master/R/descriptive_stats.R'><code>R/descriptive_stats.R</code></a></small>
-    <div class="hidden name"><code>prec_mean.Rd</code></div>
+    <h1>Presize shiny app</h1>
+    <small class="dont-index">Source: <a href='http://github.com/CTU-Bern/presize/blob/master/R/shinyApp.R'><code>R/shinyApp.R</code></a></small>
+    <div class="hidden name"><code>launch_presize_app.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code>prec_mean</code> returns the sample size or the precision for the provided
-mean and standard deviation</p>
+    <p>Besides the programmatic approach to using presize, we also supply a shiny app.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>prec_mean</span>(<span class='no'>mu</span>, <span class='no'>sd</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>mu</th>
-      <td><p>mean</p></td>
-    </tr>
-    <tr>
-      <th>sd</th>
-      <td><p>standard deviation</p></td>
-    </tr>
-    <tr>
-      <th>n</th>
-      <td><p>number of observations</p></td>
-    </tr>
-    <tr>
-      <th>conf.width</th>
-      <td><p>precision (the full width of the conficende interval)</p></td>
-    </tr>
-    <tr>
-      <th>conf.level</th>
-      <td><p>confidence level</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>other arguments to uniroot (e.g. <code>tol</code>)</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <pre class="usage"><span class='fu'>launch_presize_app</span>()</pre>
+        
 
-    <p>Object of class "presize", a list with</p><dl'>
-    <dt>mu</dt><dd><p>mean</p></dd>
-    <dt>sd</dt><dd><p>standard deviation</p></dd>
-    <dt>n</dt><dd><p>sample size</p></dd>
-    <dt>conf.width</dt><dd><p>precision (the width of the conficence interval)</p></dd>
-    <dt>lwr</dt><dd><p>lower end of confidence interval</p></dd>
-    <dt>upr</dt><dd><p>higher end of confidence interval</p></dd>
-  
-</dl><p>augmented with method and note elements.</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Exactly one of the parameters <code>n, conf.width</code> must be passed as NULL,
-and that parameter is determined from the other.</p>
-<p>The precision is defined as the full width of the conficence interval. The
-confidence interval calculated as \(t(n - 1) * sd / sqrt(n)\), with t(n-1)
-from the t-distribution with n-1 degrees of freedom.</p>
-<p><code><a href='https://rdrr.io/r/stats/uniroot.html'>uniroot</a></code> is used to solve <code>n</code>.</p>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>prec_mean</span>(<span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>2.5</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>20</span>)</div><div class='output co'>#&gt; 
-#&gt;      precision for mean 
-#&gt; 
-#&gt;   mu  sd  n conf.width conf.level      lwr      upr
-#&gt; 1  5 2.5 20   2.340072       0.95 3.829964 6.170036</div><div class='input'><span class='fu'>prec_mean</span>(<span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>2.5</span>, <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='fl'>2.34</span>)  <span class='co'># approximately the inverse of above</span></div><div class='output co'>#&gt; 
-#&gt;      sample size for mean 
-#&gt; 
-#&gt;   mu  sd        n conf.width conf.level  lwr  upr
-#&gt; 1  5 2.5 20.00108       2.34       0.95 3.83 6.17</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
