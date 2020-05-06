@@ -7,9 +7,9 @@
 #    http://shiny.rstudio.com/
 #
 
-library(shiny)
-library(shinydashboard)
-library(presize)
+require(shiny)
+require(shinydashboard)
+require(presize)
 
 icon <- icon("calculator")
 
@@ -49,7 +49,8 @@ ui <- dashboardPage(skin = "red",
                  menuItem("Diagnostic measures",
                           menuItem("Sensitivity", tabName = "sens", icon = icon),
                           menuItem("Specificity", tabName = "spec", icon = icon),
-                          menuItem("AUC", tabName = "auc", icon = icon)
+                          menuItem("AUC", tabName = "auc", icon = icon),
+                          menuItem("Likelihood ratio", tabName = "lr", icon = icon)
                           ),
                  width = 12),
              sidebarPanel(
@@ -82,7 +83,8 @@ ui <- dashboardPage(skin = "red",
                       kappapage,
                       senspage,
                       specpage,
-                      aucpage
+                      aucpage,
+                      lrpage
              ) # close tabItems
 
         ) # close body
@@ -99,7 +101,7 @@ server <- function(input, output, session) {
     output$ex_n <- renderText(sprintf("%1.0f", prec_mean(20, sd = 3, conf.width = 5)$n))
     output$ex_ciw <- renderText(sprintf("%1.0f", prec_mean(20, sd = 3, n = 50)$conf.width))
 
-    # mean
+    # mean ----
     output$mean_out <- renderPrint(mean_fn(input))
     output$mean_code <- renderPrint(mean_fn(input, TRUE))
     output$mean_tab <- renderTable({
@@ -109,7 +111,7 @@ server <- function(input, output, session) {
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
 
-    # proportion
+    # proportion ----
     output$prop_code <- renderPrint(prop_fn(input, TRUE))
     output$prop_out <- renderPrint(prop_fn(input))
     output$prop_tab <- renderTable({
@@ -119,7 +121,7 @@ server <- function(input, output, session) {
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
 
-    # rate
+    # rate ----
     output$rate_out <- renderPrint(rate_fn(input))
     output$rate_code <- renderPrint(rate_fn(input, TRUE))
     output$rate_tab <- renderTable({
@@ -130,7 +132,7 @@ server <- function(input, output, session) {
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
 
-    # meandiff
+    # meandiff ----
     output$meandiff_out <- renderPrint(meandiff_fn(input))
     output$meandiff_code <- renderPrint(meandiff_fn(input, TRUE))
     output$meandiff_tab <- renderTable({
@@ -142,7 +144,7 @@ server <- function(input, output, session) {
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
 
-    # riskdiff
+    # riskdiff ----
     output$riskdiff_out <- renderPrint(riskdiff_fn(input))
     output$riskdiff_code <- renderPrint(riskdiff_fn(input, TRUE))
     output$riskdiff_tab <- renderTable({
@@ -154,7 +156,7 @@ server <- function(input, output, session) {
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
 
-    # or
+    # or ----
     output$or_out <- renderPrint(or_fn(input))
     output$or_code <- renderPrint(or_fn(input, TRUE))
     output$or_tab <- renderTable({
@@ -165,7 +167,7 @@ server <- function(input, output, session) {
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
 
-    # risk ratio
+    # risk ratio ----
     output$riskratio_out <- renderPrint(riskratio_fn(input))
     output$riskratio_code <- renderPrint(riskratio_fn(input, TRUE))
     output$riskratio_tab <- renderTable({
@@ -176,7 +178,7 @@ server <- function(input, output, session) {
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
 
-    # rate ratio
+    # rate ratio ----
     output$rateratio_out <- renderPrint(rateratio_fn(input))
     output$rateratio_code <- renderPrint(rateratio_fn(input, TRUE))
     output$rateratio_tab <- renderTable({
@@ -187,7 +189,7 @@ server <- function(input, output, session) {
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
 
-    # correlation coefficient
+    # correlation coefficient ----
     output$cor_out <- renderPrint(cor_fn(input))
     output$cor_code <- renderPrint(cor_fn(input, TRUE))
     output$cor_tab <- renderTable({
@@ -198,7 +200,7 @@ server <- function(input, output, session) {
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
 
-    # ICC
+    # ICC ----
     output$icc_out <- renderPrint(icc_fn(input))
     output$icc_code <- renderPrint(icc_fn(input, TRUE))
     output$icc_tab <- renderTable({
@@ -207,33 +209,32 @@ server <- function(input, output, session) {
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
 
-    # limit of agreement
+    # limit of agreement ----
     output$limit_out <- renderPrint(limit_fn(input))
     output$limit_code <- renderPrint(limit_fn(input, TRUE))
     output$limitplot <- renderPlot({
         source(system.file("extdata", "baplotdata", package = "presize"))
-        library(ggplot2)
         po <- as.data.frame(badat[1:2])
         seg <- data.frame(x = c(0,0),
                           yu = badat$CI.lines[1:2],
                           yl = badat$CI.lines[5:6])
-        ggplot(po, aes(x = means, y = diffs)) +
-            geom_point() +
-            geom_hline(yintercept = badat$lines[2], col = "blue") +
-            geom_hline(yintercept = badat$lines[c(1,3)], linetype = "dashed", col = "red") +
-            geom_hline(yintercept = badat$CI.lines[c(1,2,5,6)], linetype = "twodash") +
-            geom_segment(aes(x = 0, xend = 0,
+        ggplot2::ggplot(po, aes(x = means, y = diffs)) +
+            ggplot2::geom_point() +
+            ggplot2::geom_hline(yintercept = badat$lines[2], col = "blue") +
+            ggplot2::geom_hline(yintercept = badat$lines[c(1,3)], linetype = "dashed", col = "red") +
+            ggplot2::geom_hline(yintercept = badat$CI.lines[c(1,2,5,6)], linetype = "twodash") +
+            ggplot2::geom_segment(aes(x = 0, xend = 0,
                              y = badat$CI.lines[1], yend = badat$CI.lines[2]),
                          arrow = arrow(ends = "both"), size = 1.5) +
-            geom_segment(aes(x = -0.5, xend = -0.5,
+            ggplot2::geom_segment(aes(x = -0.5, xend = -0.5,
                              y = badat$CI.lines[5], yend = badat$CI.lines[6]),
                          arrow = arrow(ends = "both"), size = 1.5) +
-            geom_segment(aes(x = 0.5, xend = 0.5,
+            ggplot2::geom_segment(aes(x = 0.5, xend = 0.5,
                              y = badat$lines[1], yend = badat$lines[3]),
                          arrow = arrow(ends = "both"),
                          col = "darkgrey") +
-            theme_classic() +
-            xlab("Mean") + ylab("Difference")
+            ggplot2::theme_classic() +
+            ggplot2::xlab("Mean") + ggplot2::ylab("Difference")
     })
     output$limit_tab <- renderTable({
         tmp <- limit_fn(input)
@@ -241,7 +242,7 @@ server <- function(input, output, session) {
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
 
-    # kappa
+    # kappa ----
     output$kappa_out <- renderPrint(kappa_fn(input))
     output$kappa_code <- renderPrint(kappa_fn(input, TRUE))
     output$kappa_tab <- renderTable({
@@ -250,7 +251,7 @@ server <- function(input, output, session) {
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
 
-    # sens
+    # sens ----
     output$sens_out <- renderPrint(sens_fn(input))
     output$sens_code <- renderPrint(sens_fn(input, TRUE))
     output$sens_tab <- renderTable({
@@ -261,7 +262,7 @@ server <- function(input, output, session) {
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
 
-    # spec
+    # spec ----
     output$spec_out <- renderPrint(spec_fn(input))
     output$spec_code <- renderPrint(spec_fn(input, TRUE))
     output$spec_tab <- renderTable({
@@ -272,7 +273,7 @@ server <- function(input, output, session) {
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
 
-    # auc
+    # auc ----
     output$auc_out <- renderPrint(auc_fn(input))
     output$auc_code <- renderPrint(auc_fn(input, TRUE))
     output$auc_tab <- renderTable({
@@ -286,20 +287,35 @@ server <- function(input, output, session) {
         x <- seq(0,1,.1)
         y <- c(0, .6, .77, .85, .9, .92, .93, .94, .96, .99, 1)
         dat <- data.frame(x = x, y = y)
-        ggplot(dat, aes(x = x, y = y)) +
-            geom_area(fill = "lightgrey") +
-            geom_line(col = "red", size = 1) +
-            geom_line(data = data.frame(x = c(0,1), y = c(0, 1)),
+        ggplot2::ggplot(dat, aes(x = x, y = y)) +
+            ggplot2::geom_area(fill = "lightgrey") +
+            ggplot2::geom_line(col = "red", size = 1) +
+            ggplot2::geom_line(data = data.frame(x = c(0,1), y = c(0, 1)),
                       mapping = aes(x = x, y = y), col = "darkgrey",
                       linetype = 2) +
-            theme_classic() +
-            xlab("1-Specificity") +
-            ylab("Sensitivity") +
-            annotate("text", x = .6, y = .25, label = "AUC") +
-            annotate("text", x = .2, y = .85, label = "ROC")
+            ggplot2::theme_classic() +
+            ggplot2::xlab("1-Specificity") +
+            ggplot2::ylab("Sensitivity") +
+            ggplot2::annotate("text", x = .6, y = .25, label = "AUC") +
+            ggplot2::annotate("text", x = .2, y = .85, label = "ROC")
+    })
+
+    # likelihood ratio ----
+    output$lr_out <- renderPrint(lr_fn(input))
+    output$lr_code <- renderPrint(lr_fn(input, TRUE))
+    output$lr_tab <- renderTable({
+        tmp <- lr_fn(input)
+        tmp1 <- res_vars[res_vars$column %in% c(names(tmp), "lr_n1", "lr_n2", "lr_p1", "lr_p2"),]
+        tmp1 <- tmp1[-which(tmp1$column %in% c("n1", "n2", "p1", "p2")), ]
+        tmp1$column[tmp1$column == "nspec"] <- "n"
+        tmp1$column[tmp1$column == "lr_n1"] <- "n1"
+        tmp1$column[tmp1$column == "lr_n2"] <- "n2"
+        tmp1$column[tmp1$column == "lr_p1"] <- "p1"
+        tmp1$column[tmp1$column == "lr_p2"] <- "p2"
+        tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
 }
 
-# Run the application
+# Run the application ----
 shinyApp(ui = ui, server = server)
 

@@ -11,7 +11,8 @@ db <- function(input, type){
 # table of variables listed in output
 
 res_vars <- c(mu = "mean", "sd" = "standard deviation",
-              n = "sample size", "conf.width" = "confidence interval width",
+              n = "sample size",
+              conf.width = "confidence interval width",
               conf.level = "confidence level (1 - type 1 error rate)",
               lwr = "lower confidence interval limit",
               upr = "upper confidence interval limit",
@@ -47,5 +48,11 @@ res_vars <- c(mu = "mean", "sd" = "standard deviation",
               nspec = "number of non-cases",
               auc = "AUC",
               auc_n1 = "number of cases",
-              auc_n2 = "number of non-cases")
+              auc_n2 = "number of non-cases",
+              lr_n1 = "number of positives in group 1",
+              lr_n2 = "number of positives in group 2",
+              lr = "likelihood ratio",
+              lr_p1 = "proportion of positives in group 1",
+              lr_p2 = "proportion of positives in group 2"
+              )
 res_vars <- data.frame(column = names(res_vars), meaning = res_vars)
