@@ -4,8 +4,14 @@
 \alias{prec_rateratio}
 \title{Sample size or precision for an odds ratio}
 \usage{
-prec_rateratio(n1 = NULL, rate1 = NULL, rate2 = 2 * rate1,
-  conf.width = NULL, r = 1, conf.level = 0.95)
+prec_rateratio(
+  n1 = NULL,
+  rate1 = NULL,
+  rate2 = 2 * rate1,
+  conf.width = NULL,
+  r = 1,
+  conf.level = 0.95
+)
 }
 \arguments{
 \item{n1}{number of exposed individuals}

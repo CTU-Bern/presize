@@ -5,11 +5,25 @@
 \alias{prec_spec}
 \title{Sample size and precision of sensitivity and specificity}
 \usage{
-prec_sens(sens, n = NULL, ntot = NULL, prev = NULL,
-  conf.width = NULL, round = "ceiling", ...)
+prec_sens(
+  sens,
+  n = NULL,
+  ntot = NULL,
+  prev = NULL,
+  conf.width = NULL,
+  round = "ceiling",
+  ...
+)
 
-prec_spec(spec, n = NULL, ntot = NULL, prev = NULL,
-  conf.width = NULL, round = "ceiling", ...)
+prec_spec(
+  spec,
+  n = NULL,
+  ntot = NULL,
+  prev = NULL,
+  conf.width = NULL,
+  round = "ceiling",
+  ...
+)
 }
 \arguments{
 \item{sens, spec}{proportions}

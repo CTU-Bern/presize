@@ -2,10 +2,9 @@
 % Please edit documentation in R/diagnostic.R
 \name{prec_lr}
 \alias{prec_lr}
-\title{Precision or sample size for likelihood ratios}
+\title{Sample size or precision for likelihood ratios}
 \usage{
-prec_lr(prev, p1, p2, n = NULL, conf.width = NULL, conf.level = 0.95,
-  ...)
+prec_lr(prev, p1, p2, n = NULL, conf.width = NULL, conf.level = 0.95, ...)
 }
 \arguments{
 \item{prev}{disease/case prevalence in the study group}
@@ -35,13 +34,13 @@ It is a generalized function allowing for many scenarios.
 
 For the positive likelihood ratio (LR+), in a 2x2 style experiment, \code{p1} should be sensitivity, \code{p2} should be 1-specificity.
 
-For the negative likelihood ratio (LR-), in a 2x2 style experiment, \code{p1} should be sensitivity, \code{p2} should be 1-specificity.
+For the negative likelihood ratio (LR-), in a 2x2 style experiment, \code{p1} should be 1-sensitivity, \code{p2} should be specificity.
 
 For conditional likelihood ratios with 3x2 tables, such as positive or negative tests against inconclusive ones (yields), \code{p1} would be the proportion of positive or negative tests in the diseased group and \code{p2} would be the proportion of positive or negative tests in the non-diseased group.
 }
 \examples{
-# equal numbers of
-prec_lr(.5, .8, .27, 73.4)
+# equal numbers of diseased/non-diseased, 80\% sens, 73\% spec, 74 participants total
+prec_lr(.5, .8, .27, 74)
 
 # Simel et al 1991, problem 1 - LR+ CI width from N
 # Sensitivity of a new test is at least 80\%, specificity is 73\% and the LR+
@@ -52,7 +51,7 @@ prec_lr(prev = .5, p1 = .8, p2 = 1-.73, n = 146.8)
 # problem 1 of Simel et al actually derives n1 rather than the width of the
 # confidence interval (ie N from CI width). If we know that the lower limit
 # of the CI should be 2.0, the confidence interval width is approximately
-# exp(2*(log(2.96) - log(2))) = 2.19 (approximate becuase the CI Of the LR
+# exp(2*(log(2.96) - log(2))) = 2.19 (approximate because the CI Of the LR
 # is only symetrical on the log(LR) scale), which we can put in conf.width
 prec_lr(prev = .5, p1 = .8, p2 = 1-.73, conf.width = 2.2)
 

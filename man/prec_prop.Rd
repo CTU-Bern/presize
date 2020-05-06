@@ -4,8 +4,14 @@
 \alias{prec_prop}
 \title{Sample size or precision for a proportion}
 \usage{
-prec_prop(p, n = NULL, conf.width = NULL, conf.level = 0.95,
-  method = c("wilson", "agresti-coull", "exact", "wald"), ...)
+prec_prop(
+  p,
+  n = NULL,
+  conf.width = NULL,
+  conf.level = 0.95,
+  method = c("wilson", "agresti-coull", "exact", "wald"),
+  ...
+)
 }
 \arguments{
 \item{p}{proportion}

@@ -6,8 +6,15 @@
 Cohen's kappa is a measure of agreement between 2 or more raters and can be
 for rating schemes with 2 or more levels.}
 \usage{
-prec_kappa(kappa, n = NULL, raters = 2, n_category = 2, props,
-  conf.width = NULL, conf.level = 0.95)
+prec_kappa(
+  kappa,
+  n = NULL,
+  raters = 2,
+  n_category = 2,
+  props,
+  conf.width = NULL,
+  conf.level = 0.95
+)
 }
 \arguments{
 \item{kappa}{expected value of Cohen's kappa}

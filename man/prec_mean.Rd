@@ -4,8 +4,7 @@
 \alias{prec_mean}
 \title{Sample size or precision for a mean}
 \usage{
-prec_mean(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
-  ...)
+prec_mean(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95, ...)
 }
 \arguments{
 \item{mu}{mean}

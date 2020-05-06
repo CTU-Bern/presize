@@ -4,8 +4,14 @@
 \alias{prec_rate}
 \title{Sample size or precision for a rate}
 \usage{
-prec_rate(r, x = NULL, conf.width = NULL, conf.level = 0.95,
-  method = c("score", "vs", "exact", "wald"), ...)
+prec_rate(
+  r,
+  x = NULL,
+  conf.width = NULL,
+  conf.level = 0.95,
+  method = c("score", "vs", "exact", "wald"),
+  ...
+)
 }
 \arguments{
 \item{r}{rate or rate ratio.}

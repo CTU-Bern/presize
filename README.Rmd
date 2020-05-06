@@ -54,8 +54,7 @@ presize will provide functions for
 * diagnostic measures
     + sens (`prec_sens`<sup>1</sup>)
     + spec (`prec_spec`<sup>1</sup>)
-<!--    + positive LR -->
-<!--    + negative LR -->
+    + likelihood ratios (`prec_lr`)
     + AUC (`prec_auc`)
     
 <sup>1</sup> Simple wrappers for `prec_prop`.
@@ -82,4 +81,8 @@ An online interactive version of the package is available [here](https://ctu-ber
 
 `presize` was largely developed at CTU Bern, with collaboration from CTU Basel. Funding was provided by the Swiss Clinical Trials Organisation.
 
-![](inst/fig/scto_ctu_member_cmyk.jpg)
+```{r, echo=FALSE}
+knitr::include_graphics("man/fig/scto_ctu_member_cmyk.jpg")
+```
+
+<!-- ![](man/fig/scto_ctu_member_cmyk.jpg) -->

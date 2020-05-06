@@ -2,12 +2,10 @@
 % Please edit documentation in R/shinyApp.R
 \name{launch_presize_app}
 \alias{launch_presize_app}
-\title{Presize shiny app
-Besides the programmatic approach to using presize, we also supply a shiny app.}
+\title{Presize shiny app}
 \usage{
 launch_presize_app()
 }
 \description{
-Presize shiny app
 Besides the programmatic approach to using presize, we also supply a shiny app.
 }

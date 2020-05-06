@@ -4,8 +4,16 @@
 \alias{prec_riskdiff}
 \title{Sample size or precision for risk difference}
 \usage{
-prec_riskdiff(p1, p2, n1 = NULL, conf.width = NULL, r = 1,
-  conf.level = 0.95, method = c("newcombe", "mn", "ac", "wald"), ...)
+prec_riskdiff(
+  p1,
+  p2,
+  n1 = NULL,
+  conf.width = NULL,
+  r = 1,
+  conf.level = 0.95,
+  method = c("newcombe", "mn", "ac", "wald"),
+  ...
+)
 }
 \arguments{
 \item{p1}{Risk among unexposed}

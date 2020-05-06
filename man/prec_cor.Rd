@@ -4,8 +4,14 @@
 \alias{prec_cor}
 \title{Sample size or precision for correlation coefficient}
 \usage{
-prec_cor(r, n = NULL, conf.width = NULL, conf.level = 0.95,
-  method = c("pearson", "kendall", "spearman"), ...)
+prec_cor(
+  r,
+  n = NULL,
+  conf.width = NULL,
+  conf.level = 0.95,
+  method = c("pearson", "kendall", "spearman"),
+  ...
+)
 }
 \arguments{
 \item{r}{Desired correlation coefficient.}
