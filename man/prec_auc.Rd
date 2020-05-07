@@ -4,8 +4,7 @@
 \alias{prec_auc}
 \title{Sample size or precision for AUC}
 \usage{
-prec_auc(auc, prev, n = NULL, conf.width = NULL, conf.level = 0.95,
-  ...)
+prec_auc(auc, prev, n = NULL, conf.width = NULL, conf.level = 0.95, ...)
 }
 \arguments{
 \item{auc}{AUC value}

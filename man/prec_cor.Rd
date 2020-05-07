@@ -4,8 +4,14 @@
 \alias{prec_cor}
 \title{Sample size or precision for correlation coefficient}
 \usage{
-prec_cor(r, n = NULL, conf.width = NULL, conf.level = 0.95,
-  method = c("pearson", "kendall", "spearman"), ...)
+prec_cor(
+  r,
+  n = NULL,
+  conf.width = NULL,
+  conf.level = 0.95,
+  method = c("pearson", "kendall", "spearman"),
+  ...
+)
 }
 \arguments{
 \item{r}{Desired correlation coefficient.}
@@ -20,6 +26,10 @@ prec_cor(r, n = NULL, conf.width = NULL, conf.level = 0.95,
 or \code{spearman}. Methods can be abbreviated.}
 
 \item{...}{other options to uniroot (e.g. \code{tol})}
+}
+\value{
+Object of class "presize", a list of arguments (including the
+  computed one) augmented with method and note elements
 }
 \description{
 \code{prec_cor} returns the sample size or the precision for the given

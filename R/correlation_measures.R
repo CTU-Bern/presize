@@ -39,6 +39,9 @@
 #' prec_icc(0.85, 4, 20)
 #' @inheritParams prec_riskdiff
 #' @export
+#' @return Object of class "presize", a list of arguments (including the
+#'   computed one) augmented with method and note elements.
+
 prec_icc <- function(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95) {
   is.wholenumber <-
     function(x, tol = .Machine$double.eps ^ 0.5)  abs(x - round(x)) < tol
@@ -115,6 +118,8 @@ prec_icc <- function(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95) {
 #'   or \code{spearman}. Methods can be abbreviated.
 #' @inheritParams prec_riskdiff
 #' @export
+#' @return Object of class "presize", a list of arguments (including the
+#'   computed one) augmented with method and note elements
 prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
                       method = c("pearson", "kendall", "spearman"),
                       ...) {
@@ -218,8 +223,11 @@ prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
 #' @param n Sample size
 #' @param conf.width precision (the full width of the confidence interval)
 #' @param conf.level confidence level
+#' @return Object of class "presize", a list of arguments (including the
+#'   computed one) augmented with method and note elements.
 #' @references Bland & Altman (1986) \emph{Statistical methods for assessing agreement
-#' between two methods of clinical measurement} Lancet i(8476):307-310 \href{https://doi.org/10.1016/S0140-6736(86)90837-8}{doi:10.1016/S0140-6736(86)90837-8}
+#' between two methods of clinical measurement} Lancet i(8476):307-310
+#' \href{https://doi.org/10.1016/S0140-6736(86)90837-8}{doi:10.1016/S0140-6736(86)90837-8}
 #' @export
 
 prec_lim_agree <- function(n = NULL, conf.width = NULL, conf.level = 0.95){
@@ -278,24 +286,29 @@ prec_lim_agree <- function(n = NULL, conf.width = NULL, conf.level = 0.95){
 #' interval. The values that are passed to \code{kappaSize} ensure that two-sided
 #' confidence intervals are returned, although we assume that confidence intervals
 #' are symetrical.
-#' @seealso \code{\link[kappaSize]{kappaSize}},
+#' @seealso
 #' \code{\link[kappaSize]{FixedNBinary}},
 #' \code{\link[kappaSize]{FixedN3Cats}},
 #' \code{\link[kappaSize]{CIBinary}},
 #' \code{\link[kappaSize]{CI3Cats}}
 #'
-#' @return
+#' @return Object of class "presize", a list of arguments (including the
+#'   computed one) augmented with method and note elements.
 #' @export
+#' @import kappaSize
 #'
 #' @examples
 #' # precision based on sample size
 #' prec_kappa(kappa = .5, n = 200, raters = 4, n_category = 2, props = c(.3,.7))
 #' # sample size to get a given precision
-#' prec_kappa(kappa = .5, conf.width = .15, raters = 4, n_category = 2, props = c(.3,.7))
+#' prec_kappa(kappa = .5, conf.width = .15, raters = 4, n_category = 2,
+#'            props = c(.3,.7))
 #'
 #'
-#' prec_kappa(kappa = c(.5, .75), conf.width = .15, raters = 4, n_category = 2, props = c(.3,.7))
-#' prec_kappa(kappa = c(.5, .75), conf.width = c(.15, 0.3), raters = 4, n_category = 2, props = c(.3,.7))
+#' prec_kappa(kappa = c(.5, .75), conf.width = .15, raters = 4, n_category = 2,
+#'            props = c(.3,.7))
+#' prec_kappa(kappa = c(.5, .75), conf.width = c(.15, 0.3), raters = 4,
+#'            n_category = 2, props = c(.3,.7))
 #'
 prec_kappa <- function(kappa,
                        n = NULL,

@@ -1,3 +1,8 @@
+presize 0.0.1.9006
+-----------------------------------------
+
+* addition of method for likelihood ratios `prec_lr`
+
 presize 0.0.1.9005
 -----------------------------------------
 

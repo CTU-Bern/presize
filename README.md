@@ -7,7 +7,7 @@
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/CTU-Bern/presize?branch=master&svg=true)](https://ci.appveyor.com/project/CTU-Bern/presize)
 [![codecov](https://codecov.io/github/CTU-Bern/presize/branch/master/graphs/badge.svg)](https://codecov.io/github/CTU-Bern/presize)
-[![](https://img.shields.io/badge/dev%20version-0.0.1.9005-blue.svg)](https://github.com/CTU-Bern/presize)
+[![](https://img.shields.io/badge/dev%20version-0.0.1.9006-blue.svg)](https://github.com/CTU-Bern/presize)
 [![](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 
 The goal of presize is to provide functions for precision based sample
@@ -44,8 +44,8 @@ presize will provide functions for
       - limit of agreement from Bland Altman plot (`prec_lim_agree`)
   - diagnostic measures
       - sens (`prec_sens`<sup>1</sup>)
-      - spec (`prec_spec`<sup>1</sup>) <!--    + positive LR -->
-        <!--    + negative LR -->
+      - spec (`prec_spec`<sup>1</sup>)
+      - likelihood ratios (`prec_lr`)
       - AUC (`prec_auc`)
 
 <sup>1</sup> Simple wrappers for `prec_prop`.
@@ -87,4 +87,6 @@ launched locally via `launch_presize_app()` in RStudio.
 `presize` was largely developed at CTU Bern, with collaboration from CTU
 Basel. Funding was provided by the Swiss Clinical Trials Organisation.
 
-![](inst/fig/scto_ctu_member_cmyk.jpg)
+![](man/fig/scto_ctu_member_cmyk.jpg)<!-- -->
+
+<!-- ![](man/fig/scto_ctu_member_cmyk.jpg) -->

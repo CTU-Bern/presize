@@ -13,6 +13,10 @@ prec_lim_agree(n = NULL, conf.width = NULL, conf.level = 0.95)
 
 \item{conf.level}{confidence level}
 }
+\value{
+Object of class "presize", a list of arguments (including the
+  computed one) augmented with method and note elements.
+}
 \description{
 \code{prec_lim_agree} returns the sample size or the precision for the limit
 of agreement, i.e. the confidence interval around the limit of agreement.
@@ -26,5 +30,6 @@ Altman (1986).
 }
 \references{
 Bland & Altman (1986) \emph{Statistical methods for assessing agreement
-between two methods of clinical measurement} Lancet i(8476):307-310 \href{https://doi.org/10.1016/S0140-6736(86)90837-8}{doi:10.1016/S0140-6736(86)90837-8}
+between two methods of clinical measurement} Lancet i(8476):307-310
+\href{https://doi.org/10.1016/S0140-6736(86)90837-8}{doi:10.1016/S0140-6736(86)90837-8}
 }

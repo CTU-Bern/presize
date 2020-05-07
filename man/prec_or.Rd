@@ -4,8 +4,16 @@
 \alias{prec_or}
 \title{Sample size or precision for an odds ratio}
 \usage{
-prec_or(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
-  conf.level = 0.95, method = c("gart", "woolf", "indip_smooth"), ...)
+prec_or(
+  p1,
+  p2,
+  n1 = NULL,
+  r = 1,
+  conf.width = NULL,
+  conf.level = 0.95,
+  method = c("gart", "woolf", "indip_smooth"),
+  ...
+)
 }
 \arguments{
 \item{p1}{Risk among unexposed}

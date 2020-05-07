@@ -65,3 +65,42 @@ test_that("errors issued", {
 
 
 
+context("likelihood ratio")
+
+test_that("errors issued", {
+  expect_error(prec_lr(), "exactly one")
+  expect_error(prec_lr(n = 20, prev = -1), "0, 1")
+  expect_error(prec_lr(n = 20, prev = 2), "0, 1")
+  expect_error(prec_lr(.5, n = 20, p1 = 2, p2 = 2), "0, 1")
+})
+
+test_that("both methods give the same result", {
+  ex1 <- prec_lr(.5, .6, .6, 100)
+  ex2 <- prec_lr(.5, .6, .6, conf.width = .65)
+  expect_equal(ex1$n, ex2$n, tolerance = 1)
+  expect_equal(ex1$conf.width, ex2$conf.width, tolerance = .01)
+  expect_equal(ex1$lr, ex2$lr)
+  expect_equal(ex1$lwr, ex2$lwr, tolerance = .01)
+  expect_equal(ex1$upr, ex2$upr, tolerance = .01)
+})
+
+test_that("Simel examples work", {
+  # n1 = n2 = 73.4, n = 2*73.4, prev = .5
+  # sens = .8, spec = .73 (p2 = 1-spec)
+  ex1 <- prec_lr(.5, p1 = .8, p2 = .27, n = 73.4*2)
+  expect_equal(ex1$lwr, 2.0, tolerance = .01)
+  expect_equal(ex1$lr, 2.96, tolerance = .01)
+
+  # n1 = n2 = 79.9, n = 2*79.9, prev = .5
+  # p1 = 1-sens = .1, p2 = spec = .5
+  ex2 <- prec_lr(.5, p1 = .1, p2 = .5, n = 2*79.9)
+  expect_equal(ex2$upr, .4, tolerance = .0001)
+  expect_equal(ex2$lr, .2, tolerance = .0001)
+
+  # n1 = .2*n2, n2 = 98.3, n = 98.3*1.2, prev = .2
+  # p1 = sens = .8, p2 = 1-spec = .27
+  ex3 <- prec_lr(.2, p1 = .8, p2 = .27, n = 98.3*1.2)
+  expect_equal(ex3$lwr, 2, tolerance = .01)
+  expect_equal(ex3$lr, 2.96, tolerance = .01)
+  expect_equal(ex3$n1/(ex3$n1 + ex3$n2), .2, tolerance = .01)
+})

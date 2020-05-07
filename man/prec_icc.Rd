@@ -17,6 +17,10 @@ prec_icc(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95)
 
 \item{conf.level}{confidence level}
 }
+\value{
+Object of class "presize", a list of arguments (including the
+  computed one) augmented with method and note elements.
+}
 \description{
 \code{prec_icc} returns the sample size or the precision for the given
 intraclass correlation
@@ -37,7 +41,7 @@ n is rounded up to the next whole number using \code{ceiling}.
 # a confidence width of 0.2. Bonett calculated that a sample size of 19.2 was
 # required. This can be done via
 prec_icc(0.85, 4, conf.width = 0.2)
-# note that \\code{presamp} rounds up to the nearist integer.
+# note that \code{presamp} rounds up to the nearist integer.
 
 # Bonett then goes on to estimate the width given the sample size, finding a
 # value 'close to 0.2':

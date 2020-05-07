@@ -61,7 +61,6 @@ prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
     tval * sd / sqrt(n)
   })
 
-  z <- qnorm( (1 + conf.level) / 2)
   if (is.null(conf.width)) {
     prec <- eval(ci)
     est <- "precision"
