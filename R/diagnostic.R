@@ -239,8 +239,9 @@ prec_auc <- function(auc, prev, n = NULL, conf.width = NULL, conf.level = .95,
 
 #' Sample size or precision for likelihood ratios
 #'
-#' This function calculates the precision or sample size for a likelihood ratio.
-#'
+#' These functions calculate the precision or sample size for likelihood ratios.
+#' \code{prec_lr} is a generalized method for that can be used for positive and
+#' negative LRs as well as conditional LRs.
 #' @param prev disease/case prevalence in the study group
 #' @param p1 proportion of positives in group 1 (e.g. sensitivity)
 #' @param p2 proportion of positives in group 2 (e.g. 1 - specificity)
@@ -250,14 +251,24 @@ prec_auc <- function(auc, prev, n = NULL, conf.width = NULL, conf.level = .95,
 #' @param ... other arguments to uniroot (e.g. \code{tol})
 #'
 #' @details
-#' This function implements formula 10 from Simel et al 1991.
-#' It is a generalized function allowing for many scenarios.
+#' These functions implement formula 10 from Simel et al 1991.
+#' \code{prec_lr} is a generalized function allowing for many scenarios, while
+#' \code{prec_pos_lr} and \code{prec_neg_lr} are specific to positive and
+#' negative likelihood ratios in the 2*2 setting (e.g. disease status and test
+#' positive/negative).
 #'
-#' For the positive likelihood ratio (LR+), in a 2x2 style experiment, \code{p1} should be sensitivity, \code{p2} should be 1-specificity.
+#' For the positive likelihood ratio (LR+), in a 2x2 style experiment, \code{p1}
+#' should be sensitivity, \code{p2} should be 1-specificity. Alternatively, use
+#' \code{prec_pos_lr}.
 #'
-#' For the negative likelihood ratio (LR-), in a 2x2 style experiment, \code{p1} should be 1-sensitivity, \code{p2} should be specificity.
+#' For the negative likelihood ratio (LR-), in a 2x2 style experiment, \code{p1}
+#' should be 1-sensitivity, \code{p2} should be specificity. Alternatively, use
+#' \code{prec_neg_lr}.
 #'
-#' For conditional likelihood ratios with 3x2 tables, such as positive or negative tests against inconclusive ones (yields), \code{p1} would be the proportion of positive or negative tests in the diseased group and \code{p2} would be the proportion of positive or negative tests in the non-diseased group.
+#' For conditional likelihood ratios with 3x2 tables, such as positive or
+#' negative tests against inconclusive ones (yields), \code{p1} would be the
+#' proportion of positive or negative tests in the diseased group and \code{p2}
+#' would be the proportion of positive or negative tests in the non-diseased group.
 #'
 #' @references Simel, DL, Samsa, GP and Matchar, DB (1991) \emph{Likelihood ratios with confidence: Sample size estimation for diagnostic test studies.} J Clin Epidemiol 44(8), 763-770
 #' @return
@@ -274,6 +285,7 @@ prec_auc <- function(auc, prev, n = NULL, conf.width = NULL, conf.level = .95,
 #' # is 2.96 (= 0.8/(1-0.73)). We have as many diseased as not diseased
 #' # (n1 = n2, n = 2*n1 = 146.8, prevalence = .5)
 #' prec_lr(prev = .5, p1 = .8, p2 = 1-.73, n = 146.8)
+#' prec_pos_lr(prev = .5, sens = .8, spec = .73, n = 146.8)
 #'
 #' # problem 1 of Simel et al actually derives n1 rather than the width of the
 #' # confidence interval (ie N from CI width). If we know that the lower limit
@@ -281,11 +293,13 @@ prec_auc <- function(auc, prev, n = NULL, conf.width = NULL, conf.level = .95,
 #' # exp(2*(log(2.96) - log(2))) = 2.19 (approximate because the CI Of the LR
 #' # is only symetrical on the log(LR) scale), which we can put in conf.width
 #' prec_lr(prev = .5, p1 = .8, p2 = 1-.73, conf.width = 2.2)
+#' prec_pos_lr(prev = .5, sens = .8, spec = .73, conf.width = 2.2)
 #'
 #' # Simel et al 1991, problem 2 - LR- CI width from N
 #' # p1 = 1 - sens = .1, p2 = spec = .5
 #' # n1 = n2, n = 160, prev = .5
 #' prec_lr(prev = .5, p1 = .1, p2 = .5, n = 160)
+#' prec_neg_lr(prev = .5, sens = .9, spec = .5, n = 160)
 #'
 prec_lr <- function(prev, p1, p2, n = NULL, conf.width = NULL, conf.level = 0.95, ...){
   upr <- lwr <- n1 <- n2 <- lr <- NULL
@@ -335,3 +349,32 @@ prec_lr <- function(prev, p1, p2, n = NULL, conf.width = NULL, conf.level = 0.95
             class = "presize")
 
 }
+
+#' @describeIn prec_lr "Positive likelihood ratio"
+#' @description \code{prec_pos_lr} is a wrapper to \code{prec_lr} to ease
+#' calculations for positive likelihood ratios by allowing sensitivity and
+#' specificity to be given explicitly
+#' @param sens sensitivity
+#' @param spec specificity
+#' @export
+prec_pos_lr <- function(prev, sens, spec,
+                        n = NULL, conf.width = NULL, conf.level = 0.95, ...) {
+  lr <- prec_lr(prev = prev, p1 = sens, p2 = 1-spec,
+                n = n, conf.width = conf.width, ...)
+  lr$method <- sub("likelihood ratios", "positive likelihood ratio", lr$method)
+  lr
+}
+
+#' @describeIn prec_lr "Negative likelihood ratio"
+#' @description \code{prec_neg_lr} is a wrapper to \code{prec_lr} to ease
+#' calculations for negative likelihood ratios by allowing sensitivity and
+#' specificity to be given explicitly
+#' @export
+prec_neg_lr <- function(prev, sens, spec,
+                        n = NULL, conf.width = NULL, conf.level = 0.95, ...) {
+  lr <- prec_lr(prev = prev, p1 = 1-sens, p2 = spec,
+                n = n, conf.width = conf.width, ...)
+  lr$method <- sub("likelihood ratios", "negative likelihood ratio", lr$method)
+  lr
+}
+
