@@ -55,9 +55,12 @@ presize will provide functions for
     + sens (`prec_sens`<sup>1</sup>)
     + spec (`prec_spec`<sup>1</sup>)
     + likelihood ratios (`prec_lr`)
+      + positive likelihood ratio (`prec_pos_lr`<sup>2</sup>)
+      + negative likelihood ratio (`prec_neg_lr`<sup>2</sup>)
     + AUC (`prec_auc`)
     
 <sup>1</sup> Simple wrappers for `prec_prop`.
+<sup>1</sup> Wrappers for `prec_lr` with values provided via sens and spec
 
 ## Example
 
