@@ -50,8 +50,10 @@ presize will provide functions for
           - negative likelihood ratio (`prec_neg_lr`<sup>2</sup>)
       - AUC (`prec_auc`)
 
-<sup>1</sup> Simple wrappers for `prec_prop`. <sup>1</sup> Wrappers for
-`prec_lr` with values provided via sens and spec
+<sup>1</sup> Simple wrappers for `prec_prop`.
+
+<sup>2</sup> Wrappers for `prec_lr` with values provided via sens and
+spec
 
 ## Example
 
