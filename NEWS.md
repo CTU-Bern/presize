@@ -1,3 +1,9 @@
+presize 0.0.1.9007
+-----------------------------------------
+
+* addition of wrappers for `prec_lr` (`prec_pos_lr`, `prec_neg_lr`) to simplify positive/negative LRs
+
+
 presize 0.0.1.9006
 -----------------------------------------
 

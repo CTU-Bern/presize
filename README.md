@@ -46,9 +46,12 @@ presize will provide functions for
       - sens (`prec_sens`<sup>1</sup>)
       - spec (`prec_spec`<sup>1</sup>)
       - likelihood ratios (`prec_lr`)
+          - positive likelihood ratio (`prec_pos_lr`<sup>2</sup>)
+          - negative likelihood ratio (`prec_neg_lr`<sup>2</sup>)
       - AUC (`prec_auc`)
 
-<sup>1</sup> Simple wrappers for `prec_prop`.
+<sup>1</sup> Simple wrappers for `prec_prop`. <sup>1</sup> Wrappers for
+`prec_lr` with values provided via sens and spec
 
 ## Example
 
@@ -56,9 +59,6 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(presize)
-#> Loading required package: ggplot2
-#> Loading required package: kappaSize
-#> Loading required package: shiny
 
 # calculate sample size for a proportion of 0.2, or 0.4 with a precision of 0.2
 prec_prop(p = c(.2, .4), n = 10, method = "wilson")
