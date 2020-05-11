@@ -117,21 +117,23 @@
 <ul>
 <li>sens (<code>prec_sens</code><sup>1</sup>)</li>
 <li>spec (<code>prec_spec</code><sup>1</sup>)</li>
-<li>likelihood ratios (<code>prec_lr</code>)</li>
+<li>likelihood ratios (<code>prec_lr</code>)
+<ul>
+<li>positive likelihood ratio (<code>prec_pos_lr</code><sup>2</sup>)</li>
+<li>negative likelihood ratio (<code>prec_neg_lr</code><sup>2</sup>)</li>
+</ul>
+</li>
 <li>AUC (<code>prec_auc</code>)</li>
 </ul>
 </li>
 </ul>
-<p><sup>1</sup> Simple wrappers for <code>prec_prop</code>.</p>
+<p><sup>1</sup> Simple wrappers for <code>prec_prop</code>. <sup>1</sup> Wrappers for <code>prec_lr</code> with values provided via sens and spec</p>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
 <p>This is a basic example which shows you how to solve a common problem:</p>
 <div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">presize</span>)
-<span class="co">#&gt; Loading required package: ggplot2</span>
-<span class="co">#&gt; Loading required package: kappaSize</span>
-<span class="co">#&gt; Loading required package: shiny</span>
 
 <span class="co"># calculate sample size for a proportion of 0.2, or 0.4 with a precision of 0.2</span>
 <span class="fu"><a href="reference/prec_prop.html">prec_prop</a></span>(<span class="kw">p</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">.2</span>, <span class="fl">.4</span>), <span class="kw">n</span> <span class="kw">=</span> <span class="fl">10</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"wilson"</span>)
