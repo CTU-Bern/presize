@@ -49,10 +49,10 @@ res_vars <- c(mu = "mean", "sd" = "standard deviation",
               auc = "AUC",
               auc_n1 = "number of cases",
               auc_n2 = "number of non-cases",
-              lr_n1 = "number of positives in group 1",
-              lr_n2 = "number of positives in group 2",
+              lr_n1 = "number in group 1",
+              lr_n2 = "number in group 2",
               lr = "likelihood ratio",
-              lr_p1 = "proportion of positives in group 1",
-              lr_p2 = "proportion of positives in group 2"
+              lr_p1 = "proportion in group 1",
+              lr_p2 = "proportion in group 2"
               )
 res_vars <- data.frame(column = names(res_vars), meaning = res_vars)

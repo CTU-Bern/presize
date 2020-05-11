@@ -50,7 +50,8 @@ ui <- dashboardPage(skin = "red",
                           menuItem("Sensitivity", tabName = "sens", icon = icon),
                           menuItem("Specificity", tabName = "spec", icon = icon),
                           menuItem("AUC", tabName = "auc", icon = icon),
-                          menuItem("Likelihood ratio", tabName = "lr", icon = icon)
+                          menuItem("Positive likelihood ratio", tabName = "lrpos", icon = icon),
+                          menuItem("Negative likelihood ratio", tabName = "lrneg", icon = icon)
                           ),
                  width = 12),
              sidebarPanel(
@@ -84,7 +85,8 @@ ui <- dashboardPage(skin = "red",
                       senspage,
                       specpage,
                       aucpage,
-                      lrpage
+                      lrppage,
+                      lrnpage
              ) # close tabItems
 
         ) # close body
@@ -301,13 +303,25 @@ server <- function(input, output, session) {
     })
 
     # likelihood ratio ----
-    output$lr_out <- renderPrint(lr_fn(input))
-    output$lr_code <- renderPrint(lr_fn(input, TRUE))
-    output$lr_tab <- renderTable({
-        tmp <- lr_fn(input)
+    output$lrp_out <- renderPrint(lrp_fn(input))
+    output$lrp_code <- renderPrint(lrp_fn(input, TRUE))
+    output$lrp_tab <- renderTable({
+        tmp <- lrp_fn(input)
         tmp1 <- res_vars[res_vars$column %in% c(names(tmp), "lr_n1", "lr_n2", "lr_p1", "lr_p2"),]
         tmp1 <- tmp1[-which(tmp1$column %in% c("n1", "n2", "p1", "p2")), ]
-        tmp1$column[tmp1$column == "nspec"] <- "n"
+        tmp1$column[tmp1$column == "lr_n1"] <- "n1"
+        tmp1$column[tmp1$column == "lr_n2"] <- "n2"
+        tmp1$column[tmp1$column == "lr_p1"] <- "p1"
+        tmp1$column[tmp1$column == "lr_p2"] <- "p2"
+        tmp1[na.omit(match(names(tmp), tmp1$column)),]
+    })
+
+    output$lrn_out <- renderPrint(lrn_fn(input))
+    output$lrn_code <- renderPrint(lrn_fn(input, TRUE))
+    output$lrn_tab <- renderTable({
+        tmp <- lrn_fn(input)
+        tmp1 <- res_vars[res_vars$column %in% c(names(tmp), "lr_n1", "lr_n2", "lr_p1", "lr_p2"),]
+        tmp1 <- tmp1[-which(tmp1$column %in% c("n1", "n2", "p1", "p2")), ]
         tmp1$column[tmp1$column == "lr_n1"] <- "n1"
         tmp1$column[tmp1$column == "lr_n2"] <- "n2"
         tmp1$column[tmp1$column == "lr_p1"] <- "p1"

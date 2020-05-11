@@ -1,4 +1,4 @@
-# specificity
+# LR generic
 # UI ----
 lrpage <- tabItem(tabName = "lr",
         h2("Likelihood ratios"),
@@ -8,7 +8,7 @@ lrpage <- tabItem(tabName = "lr",
         tags$br(),
         "To compute for the positive likelihood ratio, enter the sensitivity in the proportion for group 1 and 1 - specificity in the proportion for group 2.",
         tags$br(),
-        "To compute for the negative likellihood ratio, enter 1-specificity in the proportion for group 1 and specificity in the proportion for group 2.",
+        "To compute for the negative likelihood ratio, enter 1-sensitivity in the proportion for group 1 and specificity in the proportion for group 2.",
         tags$br(),
         "The method can also be used for conditional likelihoods by using the appropriate proportions (e.g. the proportion of positive or negative tests against inconclusive ones, i.e. yields), analogous to the simple case described above.",
         h4("Please enter the following"),
@@ -20,9 +20,10 @@ lrpage <- tabItem(tabName = "lr",
         h4("Please enter one of the following"),
         numericInput("lr_n", "Total sample size",
                      value = NULL),
+        "The number in each group (e.g. diseased and healthy) is calculated from this as sample size * prevalence (group 1, which might be diseased people) and sample size * 1-prevalence.",
         numericInput("lr_ciwidth", "Confidence interval width",
                      value = NULL, min = 0, max = 1),
-        "The number in each group (e.g. diseased and healthy) is calculated as sample size * prev.",
+
         h4("Results"),
         verbatimTextOutput("lr_out"),
         tableOutput("lr_tab"),
