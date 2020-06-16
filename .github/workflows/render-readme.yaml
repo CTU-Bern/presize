@@ -20,7 +20,7 @@ jobs:
 
     # install packages needed
     - name: install required packages
-      run: Rscript -e 'install.packages(c("rmarkdown","knitr"))'
+      run: Rscript -e 'install.packages(c("rmarkdown", "knitr", "badger"))'
 
     # Render READEME.md using rmarkdown
     - name: render README
