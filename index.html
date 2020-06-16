@@ -80,10 +80,8 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install presize from github with:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="co"># install.packages("devtools")</span>
-<span class="kw">devtools</span>::<span class="fu">install_github</span>(<span class="st">"CTU-Bern/presize"</span>)
-</pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># install.packages("devtools")</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"CTU-Bern/presize"</span>)</span></code></pre></div>
 </div>
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
@@ -136,20 +134,18 @@
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
 <p>This is a basic example which shows you how to solve a common problem:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://github.com/CTU-Bern/presize">presize</a></span>)
-
-<span class="co"># calculate sample size for a proportion of 0.2, or 0.4 with a precision of 0.2</span>
-<span class="fu"><a href="reference/prec_prop.html">prec_prop</a></span>(p = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">.2</span>, <span class="fl">.4</span>), n = <span class="fl">10</span>, method = <span class="st">"wilson"</span>)
-<span class="co">#&gt; </span>
-<span class="co">#&gt;      precision for a proportion with Wilson confidence interval. </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     p      padj  n conf.width conf.level        lwr       upr</span>
-<span class="co">#&gt; 1 0.2 0.2832598 10  0.4531554       0.95 0.05668215 0.5098375</span>
-<span class="co">#&gt; 2 0.4 0.4277533 10  0.5191459       0.95 0.16818033 0.6873262</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; NOTE: padj is the adjusted proportion, from which the ci is calculated.</span>
-</pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(presize)</span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co"># calculate sample size for a proportion of 0.2, or 0.4 with a precision of 0.2</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="kw">prec_prop</span>(<span class="dt">p =</span> <span class="kw">c</span>(.<span class="dv">2</span>, <span class="fl">.4</span>), <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">method =</span> <span class="st">"wilson"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt; </span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt;      precision for a proportion with Wilson confidence interval. </span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt; </span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt;     p      padj  n conf.width conf.level        lwr       upr</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt; 1 0.2 0.2832598 10  0.4531554       0.95 0.05668215 0.5098375</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="co">#&gt; 2 0.4 0.4277533 10  0.5191459       0.95 0.16818033 0.6873262</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#&gt; </span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="co">#&gt; </span><span class="al">NOTE</span><span class="co">: padj is the adjusted proportion, from which the ci is calculated.</span></span></code></pre></div>
 <p>THe problem being addressed is ‘how wide is the confidence interval width given proportions of events of 20 and 40% and only 10 participants’.</p>
 </div>
 <div id="shiny-app" class="section level2">
@@ -161,7 +157,7 @@
 <h2 class="hasAnchor">
 <a href="#funding" class="anchor"></a>Funding</h2>
 <p><code>presize</code> was largely developed at CTU Bern, with collaboration from CTU Basel. Funding was provided by the Swiss Clinical Trials Organisation.</p>
-<p><img src="man/fig/scto_ctu_member_cmyk.jpg"><!-- --></p>
+<p><img src="inst/fig/scto_ctu_member_cmyk.jpg" width="200"></p>
 <!-- ![](man/fig/scto_ctu_member_cmyk.jpg) -->
 </div>
 </div>
@@ -202,7 +198,7 @@
 <ul class="list-unstyled">
 <li><a href="https://ci.appveyor.com/project/CTU-Bern/presize"><img src="https://ci.appveyor.com/api/projects/status/github/CTU-Bern/presize?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
 <li><a href="https://codecov.io/github/CTU-Bern/presize"><img src="https://codecov.io/github/CTU-Bern/presize/branch/master/graphs/badge.svg" alt="codecov"></a></li>
-<li><a href="https://github.com/CTU-Bern/presize"><img src="https://img.shields.io/badge/dev%20version-0.0.1.9006-blue.svg"></a></li>
+<li><a href="https://github.com/CTU-Bern/presize"><img src="https://img.shields.io/badge/dev%20version-0.1.0-blue.svg"></a></li>
 <li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg"></a></li>
 </ul>
 </div>

@@ -122,7 +122,7 @@ precision for the provided proportions" />
 precision for the provided proportions</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/presize/man/prec_riskdiff.html'>prec_riskdiff</a></span>(
+    <pre class="usage"><span class='fu'>prec_riskdiff</span>(
   <span class='kw'>p1</span>,
   <span class='kw'>p2</span>,
   n1 = <span class='kw'>NULL</span>,
@@ -178,7 +178,7 @@ be abbreviated.</p></td>
     <p>Exactly one of the parameters <code>n1, conf.width</code> must be passed as NULL,
 and that parameter is determined from the other.</p>
 <p>Newcombe (<code>newcombe</code>) proposed a confidence interval based on the wilson
-score method for the single proportion (see <a href='https://rdrr.io/pkg/presize/man/prec_prop.html'>prec_prop</a>). The confidence
+score method for the single proportion (see prec_prop). The confidence
 interval without continuity correction is implemented from equation 10 in
 Newcombe (1998)</p>
 <p>Miettinen-Nurminen (<code>mn</code>) provide a closed from equation for the
@@ -209,16 +209,16 @@ medical research 24(2):224-254.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Validate Newcombe (1998)</span>
-<span class='fu'><a href='https://rdrr.io/pkg/presize/man/prec_riskdiff.html'>prec_riskdiff</a></span>(p1 = <span class='fl'>56</span><span class='op'>/</span><span class='fl'>70</span>, p2 = <span class='fl'>48</span><span class='op'>/</span><span class='fl'>80</span>, n1 = <span class='fl'>70</span>, r = <span class='fl'>70</span><span class='op'>/</span><span class='fl'>80</span>, met = <span class='st'>"newcombe"</span>)  <span class='co'># Table IIa</span></div><div class='output co'>#&gt; 
+<span class='fu'>prec_riskdiff</span>(p1 = <span class='fl'>56</span><span class='op'>/</span><span class='fl'>70</span>, p2 = <span class='fl'>48</span><span class='op'>/</span><span class='fl'>80</span>, n1 = <span class='fl'>70</span>, r = <span class='fl'>70</span><span class='op'>/</span><span class='fl'>80</span>, met = <span class='st'>"newcombe"</span>)  <span class='co'># Table IIa</span></div><div class='output co'>#&gt; 
 #&gt;      precision for a risk difference with newcombe confidence interval 
 #&gt; 
 #&gt;    p1  p2 n1 n2 ntot     r delta        lwr       upr conf.width conf.level
-#&gt; 1 0.8 0.6 70 80  150 0.875   0.2 0.05243147 0.3338727  0.2814412       0.95</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/presize/man/prec_riskdiff.html'>prec_riskdiff</a></span>(p1 = <span class='fl'>10</span><span class='op'>/</span><span class='fl'>10</span>, p2 = <span class='fl'>0</span><span class='op'>/</span><span class='fl'>10</span>, n1 = <span class='fl'>10</span>, met = <span class='st'>"newcombe"</span>)  <span class='co'># Table IIh</span></div><div class='output co'>#&gt; 
+#&gt; 1 0.8 0.6 70 80  150 0.875   0.2 0.05243147 0.3338727  0.2814412       0.95</div><div class='input'><span class='fu'>prec_riskdiff</span>(p1 = <span class='fl'>10</span><span class='op'>/</span><span class='fl'>10</span>, p2 = <span class='fl'>0</span><span class='op'>/</span><span class='fl'>10</span>, n1 = <span class='fl'>10</span>, met = <span class='st'>"newcombe"</span>)  <span class='co'># Table IIh</span></div><div class='output co'>#&gt; 
 #&gt;      precision for a risk difference with newcombe confidence interval 
 #&gt; 
 #&gt;   p1 p2 n1 n2 ntot r delta       lwr upr conf.width conf.level
 #&gt; 1  1  0 10 10   20 1     1 0.6075094   1  0.3924906       0.95</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/pkg/presize/man/prec_riskdiff.html'>prec_riskdiff</a></span>(p1 = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>56</span><span class='op'>/</span><span class='fl'>70</span>, <span class='fl'>9</span><span class='op'>/</span><span class='fl'>10</span>, <span class='fl'>6</span><span class='op'>/</span><span class='fl'>7</span>, <span class='fl'>5</span><span class='op'>/</span><span class='fl'>56</span>),
+<span class='fu'>prec_riskdiff</span>(p1 = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>56</span><span class='op'>/</span><span class='fl'>70</span>, <span class='fl'>9</span><span class='op'>/</span><span class='fl'>10</span>, <span class='fl'>6</span><span class='op'>/</span><span class='fl'>7</span>, <span class='fl'>5</span><span class='op'>/</span><span class='fl'>56</span>),
               p2 = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>48</span><span class='op'>/</span><span class='fl'>80</span>, <span class='fl'>3</span><span class='op'>/</span><span class='fl'>10</span>, <span class='fl'>2</span><span class='op'>/</span><span class='fl'>7</span>, <span class='fl'>0</span><span class='op'>/</span><span class='fl'>29</span>),
               n1 = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>70</span>, <span class='fl'>10</span>, <span class='fl'>7</span>, <span class='fl'>56</span>),
               r = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>70</span><span class='op'>/</span><span class='fl'>80</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>56</span><span class='op'>/</span><span class='fl'>29</span>),

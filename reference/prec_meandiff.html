@@ -122,7 +122,7 @@ provided mean difference and standard deviations" />
 provided mean difference and standard deviations</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/presize/man/prec_meandiff.html'>prec_meandiff</a></span>(
+    <pre class="usage"><span class='fu'>prec_meandiff</span>(
   <span class='kw'>delta</span>,
   <span class='kw'>sd1</span>,
   sd2 = <span class='kw'>sd1</span>,
@@ -186,11 +186,11 @@ provided mean difference and standard deviations</p>
 and that parameter is determined from the other.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/presize/man/prec_meandiff.html'>prec_meandiff</a></span>(delta = <span class='fl'>5</span>, sd1 = <span class='fl'>2.5</span>, n1 = <span class='fl'>20</span>, var = <span class='st'>"equal"</span>)</div><div class='output co'>#&gt; 
+    <pre class="examples"><div class='input'><span class='fu'>prec_meandiff</span>(delta = <span class='fl'>5</span>, sd1 = <span class='fl'>2.5</span>, n1 = <span class='fl'>20</span>, var = <span class='st'>"equal"</span>)</div><div class='output co'>#&gt; 
 #&gt;      precision for mean difference with equal variance 
 #&gt; 
 #&gt;   delta sd1 sd2 n1 n2 conf.width conf.level      lwr      upr
-#&gt; 1     5 2.5 2.5 20 20   3.044614       0.95 3.477693 6.522307</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/presize/man/prec_meandiff.html'>prec_meandiff</a></span>(delta = <span class='fl'>5</span>, sd1 = <span class='fl'>2.5</span>, conf.width = <span class='fl'>3</span>, var = <span class='st'>"equal"</span>)</div><div class='output co'>#&gt; 
+#&gt; 1     5 2.5 2.5 20 20   3.044614       0.95 3.477693 6.522307</div><div class='input'><span class='fu'>prec_meandiff</span>(delta = <span class='fl'>5</span>, sd1 = <span class='fl'>2.5</span>, conf.width = <span class='fl'>3</span>, var = <span class='st'>"equal"</span>)</div><div class='output co'>#&gt; 
 #&gt;      sample size for mean difference with equal variance 
 #&gt; 
 #&gt;   delta sd1 sd2       n1       n2 conf.width conf.level lwr upr

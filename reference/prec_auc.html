@@ -124,7 +124,7 @@ or the expected confidence interval width from AUC, prevalence and sample
 size, following Hanley and McNeil (1982).</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/presize/man/prec_auc.html'>prec_auc</a></span>(<span class='kw'>auc</span>, <span class='kw'>prev</span>, n = <span class='kw'>NULL</span>, conf.width = <span class='kw'>NULL</span>, conf.level = <span class='fl'>0.95</span>, <span class='kw'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>prec_auc</span>(<span class='kw'>auc</span>, <span class='kw'>prev</span>, n = <span class='kw'>NULL</span>, conf.width = <span class='kw'>NULL</span>, conf.level = <span class='fl'>0.95</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -173,13 +173,13 @@ between the lower and upper limits of the confidence interval and
 <span class='kw'>N</span> <span class='op'>&lt;-</span> <span class='fl'>500</span>
 <span class='kw'>prev</span> <span class='op'>&lt;-</span> <span class='fl'>.1</span>
 <span class='kw'>auc</span> <span class='op'>&lt;-</span> <span class='fl'>.65</span>
-(<span class='kw'>prec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/presize/man/prec_auc.html'>prec_auc</a></span>(<span class='kw'>auc</span>, <span class='kw'>prev</span>, n = <span class='kw'>N</span>))</div><div class='output co'>#&gt; 
+(<span class='kw'>prec</span> <span class='op'>&lt;-</span> <span class='fu'>prec_auc</span>(<span class='kw'>auc</span>, <span class='kw'>prev</span>, n = <span class='kw'>N</span>))</div><div class='output co'>#&gt; 
 #&gt;      precision for AUC 
 #&gt; 
 #&gt;    auc   n prev n1  n2       lwr       upr conf.width conf.level
 #&gt; 1 0.65 500  0.1 50 450 0.5639623 0.7360377  0.1720755       0.95</div><div class='input'><span class='kw'>cwidth</span> <span class='op'>&lt;-</span> <span class='kw'>prec</span><span class='op'>$</span><span class='kw'>conf.width</span>
 <span class='co'># sample size</span>
-<span class='fu'><a href='https://rdrr.io/pkg/presize/man/prec_auc.html'>prec_auc</a></span>(<span class='kw'>auc</span>, <span class='kw'>prev</span>, conf.width = <span class='kw'>cwidth</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>prec_auc</span>(<span class='kw'>auc</span>, <span class='kw'>prev</span>, conf.width = <span class='kw'>cwidth</span>)</div><div class='output co'>#&gt; 
 #&gt;      sample size for AUC 
 #&gt; 
 #&gt;    auc   n prev n1  n2       lwr       upr conf.width conf.level

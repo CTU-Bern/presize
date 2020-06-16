@@ -122,7 +122,7 @@ proportion" />
 proportion</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/presize/man/prec_prop.html'>prec_prop</a></span>(
+    <pre class="usage"><span class='fu'>prec_prop</span>(
   <span class='kw'>p</span>,
   n = <span class='kw'>NULL</span>,
   conf.width = <span class='kw'>NULL</span>,
@@ -190,7 +190,7 @@ wilson, and exact method. Agresti-coull can be abbreviated by ac.</p>
   <span class="pkg">Hmisc</span></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/presize/man/prec_prop.html'>prec_prop</a></span>(p = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>9</span> <span class='op'>/</span> <span class='fl'>10</span>, n = <span class='fl'>100</span>, method = <span class='st'>"wilson"</span>)</div><div class='output co'>#&gt; 
+    <pre class="examples"><div class='input'><span class='fu'>prec_prop</span>(p = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>9</span> <span class='op'>/</span> <span class='fl'>10</span>, n = <span class='fl'>100</span>, method = <span class='st'>"wilson"</span>)</div><div class='output co'>#&gt; 
 #&gt;      precision for a proportion with Wilson confidence interval. 
 #&gt; 
 #&gt;     p      padj   n conf.width conf.level        lwr       upr
@@ -205,7 +205,7 @@ wilson, and exact method. Agresti-coull can be abbreviated by ac.</p>
 #&gt; 9 0.9 0.8852026 100  0.1191365       0.95 0.82563434 0.9447709
 #&gt; 
 #&gt; NOTE: padj is the adjusted proportion, from which the ci is calculated.
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/presize/man/prec_prop.html'>prec_prop</a></span>(p = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>9</span> <span class='op'>/</span> <span class='fl'>10</span>, conf.width = <span class='fl'>.192</span>, method = <span class='st'>"wilson"</span>)</div><div class='output co'>#&gt; 
+#&gt; </div><div class='input'><span class='fu'>prec_prop</span>(p = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>9</span> <span class='op'>/</span> <span class='fl'>10</span>, conf.width = <span class='fl'>.192</span>, method = <span class='st'>"wilson"</span>)</div><div class='output co'>#&gt; 
 #&gt;      sample size for a proportion with Wilson confidence interval. 
 #&gt; 
 #&gt;     p      padj         n conf.width conf.level       lwr       upr
