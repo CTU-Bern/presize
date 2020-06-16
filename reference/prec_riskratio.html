@@ -123,14 +123,14 @@ precision for the provided proportions</p>
     </div>
 
     <pre class="usage"><span class='fu'>prec_riskratio</span>(
-  <span class='kw'>p1</span>,
-  <span class='kw'>p2</span>,
-  n1 = <span class='kw'>NULL</span>,
-  r = <span class='fl'>1</span>,
-  conf.width = <span class='kw'>NULL</span>,
-  conf.level = <span class='fl'>0.95</span>,
-  method = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"koopman"</span>, <span class='st'>"katz"</span>),
-  <span class='kw'>...</span>
+  <span class='no'>p1</span>,
+  <span class='no'>p2</span>,
+  <span class='kw'>n1</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>r</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
+  <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"koopman"</span>, <span class='st'>"katz"</span>),
+  <span class='no'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -197,23 +197,24 @@ Proportions</em>, Biometrics 40:513-517</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Validate function with example in Fagerland et al. (2015), Table 5.</span>
-<span class='fu'>prec_riskratio</span>(p1 = <span class='fl'>7</span><span class='op'>/</span><span class='fl'>34</span>, p2 = <span class='fl'>1</span><span class='op'>/</span><span class='fl'>34</span>, n1 = <span class='fl'>34</span>, r = <span class='fl'>1</span>, met = <span class='st'>"katz"</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>prec_riskratio</span>(<span class='kw'>p1</span> <span class='kw'>=</span> <span class='fl'>7</span>/<span class='fl'>34</span>, <span class='kw'>p2</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>34</span>, <span class='kw'>n1</span> <span class='kw'>=</span> <span class='fl'>34</span>, <span class='kw'>r</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>met</span> <span class='kw'>=</span> <span class='st'>"katz"</span>)</div><div class='output co'>#&gt; 
 #&gt;      precision for a relative risk with katz confidence interval 
 #&gt; 
 #&gt;          p1         p2 n1 n2 ntot r rr       lwr      upr conf.width conf.level
 #&gt; 1 0.2058824 0.02941176 34 34   68 1  7 0.9096055 53.86951    52.9599       0.95</div><div class='input'><span class='co'># 7 (0.91 to 54)</span>
-<span class='fu'>prec_riskratio</span>(p1 = <span class='fl'>7</span><span class='op'>/</span><span class='fl'>34</span>, p2 = <span class='fl'>1</span><span class='op'>/</span><span class='fl'>34</span>, n1 = <span class='fl'>34</span>, r = <span class='fl'>1</span>, met = <span class='st'>"koopman"</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>prec_riskratio</span>(<span class='kw'>p1</span> <span class='kw'>=</span> <span class='fl'>7</span>/<span class='fl'>34</span>, <span class='kw'>p2</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>34</span>, <span class='kw'>n1</span> <span class='kw'>=</span> <span class='fl'>34</span>, <span class='kw'>r</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>met</span> <span class='kw'>=</span> <span class='st'>"koopman"</span>)</div><div class='output co'>#&gt; 
 #&gt;      precision for a relative risk with koopman confidence interval 
 #&gt; 
 #&gt;          p1         p2 n1 n2 ntot r rr      lwr      upr conf.width conf.level
 #&gt; 1 0.2058824 0.02941176 34 34   68 1  7 1.220853 42.57571   41.35486       0.95</div><div class='input'><span class='co'># 7 (1.21 to 43)</span>
 
 <span class='co'># Validate the Koopman method with example in Koopman (1984)</span>
-<span class='fu'>prec_riskratio</span>(p1 = <span class='fl'>36</span><span class='op'>/</span><span class='fl'>40</span>, p2 = <span class='fl'>16</span><span class='op'>/</span><span class='fl'>80</span>, n1 = <span class='fl'>40</span>, r = <span class='fl'>2</span>, met = <span class='st'>"koopman"</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>prec_riskratio</span>(<span class='kw'>p1</span> <span class='kw'>=</span> <span class='fl'>36</span>/<span class='fl'>40</span>, <span class='kw'>p2</span> <span class='kw'>=</span> <span class='fl'>16</span>/<span class='fl'>80</span>, <span class='kw'>n1</span> <span class='kw'>=</span> <span class='fl'>40</span>, <span class='kw'>r</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>met</span> <span class='kw'>=</span> <span class='st'>"koopman"</span>)</div><div class='output co'>#&gt; 
 #&gt;      precision for a relative risk with koopman confidence interval 
 #&gt; 
 #&gt;    p1  p2 n1 n2 ntot r  rr      lwr      upr conf.width conf.level
-#&gt; 1 0.9 0.2 40 80  120 2 4.5 2.939572 7.152241   4.212668       0.95</div><div class='input'><span class='co'># 4.5 (2.94 to 7.15)</span></div></pre>
+#&gt; 1 0.9 0.2 40 80  120 2 4.5 2.939572 7.152241   4.212668       0.95</div><div class='input'># 4.5 (2.94 to 7.15)
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -229,7 +230,7 @@ Proportions</em>, Biometrics 40:513-517</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

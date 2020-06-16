@@ -124,7 +124,7 @@ or the expected confidence interval width from AUC, prevalence and sample
 size, following Hanley and McNeil (1982).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>prec_auc</span>(<span class='kw'>auc</span>, <span class='kw'>prev</span>, n = <span class='kw'>NULL</span>, conf.width = <span class='kw'>NULL</span>, conf.level = <span class='fl'>0.95</span>, <span class='kw'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>prec_auc</span>(<span class='no'>auc</span>, <span class='no'>prev</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,16 +170,16 @@ between the lower and upper limits of the confidence interval and
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># confidence interval width</span>
-<span class='kw'>N</span> <span class='op'>&lt;-</span> <span class='fl'>500</span>
-<span class='kw'>prev</span> <span class='op'>&lt;-</span> <span class='fl'>.1</span>
-<span class='kw'>auc</span> <span class='op'>&lt;-</span> <span class='fl'>.65</span>
-(<span class='kw'>prec</span> <span class='op'>&lt;-</span> <span class='fu'>prec_auc</span>(<span class='kw'>auc</span>, <span class='kw'>prev</span>, n = <span class='kw'>N</span>))</div><div class='output co'>#&gt; 
+<span class='no'>N</span> <span class='kw'>&lt;-</span> <span class='fl'>500</span>
+<span class='no'>prev</span> <span class='kw'>&lt;-</span> <span class='fl'>.1</span>
+<span class='no'>auc</span> <span class='kw'>&lt;-</span> <span class='fl'>.65</span>
+(<span class='no'>prec</span> <span class='kw'>&lt;-</span> <span class='fu'>prec_auc</span>(<span class='no'>auc</span>, <span class='no'>prev</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='no'>N</span>))</div><div class='output co'>#&gt; 
 #&gt;      precision for AUC 
 #&gt; 
 #&gt;    auc   n prev n1  n2       lwr       upr conf.width conf.level
-#&gt; 1 0.65 500  0.1 50 450 0.5639623 0.7360377  0.1720755       0.95</div><div class='input'><span class='kw'>cwidth</span> <span class='op'>&lt;-</span> <span class='kw'>prec</span><span class='op'>$</span><span class='kw'>conf.width</span>
+#&gt; 1 0.65 500  0.1 50 450 0.5639623 0.7360377  0.1720755       0.95</div><div class='input'><span class='no'>cwidth</span> <span class='kw'>&lt;-</span> <span class='no'>prec</span>$<span class='no'>conf.width</span>
 <span class='co'># sample size</span>
-<span class='fu'>prec_auc</span>(<span class='kw'>auc</span>, <span class='kw'>prev</span>, conf.width = <span class='kw'>cwidth</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>prec_auc</span>(<span class='no'>auc</span>, <span class='no'>prev</span>, <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='no'>cwidth</span>)</div><div class='output co'>#&gt; 
 #&gt;      sample size for AUC 
 #&gt; 
 #&gt;    auc   n prev n1  n2       lwr       upr conf.width conf.level
@@ -199,7 +199,7 @@ between the lower and upper limits of the confidence interval and
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
