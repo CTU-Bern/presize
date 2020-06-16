@@ -78,7 +78,7 @@ for rating schemes with 2 or more levels." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">presize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9006</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -130,14 +130,14 @@ Cohen's kappa is a measure of agreement between 2 or more raters and can be
 for rating schemes with 2 or more levels.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>prec_kappa</span>(
-  <span class='no'>kappa</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>raters</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>n_category</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='no'>props</span>,
-  <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/presize/man/prec_kappa.html'>prec_kappa</a></span>(
+  <span class='kw'>kappa</span>,
+  n = <span class='kw'>NULL</span>,
+  raters = <span class='fl'>2</span>,
+  n_category = <span class='fl'>2</span>,
+  <span class='kw'>props</span>,
+  conf.width = <span class='kw'>NULL</span>,
+  conf.level = <span class='fl'>0.95</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -195,32 +195,31 @@ are symetrical.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># precision based on sample size</span>
-<span class='fu'>prec_kappa</span>(<span class='kw'>kappa</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>200</span>, <span class='kw'>raters</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>n_category</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>props</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.3</span>,<span class='fl'>.7</span>))</div><div class='output co'>#&gt; 
+<span class='fu'><a href='https://rdrr.io/pkg/presize/man/prec_kappa.html'>prec_kappa</a></span>(kappa = <span class='fl'>.5</span>, n = <span class='fl'>200</span>, raters = <span class='fl'>4</span>, n_category = <span class='fl'>2</span>, props = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.3</span>,<span class='fl'>.7</span>))</div><div class='output co'>#&gt; 
 #&gt;      precision for Cohen's kappa 
 #&gt; 
 #&gt;   kappa   n   lwr   upr conf.width conf.level
 #&gt; 1   0.5 200 0.425 0.575       0.15       0.95</div><div class='input'><span class='co'># sample size to get a given precision</span>
-<span class='fu'>prec_kappa</span>(<span class='kw'>kappa</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='fl'>.15</span>, <span class='kw'>raters</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>n_category</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-           <span class='kw'>props</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.3</span>,<span class='fl'>.7</span>))</div><div class='output co'>#&gt; 
+<span class='fu'><a href='https://rdrr.io/pkg/presize/man/prec_kappa.html'>prec_kappa</a></span>(kappa = <span class='fl'>.5</span>, conf.width = <span class='fl'>.15</span>, raters = <span class='fl'>4</span>, n_category = <span class='fl'>2</span>,
+           props = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.3</span>,<span class='fl'>.7</span>))</div><div class='output co'>#&gt; 
 #&gt;      sample size for Cohen's kappa 
 #&gt; 
 #&gt;   kappa   n   lwr   upr conf.width conf.level
 #&gt; 1   0.5 198 0.425 0.575       0.15       0.95</div><div class='input'>
 
-<span class='fu'>prec_kappa</span>(<span class='kw'>kappa</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.5</span>, <span class='fl'>.75</span>), <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='fl'>.15</span>, <span class='kw'>raters</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>n_category</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-           <span class='kw'>props</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.3</span>,<span class='fl'>.7</span>))</div><div class='output co'>#&gt; 
+<span class='fu'><a href='https://rdrr.io/pkg/presize/man/prec_kappa.html'>prec_kappa</a></span>(kappa = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.5</span>, <span class='fl'>.75</span>), conf.width = <span class='fl'>.15</span>, raters = <span class='fl'>4</span>, n_category = <span class='fl'>2</span>,
+           props = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.3</span>,<span class='fl'>.7</span>))</div><div class='output co'>#&gt; 
 #&gt;      sample size for Cohen's kappa 
 #&gt; 
 #&gt;   kappa   n   lwr   upr conf.width conf.level
 #&gt; 1  0.50 198 0.425 0.575       0.15       0.95
-#&gt; 2  0.75 155 0.675 0.825       0.15       0.95</div><div class='input'><span class='fu'>prec_kappa</span>(<span class='kw'>kappa</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.5</span>, <span class='fl'>.75</span>), <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.15</span>, <span class='fl'>0.3</span>), <span class='kw'>raters</span> <span class='kw'>=</span> <span class='fl'>4</span>,
-           <span class='kw'>n_category</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>props</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.3</span>,<span class='fl'>.7</span>))</div><div class='output co'>#&gt; 
+#&gt; 2  0.75 155 0.675 0.825       0.15       0.95</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/presize/man/prec_kappa.html'>prec_kappa</a></span>(kappa = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.5</span>, <span class='fl'>.75</span>), conf.width = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.15</span>, <span class='fl'>0.3</span>), raters = <span class='fl'>4</span>,
+           n_category = <span class='fl'>2</span>, props = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.3</span>,<span class='fl'>.7</span>))</div><div class='output co'>#&gt; 
 #&gt;      sample size for Cohen's kappa 
 #&gt; 
 #&gt;   kappa   n   lwr   upr conf.width conf.level
 #&gt; 1  0.50 198 0.425 0.575       0.15       0.95
-#&gt; 2  0.75  44 0.600 0.900       0.30       0.95</div><div class='input'>
-</div></pre>
+#&gt; 2  0.75  44 0.600 0.900       0.30       0.95</div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

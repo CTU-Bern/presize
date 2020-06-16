@@ -73,7 +73,7 @@ intraclass correlation" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">presize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9006</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -122,7 +122,7 @@ intraclass correlation" />
 intraclass correlation</p>
     </div>
 
-    <pre class="usage"><span class='fu'>prec_icc</span>(<span class='no'>rho</span>, <span class='no'>k</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/presize/man/prec_icc.html'>prec_icc</a></span>(<span class='kw'>rho</span>, <span class='kw'>k</span>, n = <span class='kw'>NULL</span>, conf.width = <span class='kw'>NULL</span>, conf.level = <span class='fl'>0.95</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -172,7 +172,7 @@ author, \(5*rho\) is added to n, if \(k = 2\) and \(rho \ge 7\).</p>
     <pre class="examples"><div class='input'><span class='co'># Bonett (2002) gives an example using 4 raters, with an ICC of 0.85 and want</span>
 <span class='co'># a confidence width of 0.2. Bonett calculated that a sample size of 19.2 was</span>
 <span class='co'># required. This can be done via</span>
-<span class='fu'>prec_icc</span>(<span class='fl'>0.85</span>, <span class='fl'>4</span>, <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</div><div class='output co'>#&gt; 
+<span class='fu'><a href='https://rdrr.io/pkg/presize/man/prec_icc.html'>prec_icc</a></span>(<span class='fl'>0.85</span>, <span class='fl'>4</span>, conf.width = <span class='fl'>0.2</span>)</div><div class='output co'>#&gt; 
 #&gt;      sample size for intraclass correlation 
 #&gt; 
 #&gt;    rho k  n conf.width conf.level
@@ -181,7 +181,7 @@ author, \(5*rho\) is added to n, if \(k = 2\) and \(rho \ge 7\).</p>
 
 <span class='co'># Bonett then goes on to estimate the width given the sample size, finding a</span>
 <span class='co'># value 'close to 0.2':</span>
-<span class='fu'>prec_icc</span>(<span class='fl'>0.85</span>, <span class='fl'>4</span>, <span class='fl'>20</span>)</div><div class='output co'>#&gt; 
+<span class='fu'><a href='https://rdrr.io/pkg/presize/man/prec_icc.html'>prec_icc</a></span>(<span class='fl'>0.85</span>, <span class='fl'>4</span>, <span class='fl'>20</span>)</div><div class='output co'>#&gt; 
 #&gt;      precision for intraclass correlation 
 #&gt; 
 #&gt;    rho k  n conf.width conf.level

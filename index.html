@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">presize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9006</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -80,8 +80,10 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install presize from github with:</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="co"># install.packages("devtools")</span>
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu">install_github</span>(<span class="st">"CTU-Bern/presize"</span>)</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="co"># install.packages("devtools")</span>
+<span class="kw">devtools</span>::<span class="fu">install_github</span>(<span class="st">"CTU-Bern/presize"</span>)
+</pre></div>
 </div>
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
@@ -134,10 +136,11 @@
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
 <p>This is a basic example which shows you how to solve a common problem:</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">presize</span>)
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://github.com/CTU-Bern/presize">presize</a></span>)
 
 <span class="co"># calculate sample size for a proportion of 0.2, or 0.4 with a precision of 0.2</span>
-<span class="fu"><a href="reference/prec_prop.html">prec_prop</a></span>(<span class="kw">p</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">.2</span>, <span class="fl">.4</span>), <span class="kw">n</span> <span class="kw">=</span> <span class="fl">10</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"wilson"</span>)
+<span class="fu"><a href="reference/prec_prop.html">prec_prop</a></span>(p = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">.2</span>, <span class="fl">.4</span>), n = <span class="fl">10</span>, method = <span class="st">"wilson"</span>)
 <span class="co">#&gt; </span>
 <span class="co">#&gt;      precision for a proportion with Wilson confidence interval. </span>
 <span class="co">#&gt; </span>
@@ -145,7 +148,8 @@
 <span class="co">#&gt; 1 0.2 0.2832598 10  0.4531554       0.95 0.05668215 0.5098375</span>
 <span class="co">#&gt; 2 0.4 0.4277533 10  0.5191459       0.95 0.16818033 0.6873262</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; NOTE: padj is the adjusted proportion, from which the ci is calculated.</span></pre></div>
+<span class="co">#&gt; NOTE: padj is the adjusted proportion, from which the ci is calculated.</span>
+</pre></div>
 <p>THe problem being addressed is ‘how wide is the confidence interval width given proportions of events of 20 and 40% and only 10 participants’.</p>
 </div>
 <div id="shiny-app" class="section level2">
