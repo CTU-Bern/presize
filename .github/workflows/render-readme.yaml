@@ -36,7 +36,7 @@ jobs:
         install.packages("remotes")
         remotes::install_deps(dependencies = TRUE)
         remotes::install_dev("pkgdown")
-        shell: Rscript {0}
+      shell: Rscript {0}
 
     - name: Install package
       run: R CMD INSTALL .
