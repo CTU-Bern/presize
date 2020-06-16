@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 # presize
 ![travis](https://travis-ci.com/CTU-Bern/presize.svg?branch=master) 
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/CTU-Bern/presize?branch=master&svg=true)](https://ci.appveyor.com/project/CTU-Bern/presize) [![codecov](https://codecov.io/github/CTU-Bern/presize/branch/master/graphs/badge.svg)](https://codecov.io/github/CTU-Bern/presize)
-`r badger::badge_custom("dev version", installed.packages()["presize", "Version"], "blue", "https://github.com/CTU-Bern/presize")` 
+`r badger::badge_custom("dev version", as.character(packageVersion("presize")), "blue", "https://github.com/CTU-Bern/presize")` 
 `r badger::badge_lifecycle()`
 
 The goal of presize is to provide functions for precision based sample size calculation. For a given sample size, the functions will return the precision (half the width of the confidence interval), and vice versa.
@@ -86,7 +86,7 @@ An online interactive version of the package is available [here](https://ctu-ber
 `presize` was largely developed at CTU Bern, with collaboration from CTU Basel. Funding was provided by the Swiss Clinical Trials Organisation.
 
 ```{r, echo=FALSE}
-knitr::include_graphics("man/fig/scto_ctu_member_cmyk.jpg")
+knitr::include_graphics("inst/fig/scto_ctu_member_cmyk.jpg")
 ```
 
 <!-- ![](man/fig/scto_ctu_member_cmyk.jpg) -->
