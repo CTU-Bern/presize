@@ -1,62 +1,34 @@
-on:
-  merge:
-    paths:
-      - README.Rmd
-      - DESCRIPTION
 
-name: Render README
+
+name: render readme
+
+# Controls when the action will run
+on:
+  push:
+    branches: master
 
 jobs:
   render:
-    name: Render README
+    # The type of runner that the job will run on
     runs-on: macOS-latest
+
     steps:
-      - uses: actions/checkout@master
-      - uses: r-lib/actions/setup-r@master
-      - uses: r-lib/actions/setup-pandoc@master
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+    - uses: r-lib/actions/setup-r@v1
+    - uses: r-lib/actions/setup-pandoc@v1
 
-      - name: Install XQuartz on macOS
-        if: runner.os == 'macOS'
-        run: brew cask install xquartz
+    # install packages needed
+    - name: install required packages
+      run: Rscript -e 'install.packages(c("rmarkdown","gratia"))'
 
-      - name: Install rmarkdown
-        run: Rscript -e 'install.packages("rmarkdown")'
-      - name: Install knitr
-        run: Rscript -e 'install.packages("knitr")'
-      - name: Query dependencies
-        run: |
-          install.packages('remotes')
-          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
-        shell: Rscript {0}
+    # Render READEME.md using rmarkdown
+    - name: render README
+      run: Rscript -e 'rmarkdown::render("README.Rmd", output_format = "md_document")'
 
-      - name: Cache R packages
-        if: runner.os != 'Windows'
-        uses: actions/cache@v1
-        with:
-          path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-r-${{ matrix.config.r }}-1-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-1-
+    - name: commit rendered README
+      run: |
+        git add README.md man/figures/README-*
+        git commit -m "Re-build README.md" || echo "No changes to commit"
+        git push origin master || echo "No changes to commit"
 
-      - name: Install system dependencies
-        if: runner.os == 'Linux'
-        env:
-          RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
-        run: |
-          Rscript -e "remotes::install_github('r-hub/sysreqs')"
-          sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
-          sudo -s eval "$sysreqs"
-      - name: Install dependencies
-        run: |
-          remotes::install_deps(dependencies = TRUE)
-          remotes::install_cran("rcmdcheck")
-        shell: Rscript {0}
-      - name: Install badger
-        run: Rscript -e 'install.packages("badger")'
-      - name: Install package
-        run: R CMD INSTALL .
-      - name: Render README
-        run: Rscript -e 'knitr::knit("README.Rmd")'
-      - name: Commit results
-        run: |
-          git commit README.md -m 'Re-build README.Rmd' || echo "No changes to commit"
-          git push origin || echo "No changes to commit"
