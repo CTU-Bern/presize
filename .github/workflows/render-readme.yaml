@@ -18,6 +18,9 @@ jobs:
     - uses: r-lib/actions/setup-r@master
     - uses: r-lib/actions/setup-pandoc@master
 
+    - name: Install package
+      run: R CMD INSTALL .
+      
     # install packages needed
     - name: install required packages
       run: Rscript -e 'install.packages(c("rmarkdown", "knitr", "badger"))'
@@ -25,6 +28,13 @@ jobs:
     # Render READEME.md using rmarkdown
     - name: render README
       run: Rscript -e 'rmarkdown::render("README.Rmd", output_format = "md_document")'
+
+    - name: Cache R packages
+      uses: actions/cache@v1
+      with:
+        path: ${{ env.R_LIBS_USER }}
+        key: macOS-r-4.0-1-${{ hashFiles('.github/depends.Rds') }}
+        restore-keys: macOS-r-4.0-1-
 
     - name: commit rendered README
       run: |
