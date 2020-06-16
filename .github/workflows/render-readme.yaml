@@ -1,11 +1,8 @@
 on:
-  push:
+  merge:
     paths:
       - README.Rmd
       - DESCRIPTION
-  pull_request:
-    branches:
-      - master
 
 name: Render README
 
