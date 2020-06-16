@@ -1,6 +1,6 @@
 
 
-name: render readme
+name: render readme and pkgdown
 
 # Controls when the action will run
 on:
@@ -40,10 +40,10 @@ jobs:
 
     - name: Install package
       run: R CMD INSTALL .
-      
+
     # install packages needed
     - name: install required packages
-      run: Rscript -e 'install.packages(c("rmarkdown", "knitr", "badger"))'
+      run: Rscript -e 'install.packages(c("rmarkdown", "knitr", "badger", "pkgdown"))'
 
     # Render READEME.md using rmarkdown
     - name: render README
@@ -51,7 +51,10 @@ jobs:
 
     - name: commit rendered README
       run: |
-        git add README.md 
+        git add README.md
         git commit -m "Re-build README.md" || echo "No changes to commit"
         git push origin master || echo "No changes to commit"
 
+    - name: Deploy package
+      run: pkgdown::deploy_to_branch(new_process = FALSE)
+      shell: Rscript {0}
