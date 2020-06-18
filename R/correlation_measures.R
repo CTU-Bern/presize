@@ -285,7 +285,7 @@ prec_lim_agree <- function(n = NULL, conf.width = NULL, conf.level = 0.95){
 #' The \code{FixedN} functions in \code{kappaSize} return a one sided confidence
 #' interval. The values that are passed to \code{kappaSize} ensure that two-sided
 #' confidence intervals are returned, although we assume that confidence intervals
-#' are symetrical.
+#' are symmetrical.
 #' @seealso
 #' \code{\link[kappaSize]{FixedNBinary}},
 #' \code{\link[kappaSize]{FixedN3Cats}},

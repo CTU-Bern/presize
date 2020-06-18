@@ -28,7 +28,7 @@ prec_meandiff(
 \item{r}{allocation ratio (relative size of unexposed and exposed cohort
 (\code{n1} / \code{n2}))}
 
-\item{conf.width}{precision (the full width of the conficende interval)}
+\item{conf.width}{precision (the full width of the confidende interval)}
 
 \item{conf.level}{confidence level}
 

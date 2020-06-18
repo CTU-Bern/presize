@@ -16,7 +16,7 @@
 #' Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
 #' and that parameter is determined from the other.
 #'
-#' The precision is defined as the full width of the conficence interval. The
+#' The precision is defined as the full width of the confidence interval. The
 #' confidence interval calculated as \eqn{t(n - 1) * sd / sqrt(n)}, with t(n-1)
 #' from the t-distribution with n-1 degrees of freedom.
 #'
@@ -25,7 +25,7 @@
 #' @param mu mean
 #' @param sd standard deviation
 #' @param n number of observations
-#' @param conf.width precision (the full width of the conficende interval)
+#' @param conf.width precision (the full width of the confidende interval)
 #' @param conf.level confidence level
 #' @param ... other arguments to uniroot (e.g. \code{tol})
 #' @return Object of class "presize", a list with
@@ -255,12 +255,12 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
 #' and that parameter is determined from the other.
 #'
 #' The wilson, agresti-coull, exact, and wald method are implemented. The
-#' wilson mehtod is suggested for small n (< 40), and the agresti-coull method
+#' wilson method is suggested for small n (< 40), and the agresti-coull method
 #' is suggested for larger n (see reference). The wald method is not suggested,
 #' but provided due to its widely distributed use.
 #'
 #' \code{\link[stats]{uniroot}} is used to solve n for the agresti-coull,
-#' wilson, and exact method. Agresti-coull can be abbreviated by ac.
+#' wilson, and exact methods. Agresti-coull can be abbreviated by ac.
 #'
 #'
 #' @param p proportion
