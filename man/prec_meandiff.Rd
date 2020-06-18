@@ -42,7 +42,7 @@ Object of class "presize", a list of arguments (including the
 }
 \description{
 \code{prec_meandiff} returns the sample size or the precision for the
-provided mean difference and standard deviations
+provided mean difference and standard deviations.
 }
 \details{
 Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
