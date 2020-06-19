@@ -770,10 +770,10 @@ prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.
 }
 
 # rate ratio ----
-#' Sample size or precision for an odds ratio
+#' Sample size or precision for a rate ratio
 #'
-#' \code{prec_or} returns the sample size or the precision for the
-#' provided proportions
+#' \code{prec_rateratio} returns the sample size or the precision for the
+#' provided proportions.
 #'
 #' Exactly one of the parameters \code{n1, conf.width} must be passed as
 #' NULL, and that parameter is determined from the other. Event rates in the two
@@ -785,7 +785,7 @@ prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.
 #' @param n1 number of exposed individuals
 #' @param rate1 event rate in the exposed group
 #' @param rate2 event rate in the unexposed group
-#' @param conf.width the ratio of the upper limit to the lower limit of the
+#' @param prec.level the ratio of the upper limit to the lower limit of the
 #'   rate ratio confidence interval
 #'
 #' @references
@@ -799,16 +799,16 @@ prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.
 prec_rateratio <- function(n1 = NULL, # n exposed
                            rate1 = NULL,
                            rate2 = 2*rate1,
-                           conf.width = NULL,
+                           prec.level = NULL,
                            r = 1,
                            conf.level = 0.95){
 
   if (any(is.null(rate1), is.null(rate2)))
     stop("both rate_exp and rate_control required")
-  if (sum(sapply(list(n1, conf.width), is.null)) != 1)
-    stop("exactly one of 'n1', and 'conf.width' must be NULL")
+  if (sum(sapply(list(n1, prec.level), is.null)) != 1)
+    stop("exactly one of 'n1', and 'prec.level' must be NULL")
 
-  if (is.null(conf.width)){
+  if (is.null(prec.level)){
     est <- "precision"
   } else {
     est <- "sample size"
@@ -822,12 +822,12 @@ prec_rateratio <- function(n1 = NULL, # n exposed
     num <- sqrt(r * rate2 + rate1)
     denom <- sqrt(n1 * (r * rate1 * rate2))
     prec <- ((2 * z) * num) / denom
-    conf.width <- exp(prec)
+    prec.level <- exp(prec)
   }
 
   if (est == "sample size"){
     num <- r * rate2 + rate1
-    denom <- r * rate2 * rate1 * (log(1/conf.width))^2
+    denom <- r * rate2 * rate1 * (log(1/prec.level))^2
     n1 <- ((4 * z^2) * num) / denom
   }
 
@@ -849,7 +849,7 @@ prec_rateratio <- function(n1 = NULL, # n exposed
                  rr = rr,
                  lwr = lwr,
                  upr = upr,
-                 conf.width = conf.width,
+                 prec.level = prec.level,
                  conf.level = conf.level,
                  #note = "n is number in *each* group",
                  method = paste(est, "for a rate ratio")

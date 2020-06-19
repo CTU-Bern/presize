@@ -126,7 +126,7 @@ context("rateratio")
 
 test_that("inverse", {
   x <- prec_rateratio(20, rate1 = 1, rate2 = 1)
-  y <- prec_rateratio(rate1 = 1, rate2 = 1, conf.width = 3.454197)
+  y <- prec_rateratio(rate1 = 1, rate2 = 1, prec.level = 3.454197)
   expect_equal(x[1:11], y[1:11], tolerance = .05)
 })
 
