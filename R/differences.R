@@ -794,7 +794,7 @@ prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.
 #'   \href{https://doi.org/10.1097/EDE.0000000000000876}{doi:10.1097/EDE.0000000000000876}
 #' @examples
 #' prec_rateratio(20, .5, 3)
-#' prec_rateratio(rate1 = .5, rate2 = 3, conf.width = 3.81)
+#' prec_rateratio(rate1 = .5, rate2 = 3, prec.level = 3.81)
 #' @export
 prec_rateratio <- function(n1 = NULL, # n exposed
                            rate1 = NULL,
