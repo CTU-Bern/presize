@@ -445,6 +445,8 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
 #'
 #' @param method Exactly one of \code{koopman} (\emph{default}), \code{katz}.
 #'   Methods can be abbreviated.
+#' @param r allocation ratio (relative size of unexposed and exposed cohort
+#'   (\code{n2} / \code{n1}))
 #' @inheritParams prec_mean
 #' @inheritParams prec_riskdiff
 #'
@@ -646,7 +648,7 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
 #'
 #' @param method Exactly one of \code{indip_smooth} (\emph{default}),
 #'   \code{gart}, or \code{wolf}. Methods can be abbreviated.
-#' @inheritParams prec_riskdiff
+#' @inheritParams prec_riskratio
 #' @return Object of class "presize", a list of arguments (including the
 #'   computed one) augmented with method and note elements.
 #' @export
@@ -781,7 +783,7 @@ prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.
 #' \code{rate1} is provided, \code{rate2} is assumed to be 2 times
 #' \code{rate1}.
 #'
-#' @inheritParams prec_riskdiff
+#' @inheritParams prec_riskratio
 #' @param n1 number of exposed individuals
 #' @param rate1 event rate in the exposed group
 #' @param rate2 event rate in the unexposed group
