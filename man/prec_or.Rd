@@ -23,7 +23,7 @@ prec_or(
 \item{n1}{Number of patients in unexposed group}
 
 \item{r}{allocation ratio (relative size of unexposed and exposed cohort
-(\code{n1} / \code{n2}))}
+(\code{n2} / \code{n1}))}
 
 \item{conf.width}{precision (the full width of the confidende interval)}
 
@@ -32,7 +32,7 @@ prec_or(
 \item{method}{Exactly one of \code{indip_smooth} (\emph{default}),
 \code{gart}, or \code{wolf}. Methods can be abbreviated.}
 
-\item{...}{other options to uniroot (e.g. \code{tol})}
+\item{...}{other arguments to uniroot (e.g. \code{tol})}
 }
 \value{
 Object of class "presize", a list of arguments (including the
