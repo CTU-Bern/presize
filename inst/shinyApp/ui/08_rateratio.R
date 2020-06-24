@@ -10,6 +10,7 @@ raterpage <- tabItem(tabName = "rateratio",
         numericInput("rateratio_rate_control", "Event rate in the control group",
                      value = NULL, step = .01, min = .01, max = .99),
         numericInput("rateratio_r", "Allocation ratio", value = 1, step = .2),
+        "(N2 / N1)",
         h4("Please enter one of the following"),
 
         numericInput("rateratio_n_exp", "Number of observations in the exposed group", value = NULL, step = .1),
