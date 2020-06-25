@@ -239,7 +239,7 @@ prec_auc <- function(auc, prev, n = NULL, conf.width = NULL, conf.level = .95,
 
 #' Sample size or precision for likelihood ratios
 #'
-#' These functions calculate the precision or sample size for likelihood ratios.
+#' These functions calculate the precision or sample size for likelihood ratios (LRs).
 #' \code{prec_lr} is a generalized method for that can be used for positive and
 #' negative LRs as well as conditional LRs.
 #' @param prev disease/case prevalence in the study group

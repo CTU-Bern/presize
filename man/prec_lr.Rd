@@ -52,7 +52,7 @@ Object of class "presize", a list of arguments (including the
   computed one) augmented with method and note elements.
 }
 \description{
-These functions calculate the precision or sample size for likelihood ratios.
+These functions calculate the precision or sample size for likelihood ratios (LRs).
 \code{prec_lr} is a generalized method for that can be used for positive and
 negative LRs as well as conditional LRs.
 

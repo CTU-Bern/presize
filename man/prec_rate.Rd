@@ -18,7 +18,7 @@ prec_rate(
 
 \item{x}{number of events}
 
-\item{conf.width}{precision (the full width of the conficende interval)}
+\item{conf.width}{precision (the full width of the confidende interval)}
 
 \item{conf.level}{confidence level}
 

@@ -13,7 +13,7 @@ prec_mean(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95, ...)
 
 \item{n}{number of observations}
 
-\item{conf.width}{precision (the full width of the conficende interval)}
+\item{conf.width}{precision (the full width of the confidende interval)}
 
 \item{conf.level}{confidence level}
 
@@ -38,7 +38,7 @@ mean and standard deviation
 Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
 and that parameter is determined from the other.
 
-The precision is defined as the full width of the conficence interval. The
+The precision is defined as the full width of the confidence interval. The
 confidence interval calculated as \eqn{t(n - 1) * sd / sqrt(n)}, with t(n-1)
 from the t-distribution with n-1 degrees of freedom.
 
