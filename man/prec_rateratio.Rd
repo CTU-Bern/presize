@@ -24,7 +24,7 @@ prec_rateratio(
 rate ratio confidence interval}
 
 \item{r}{allocation ratio (relative size of unexposed and exposed cohort
-(\code{n1} / \code{n2}))}
+(\code{n2} / \code{n1}))}
 
 \item{conf.level}{confidence level}
 }
