@@ -41,7 +41,9 @@
 
 <meta property="og:title" content="Sample size or precision for limit of agreement on Bland-Altman plots — prec_lim_agree" />
 <meta property="og:description" content="prec_lim_agree returns the sample size or the precision for the limit
-of agreement, i.e. the confidence interval around the limit of agreement." />
+of agreement, i.e. the confidence interval around the limit of agreement,
+expressed in SD-units. It is an approximation based on the Normal distribution,
+instead of a Student t distribution." />
 
 
 
@@ -119,7 +121,9 @@ of agreement, i.e. the confidence interval around the limit of agreement." />
 
     <div class="ref-description">
     <p><code>prec_lim_agree</code> returns the sample size or the precision for the limit
-of agreement, i.e. the confidence interval around the limit of agreement.</p>
+of agreement, i.e. the confidence interval around the limit of agreement,
+expressed in SD-units. It is an approximation based on the Normal distribution,
+instead of a Student t distribution.</p>
     </div>
 
     <pre class="usage"><span class='fu'>prec_lim_agree</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>)</pre>
@@ -168,7 +172,7 @@ between two methods of clinical measurement</em> Lancet i(8476):307-310
 
       <footer>
       <div class="copyright">
-  <p>Developed by Armando Lenz, Alan Haynes.</p>
+  <p>Developed by Armando Lenz, Alan G. Haynes, Andreas Limacher.</p>
 </div>
 
 <div class="pkgdown">
