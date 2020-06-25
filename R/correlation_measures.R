@@ -212,7 +212,9 @@ prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
 #' Sample size or precision for limit of agreement on Bland-Altman plots
 #'
 #' \code{prec_lim_agree} returns the sample size or the precision for the limit
-#' of agreement, i.e. the confidence interval around the limit of agreement.
+#' of agreement, i.e. the confidence interval around the limit of agreement,
+#' expressed in SD-units. It is an approximation based on the Normal distribution,
+#' instead of a Student t distribution.
 #'
 #' Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
 #' and that parameter is determined from the other.
@@ -236,7 +238,7 @@ prec_lim_agree <- function(n = NULL, conf.width = NULL, conf.level = 0.95){
     stop("exactly one of 'n', and 'conf.width' must be NULL")
 
   alpha <- 1 - conf.level
-  z <- qnorm(1 - alpha / 2)
+  z <- qnorm(1 - alpha / 2) * 2
 
   if (is.null(n)) {
     est <- "sample size"
@@ -285,7 +287,7 @@ prec_lim_agree <- function(n = NULL, conf.width = NULL, conf.level = 0.95){
 #' The \code{FixedN} functions in \code{kappaSize} return a one sided confidence
 #' interval. The values that are passed to \code{kappaSize} ensure that two-sided
 #' confidence intervals are returned, although we assume that confidence intervals
-#' are symetrical.
+#' are symmetrical.
 #' @seealso
 #' \code{\link[kappaSize]{FixedNBinary}},
 #' \code{\link[kappaSize]{FixedN3Cats}},

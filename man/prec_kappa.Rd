@@ -47,7 +47,7 @@ This function wraps the \code{FixedN} and \code{CI} functions in the
 The \code{FixedN} functions in \code{kappaSize} return a one sided confidence
 interval. The values that are passed to \code{kappaSize} ensure that two-sided
 confidence intervals are returned, although we assume that confidence intervals
-are symetrical.
+are symmetrical.
 }
 \examples{
 # precision based on sample size

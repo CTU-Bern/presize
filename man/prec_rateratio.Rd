@@ -2,13 +2,13 @@
 % Please edit documentation in R/differences.R
 \name{prec_rateratio}
 \alias{prec_rateratio}
-\title{Sample size or precision for an odds ratio}
+\title{Sample size or precision for a rate ratio}
 \usage{
 prec_rateratio(
   n1 = NULL,
   rate1 = NULL,
   rate2 = 2 * rate1,
-  conf.width = NULL,
+  prec.level = NULL,
   r = 1,
   conf.level = 0.95
 )
@@ -20,17 +20,17 @@ prec_rateratio(
 
 \item{rate2}{event rate in the unexposed group}
 
-\item{conf.width}{the ratio of the upper limit to the lower limit of the
+\item{prec.level}{the ratio of the upper limit to the lower limit of the
 rate ratio confidence interval}
 
 \item{r}{allocation ratio (relative size of unexposed and exposed cohort
-(\code{n1} / \code{n2}))}
+(\code{n2} / \code{n1}))}
 
 \item{conf.level}{confidence level}
 }
 \description{
-\code{prec_or} returns the sample size or the precision for the
-provided proportions
+\code{prec_rateratio} returns the sample size or the precision for the
+provided proportions.
 }
 \details{
 Exactly one of the parameters \code{n1, conf.width} must be passed as
@@ -41,7 +41,7 @@ groups should also be provided (\code{rate1, rate2}). If only
 }
 \examples{
 prec_rateratio(20, .5, 3)
-prec_rateratio(rate1 = .5, rate2 = 3, conf.width = 3.81)
+prec_rateratio(rate1 = .5, rate2 = 3, prec.level = 3.81)
 }
 \references{
 Rothman KJ, Greenland S (2018). \emph{Planning Study Size Based on
