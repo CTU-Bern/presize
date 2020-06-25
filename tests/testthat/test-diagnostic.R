@@ -46,10 +46,7 @@ test_that("ntot + prev gives same as n", {
   expect_equal(x1$lwr, x2$lwr)
   expect_equal(x1$upr, x2$upr)
   expect_equal(x1$n, x2$n)
-
 })
-
-
 
 context("AUC")
 
@@ -60,10 +57,7 @@ test_that("errors issued", {
 
   expect_error(prec_auc(.75, .3, 20), NA)
   expect_error(prec_auc(.75, .3, conf.width = .2), NA)
-
 })
-
-
 
 context("likelihood ratio")
 
