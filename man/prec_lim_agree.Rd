@@ -19,7 +19,9 @@ Object of class "presize", a list of arguments (including the
 }
 \description{
 \code{prec_lim_agree} returns the sample size or the precision for the limit
-of agreement, i.e. the confidence interval around the limit of agreement.
+of agreement, i.e. the confidence interval around the limit of agreement,
+expressed in SD-units. It is an approximation based on the Normal distribution,
+instead of a Student t distribution.
 }
 \details{
 Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
