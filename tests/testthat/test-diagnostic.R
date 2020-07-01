@@ -116,7 +116,7 @@ test_that("sens and spec different methods compared to stata", {
   expect_equal(c(ex$lwr, ex$upr) , c(.3039818, .4960182) , tolerance = .0001, scale = 1)
   ex <- prec_spec(.4, n = 100, method = "wald")
   expect_equal(c(ex$lwr, ex$upr) , c(.3039818, .4960182) , tolerance = .0001, scale = 1)
-})issued
+})
 
 
 context("AUC")
