@@ -15,7 +15,7 @@
 #' \code{prec_meandiff} returns the sample size or the precision for the
 #' provided mean difference and standard deviations.
 #'
-#' Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
+#' Exactly one of the parameters \code{n} or \code{conf.width} must be passed as NULL,
 #' and that parameter is determined from the other.
 #'
 #'
@@ -138,20 +138,20 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
 #' Sample size or precision for risk difference
 #'
 #' \code{prec_riskdiff} returns the risk difference and the sample size or the
-#' precision for the provided proportions
+#' precision for the provided proportions.
 #'
-#' Exactly one of the parameters \code{n1, conf.width} must be passed as NULL,
+#' Exactly one of the parameters \code{n1} or \code{conf.width} must be passed as NULL,
 #' and that parameter is determined from the other.
 #'
 #' Newcombe (\code{newcombe}) proposed a confidence interval based on the wilson
 #' score method for the single proportion (see \link{prec_prop}). The confidence
 #' interval without continuity correction is implemented from equation 10 in
-#' Newcombe (1998)
+#' Newcombe (1998).
 #'
 #' Miettinen-Nurminen (\code{mn}) provide a closed from equation for the
 #' restricted maximum likelihood estimate . The implementation is based on
 #' code provided by Yongyi Min on
-#' \url{http://users.stat.ufl.edu/~aa/cda/R/two-sample/R2/index.html}
+#' \url{http://users.stat.ufl.edu/~aa/cda/R/two-sample/R2/index.html}.
 #'
 #' Agresti-Caffo (\code{ac}) confidence interval is based on the Wald confidence
 #' interval, adding 1 success to each cell of the 2 x 2 table (see Agresti and
@@ -161,32 +161,32 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
 #' method.
 #'
 #'
-#' @param p1 Risk among unexposed
-#' @param p2 Risk among exposed
-#' @param n1 Number of patients in unexposed group
+#' @param p1 risk among unexposed.
+#' @param p2 risk among exposed.
+#' @param n1 number of patients in unexposed group.
 #' @param r allocation ratio (relative size of unexposed and exposed cohort
-#'   (\code{n1} / \code{n2}))
-#' @param method Exactly one of \code{newcombe} (\emph{default}), \code{mn}
+#'   (\code{n1} / \code{n2})).
+#' @param method exactly one of \code{newcombe} (\emph{default}), \code{mn}
 #'   (Miettinen-Nurminen), \code{ac} (Agresti-Caffo), \code{wald}. Methods can
 #'   be abbreviated.
-#' @param ... other options to uniroot (e.g. \code{tol})
+#' @param ... other options to uniroot (e.g. \code{tol}).
 #' @inheritParams prec_mean
 #'
 #' @references
 #' Agresti A (2003) \emph{Categorical Data Analysis}, Second Edition, Wiley
 #' Series in Probability and Statistics,
-#' \href{https://doi.org/10.1002/0471249688}{doi:10.1002/0471249688}
+#' \href{https://doi.org/10.1002/0471249688}{doi:10.1002/0471249688}.
 #'
 #' Agresti A and Caffo B (2000) \emph{Simple and Effective Confidence Intervals
 #' for Proportions and Differences of Proportions Result from Adding Two
-#' Successes and Two Failures}, The American Statistician, 54(4):280-288
+#' Successes and Two Failures}, The American Statistician, 54(4):280-288.
 #'
 #' Miettinen O and Nurminen M (1985) \emph{Comparative analysis of two rates},
-#' Statistics in Medicine, 4:213-226
+#' Statistics in Medicine, 4:213-226.
 #'
 #' Newcombe RG (1998) \emph{Interval estimation for the difference between
 #' independent proportions: comparison of eleven methods}, Statistics in
-#' Medicine, 17:873-890
+#' Medicine, 17:873-890.
 #'
 #' Fagerland MW, Lydersen S, and Laake P (2015). \emph{Recommended confidence
 #' intervals for two independent binomial proportions}, Statistical methods in
@@ -426,9 +426,9 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
 #' Sample size or precision for risk ratio
 #'
 #' \code{prec_riskratio} returns the risk ratio and the sample size or the
-#' precision for the provided proportions
+#' precision for the provided proportions.
 #'
-#' Exactly one of the parameters \code{n1, conf.width} must be passed as NULL,
+#' Exactly one of the parameters \code{n1} or \code{conf.width} must be passed as NULL,
 #' and that parameter is determined from the other.
 #'
 #' Koopman (\code{koopman}) provides an asymptotic score confidence interval
@@ -443,10 +443,10 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
 #' \code{\link[stats]{uniroot}} is used to solve n for the katz, and koopman
 #' method.
 #'
-#' @param method Exactly one of \code{koopman} (\emph{default}), \code{katz}.
+#' @param method exactly one of \code{koopman} (\emph{default}), \code{katz}.
 #'   Methods can be abbreviated.
 #' @param r allocation ratio (relative size of unexposed and exposed cohort
-#'   (\code{n2} / \code{n1}))
+#'   (\code{n2} / \code{n1})).
 #' @inheritParams prec_mean
 #' @inheritParams prec_riskdiff
 #'
@@ -456,10 +456,10 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
 #' medical research 24(2):224-254.
 #'
 #' Katz D, Baptista J, Azen SP, and Pike MC (1978) \emph{Obtaining Confidence
-#' Intervals for the Risk Ratio in Cohort Studies}, Biometrics 34:469-474
+#' Intervals for the Risk Ratio in Cohort Studies}, Biometrics 34:469-474.
 #'
 #' Koopman PAR (1984) \emph{Confidence Intervals for the Ratio of Two Binomial
-#' Proportions}, Biometrics 40:513-517
+#' Proportions}, Biometrics 40:513-517.
 #'
 #' @importFrom stats qchisq
 #' @examples
@@ -621,9 +621,9 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
 #' Sample size or precision for an odds ratio
 #'
 #' \code{prec_or} returns the sample size or the precision for the
-#' provided proportions
+#' provided proportions.
 #'
-#' Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
+#' Exactly one of the parameters \code{n} or \code{conf.width} must be passed as NULL,
 #' and that parameter is determined from the other.
 #'
 #' Woolf (\code{woolf}), Gart (\code{gart}), and Independence-smoothed logit
@@ -646,7 +646,7 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
 #' Methods in Medical Research, 24(2):224-254.
 #' \href{https://doi.org/10.1177/0962280211415469}{doi:10.1177/0962280211415469}
 #'
-#' @param method Exactly one of \code{indip_smooth} (\emph{default}),
+#' @param method exactly one of \code{indip_smooth} (\emph{default}),
 #'   \code{gart}, or \code{wolf}. Methods can be abbreviated.
 #' @inheritParams prec_riskratio
 #' @return Object of class "presize", a list of arguments (including the
@@ -777,18 +777,18 @@ prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.
 #' \code{prec_rateratio} returns the sample size or the precision for the
 #' provided proportions.
 #'
-#' Exactly one of the parameters \code{n1, conf.width} must be passed as
+#' Exactly one of the parameters \code{n1} or \code{conf.width} must be passed as
 #' NULL, and that parameter is determined from the other. Event rates in the two
 #' groups should also be provided (\code{rate1, rate2}). If only
 #' \code{rate1} is provided, \code{rate2} is assumed to be 2 times
 #' \code{rate1}.
 #'
 #' @inheritParams prec_riskratio
-#' @param n1 number of exposed individuals
-#' @param rate1 event rate in the exposed group
-#' @param rate2 event rate in the unexposed group
+#' @param n1 number of exposed individuals.
+#' @param rate1 event rate in the exposed group.
+#' @param rate2 event rate in the unexposed group.
 #' @param prec.level the ratio of the upper limit to the lower limit of the
-#'   rate ratio confidence interval
+#'   rate ratio confidence interval.
 #'
 #' @references
 #'   Rothman KJ, Greenland S (2018). \emph{Planning Study Size Based on
