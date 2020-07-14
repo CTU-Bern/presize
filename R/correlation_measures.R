@@ -9,9 +9,9 @@
 #' Sample size or precision for an intraclass correlation
 #'
 #' \code{prec_icc} returns the sample size or the precision for the given
-#' intraclass correlation
+#' intraclass correlation.
 #'
-#' Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
+#' Exactly one of the parameters \code{n} or \code{conf.width} must be passed as NULL,
 #' and that parameter is determined from the others.
 #'
 #' Sample size or precision is calculated according to formula 3 in Bonett
@@ -24,7 +24,7 @@
 #' @references Bonett DG (2002). \emph{Sample size requirements for estimating
 #'   intraclass correlations with desired precision}. Statistics in Medicine,
 #'   21:1331-1335. \href{https://doi.org/10.1002/sim.1108}{doi:10.1002/sim.1108}
-#' @param rho Desired intraclass correlation.
+#' @param rho desired intraclass correlation.
 #' @param k number of observations per n (subject).
 #' @param n number of subjects.
 #' @examples
@@ -93,9 +93,9 @@ prec_icc <- function(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95) {
 #' Sample size or precision for correlation coefficient
 #'
 #' \code{prec_cor} returns the sample size or the precision for the given
-#' pearson, spearman, or kendall correlation coefficient
+#' pearson, spearman, or kendall correlation coefficient.
 #'
-#' Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
+#' Exactly one of the parameters \code{n} or \code{conf.width} must be passed as NULL,
 #' and that parameter is determined from the other.
 #'
 #' Sample size or precision is calculated according to formula 2 in Bonett and
@@ -112,14 +112,14 @@ prec_icc <- function(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95) {
 #'   for estimating Pearson, Kendall and Spearman correlations} Psychometrika
 #'   65:23-28. \href{https://doi.org/10.1007/BF02294183}{doi:10.1007/BF02294183}
 #'
-#' @param r Desired correlation coefficient.
-#' @param n sample size
+#' @param r desired correlation coefficient.
+#' @param n sample size.
 #' @param method Exactly one of \code{pearson} (\emph{default}), \code{kendall},
 #'   or \code{spearman}. Methods can be abbreviated.
 #' @inheritParams prec_riskdiff
 #' @export
 #' @return Object of class "presize", a list of arguments (including the
-#'   computed one) augmented with method and note elements
+#'   computed one) augmented with method and note elements.
 prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
                       method = c("pearson", "kendall", "spearman"),
                       ...) {
@@ -216,15 +216,15 @@ prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
 #' expressed in SD-units. It is an approximation based on the Normal distribution,
 #' instead of a Student t distribution.
 #'
-#' Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
+#' Exactly one of the parameters \code{n} or \code{conf.width} must be passed as NULL,
 #' and that parameter is determined from the other.
 #'
 #' The sample size and precision are calculated according to formulae in Bland &
 #' Altman (1986).
 #'
-#' @param n Sample size
-#' @param conf.width precision (the full width of the confidence interval)
-#' @param conf.level confidence level
+#' @param n sample size.
+#' @param conf.width precision (the full width of the confidence interval).
+#' @param conf.level confidence level.
 #' @return Object of class "presize", a list of arguments (including the
 #'   computed one) augmented with method and note elements.
 #' @references Bland & Altman (1986) \emph{Statistical methods for assessing agreement
@@ -271,17 +271,16 @@ prec_lim_agree <- function(n = NULL, conf.width = NULL, conf.level = 0.95){
 
 # Cohens kappa ----
 #' Sample size or precision for Cohen's kappa
-#' Cohen's kappa is a measure of agreement between 2 or more raters and can be
-#' for rating schemes with 2 or more levels.
+#' Cohen's kappa
 #'
-#' @param kappa expected value of Cohen's kappa
-#' @param raters number of raters (maximum of 6)
-#' @param n_category number of categories of outcomes (maximum of 5)
+#' @param kappa expected value of Cohen's kappa.
+#' @param raters number of raters (maximum of 6).
+#' @param n_category number of categories of outcomes (maximum of 5).
 #' @param props expected proportions of each outcome (should have length
-#' \code{n_category})
-#' @param conf.width precision (the full width of the confidence interval)
-#' @param n sample size
-#' @param conf.level confidence level
+#' \code{n_category}).
+#' @param conf.width precision (the full width of the confidence interval).
+#' @param n sample size.
+#' @param conf.level confidence level.
 #' @details This function wraps the \code{FixedN} and \code{CI} functions in the
 #' \code{kappaSize} package.
 #' The \code{FixedN} functions in \code{kappaSize} return a one sided confidence

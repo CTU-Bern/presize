@@ -46,8 +46,8 @@ test_that("ntot + prev gives same as n", {
   expect_equal(x1$lwr, x2$lwr)
   expect_equal(x1$upr, x2$upr)
   expect_equal(x1$n, x2$n)
-
 })
+
 
 test_that("sens and spec comparison with stata proportion function", {
   # . cii proportions 100 50, wilson
@@ -58,13 +58,13 @@ test_that("sens and spec comparison with stata proportion function", {
   #            |        100          .4    .0489898        .3094013    .4979974
   
   ex <- prec_sens(.4, n = 100, method = "wilson")
-  expect_equal(c(ex$lwr, ex$upr) , c(.3094013, .4979974) , tolerance = .0001, scale = 1)
+  expect_equal(c(ex$lwr, ex$upr) , c(.3094013, .4979974) , tolerance = .001, scale = 1)
   
   ex <- prec_sens(.4, prev = .5, ntot = 200, method = "wilson")
   expect_equal(ex$n , 100 , tolerance = 1, scale = 1)
   
   ex <- prec_spec(.4, n = 100, method = "wilson")
-  expect_equal(c(ex$lwr, ex$upr) , c(.3094013, .4979974) , tolerance = .0001, scale = 1)
+  expect_equal(c(ex$lwr, ex$upr) , c(.3094013, .4979974) , tolerance = .001, scale = 1)
   
   ex <- prec_spec(.4, prev = .5, ntot = 200, method = "wilson")
   expect_equal(ex$n , 100 , tolerance = 1, scale = 1)
@@ -78,9 +78,9 @@ test_that("sens and spec different methods compared to stata", {
   # -----------+---------------------------------------------------------------
   #            |        100          .4    .0489898        .3094013    .4979974
   ex <- prec_sens(.4, n = 100, method = "wilson")
-  expect_equal(c(ex$lwr, ex$upr) , c(.3094013, .4979974) , tolerance = .0001, scale = 1)
+  expect_equal(c(ex$lwr, ex$upr) , c(.3094013, .4979974) , tolerance = .001, scale = 1)
   ex <- prec_spec(.4, n = 100, method = "wilson")
-  expect_equal(c(ex$lwr, ex$upr) , c(.3094013, .4979974) , tolerance = .0001, scale = 1)
+  expect_equal(c(ex$lwr, ex$upr) , c(.3094013, .4979974) , tolerance = .001, scale = 1)
 
   # .   cii proportions 100 40, agresti
   # 
@@ -89,9 +89,9 @@ test_that("sens and spec different methods compared to stata", {
   # -------------+---------------------------------------------------------------
   #              |        100          .4    .0489898        .3093314    .4980673
   ex <- prec_sens(.4, n = 100, method = "agresti-coull")
-  expect_equal(c(ex$lwr, ex$upr) , c(.3093314, .4980673) , tolerance = .0001, scale = 1)
+  expect_equal(c(ex$lwr, ex$upr) , c(.3093314, .4980673) , tolerance = .001, scale = 1)
   ex <- prec_spec(.4, n = 100, method = "agresti-coull")
-  expect_equal(c(ex$lwr, ex$upr) , c(.3093314, .4980673) , tolerance = .0001, scale = 1)
+  expect_equal(c(ex$lwr, ex$upr) , c(.3093314, .4980673) , tolerance = .001, scale = 1)
 
   #  .  cii proportions 100 40, exact
   # 
@@ -101,9 +101,9 @@ test_that("sens and spec different methods compared to stata", {
   #              |        100          .4    .0489898        .3032948    .5027908
   
   ex <- prec_sens(.4, n = 100, method = "exact")
-  expect_equal(c(ex$lwr, ex$upr) , c(.3032948, .5027908) , tolerance = .0001, scale = 1)
+  expect_equal(c(ex$lwr, ex$upr) , c(.3032948, .5027908) , tolerance = .001, scale = 1)
   ex <- prec_spec(.4, n = 100, method = "exact")
-  expect_equal(c(ex$lwr, ex$upr) , c(.3032948, .5027908) , tolerance = .0001, scale = 1)
+  expect_equal(c(ex$lwr, ex$upr) , c(.3032948, .5027908) , tolerance = .001, scale = 1)
   
   # . cii proportions 100 40, wald
   # 
@@ -113,9 +113,9 @@ test_that("sens and spec different methods compared to stata", {
   #              |        100          .4    .0489898        .3039818    .4960182
   
   ex <- prec_sens(.4, n = 100, method = "wald")
-  expect_equal(c(ex$lwr, ex$upr) , c(.3039818, .4960182) , tolerance = .0001, scale = 1)
+  expect_equal(c(ex$lwr, ex$upr) , c(.3039818, .4960182) , tolerance = .001, scale = 1)
   ex <- prec_spec(.4, n = 100, method = "wald")
-  expect_equal(c(ex$lwr, ex$upr) , c(.3039818, .4960182) , tolerance = .0001, scale = 1)
+  expect_equal(c(ex$lwr, ex$upr) , c(.3039818, .4960182) , tolerance = .001, scale = 1)
 })
 
 
@@ -128,15 +128,15 @@ test_that("errors issued", {
 
   expect_error(prec_auc(.75, .3, 20), NA)
   expect_error(prec_auc(.75, .3, conf.width = .2), NA)
-
 })
+
 
 test_that("Example from Ref. Hanley, JA and McNeil, BJ (1982) ", {
   ex <- prec_auc(auc = 0.85, prev = 0.5, n= 80)
-  expect_equal( (ex$conf.width/2)/1.96, 0.0437 , tolerance = .0001, scale = 1)
+  expect_equal( (ex$conf.width/2)/1.96, 0.0437 , tolerance = .001, scale = 1)
   
   ex <- prec_auc(auc = 0.85, prev = 0.5, n= 120)
-  expect_equal( (ex$conf.width/2)/1.96, 0.0356 , tolerance = .0001, scale = 1)
+  expect_equal( (ex$conf.width/2)/1.96, 0.0356 , tolerance = .001, scale = 1)
 })
 
 test_that("same results from n or conf.width", {

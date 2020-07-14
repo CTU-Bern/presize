@@ -11,9 +11,9 @@
 #' Sample size or precision for a mean
 #'
 #' \code{prec_mean} returns the sample size or the precision for the provided
-#' mean and standard deviation
+#' mean and standard deviation.
 #'
-#' Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
+#' Exactly one of the parameters \code{n} or \code{conf.width} must be passed as NULL,
 #' and that parameter is determined from the other.
 #'
 #' The precision is defined as the full width of the confidence interval. The
@@ -22,12 +22,12 @@
 #'
 #' \code{\link[stats]{uniroot}} is used to solve \code{n}.
 #'
-#' @param mu mean
-#' @param sd standard deviation
-#' @param n number of observations
-#' @param conf.width precision (the full width of the confidende interval)
-#' @param conf.level confidence level
-#' @param ... other arguments to uniroot (e.g. \code{tol})
+#' @param mu mean.
+#' @param sd standard deviation.
+#' @param n number of observations.
+#' @param conf.width precision (the full width of the confidende interval).
+#' @param conf.level confidence level.
+#' @param ... other arguments to uniroot (e.g. \code{tol}).
 #' @return Object of class "presize", a list with
 #'   \describe{
 #'     \item{mu}{mean}
@@ -92,9 +92,9 @@ prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
 #' Sample size or precision for a rate
 #'
 #' \code{prec_rate} returns the sample size or the precision for the provided
-#' rate
+#' rate.
 #'
-#' Exactly one of the parameters \code{r, conf.width} must be passed as NULL,
+#' Exactly one of the parameters \code{r} or \code{conf.width} must be passed as NULL,
 #' and that parameter is determined from the other.
 #'
 #' The \code{score}, variance stabilizing (\code{vs}), \code{exact}, and
@@ -249,7 +249,7 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
 #' Sample size or precision for a proportion
 #'
 #' \code{prec_prop} returns the sample size or the precision for the provided
-#' proportion
+#' proportion.
 #'
 #' Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
 #' and that parameter is determined from the other.
@@ -263,8 +263,8 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
 #' wilson, and exact methods. Agresti-coull can be abbreviated by ac.
 #'
 #'
-#' @param p proportion
-#' @param ... other arguments to uniroot (e.g. \code{tol})
+#' @param p proportion.
+#' @param ... other arguments to uniroot (e.g. \code{tol}).
 #' @inheritParams prec_mean
 #' @inheritParams prec_rate
 #' @return Object of class "presize", a list of arguments (including the

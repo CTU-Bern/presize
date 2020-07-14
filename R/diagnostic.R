@@ -11,14 +11,14 @@
 #'   \code{n}.
 #'
 #' @rdname sensspec
-#' @param sens,spec proportions
-#' @param ntot total sample size
+#' @param sens,spec proportions.
+#' @param ntot total sample size.
 #' @param prev prevalence of cases/disease (i.e. proportion of \code{ntot} with
-#'   the disease)
+#'   the disease).
 #' @param round string, round calculated \code{n} up (\code{ceiling}) or down
-#'   (\code{floor})
+#'   (\code{floor}).
 #' @param ... options passed to prec_prop (e.g. method,
-#'   conf.width, conf.level)
+#'   conf.width, conf.level).
 #' @note Calculated \code{n} can take on non-integer numbers, but
 #'   \code{prec_prop} requires integers, so the calculated \code{n} is rounded
 #'   according to the approach indicated in \code{round}.
@@ -130,12 +130,12 @@ prec_spec <- function(spec, n = NULL, ntot = NULL, prev = NULL, conf.width = NUL
 #' between the lower and upper limits of the confidence interval and
 #' \code{conf.width}.
 #'
-#' @param auc AUC value
-#' @param prev prevalence
-#' @param n number of observations
-#' @param conf.width precision (the full width of the confidence interval)
-#' @param conf.level confidence level
-#' @param ... other arguments to \code{optimize}
+#' @param auc AUC value.
+#' @param prev prevalence.
+#' @param n number of observations.
+#' @param conf.width precision (the full width of the confidence interval).
+#' @param conf.level confidence level.
+#' @param ... other arguments to \code{optimize}.
 #' @return Object of class "presize", a list of arguments (including the
 #'   computed one) augmented with method and note elements.
 #' @references Hanley, JA and McNeil, BJ (1982) \emph{The Meaning and Use of the Area under a Receiver Operating Characteristic (ROC) Curve.} Radiology 148, 29-36
@@ -242,13 +242,13 @@ prec_auc <- function(auc, prev, n = NULL, conf.width = NULL, conf.level = .95,
 #' These functions calculate the precision or sample size for likelihood ratios (LRs).
 #' \code{prec_lr} is a generalized method for that can be used for positive and
 #' negative LRs as well as conditional LRs.
-#' @param prev disease/case prevalence in the study group
-#' @param p1 proportion of positives in group 1 (e.g. sensitivity)
-#' @param p2 proportion of positives in group 2 (e.g. 1 - specificity)
-#' @param n total group size
-#' @param conf.width desired width of the confidence interval
-#' @param conf.level confidence level (defaults to 0.95)
-#' @param ... other arguments to uniroot (e.g. \code{tol})
+#' @param prev disease/case prevalence in the study group.
+#' @param p1 proportion of positives in group 1 (e.g. sensitivity).
+#' @param p2 proportion of positives in group 2 (e.g. 1 - specificity).
+#' @param n total group size.
+#' @param conf.width desired width of the confidence interval.
+#' @param conf.level confidence level (defaults to 0.95).
+#' @param ... other arguments to uniroot (e.g. \code{tol}).
 #'
 #' @details
 #' These functions implement formula 10 from Simel et al 1991.
@@ -353,9 +353,9 @@ prec_lr <- function(prev, p1, p2, n = NULL, conf.width = NULL, conf.level = 0.95
 #' @describeIn prec_lr "Positive likelihood ratio"
 #' @description \code{prec_pos_lr} is a wrapper to \code{prec_lr} to ease
 #' calculations for positive likelihood ratios by allowing sensitivity and
-#' specificity to be given explicitly
-#' @param sens sensitivity
-#' @param spec specificity
+#' specificity to be given explicitly.
+#' @param sens sensitivity.
+#' @param spec specificity.
 #' @export
 prec_pos_lr <- function(prev, sens, spec,
                         n = NULL, conf.width = NULL, conf.level = 0.95, ...) {
@@ -368,7 +368,7 @@ prec_pos_lr <- function(prev, sens, spec,
 #' @describeIn prec_lr "Negative likelihood ratio"
 #' @description \code{prec_neg_lr} is a wrapper to \code{prec_lr} to ease
 #' calculations for negative likelihood ratios by allowing sensitivity and
-#' specificity to be given explicitly
+#' specificity to be given explicitly.
 #' @export
 prec_neg_lr <- function(prev, sens, spec,
                         n = NULL, conf.width = NULL, conf.level = 0.95, ...) {
