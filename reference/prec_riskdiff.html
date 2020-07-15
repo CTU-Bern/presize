@@ -41,7 +41,7 @@
 
 <meta property="og:title" content="Sample size or precision for risk difference — prec_riskdiff" />
 <meta property="og:description" content="prec_riskdiff returns the risk difference and the sample size or the
-precision for the provided proportions" />
+precision for the provided proportions." />
 
 
 
@@ -119,7 +119,7 @@ precision for the provided proportions" />
 
     <div class="ref-description">
     <p><code>prec_riskdiff</code> returns the risk difference and the sample size or the
-precision for the provided proportions</p>
+precision for the provided proportions.</p>
     </div>
 
     <pre class="usage"><span class='fu'>prec_riskdiff</span>(
@@ -138,15 +138,15 @@ precision for the provided proportions</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>p1</th>
-      <td><p>Risk among unexposed</p></td>
+      <td><p>risk among unexposed.</p></td>
     </tr>
     <tr>
       <th>p2</th>
-      <td><p>Risk among exposed</p></td>
+      <td><p>risk among exposed.</p></td>
     </tr>
     <tr>
       <th>n1</th>
-      <td><p>Number of patients in unexposed group</p></td>
+      <td><p>number of patients in unexposed group.</p></td>
     </tr>
     <tr>
       <th>conf.width</th>
@@ -155,7 +155,7 @@ precision for the provided proportions</p>
     <tr>
       <th>r</th>
       <td><p>allocation ratio (relative size of unexposed and exposed cohort
-(<code>n1</code> / <code>n2</code>))</p></td>
+(<code>n1</code> / <code>n2</code>)).</p></td>
     </tr>
     <tr>
       <th>conf.level</th>
@@ -163,28 +163,28 @@ precision for the provided proportions</p>
     </tr>
     <tr>
       <th>method</th>
-      <td><p>Exactly one of <code>newcombe</code> (<em>default</em>), <code>mn</code>
+      <td><p>exactly one of <code>newcombe</code> (<em>default</em>), <code>mn</code>
 (Miettinen-Nurminen), <code>ac</code> (Agresti-Caffo), <code>wald</code>. Methods can
 be abbreviated.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other options to uniroot (e.g. <code>tol</code>)</p></td>
+      <td><p>other options to uniroot (e.g. <code>tol</code>).</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Exactly one of the parameters <code>n1, conf.width</code> must be passed as NULL,
+    <p>Exactly one of the parameters <code>n1</code> or <code>conf.width</code> must be passed as NULL,
 and that parameter is determined from the other.</p>
 <p>Newcombe (<code>newcombe</code>) proposed a confidence interval based on the wilson
 score method for the single proportion (see <a href='prec_prop.html'>prec_prop</a>). The confidence
 interval without continuity correction is implemented from equation 10 in
-Newcombe (1998)</p>
+Newcombe (1998).</p>
 <p>Miettinen-Nurminen (<code>mn</code>) provide a closed from equation for the
 restricted maximum likelihood estimate . The implementation is based on
 code provided by Yongyi Min on
-<a href='http://users.stat.ufl.edu/~aa/cda/R/two-sample/R2/index.html'>http://users.stat.ufl.edu/~aa/cda/R/two-sample/R2/index.html</a></p>
+<a href='http://users.stat.ufl.edu/~aa/cda/R/two-sample/R2/index.html'>http://users.stat.ufl.edu/~aa/cda/R/two-sample/R2/index.html</a>.</p>
 <p>Agresti-Caffo (<code>ac</code>) confidence interval is based on the Wald confidence
 interval, adding 1 success to each cell of the 2 x 2 table (see Agresti and
 Caffo 2000).</p>
@@ -194,15 +194,15 @@ method.</p>
 
     <p>Agresti A (2003) <em>Categorical Data Analysis</em>, Second Edition, Wiley
 Series in Probability and Statistics,
-<a href='https://doi.org/10.1002/0471249688'>doi:10.1002/0471249688</a></p>
+<a href='https://doi.org/10.1002/0471249688'>doi:10.1002/0471249688</a>.</p>
 <p>Agresti A and Caffo B (2000) <em>Simple and Effective Confidence Intervals
 for Proportions and Differences of Proportions Result from Adding Two
-Successes and Two Failures</em>, The American Statistician, 54(4):280-288</p>
+Successes and Two Failures</em>, The American Statistician, 54(4):280-288.</p>
 <p>Miettinen O and Nurminen M (1985) <em>Comparative analysis of two rates</em>,
-Statistics in Medicine, 4:213-226</p>
+Statistics in Medicine, 4:213-226.</p>
 <p>Newcombe RG (1998) <em>Interval estimation for the difference between
 independent proportions: comparison of eleven methods</em>, Statistics in
-Medicine, 17:873-890</p>
+Medicine, 17:873-890.</p>
 <p>Fagerland MW, Lydersen S, and Laake P (2015). <em>Recommended confidence
 intervals for two independent binomial proportions</em>, Statistical methods in
 medical research 24(2):224-254.</p>
