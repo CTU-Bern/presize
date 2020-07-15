@@ -41,7 +41,7 @@
 
 <meta property="og:title" content="Sample size or precision for a mean — prec_mean" />
 <meta property="og:description" content="prec_mean returns the sample size or the precision for the provided
-mean and standard deviation" />
+mean and standard deviation." />
 
 
 
@@ -119,7 +119,7 @@ mean and standard deviation" />
 
     <div class="ref-description">
     <p><code>prec_mean</code> returns the sample size or the precision for the provided
-mean and standard deviation</p>
+mean and standard deviation.</p>
     </div>
 
     <pre class="usage"><span class='fu'>prec_mean</span>(<span class='no'>mu</span>, <span class='no'>sd</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)</pre>
@@ -129,27 +129,27 @@ mean and standard deviation</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mu</th>
-      <td><p>mean</p></td>
+      <td><p>mean.</p></td>
     </tr>
     <tr>
       <th>sd</th>
-      <td><p>standard deviation</p></td>
+      <td><p>standard deviation.</p></td>
     </tr>
     <tr>
       <th>n</th>
-      <td><p>number of observations</p></td>
+      <td><p>number of observations.</p></td>
     </tr>
     <tr>
       <th>conf.width</th>
-      <td><p>precision (the full width of the confidende interval)</p></td>
+      <td><p>precision (the full width of the confidende interval).</p></td>
     </tr>
     <tr>
       <th>conf.level</th>
-      <td><p>confidence level</p></td>
+      <td><p>confidence level.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other arguments to uniroot (e.g. <code>tol</code>)</p></td>
+      <td><p>other arguments to uniroot (e.g. <code>tol</code>).</p></td>
     </tr>
     </table>
 
@@ -166,7 +166,7 @@ mean and standard deviation</p>
 </dl><p>augmented with method and note elements.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Exactly one of the parameters <code>n, conf.width</code> must be passed as NULL,
+    <p>Exactly one of the parameters <code>n</code> or <code>conf.width</code> must be passed as NULL,
 and that parameter is determined from the other.</p>
 <p>The precision is defined as the full width of the confidence interval. The
 confidence interval calculated as \(t(n - 1) * sd / sqrt(n)\), with t(n-1)

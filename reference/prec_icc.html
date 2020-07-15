@@ -41,7 +41,7 @@
 
 <meta property="og:title" content="Sample size or precision for an intraclass correlation — prec_icc" />
 <meta property="og:description" content="prec_icc returns the sample size or the precision for the given
-intraclass correlation" />
+intraclass correlation." />
 
 
 
@@ -119,7 +119,7 @@ intraclass correlation" />
 
     <div class="ref-description">
     <p><code>prec_icc</code> returns the sample size or the precision for the given
-intraclass correlation</p>
+intraclass correlation.</p>
     </div>
 
     <pre class="usage"><span class='fu'>prec_icc</span>(<span class='no'>rho</span>, <span class='no'>k</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>)</pre>
@@ -129,7 +129,7 @@ intraclass correlation</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>rho</th>
-      <td><p>Desired intraclass correlation.</p></td>
+      <td><p>desired intraclass correlation.</p></td>
     </tr>
     <tr>
       <th>k</th>
@@ -141,11 +141,11 @@ intraclass correlation</p>
     </tr>
     <tr>
       <th>conf.width</th>
-      <td><p>precision (the full width of the confidende interval)</p></td>
+      <td><p>precision (the full width of the confidende interval).</p></td>
     </tr>
     <tr>
       <th>conf.level</th>
-      <td><p>confidence level</p></td>
+      <td><p>confidence level.</p></td>
     </tr>
     </table>
 
@@ -155,7 +155,7 @@ intraclass correlation</p>
   computed one) augmented with method and note elements.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Exactly one of the parameters <code>n, conf.width</code> must be passed as NULL,
+    <p>Exactly one of the parameters <code>n</code> or <code>conf.width</code> must be passed as NULL,
 and that parameter is determined from the others.</p>
 <p>Sample size or precision is calculated according to formula 3 in Bonett
 (2002), which is an approximation. Whether ICC is calculated for a one-way or

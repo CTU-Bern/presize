@@ -41,7 +41,7 @@
 
 <meta property="og:title" content="Sample size or precision for correlation coefficient — prec_cor" />
 <meta property="og:description" content="prec_cor returns the sample size or the precision for the given
-pearson, spearman, or kendall correlation coefficient" />
+pearson, spearman, or kendall correlation coefficient." />
 
 
 
@@ -119,7 +119,7 @@ pearson, spearman, or kendall correlation coefficient" />
 
     <div class="ref-description">
     <p><code>prec_cor</code> returns the sample size or the precision for the given
-pearson, spearman, or kendall correlation coefficient</p>
+pearson, spearman, or kendall correlation coefficient.</p>
     </div>
 
     <pre class="usage"><span class='fu'>prec_cor</span>(
@@ -136,19 +136,19 @@ pearson, spearman, or kendall correlation coefficient</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>r</th>
-      <td><p>Desired correlation coefficient.</p></td>
+      <td><p>desired correlation coefficient.</p></td>
     </tr>
     <tr>
       <th>n</th>
-      <td><p>sample size</p></td>
+      <td><p>sample size.</p></td>
     </tr>
     <tr>
       <th>conf.width</th>
-      <td><p>precision (the full width of the confidende interval)</p></td>
+      <td><p>precision (the full width of the confidende interval).</p></td>
     </tr>
     <tr>
       <th>conf.level</th>
-      <td><p>confidence level</p></td>
+      <td><p>confidence level.</p></td>
     </tr>
     <tr>
       <th>method</th>
@@ -164,10 +164,10 @@ or <code>spearman</code>. Methods can be abbreviated.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Object of class "presize", a list of arguments (including the
-  computed one) augmented with method and note elements</p>
+  computed one) augmented with method and note elements.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Exactly one of the parameters <code>n, conf.width</code> must be passed as NULL,
+    <p>Exactly one of the parameters <code>n</code> or <code>conf.width</code> must be passed as NULL,
 and that parameter is determined from the other.</p>
 <p>Sample size or precision is calculated according to formula 2 in Bonett and
 Wright (2000). The use of pearson is only recommended, if \(n \ge 25\). The
