@@ -29,23 +29,23 @@ prec_neg_lr(
 )
 }
 \arguments{
-\item{prev}{disease/case prevalence in the study group}
+\item{prev}{disease/case prevalence in the study group.}
 
-\item{p1}{proportion of positives in group 1 (e.g. sensitivity)}
+\item{p1}{proportion of positives in group 1 (e.g. sensitivity).}
 
-\item{p2}{proportion of positives in group 2 (e.g. 1 - specificity)}
+\item{p2}{proportion of positives in group 2 (e.g. 1 - specificity).}
 
-\item{n}{total group size}
+\item{n}{total group size.}
 
-\item{conf.width}{desired width of the confidence interval}
+\item{conf.width}{desired width of the confidence interval.}
 
-\item{conf.level}{confidence level (defaults to 0.95)}
+\item{conf.level}{confidence level (defaults to 0.95).}
 
-\item{...}{other arguments to uniroot (e.g. \code{tol})}
+\item{...}{other arguments to uniroot (e.g. \code{tol}).}
 
-\item{sens}{sensitivity}
+\item{sens}{sensitivity.}
 
-\item{spec}{specificity}
+\item{spec}{specificity.}
 }
 \value{
 Object of class "presize", a list of arguments (including the
@@ -58,11 +58,11 @@ negative LRs as well as conditional LRs.
 
 \code{prec_pos_lr} is a wrapper to \code{prec_lr} to ease
 calculations for positive likelihood ratios by allowing sensitivity and
-specificity to be given explicitly
+specificity to be given explicitly.
 
 \code{prec_neg_lr} is a wrapper to \code{prec_lr} to ease
 calculations for negative likelihood ratios by allowing sensitivity and
-specificity to be given explicitly
+specificity to be given explicitly.
 }
 \details{
 These functions implement formula 10 from Simel et al 1991.

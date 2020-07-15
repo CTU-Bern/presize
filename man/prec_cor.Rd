@@ -14,13 +14,13 @@ prec_cor(
 )
 }
 \arguments{
-\item{r}{Desired correlation coefficient.}
+\item{r}{desired correlation coefficient.}
 
-\item{n}{sample size}
+\item{n}{sample size.}
 
-\item{conf.width}{precision (the full width of the confidende interval)}
+\item{conf.width}{precision (the full width of the confidende interval).}
 
-\item{conf.level}{confidence level}
+\item{conf.level}{confidence level.}
 
 \item{method}{Exactly one of \code{pearson} (\emph{default}), \code{kendall},
 or \code{spearman}. Methods can be abbreviated.}
@@ -29,14 +29,14 @@ or \code{spearman}. Methods can be abbreviated.}
 }
 \value{
 Object of class "presize", a list of arguments (including the
-  computed one) augmented with method and note elements
+  computed one) augmented with method and note elements.
 }
 \description{
 \code{prec_cor} returns the sample size or the precision for the given
-pearson, spearman, or kendall correlation coefficient
+pearson, spearman, or kendall correlation coefficient.
 }
 \details{
-Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
+Exactly one of the parameters \code{n} or \code{conf.width} must be passed as NULL,
 and that parameter is determined from the other.
 
 Sample size or precision is calculated according to formula 2 in Bonett and

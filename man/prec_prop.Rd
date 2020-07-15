@@ -14,18 +14,18 @@ prec_prop(
 )
 }
 \arguments{
-\item{p}{proportion}
+\item{p}{proportion.}
 
-\item{n}{number of observations}
+\item{n}{number of observations.}
 
-\item{conf.width}{precision (the full width of the confidende interval)}
+\item{conf.width}{precision (the full width of the confidende interval).}
 
-\item{conf.level}{confidence level}
+\item{conf.level}{confidence level.}
 
 \item{method}{The method to use to calculate precision. Exactly one method
 may be provided. Methods can be abbreviated.}
 
-\item{...}{other arguments to uniroot (e.g. \code{tol})}
+\item{...}{other arguments to uniroot (e.g. \code{tol}).}
 }
 \value{
 Object of class "presize", a list of arguments (including the
@@ -36,7 +36,7 @@ Object of class "presize", a list of arguments (including the
 }
 \description{
 \code{prec_prop} returns the sample size or the precision for the provided
-proportion
+proportion.
 }
 \details{
 Exactly one of the parameters \code{n, conf.width} must be passed as NULL,

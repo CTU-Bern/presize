@@ -25,14 +25,14 @@ prec_riskratio(
 \item{r}{allocation ratio (relative size of unexposed and exposed cohort
 (\code{n2} / \code{n1}))}
 
-\item{conf.width}{precision (the full width of the confidende interval)}
+\item{conf.width}{precision (the full width of the confidende interval).}
 
-\item{conf.level}{confidence level}
+\item{conf.level}{confidence level.}
 
 \item{method}{Exactly one of \code{koopman} (\emph{default}), \code{katz}.
 Methods can be abbreviated.}
 
-\item{...}{other arguments to uniroot (e.g. \code{tol})}
+\item{...}{other arguments to uniroot (e.g. \code{tol}).}
 }
 \description{
 \code{prec_riskratio} returns the risk ratio and the sample size or the

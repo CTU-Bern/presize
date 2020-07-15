@@ -22,12 +22,12 @@ prec_riskdiff(
 
 \item{n1}{Number of patients in unexposed group}
 
-\item{conf.width}{precision (the full width of the confidende interval)}
+\item{conf.width}{precision (the full width of the confidende interval).}
 
 \item{r}{allocation ratio (relative size of unexposed and exposed cohort
 (\code{n1} / \code{n2}))}
 
-\item{conf.level}{confidence level}
+\item{conf.level}{confidence level.}
 
 \item{method}{Exactly one of \code{newcombe} (\emph{default}), \code{mn}
 (Miettinen-Nurminen), \code{ac} (Agresti-Caffo), \code{wald}. Methods can

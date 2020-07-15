@@ -26,7 +26,7 @@ rate ratio confidence interval}
 \item{r}{allocation ratio (relative size of unexposed and exposed cohort
 (\code{n2} / \code{n1}))}
 
-\item{conf.level}{confidence level}
+\item{conf.level}{confidence level.}
 }
 \description{
 \code{prec_rateratio} returns the sample size or the precision for the

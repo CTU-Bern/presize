@@ -3,8 +3,7 @@
 \name{prec_kappa}
 \alias{prec_kappa}
 \title{Sample size or precision for Cohen's kappa
-Cohen's kappa is a measure of agreement between 2 or more raters and can be
-for rating schemes with 2 or more levels.}
+Cohen's kappa}
 \usage{
 prec_kappa(
   kappa,
@@ -17,20 +16,20 @@ prec_kappa(
 )
 }
 \arguments{
-\item{kappa}{expected value of Cohen's kappa}
+\item{kappa}{expected value of Cohen's kappa.}
 
-\item{n}{sample size}
+\item{n}{sample size.}
 
-\item{raters}{number of raters (maximum of 6)}
+\item{raters}{number of raters (maximum of 6).}
 
-\item{n_category}{number of categories of outcomes (maximum of 5)}
+\item{n_category}{number of categories of outcomes (maximum of 5).}
 
 \item{props}{expected proportions of each outcome (should have length
-\code{n_category})}
+\code{n_category}).}
 
-\item{conf.width}{precision (the full width of the confidence interval)}
+\item{conf.width}{precision (the full width of the confidence interval).}
 
-\item{conf.level}{confidence level}
+\item{conf.level}{confidence level.}
 }
 \value{
 Object of class "presize", a list of arguments (including the
@@ -38,8 +37,7 @@ Object of class "presize", a list of arguments (including the
 }
 \description{
 Sample size or precision for Cohen's kappa
-Cohen's kappa is a measure of agreement between 2 or more raters and can be
-for rating schemes with 2 or more levels.
+Cohen's kappa
 }
 \details{
 This function wraps the \code{FixedN} and \code{CI} functions in the

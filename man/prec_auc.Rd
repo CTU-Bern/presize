@@ -7,17 +7,17 @@
 prec_auc(auc, prev, n = NULL, conf.width = NULL, conf.level = 0.95, ...)
 }
 \arguments{
-\item{auc}{AUC value}
+\item{auc}{AUC value.}
 
-\item{prev}{prevalence}
+\item{prev}{prevalence.}
 
-\item{n}{number of observations}
+\item{n}{number of observations.}
 
-\item{conf.width}{precision (the full width of the confidence interval)}
+\item{conf.width}{precision (the full width of the confidence interval).}
 
-\item{conf.level}{confidence level}
+\item{conf.level}{confidence level.}
 
-\item{...}{other arguments to \code{optimize}}
+\item{...}{other arguments to \code{optimize}.}
 }
 \value{
 Object of class "presize", a list of arguments (including the
