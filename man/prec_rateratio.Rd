@@ -14,17 +14,17 @@ prec_rateratio(
 )
 }
 \arguments{
-\item{n1}{number of exposed individuals}
+\item{n1}{number of exposed individuals.}
 
-\item{rate1}{event rate in the exposed group}
+\item{rate1}{event rate in the exposed group.}
 
-\item{rate2}{event rate in the unexposed group}
+\item{rate2}{event rate in the unexposed group.}
 
 \item{prec.level}{the ratio of the upper limit to the lower limit of the
-rate ratio confidence interval}
+rate ratio confidence interval.}
 
 \item{r}{allocation ratio (relative size of unexposed and exposed cohort
-(\code{n2} / \code{n1}))}
+(\code{n2} / \code{n1})).}
 
 \item{conf.level}{confidence level.}
 }
@@ -33,7 +33,7 @@ rate ratio confidence interval}
 provided proportions.
 }
 \details{
-Exactly one of the parameters \code{n1, conf.width} must be passed as
+Exactly one of the parameters \code{n1} or \code{conf.width} must be passed as
 NULL, and that parameter is determined from the other. Event rates in the two
 groups should also be provided (\code{rate1, rate2}). If only
 \code{rate1} is provided, \code{rate2} is assumed to be 2 times

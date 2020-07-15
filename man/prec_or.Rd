@@ -16,20 +16,20 @@ prec_or(
 )
 }
 \arguments{
-\item{p1}{Risk among unexposed}
+\item{p1}{risk among unexposed.}
 
-\item{p2}{Risk among exposed}
+\item{p2}{risk among exposed.}
 
-\item{n1}{Number of patients in unexposed group}
+\item{n1}{number of patients in unexposed group.}
 
 \item{r}{allocation ratio (relative size of unexposed and exposed cohort
-(\code{n2} / \code{n1}))}
+(\code{n2} / \code{n1})).}
 
 \item{conf.width}{precision (the full width of the confidende interval).}
 
 \item{conf.level}{confidence level.}
 
-\item{method}{Exactly one of \code{indip_smooth} (\emph{default}),
+\item{method}{exactly one of \code{indip_smooth} (\emph{default}),
 \code{gart}, or \code{wolf}. Methods can be abbreviated.}
 
 \item{...}{other arguments to uniroot (e.g. \code{tol}).}
@@ -40,10 +40,10 @@ Object of class "presize", a list of arguments (including the
 }
 \description{
 \code{prec_or} returns the sample size or the precision for the
-provided proportions
+provided proportions.
 }
 \details{
-Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
+Exactly one of the parameters \code{n} or \code{conf.width} must be passed as NULL,
 and that parameter is determined from the other.
 
 Woolf (\code{woolf}), Gart (\code{gart}), and Independence-smoothed logit

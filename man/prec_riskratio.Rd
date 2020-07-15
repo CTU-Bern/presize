@@ -16,30 +16,30 @@ prec_riskratio(
 )
 }
 \arguments{
-\item{p1}{Risk among unexposed}
+\item{p1}{risk among unexposed.}
 
-\item{p2}{Risk among exposed}
+\item{p2}{risk among exposed.}
 
-\item{n1}{Number of patients in unexposed group}
+\item{n1}{number of patients in unexposed group.}
 
 \item{r}{allocation ratio (relative size of unexposed and exposed cohort
-(\code{n2} / \code{n1}))}
+(\code{n2} / \code{n1})).}
 
 \item{conf.width}{precision (the full width of the confidende interval).}
 
 \item{conf.level}{confidence level.}
 
-\item{method}{Exactly one of \code{koopman} (\emph{default}), \code{katz}.
+\item{method}{exactly one of \code{koopman} (\emph{default}), \code{katz}.
 Methods can be abbreviated.}
 
 \item{...}{other arguments to uniroot (e.g. \code{tol}).}
 }
 \description{
 \code{prec_riskratio} returns the risk ratio and the sample size or the
-precision for the provided proportions
+precision for the provided proportions.
 }
 \details{
-Exactly one of the parameters \code{n1, conf.width} must be passed as NULL,
+Exactly one of the parameters \code{n1} or \code{conf.width} must be passed as NULL,
 and that parameter is determined from the other.
 
 Koopman (\code{koopman}) provides an asymptotic score confidence interval
@@ -71,8 +71,8 @@ intervals for two independent binomial proportions}, Statistical methods in
 medical research 24(2):224-254.
 
 Katz D, Baptista J, Azen SP, and Pike MC (1978) \emph{Obtaining Confidence
-Intervals for the Risk Ratio in Cohort Studies}, Biometrics 34:469-474
+Intervals for the Risk Ratio in Cohort Studies}, Biometrics 34:469-474.
 
 Koopman PAR (1984) \emph{Confidence Intervals for the Ratio of Two Binomial
-Proportions}, Biometrics 40:513-517
+Proportions}, Biometrics 40:513-517.
 }
