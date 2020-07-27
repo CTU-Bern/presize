@@ -289,11 +289,11 @@ server <- function(input, output, session) {
         x <- seq(0,1,.1)
         y <- c(0, .6, .77, .85, .9, .92, .93, .94, .96, .99, 1)
         dat <- data.frame(x = x, y = y)
-        ggplot2::ggplot(dat, aes(x = x, y = y)) +
+        ggplot2::ggplot(dat, ggplot2::aes(x = x, y = y)) +
             ggplot2::geom_area(fill = "lightgrey") +
             ggplot2::geom_line(col = "red", size = 1) +
             ggplot2::geom_line(data = data.frame(x = c(0,1), y = c(0, 1)),
-                      mapping = aes(x = x, y = y), col = "darkgrey",
+                      mapping = ggplot2::aes(x = x, y = y), col = "darkgrey",
                       linetype = 2) +
             ggplot2::theme_classic() +
             ggplot2::xlab("1-Specificity") +
