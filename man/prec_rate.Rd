@@ -16,9 +16,9 @@ prec_rate(
 \arguments{
 \item{r}{rate or rate ratio.}
 
-\item{x}{number of events}
+\item{x}{number of events.}
 
-\item{conf.width}{precision (the full width of the confidende interval).}
+\item{conf.width}{precision (the full width of the confidence interval).}
 
 \item{conf.level}{confidence level.}
 
@@ -47,7 +47,7 @@ If more than one method is specified or the method is miss-specified, the
 'score' method will be used.
 
 \code{\link[stats]{uniroot}} is used to solve n for the score and
-exact method. Agresti-coull can be abbreviated by ac.
+exact method.
 }
 \examples{
 prec_rate(2.5, x = 20, met = "score")

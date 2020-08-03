@@ -18,7 +18,7 @@ prec_prop(
 
 \item{n}{number of observations.}
 
-\item{conf.width}{precision (the full width of the confidende interval).}
+\item{conf.width}{precision (the full width of the confidence interval).}
 
 \item{conf.level}{confidence level.}
 
@@ -39,15 +39,15 @@ Object of class "presize", a list of arguments (including the
 proportion.
 }
 \details{
-Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
+Exactly one of the parameters \code{n} or \code{conf.width} must be passed as NULL,
 and that parameter is determined from the other.
 
 The wilson, agresti-coull, exact, and wald method are implemented. The
-wilson method is suggested for small n (< 40), and the agresti-coull method
-is suggested for larger n (see reference). The wald method is not suggested,
+wilson method is suggested for small \code{n} (< 40), and the agresti-coull method
+is suggested for larger \code{n} (see reference). The wald method is not suggested,
 but provided due to its widely distributed use.
 
-\code{\link[stats]{uniroot}} is used to solve n for the agresti-coull,
+\code{\link[stats]{uniroot}} is used to solve \code{n} for the agresti-coull,
 wilson, and exact methods. Agresti-coull can be abbreviated by ac.
 }
 \examples{

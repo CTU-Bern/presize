@@ -18,7 +18,7 @@ prec_cor(
 
 \item{n}{sample size.}
 
-\item{conf.width}{precision (the full width of the confidende interval).}
+\item{conf.width}{precision (the full width of the confidence interval).}
 
 \item{conf.level}{confidence level.}
 

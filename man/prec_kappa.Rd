@@ -2,8 +2,7 @@
 % Please edit documentation in R/correlation_measures.R
 \name{prec_kappa}
 \alias{prec_kappa}
-\title{Sample size or precision for Cohen's kappa
-Cohen's kappa}
+\title{Sample size or precision for Cohen's kappa}
 \usage{
 prec_kappa(
   kappa,
@@ -36,8 +35,7 @@ Object of class "presize", a list of arguments (including the
   computed one) augmented with method and note elements.
 }
 \description{
-Sample size or precision for Cohen's kappa
-Cohen's kappa
+\code{prec_kappa} returns the sample size or the precision for the provided Cohen's kappa coefficient.
 }
 \details{
 This function wraps the \code{FixedN} and \code{CI} functions in the

@@ -35,7 +35,7 @@ prec_spec(
 \item{prev}{prevalence of cases/disease (i.e. proportion of \code{ntot} with
 the disease).}
 
-\item{conf.width}{precision (the full width of the confidende interval).}
+\item{conf.width}{precision (the full width of the confidence interval).}
 
 \item{round}{string, round calculated \code{n} up (\code{ceiling}) or down
 (\code{floor}).}

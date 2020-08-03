@@ -13,7 +13,7 @@ prec_mean(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95, ...)
 
 \item{n}{number of observations.}
 
-\item{conf.width}{precision (the full width of the confidende interval).}
+\item{conf.width}{precision (the full width of the confidence interval).}
 
 \item{conf.level}{confidence level.}
 
