@@ -25,7 +25,7 @@
 #' @param mu mean.
 #' @param sd standard deviation.
 #' @param n number of observations.
-#' @param conf.width precision (the full width of the confidende interval).
+#' @param conf.width precision (the full width of the confidence interval).
 #' @param conf.level confidence level.
 #' @param ... other arguments to uniroot (e.g. \code{tol}).
 #' @return Object of class "presize", a list with
@@ -105,10 +105,10 @@ prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
 #' 'score' method will be used.
 #'
 #' \code{\link[stats]{uniroot}} is used to solve n for the score and
-#' exact method. Agresti-coull can be abbreviated by ac.
+#' exact method.
 #'
 #' @param r rate or rate ratio.
-#' @param x number of events
+#' @param x number of events.
 #' @param method The method to use to calculate precision. Exactly one method
 #'   may be provided. Methods can be abbreviated.
 #' @inheritParams prec_mean
@@ -251,15 +251,15 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
 #' \code{prec_prop} returns the sample size or the precision for the provided
 #' proportion.
 #'
-#' Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
+#' Exactly one of the parameters \code{n} or \code{conf.width} must be passed as NULL,
 #' and that parameter is determined from the other.
 #'
 #' The wilson, agresti-coull, exact, and wald method are implemented. The
-#' wilson method is suggested for small n (< 40), and the agresti-coull method
-#' is suggested for larger n (see reference). The wald method is not suggested,
+#' wilson method is suggested for small \code{n} (< 40), and the agresti-coull method
+#' is suggested for larger \code{n} (see reference). The wald method is not suggested,
 #' but provided due to its widely distributed use.
 #'
-#' \code{\link[stats]{uniroot}} is used to solve n for the agresti-coull,
+#' \code{\link[stats]{uniroot}} is used to solve \code{n} for the agresti-coull,
 #' wilson, and exact methods. Agresti-coull can be abbreviated by ac.
 #'
 #'
