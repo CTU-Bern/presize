@@ -271,8 +271,9 @@ prec_lim_agree <- function(n = NULL, conf.width = NULL, conf.level = 0.95){
 
 # Cohens kappa ----
 #' Sample size or precision for Cohen's kappa
-#' Cohen's kappa
 #'
+#' \code{prec_kappa} returns the sample size or the precision for the provided Cohen's kappa coefficient.
+#' 
 #' @param kappa expected value of Cohen's kappa.
 #' @param raters number of raters (maximum of 6).
 #' @param n_category number of categories of outcomes (maximum of 5).
