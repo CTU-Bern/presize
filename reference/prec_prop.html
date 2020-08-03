@@ -144,7 +144,7 @@ proportion.</p>
     </tr>
     <tr>
       <th>conf.width</th>
-      <td><p>precision (the full width of the confidende interval).</p></td>
+      <td><p>precision (the full width of the confidence interval).</p></td>
     </tr>
     <tr>
       <th>conf.level</th>
@@ -170,13 +170,13 @@ may be provided. Methods can be abbreviated.</p></td>
   adjusted p is returned in <code>padj</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Exactly one of the parameters <code>n, conf.width</code> must be passed as NULL,
+    <p>Exactly one of the parameters <code>n</code> or <code>conf.width</code> must be passed as NULL,
 and that parameter is determined from the other.</p>
 <p>The wilson, agresti-coull, exact, and wald method are implemented. The
-wilson method is suggested for small n (&lt; 40), and the agresti-coull method
-is suggested for larger n (see reference). The wald method is not suggested,
+wilson method is suggested for small <code>n</code> (&lt; 40), and the agresti-coull method
+is suggested for larger <code>n</code> (see reference). The wald method is not suggested,
 but provided due to its widely distributed use.</p>
-<p><code><a href='https://rdrr.io/r/stats/uniroot.html'>uniroot</a></code> is used to solve n for the agresti-coull,
+<p><code><a href='https://rdrr.io/r/stats/uniroot.html'>uniroot</a></code> is used to solve <code>n</code> for the agresti-coull,
 wilson, and exact methods. Agresti-coull can be abbreviated by ac.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
