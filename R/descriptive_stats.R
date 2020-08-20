@@ -28,15 +28,10 @@
 #' @param conf.width precision (the full width of the confidende interval).
 #' @param conf.level confidence level.
 #' @param ... other arguments to uniroot (e.g. \code{tol}).
-#' @return Object of class "presize", a list with
-#'   \describe{
-#'     \item{mu}{mean}
-#'     \item{sd}{standard deviation}
-#'     \item{n}{sample size}
-#'     \item{conf.width}{precision (the width of the conficence interval)}
-#'     \item{lwr}{lower end of confidence interval}
-#'     \item{upr}{higher end of confidence interval}
-#'   } augmented with method and note elements.
+#' @return Object of class "presize", a list with \code{mu} mean, \code{sd} standard deviation, \code{n} sample size, 
+#' \code{conf.width} precision (the width of the conficence interval), 
+#' \code{lwr} lower bound of confidence interval, \code{upr} upper bound of confidence interval,
+#'  augmented with method and note elements.
 #' @examples
 #' prec_mean(mu = 5, sd = 2.5, n = 20)
 #' prec_mean(mu = 5, sd = 2.5, conf.width = 2.34)  # approximately the inverse of above
