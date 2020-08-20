@@ -41,7 +41,7 @@ jobs:
 
     - name: commit newly made helpfiles
       run: |
-        git pull
+        git fetch
         git add man/* || echo "No changes to commit"
         git commit -m "Re-build docs" || echo "No changes to commit"
         git push origin master || echo "No changes to commit"
