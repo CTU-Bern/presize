@@ -26,22 +26,22 @@ prec_spec(
 )
 }
 \arguments{
-\item{sens, spec}{proportions}
+\item{sens, spec}{proportions.}
 
-\item{n}{number of observations}
+\item{n}{number of observations.}
 
-\item{ntot}{total sample size}
+\item{ntot}{total sample size.}
 
 \item{prev}{prevalence of cases/disease (i.e. proportion of \code{ntot} with
-the disease)}
+the disease).}
 
-\item{conf.width}{precision (the full width of the confidende interval)}
+\item{conf.width}{precision (the full width of the confidence interval).}
 
 \item{round}{string, round calculated \code{n} up (\code{ceiling}) or down
-(\code{floor})}
+(\code{floor}).}
 
 \item{...}{options passed to prec_prop (e.g. method,
-conf.width, conf.level)}
+conf.width, conf.level).}
 }
 \value{
 Object of class "presize", a list of arguments (including the

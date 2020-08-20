@@ -16,16 +16,16 @@ prec_rate(
 \arguments{
 \item{r}{rate or rate ratio.}
 
-\item{x}{number of events}
+\item{x}{number of events.}
 
-\item{conf.width}{precision (the full width of the confidende interval)}
+\item{conf.width}{precision (the full width of the confidence interval).}
 
-\item{conf.level}{confidence level}
+\item{conf.level}{confidence level.}
 
 \item{method}{The method to use to calculate precision. Exactly one method
 may be provided. Methods can be abbreviated.}
 
-\item{...}{other arguments to uniroot (e.g. \code{tol})}
+\item{...}{other arguments to uniroot (e.g. \code{tol}).}
 }
 \value{
 Object of class "presize", a list of arguments (including the
@@ -33,10 +33,10 @@ Object of class "presize", a list of arguments (including the
 }
 \description{
 \code{prec_rate} returns the sample size or the precision for the provided
-rate
+rate.
 }
 \details{
-Exactly one of the parameters \code{r, conf.width} must be passed as NULL,
+Exactly one of the parameters \code{r} or \code{conf.width} must be passed as NULL,
 and that parameter is determined from the other.
 
 The \code{score}, variance stabilizing (\code{vs}), \code{exact}, and
@@ -47,7 +47,7 @@ If more than one method is specified or the method is miss-specified, the
 'score' method will be used.
 
 \code{\link[stats]{uniroot}} is used to solve n for the score and
-exact method. Agresti-coull can be abbreviated by ac.
+exact method.
 }
 \examples{
 prec_rate(2.5, x = 20, met = "score")

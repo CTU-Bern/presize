@@ -7,17 +7,17 @@
 prec_mean(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95, ...)
 }
 \arguments{
-\item{mu}{mean}
+\item{mu}{mean.}
 
-\item{sd}{standard deviation}
+\item{sd}{standard deviation.}
 
-\item{n}{number of observations}
+\item{n}{number of observations.}
 
-\item{conf.width}{precision (the full width of the confidende interval)}
+\item{conf.width}{precision (the full width of the confidence interval).}
 
-\item{conf.level}{confidence level}
+\item{conf.level}{confidence level.}
 
-\item{...}{other arguments to uniroot (e.g. \code{tol})}
+\item{...}{other arguments to uniroot (e.g. \code{tol}).}
 }
 \value{
 Object of class "presize", a list with
@@ -32,10 +32,10 @@ Object of class "presize", a list with
 }
 \description{
 \code{prec_mean} returns the sample size or the precision for the provided
-mean and standard deviation
+mean and standard deviation.
 }
 \details{
-Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
+Exactly one of the parameters \code{n} or \code{conf.width} must be passed as NULL,
 and that parameter is determined from the other.
 
 The precision is defined as the full width of the confidence interval. The

@@ -16,42 +16,42 @@ prec_riskdiff(
 )
 }
 \arguments{
-\item{p1}{Risk among unexposed}
+\item{p1}{risk among unexposed.}
 
-\item{p2}{Risk among exposed}
+\item{p2}{risk among exposed.}
 
-\item{n1}{Number of patients in unexposed group}
+\item{n1}{number of patients in unexposed group.}
 
-\item{conf.width}{precision (the full width of the confidende interval)}
+\item{conf.width}{precision (the full width of the confidence interval).}
 
 \item{r}{allocation ratio (relative size of unexposed and exposed cohort
-(\code{n1} / \code{n2}))}
+(\code{n1} / \code{n2})).}
 
-\item{conf.level}{confidence level}
+\item{conf.level}{confidence level.}
 
-\item{method}{Exactly one of \code{newcombe} (\emph{default}), \code{mn}
+\item{method}{exactly one of \code{newcombe} (\emph{default}), \code{mn}
 (Miettinen-Nurminen), \code{ac} (Agresti-Caffo), \code{wald}. Methods can
 be abbreviated.}
 
-\item{...}{other options to uniroot (e.g. \code{tol})}
+\item{...}{other options to uniroot (e.g. \code{tol}).}
 }
 \description{
 \code{prec_riskdiff} returns the risk difference and the sample size or the
-precision for the provided proportions
+precision for the provided proportions.
 }
 \details{
-Exactly one of the parameters \code{n1, conf.width} must be passed as NULL,
+Exactly one of the parameters \code{n1} or \code{conf.width} must be passed as NULL,
 and that parameter is determined from the other.
 
 Newcombe (\code{newcombe}) proposed a confidence interval based on the wilson
 score method for the single proportion (see \link{prec_prop}). The confidence
 interval without continuity correction is implemented from equation 10 in
-Newcombe (1998)
+Newcombe (1998).
 
 Miettinen-Nurminen (\code{mn}) provide a closed from equation for the
 restricted maximum likelihood estimate . The implementation is based on
 code provided by Yongyi Min on
-\url{http://users.stat.ufl.edu/~aa/cda/R/two-sample/R2/index.html}
+\url{http://users.stat.ufl.edu/~aa/cda/R/two-sample/R2/index.html}.
 
 Agresti-Caffo (\code{ac}) confidence interval is based on the Wald confidence
 interval, adding 1 success to each cell of the 2 x 2 table (see Agresti and
@@ -75,18 +75,18 @@ prec_riskdiff(p1 = c(56/70, 9/10, 6/7, 5/56),
 \references{
 Agresti A (2003) \emph{Categorical Data Analysis}, Second Edition, Wiley
 Series in Probability and Statistics,
-\href{https://doi.org/10.1002/0471249688}{doi:10.1002/0471249688}
+\href{https://doi.org/10.1002/0471249688}{doi:10.1002/0471249688}.
 
 Agresti A and Caffo B (2000) \emph{Simple and Effective Confidence Intervals
 for Proportions and Differences of Proportions Result from Adding Two
-Successes and Two Failures}, The American Statistician, 54(4):280-288
+Successes and Two Failures}, The American Statistician, 54(4):280-288.
 
 Miettinen O and Nurminen M (1985) \emph{Comparative analysis of two rates},
-Statistics in Medicine, 4:213-226
+Statistics in Medicine, 4:213-226.
 
 Newcombe RG (1998) \emph{Interval estimation for the difference between
 independent proportions: comparison of eleven methods}, Statistics in
-Medicine, 17:873-890
+Medicine, 17:873-890.
 
 Fagerland MW, Lydersen S, and Laake P (2015). \emph{Recommended confidence
 intervals for two independent binomial proportions}, Statistical methods in

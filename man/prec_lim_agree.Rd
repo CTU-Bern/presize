@@ -7,11 +7,11 @@
 prec_lim_agree(n = NULL, conf.width = NULL, conf.level = 0.95)
 }
 \arguments{
-\item{n}{Sample size}
+\item{n}{sample size.}
 
-\item{conf.width}{precision (the full width of the confidence interval)}
+\item{conf.width}{precision (the full width of the confidence interval).}
 
-\item{conf.level}{confidence level}
+\item{conf.level}{confidence level.}
 }
 \value{
 Object of class "presize", a list of arguments (including the
@@ -24,7 +24,7 @@ expressed in SD-units. It is an approximation based on the Normal distribution,
 instead of a Student t distribution.
 }
 \details{
-Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
+Exactly one of the parameters \code{n} or \code{conf.width} must be passed as NULL,
 and that parameter is determined from the other.
 
 The sample size and precision are calculated according to formulae in Bland &

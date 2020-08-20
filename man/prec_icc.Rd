@@ -7,15 +7,15 @@
 prec_icc(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95)
 }
 \arguments{
-\item{rho}{Desired intraclass correlation.}
+\item{rho}{desired intraclass correlation.}
 
 \item{k}{number of observations per n (subject).}
 
 \item{n}{number of subjects.}
 
-\item{conf.width}{precision (the full width of the confidende interval)}
+\item{conf.width}{precision (the full width of the confidence interval).}
 
-\item{conf.level}{confidence level}
+\item{conf.level}{confidence level.}
 }
 \value{
 Object of class "presize", a list of arguments (including the
@@ -23,10 +23,10 @@ Object of class "presize", a list of arguments (including the
 }
 \description{
 \code{prec_icc} returns the sample size or the precision for the given
-intraclass correlation
+intraclass correlation.
 }
 \details{
-Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
+Exactly one of the parameters \code{n} or \code{conf.width} must be passed as NULL,
 and that parameter is determined from the others.
 
 Sample size or precision is calculated according to formula 3 in Bonett

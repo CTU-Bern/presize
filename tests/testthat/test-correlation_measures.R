@@ -18,10 +18,7 @@ test_that("errors", {
   expect_error(prec_lim_agree(), "exactly one")
   expect_error(prec_lim_agree(15), NA)
   expect_error(prec_lim_agree(conf.width = 15), NA)
-
-
 })
-
 
 
 # ICC
@@ -61,6 +58,26 @@ test_that("icc (Bonett example)", {
   expect_equal(p$conf.level, 0.95)
   expect_equivalent(p$conf.width, 0.2)
 
+})
+
+
+test_that("Limit of agreement, Bland Altman - The Lancet 1986 - example", {
+  id <- c(1:17)
+  n  <- length(id)
+
+  group1 <- large <- c(494, 395, 516, 434, 476, 557, 413, 442, 650, 433, 417, 656, 267, 478, 178, 423, 427)
+  group2 <- mini <-  c(512, 430, 520, 428, 500, 600, 364, 380, 658, 445, 432, 626, 260, 477, 259, 350, 451)
+  sd <- sqrt(var(group1-group2))
+  # CI width from the papaer's example
+  length.cw <- 114.3-45.1
+  
+  ex <- prec_lim_agree(n = 17)
+  expect_equal(ex$conf.width , length.cw/sd , tolerance = .2, scale = 1)
+  expect_equal(ex$conf.width , 2*1.96*sqrt(3/n) , tolerance = .01, scale = 1)
+  
+  # reverse
+  ex <- prec_lim_agree(conf.width = 1.65)
+  expect_equal(ceiling(ex$n), 17 , tolerance = 1, scale = 1)
 })
 
 
