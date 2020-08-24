@@ -5,7 +5,7 @@
 # - risk difference
 # - risk ratio
 # - odds ratio
-
+# - rate ratio
 
 
 
@@ -22,6 +22,8 @@
 #' @param delta difference in means between the two groups.
 #' @param sd1 standard deviation in group 1.
 #' @param sd2 standard deviation in group 2.
+#' @param n1 number of patients in group 1.
+#' @param r allocation ratio (relative size of group 2 and group 1 (n2 / n1)).
 #' @param variance \code{equal} (\emph{default}) or \code{unequal} variance.
 #' @inheritParams prec_riskdiff
 #' @return Object of class "presize", a list of arguments (including the
@@ -161,10 +163,10 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
 #' method.
 #'
 #'
-#' @param p1 Risk among unexposed
-#' @param p2 Risk among exposed
-#' @param n1 Number of patients in unexposed group
-#' @param r allocation ratio (relative size of unexposed and exposed cohort
+#' @param p1 risk among exposed.
+#' @param p2 risk among unexposed.
+#' @param n1 number of patients in exposed group.
+#' @param r allocation ratio (relative size of exposed and unexposed cohort
 #'   (\code{n1} / \code{n2}))
 #' @param method Exactly one of \code{newcombe} (\emph{default}), \code{mn}
 #'   (Miettinen-Nurminen), \code{ac} (Agresti-Caffo), \code{wald}. Methods can
@@ -447,6 +449,9 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
 #'   Methods can be abbreviated.
 #' @param r allocation ratio (relative size of unexposed and exposed cohort
 #'   (\code{n2} / \code{n1}))
+#' @param p1 risk among exposed.
+#' @param p2 risk among unexposed.
+#' @param n1 number of patients in exposed group.
 #' @inheritParams prec_mean
 #' @inheritParams prec_riskdiff
 #'
@@ -647,7 +652,7 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
 #' \href{https://doi.org/10.1177/0962280211415469}{doi:10.1177/0962280211415469}
 #'
 #' @param method Exactly one of \code{indip_smooth} (\emph{default}),
-#'   \code{gart}, or \code{wolf}. Methods can be abbreviated.
+#'   \code{gart}, or \code{woolf}. Methods can be abbreviated.
 #' @inheritParams prec_riskratio
 #' @return Object of class "presize", a list of arguments (including the
 #'   computed one) augmented with method and note elements.
@@ -784,11 +789,10 @@ prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.
 #' \code{rate1}.
 #'
 #' @inheritParams prec_riskratio
-#' @param n1 number of exposed individuals
-#' @param rate1 event rate in the exposed group
-#' @param rate2 event rate in the unexposed group
-#' @param prec.level the ratio of the upper limit to the lower limit of the
-#'   rate ratio confidence interval
+#' @param rate1 event rate in the exposed group.
+#' @param rate2 event rate in the unexposed group.
+#' @param prec.level ratio of the upper limit over the lower limit of the
+#'   rate ratio confidence interval.
 #'
 #' @references
 #'   Rothman KJ, Greenland S (2018). \emph{Planning Study Size Based on
