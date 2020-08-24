@@ -220,18 +220,18 @@ server <- function(input, output, session) {
         seg <- data.frame(x = c(0,0),
                           yu = badat$CI.lines[1:2],
                           yl = badat$CI.lines[5:6])
-        ggplot2::ggplot(po, aes(x = means, y = diffs)) +
+        ggplot2::ggplot(po, ggplot2::aes(x = means, y = diffs)) +
             ggplot2::geom_point() +
             ggplot2::geom_hline(yintercept = badat$lines[2], col = "blue") +
             ggplot2::geom_hline(yintercept = badat$lines[c(1,3)], linetype = "dashed", col = "red") +
             ggplot2::geom_hline(yintercept = badat$CI.lines[c(1,2,5,6)], linetype = "twodash") +
-            ggplot2::geom_segment(aes(x = 0, xend = 0,
+            ggplot2::geom_segment(ggplot2::aes(x = 0, xend = 0,
                              y = badat$CI.lines[1], yend = badat$CI.lines[2]),
                          arrow = arrow(ends = "both"), size = 1.5) +
-            ggplot2::geom_segment(aes(x = -0.5, xend = -0.5,
+            ggplot2::geom_segment(ggplot2::aes(x = -0.5, xend = -0.5,
                              y = badat$CI.lines[5], yend = badat$CI.lines[6]),
                          arrow = arrow(ends = "both"), size = 1.5) +
-            ggplot2::geom_segment(aes(x = 0.5, xend = 0.5,
+            ggplot2::geom_segment(ggplot2::aes(x = 0.5, xend = 0.5,
                              y = badat$lines[1], yend = badat$lines[3]),
                          arrow = arrow(ends = "both"),
                          col = "darkgrey") +
