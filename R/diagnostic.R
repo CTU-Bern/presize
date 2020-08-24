@@ -246,7 +246,7 @@ prec_auc <- function(auc, prev, n = NULL, conf.width = NULL, conf.level = .95,
 #' @param p1 proportion of positives in group 1 (e.g. sensitivity).
 #' @param p2 proportion of positives in group 2 (e.g. 1 - specificity).
 #' @param n total group size.
-#' @param conf.width desired width of the confidence interval.
+#' @param conf.width precision (the full width of the confidence interval).
 #' @param conf.level confidence level (defaults to 0.95).
 #' @param ... other arguments to uniroot (e.g. \code{tol}).
 #'
