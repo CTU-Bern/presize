@@ -782,17 +782,18 @@ prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.
 #' \code{prec_rateratio} returns the sample size or the precision for the
 #' provided proportions.
 #'
-#' Exactly one of the parameters \code{n1, conf.width} must be passed as
+#' Exactly one of the parameters \code{n1, prec.level} must be passed as
 #' NULL, and that parameter is determined from the other. Event rates in the two
 #' groups should also be provided (\code{rate1, rate2}). If only
 #' \code{rate1} is provided, \code{rate2} is assumed to be 2 times
 #' \code{rate1}.
 #'
 #' @inheritParams prec_riskratio
-#' @param rate1 event rate in the exposed group.
-#' @param rate2 event rate in the unexposed group.
-#' @param prec.level ratio of the upper limit over the lower limit of the
-#'   rate ratio confidence interval.
+#' @param n1 number of exposed individuals
+#' @param rate1 event rate in the exposed group
+#' @param rate2 event rate in the unexposed group
+#' @param prec.level the ratio of the upper limit over the lower limit of the
+#'   rate ratio confidence interval
 #'
 #' @references
 #'   Rothman KJ, Greenland S (2018). \emph{Planning Study Size Based on
