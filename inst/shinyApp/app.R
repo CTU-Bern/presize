@@ -227,13 +227,13 @@ server <- function(input, output, session) {
             ggplot2::geom_hline(yintercept = badat$CI.lines[c(1,2,5,6)], linetype = "twodash") +
             ggplot2::geom_segment(ggplot2::aes(x = 0, xend = 0,
                              y = badat$CI.lines[1], yend = badat$CI.lines[2]),
-                         arrow = arrow(ends = "both"), size = 1.5) +
+                         arrow = ggplot2::arrow(ends = "both"), size = 1.5) +
             ggplot2::geom_segment(ggplot2::aes(x = -0.5, xend = -0.5,
                              y = badat$CI.lines[5], yend = badat$CI.lines[6]),
-                         arrow = arrow(ends = "both"), size = 1.5) +
+                         arrow = ggplot2::arrow(ends = "both"), size = 1.5) +
             ggplot2::geom_segment(ggplot2::aes(x = 0.5, xend = 0.5,
                              y = badat$lines[1], yend = badat$lines[3]),
-                         arrow = arrow(ends = "both"),
+                         arrow = ggplot2::arrow(ends = "both"),
                          col = "darkgrey") +
             ggplot2::theme_classic() +
             ggplot2::xlab("Mean") + ggplot2::ylab("Difference")
