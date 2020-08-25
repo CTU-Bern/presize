@@ -44,7 +44,7 @@ Object of class "presize", a list of arguments (including the
 provided mean difference and standard deviations.
 }
 \details{
-Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
+Exactly one of the parameters \code{n} or \code{conf.width} must be passed as NULL,
 and that parameter is determined from the other.
 }
 \examples{
