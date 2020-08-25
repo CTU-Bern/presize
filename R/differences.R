@@ -15,7 +15,7 @@
 #' \code{prec_meandiff} returns the sample size or the precision for the
 #' provided mean difference and standard deviations.
 #'
-#' Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
+#' Exactly one of the parameters \code{n} or \code{conf.width} must be passed as NULL,
 #' and that parameter is determined from the other.
 #'
 #'
