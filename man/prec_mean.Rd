@@ -20,15 +20,10 @@ prec_mean(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95, ...)
 \item{...}{other arguments to uniroot (e.g. \code{tol}).}
 }
 \value{
-Object of class "presize", a list with
-  \describe{
-    \item{mu}{mean}
-    \item{sd}{standard deviation}
-    \item{n}{sample size}
-    \item{conf.width}{precision (the width of the conficence interval)}
-    \item{lwr}{lower end of confidence interval}
-    \item{upr}{higher end of confidence interval}
-  } augmented with method and note elements.
+Object of class "presize", a list with \code{mu} mean, \code{sd} standard deviation, \code{n} sample size, 
+\code{conf.width} precision (the width of the conficence interval), 
+\code{lwr} lower bound of confidence interval, \code{upr} upper bound of confidence interval,
+ augmented with method and note elements.
 }
 \description{
 \code{prec_mean} returns the sample size or the precision for the provided

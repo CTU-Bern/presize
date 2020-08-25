@@ -25,7 +25,7 @@ prec_cor(
 \item{method}{Exactly one of \code{pearson} (\emph{default}), \code{kendall},
 or \code{spearman}. Methods can be abbreviated.}
 
-\item{...}{other options to uniroot (e.g. \code{tol}).}
+\item{...}{other options to uniroot (e.g. \code{tol})}
 }
 \value{
 Object of class "presize", a list of arguments (including the

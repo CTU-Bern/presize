@@ -14,13 +14,13 @@ prec_rateratio(
 )
 }
 \arguments{
-\item{n1}{number of exposed individuals.}
+\item{n1}{number of patients in exposed group.}
 
 \item{rate1}{event rate in the exposed group.}
 
 \item{rate2}{event rate in the unexposed group.}
 
-\item{prec.level}{the ratio of the upper limit to the lower limit of the
+\item{prec.level}{ratio of the upper limit over the lower limit of the
 rate ratio confidence interval.}
 
 \item{r}{allocation ratio (relative size of unexposed and exposed cohort
@@ -33,7 +33,7 @@ rate ratio confidence interval.}
 provided proportions.
 }
 \details{
-Exactly one of the parameters \code{n1} or \code{conf.width} must be passed as
+Exactly one of the parameters  \code{n1} or \code{conf.width} must be passed as
 NULL, and that parameter is determined from the other. Event rates in the two
 groups should also be provided (\code{rate1, rate2}). If only
 \code{rate1} is provided, \code{rate2} is assumed to be 2 times
@@ -46,5 +46,5 @@ prec_rateratio(rate1 = .5, rate2 = 3, prec.level = 3.81)
 \references{
 Rothman KJ, Greenland S (2018). \emph{Planning Study Size Based on
   Precision Rather Than Power}. Epidemiology, 29:599-603.
-  \href{https://doi.org/10.1097/EDE.0000000000000876}{doi:10.1097/EDE.0000000000000876}
+  \href{https://doi.org/10.1097/EDE.0000000000000876}{doi:10.1097/EDE.0000000000000876}.
 }

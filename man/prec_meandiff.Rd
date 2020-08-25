@@ -23,10 +23,9 @@ prec_meandiff(
 
 \item{sd2}{standard deviation in group 2.}
 
-\item{n1}{number of patients in unexposed group.}
+\item{n1}{number of patients in group 1.}
 
-\item{r}{allocation ratio (relative size of unexposed and exposed cohort
-(\code{n1} / \code{n2})).}
+\item{r}{allocation ratio (relative size of group 2 and group 1 (n2 / n1)).}
 
 \item{conf.width}{precision (the full width of the confidence interval).}
 
@@ -34,7 +33,7 @@ prec_meandiff(
 
 \item{variance}{\code{equal} (\emph{default}) or \code{unequal} variance.}
 
-\item{...}{other options to uniroot (e.g. \code{tol}).}
+\item{...}{other options to uniroot (e.g. \code{tol})}
 }
 \value{
 Object of class "presize", a list of arguments (including the
@@ -45,7 +44,7 @@ Object of class "presize", a list of arguments (including the
 provided mean difference and standard deviations.
 }
 \details{
-Exactly one of the parameters \code{n} or \code{conf.width} must be passed as NULL,
+Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
 and that parameter is determined from the other.
 }
 \examples{
