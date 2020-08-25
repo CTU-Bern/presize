@@ -138,15 +138,15 @@ precision for the provided proportions.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>p1</th>
-      <td><p>risk among unexposed.</p></td>
-    </tr>
-    <tr>
-      <th>p2</th>
       <td><p>risk among exposed.</p></td>
     </tr>
     <tr>
+      <th>p2</th>
+      <td><p>risk among unexposed.</p></td>
+    </tr>
+    <tr>
       <th>n1</th>
-      <td><p>number of patients in unexposed group.</p></td>
+      <td><p>number of patients in exposed group.</p></td>
     </tr>
     <tr>
       <th>conf.width</th>
@@ -154,7 +154,7 @@ precision for the provided proportions.</p>
     </tr>
     <tr>
       <th>r</th>
-      <td><p>allocation ratio (relative size of unexposed and exposed cohort
+      <td><p>allocation ratio (relative size of exposed and unexposed cohort
 (<code>n1</code> / <code>n2</code>)).</p></td>
     </tr>
     <tr>
@@ -163,13 +163,13 @@ precision for the provided proportions.</p>
     </tr>
     <tr>
       <th>method</th>
-      <td><p>exactly one of <code>newcombe</code> (<em>default</em>), <code>mn</code>
+      <td><p>Exactly one of <code>newcombe</code> (<em>default</em>), <code>mn</code>
 (Miettinen-Nurminen), <code>ac</code> (Agresti-Caffo), <code>wald</code>. Methods can
 be abbreviated.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other options to uniroot (e.g. <code>tol</code>).</p></td>
+      <td><p>other options to uniroot (e.g. <code>tol</code>)</p></td>
     </tr>
     </table>
 

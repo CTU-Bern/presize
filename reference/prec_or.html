@@ -138,15 +138,15 @@ provided proportions.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>p1</th>
-      <td><p>risk among unexposed.</p></td>
-    </tr>
-    <tr>
-      <th>p2</th>
       <td><p>risk among exposed.</p></td>
     </tr>
     <tr>
+      <th>p2</th>
+      <td><p>risk among unexposed.</p></td>
+    </tr>
+    <tr>
       <th>n1</th>
-      <td><p>number of patients in unexposed group.</p></td>
+      <td><p>number of patients in exposed group.</p></td>
     </tr>
     <tr>
       <th>r</th>
@@ -163,8 +163,8 @@ provided proportions.</p>
     </tr>
     <tr>
       <th>method</th>
-      <td><p>exactly one of <code>indip_smooth</code> (<em>default</em>),
-<code>gart</code>, or <code>wolf</code>. Methods can be abbreviated.</p></td>
+      <td><p>Exactly one of <code>indip_smooth</code> (<em>default</em>),
+<code>gart</code>, or <code>woolf</code>. Methods can be abbreviated.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -178,7 +178,7 @@ provided proportions.</p>
   computed one) augmented with method and note elements.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Exactly one of the parameters <code>n</code> or <code>conf.width</code> must be passed as NULL,
+    <p>Exactly one of the parameters <code>n1</code> or <code>conf.width</code> must be passed as NULL,
 and that parameter is determined from the other.</p>
 <p>Woolf (<code>woolf</code>), Gart (<code>gart</code>), and Independence-smoothed logit
 (<code>indip_smooth</code>) belong to a general family of adjusted confidence
@@ -197,7 +197,7 @@ indip_smooth method.</p>
     <p>Fagerland MW, Lydersen S, Laake P (2015). <em>Recommended
 confidence intervals for two independent binomial proportions</em>. Statistical
 Methods in Medical Research, 24(2):224-254.
-<a href='https://doi.org/10.1177/0962280211415469'>doi:10.1177/0962280211415469</a></p>
+<a href='https://doi.org/10.1177/0962280211415469'>doi:10.1177/0962280211415469</a>.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

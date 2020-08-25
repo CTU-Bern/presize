@@ -136,7 +136,7 @@ provided proportions.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>n1</th>
-      <td><p>number of exposed individuals.</p></td>
+      <td><p>number of patients in exposed group.</p></td>
     </tr>
     <tr>
       <th>rate1</th>
@@ -148,7 +148,7 @@ provided proportions.</p>
     </tr>
     <tr>
       <th>prec.level</th>
-      <td><p>the ratio of the upper limit to the lower limit of the
+      <td><p>ratio of the upper limit over the lower limit of the
 rate ratio confidence interval.</p></td>
     </tr>
     <tr>
@@ -164,7 +164,7 @@ rate ratio confidence interval.</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Exactly one of the parameters <code>n1</code> or <code>conf.width</code> must be passed as
+    <p>Exactly one of the parameters  <code>n1</code> or <code>conf.width</code> must be passed as
 NULL, and that parameter is determined from the other. Event rates in the two
 groups should also be provided (<code>rate1, rate2</code>). If only
 <code>rate1</code> is provided, <code>rate2</code> is assumed to be 2 times
@@ -173,7 +173,7 @@ groups should also be provided (<code>rate1, rate2</code>). If only
 
     <p>Rothman KJ, Greenland S (2018). <em>Planning Study Size Based on
   Precision Rather Than Power</em>. Epidemiology, 29:599-603.
-  <a href='https://doi.org/10.1097/EDE.0000000000000876'>doi:10.1097/EDE.0000000000000876</a></p>
+  <a href='https://doi.org/10.1097/EDE.0000000000000876'>doi:10.1097/EDE.0000000000000876</a>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>prec_rateratio</span>(<span class='fl'>20</span>, <span class='fl'>.5</span>, <span class='fl'>3</span>)</div><div class='output co'>#&gt; 
