@@ -5,7 +5,7 @@
 # - risk difference
 # - risk ratio
 # - odds ratio
-
+# - rate ratio
 
 
 
@@ -15,13 +15,15 @@
 #' \code{prec_meandiff} returns the sample size or the precision for the
 #' provided mean difference and standard deviations.
 #'
-#' Exactly one of the parameters \code{n} or \code{conf.width} must be passed as NULL,
+#' Exactly one of the parameters \code{n, conf.width} must be passed as NULL,
 #' and that parameter is determined from the other.
 #'
 #'
 #' @param delta difference in means between the two groups.
 #' @param sd1 standard deviation in group 1.
 #' @param sd2 standard deviation in group 2.
+#' @param n1 number of patients in group 1.
+#' @param r allocation ratio (relative size of group 2 and group 1 (n2 / n1)).
 #' @param variance \code{equal} (\emph{default}) or \code{unequal} variance.
 #' @inheritParams prec_riskdiff
 #' @return Object of class "presize", a list of arguments (including the
@@ -161,15 +163,15 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
 #' method.
 #'
 #'
-#' @param p1 risk among unexposed.
-#' @param p2 risk among exposed.
-#' @param n1 number of patients in unexposed group.
-#' @param r allocation ratio (relative size of unexposed and exposed cohort
+#' @param p1 risk among exposed.
+#' @param p2 risk among unexposed.
+#' @param n1 number of patients in exposed group.
+#' @param r allocation ratio (relative size of exposed and unexposed cohort
 #'   (\code{n1} / \code{n2})).
-#' @param method exactly one of \code{newcombe} (\emph{default}), \code{mn}
+#' @param method Exactly one of \code{newcombe} (\emph{default}), \code{mn}
 #'   (Miettinen-Nurminen), \code{ac} (Agresti-Caffo), \code{wald}. Methods can
 #'   be abbreviated.
-#' @param ... other options to uniroot (e.g. \code{tol}).
+#' @param ... other options to uniroot (e.g. \code{tol})
 #' @inheritParams prec_mean
 #'
 #' @references
@@ -443,10 +445,13 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
 #' \code{\link[stats]{uniroot}} is used to solve n for the katz, and koopman
 #' method.
 #'
-#' @param method exactly one of \code{koopman} (\emph{default}), \code{katz}.
+#' @param method Exactly one of \code{koopman} (\emph{default}), \code{katz}.
 #'   Methods can be abbreviated.
 #' @param r allocation ratio (relative size of unexposed and exposed cohort
 #'   (\code{n2} / \code{n1})).
+#' @param p1 risk among exposed.
+#' @param p2 risk among unexposed.
+#' @param n1 number of patients in exposed group.
 #' @inheritParams prec_mean
 #' @inheritParams prec_riskdiff
 #'
@@ -623,7 +628,7 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
 #' \code{prec_or} returns the sample size or the precision for the
 #' provided proportions.
 #'
-#' Exactly one of the parameters \code{n} or \code{conf.width} must be passed as NULL,
+#' Exactly one of the parameters \code{n1} or \code{conf.width} must be passed as NULL,
 #' and that parameter is determined from the other.
 #'
 #' Woolf (\code{woolf}), Gart (\code{gart}), and Independence-smoothed logit
@@ -644,10 +649,10 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
 #' Fagerland MW, Lydersen S, Laake P (2015). \emph{Recommended
 #' confidence intervals for two independent binomial proportions}. Statistical
 #' Methods in Medical Research, 24(2):224-254.
-#' \href{https://doi.org/10.1177/0962280211415469}{doi:10.1177/0962280211415469}
+#' \href{https://doi.org/10.1177/0962280211415469}{doi:10.1177/0962280211415469}.
 #'
-#' @param method exactly one of \code{indip_smooth} (\emph{default}),
-#'   \code{gart}, or \code{wolf}. Methods can be abbreviated.
+#' @param method Exactly one of \code{indip_smooth} (\emph{default}),
+#'   \code{gart}, or \code{woolf}. Methods can be abbreviated.
 #' @inheritParams prec_riskratio
 #' @return Object of class "presize", a list of arguments (including the
 #'   computed one) augmented with method and note elements.
@@ -777,23 +782,22 @@ prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.
 #' \code{prec_rateratio} returns the sample size or the precision for the
 #' provided proportions.
 #'
-#' Exactly one of the parameters \code{n1} or \code{conf.width} must be passed as
+#' Exactly one of the parameters  \code{n1} or \code{conf.width} must be passed as
 #' NULL, and that parameter is determined from the other. Event rates in the two
 #' groups should also be provided (\code{rate1, rate2}). If only
 #' \code{rate1} is provided, \code{rate2} is assumed to be 2 times
 #' \code{rate1}.
 #'
 #' @inheritParams prec_riskratio
-#' @param n1 number of exposed individuals.
 #' @param rate1 event rate in the exposed group.
 #' @param rate2 event rate in the unexposed group.
-#' @param prec.level the ratio of the upper limit to the lower limit of the
+#' @param prec.level ratio of the upper limit over the lower limit of the
 #'   rate ratio confidence interval.
 #'
 #' @references
 #'   Rothman KJ, Greenland S (2018). \emph{Planning Study Size Based on
 #'   Precision Rather Than Power}. Epidemiology, 29:599-603.
-#'   \href{https://doi.org/10.1097/EDE.0000000000000876}{doi:10.1097/EDE.0000000000000876}
+#'   \href{https://doi.org/10.1097/EDE.0000000000000876}{doi:10.1097/EDE.0000000000000876}.
 #' @examples
 #' prec_rateratio(20, .5, 3)
 #' prec_rateratio(rate1 = .5, rate2 = 3, prec.level = 3.81)
@@ -859,7 +863,3 @@ prec_rateratio <- function(n1 = NULL, # n exposed
             class = "presize")
 
 }
-
-
-
-
