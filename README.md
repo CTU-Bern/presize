@@ -12,7 +12,7 @@ Status](https://ci.appveyor.com/api/projects/status/github/CTU-Bern/presize?bran
 
 The goal of presize is to provide functions for precision based sample
 size calculation. For a given sample size, the functions will return the
-precision (half the width of the confidence interval), and vice versa.
+precision (width of the confidence interval), and vice versa.
 
 Installation
 ------------
