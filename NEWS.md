@@ -1,8 +1,14 @@
-presize 0.1.0
+presize 0.1.1
 -----------------------------------------
 
 * first version for CRAN
+* minor clarifications to options/descriptions
+* minor changes to shiny app
 
+presize 0.1.0
+-----------------------------------------
+
+* initial 'final' version
 
 presize 0.0.1.9007
 -----------------------------------------
