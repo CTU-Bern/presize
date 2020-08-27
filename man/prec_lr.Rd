@@ -37,7 +37,7 @@ prec_neg_lr(
 
 \item{n}{total group size.}
 
-\item{conf.width}{desired width of the confidence interval.}
+\item{conf.width}{precision (the full width of the confidence interval).}
 
 \item{conf.level}{confidence level (defaults to 0.95).}
 

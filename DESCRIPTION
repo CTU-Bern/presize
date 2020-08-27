@@ -1,7 +1,7 @@
 Package: presize
 Type: Package
 Title: Precision Based Sample Size Calculation
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: 
     c(person(given = "Armando",
     family = "Lenz",
@@ -19,10 +19,10 @@ Authors@R:
     family = "Stalder",
     role = "ctb",
     email = "odile.stalder@ctu.unibe.ch"))
-Maintainer: The package maintainer <alan.haynes@ctu.unibe.ch>
+Maintainer: Alan G. Haynes <alan.haynes@ctu.unibe.ch>
 Description: The goal of presize is to provide functions for precision based 
     sample size calculation. For a given sample size, the functions will return 
-    the precision (half the width of the confidence interval), and vice versa.
+    the precision (width of the confidence interval), and vice versa.
 License: GPL-3
 URL: http://github.com/CTU-Bern/presize
 BugReports: http://github.com/CTU-Bern/presize/issues

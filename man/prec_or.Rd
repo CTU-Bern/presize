@@ -16,11 +16,11 @@ prec_or(
 )
 }
 \arguments{
-\item{p1}{risk among unexposed.}
+\item{p1}{risk among exposed.}
 
-\item{p2}{risk among exposed.}
+\item{p2}{risk among unexposed.}
 
-\item{n1}{number of patients in unexposed group.}
+\item{n1}{number of patients in exposed group.}
 
 \item{r}{allocation ratio (relative size of unexposed and exposed cohort
 (\code{n2} / \code{n1})).}
@@ -29,8 +29,8 @@ prec_or(
 
 \item{conf.level}{confidence level.}
 
-\item{method}{exactly one of \code{indip_smooth} (\emph{default}),
-\code{gart}, or \code{wolf}. Methods can be abbreviated.}
+\item{method}{Exactly one of \code{indip_smooth} (\emph{default}),
+\code{gart}, or \code{woolf}. Methods can be abbreviated.}
 
 \item{...}{other arguments to uniroot (e.g. \code{tol}).}
 }
@@ -43,7 +43,7 @@ Object of class "presize", a list of arguments (including the
 provided proportions.
 }
 \details{
-Exactly one of the parameters \code{n} or \code{conf.width} must be passed as NULL,
+Exactly one of the parameters \code{n1} or \code{conf.width} must be passed as NULL,
 and that parameter is determined from the other.
 
 Woolf (\code{woolf}), Gart (\code{gart}), and Independence-smoothed logit
@@ -64,5 +64,5 @@ indip_smooth method.
 Fagerland MW, Lydersen S, Laake P (2015). \emph{Recommended
 confidence intervals for two independent binomial proportions}. Statistical
 Methods in Medical Research, 24(2):224-254.
-\href{https://doi.org/10.1177/0962280211415469}{doi:10.1177/0962280211415469}
+\href{https://doi.org/10.1177/0962280211415469}{doi:10.1177/0962280211415469}.
 }

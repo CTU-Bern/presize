@@ -16,24 +16,24 @@ prec_riskdiff(
 )
 }
 \arguments{
-\item{p1}{risk among unexposed.}
+\item{p1}{risk among exposed.}
 
-\item{p2}{risk among exposed.}
+\item{p2}{risk among unexposed.}
 
-\item{n1}{number of patients in unexposed group.}
+\item{n1}{number of patients in exposed group.}
 
 \item{conf.width}{precision (the full width of the confidence interval).}
 
-\item{r}{allocation ratio (relative size of unexposed and exposed cohort
+\item{r}{allocation ratio (relative size of exposed and unexposed cohort
 (\code{n1} / \code{n2})).}
 
 \item{conf.level}{confidence level.}
 
-\item{method}{exactly one of \code{newcombe} (\emph{default}), \code{mn}
+\item{method}{Exactly one of \code{newcombe} (\emph{default}), \code{mn}
 (Miettinen-Nurminen), \code{ac} (Agresti-Caffo), \code{wald}. Methods can
 be abbreviated.}
 
-\item{...}{other options to uniroot (e.g. \code{tol}).}
+\item{...}{other options to uniroot (e.g. \code{tol})}
 }
 \description{
 \code{prec_riskdiff} returns the risk difference and the sample size or the
