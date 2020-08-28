@@ -20,7 +20,7 @@ Authors@R:
     role = "ctb",
     email = "odile.stalder@ctu.unibe.ch"))
 Maintainer: Alan G. Haynes <alan.haynes@ctu.unibe.ch>
-Description: Bland (2009) <doi:https://doi.org/10.1136/bmj.b3985> recommended to
+Description: Bland (2009) <doi:10.1136/bmj.b3985> recommended to
     base study sizes on the width of the confidence interval rather the power of 
     a statistical test. The goal of 'presize' is to provide functions for such 
     precision based sample size calculations. For a given sample size, the 
