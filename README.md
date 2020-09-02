@@ -3,12 +3,14 @@
 presize
 =======
 
+[![](https://www.r-pkg.org/badges/version/presize?color=green)](https://cran.r-project.org/package=presize)
+[![](https://img.shields.io/badge/dev%20version-0.1.3-blue.svg)](https://github.com/CTU-Bern/presize)
 ![travis](https://travis-ci.com/CTU-Bern/presize.svg?branch=master)
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/CTU-Bern/presize?branch=master&svg=true)](https://ci.appveyor.com/project/CTU-Bern/presize)
+[![Actions
+Status](https://github.com/CTU-Bern/presize/workflows/R-CMD-check/badge.svg)](https://github.com/CTU-Bern/presize/actions)
 [![codecov](https://codecov.io/github/CTU-Bern/presize/branch/master/graphs/badge.svg)](https://codecov.io/github/CTU-Bern/presize)
-[![](https://img.shields.io/badge/dev%20version-0.1.3-blue.svg)](https://github.com/CTU-Bern/presize)
-[![](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 
 [Bland (2009)](https://www.bmj.com/content/339/bmj.b3985) recommended to
 base study sizes on the width of the confidence interval rather the
@@ -20,10 +22,20 @@ confidence interval), and vice versa.
 Installation
 ------------
 
-You can install presize from github with:
+`presize` can be installed from CRAN in the usual manner:
 
-    # install.packages("devtools")
-    devtools::install_github("CTU-Bern/presize")
+    install.packages("presize")
+
+You can install the development version of `presize` from github with:
+
+    # install.packages("remotes")
+    remotes::install_github("CTU-Bern/presize")
+
+Note that `remotes` treats any warnings (e.g. that a certain package was
+built under a different version of R) as errors. If you see such an
+error, run the following line and try again:
+
+    Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS = "true")
 
 Overview
 --------
