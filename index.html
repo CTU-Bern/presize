@@ -82,9 +82,13 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install presize from github with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># install.packages("devtools")</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"CTU-Bern/presize"</span>)</span></code></pre></div>
+<p><code>presize</code> can be installed from CRAN in the usual manner:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">install.packages</span>(<span class="st">"presize"</span>)</span></code></pre></div>
+<p>You can install the development version of <code>presize</code> from github with:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># install.packages("remotes")</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"CTU-Bern/presize"</span>)</span></code></pre></div>
+<p>Note that <code>remotes</code> treats any warnings (e.g. that a certain package was built under a different version of R) as errors. If you see such an error, run the following line and try again:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">Sys.setenv</span>(<span class="dt">R_REMOTES_NO_ERRORS_FROM_WARNINGS =</span> <span class="st">"true"</span>)</span></code></pre></div>
 </div>
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
@@ -137,18 +141,18 @@
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
 <p>This is a basic example which shows you how to solve a common problem:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(presize)</span>
-<span id="cb2-2"><a href="#cb2-2"></a></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="co"># calculate sample size for a proportion of 0.2, or 0.4 with a precision of 0.2</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="kw">prec_prop</span>(<span class="dt">p =</span> <span class="kw">c</span>(.<span class="dv">2</span>, <span class="fl">.4</span>), <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">method =</span> <span class="st">"wilson"</span>)</span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt; </span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt;      precision for a proportion with Wilson confidence interval. </span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt; </span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt;     p      padj  n conf.width conf.level        lwr       upr</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt; 1 0.2 0.2832598 10  0.4531554       0.95 0.05668215 0.5098375</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="co">#&gt; 2 0.4 0.4277533 10  0.5191459       0.95 0.16818033 0.6873262</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#&gt; </span></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="co">#&gt; </span><span class="al">NOTE</span><span class="co">: padj is the adjusted proportion, from which the ci is calculated.</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">library</span>(presize)</span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co"># calculate sample size for a proportion of 0.2, or 0.4 with a precision of 0.2</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="kw">prec_prop</span>(<span class="dt">p =</span> <span class="kw">c</span>(.<span class="dv">2</span>, <span class="fl">.4</span>), <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">method =</span> <span class="st">"wilson"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt; </span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt;      precision for a proportion with Wilson confidence interval. </span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt; </span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt;     p      padj  n conf.width conf.level        lwr       upr</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt; 1 0.2 0.2832598 10  0.4531554       0.95 0.05668215 0.5098375</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt; 2 0.4 0.4277533 10  0.5191459       0.95 0.16818033 0.6873262</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt; </span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt; </span><span class="al">NOTE</span><span class="co">: padj is the adjusted proportion, from which the ci is calculated.</span></span></code></pre></div>
 <p>THe problem being addressed is ‘how wide is the confidence interval width given proportions of events of 20 and 40% and only 10 participants’.</p>
 </div>
 <div id="shiny-app" class="section level2">
@@ -170,6 +174,8 @@
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
+<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=presize">https://​cloud.r-project.org/​package=presize</a>
+</li>
 <li>Browse source code at <br><a href="https://github.com/CTU-Bern/presize/">https://​github.com/​CTU-Bern/​presize/​</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/CTU-Bern/presize/issues">https://​github.com/​CTU-Bern/​presize/​issues</a>
@@ -201,10 +207,11 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://ci.appveyor.com/project/CTU-Bern/presize"><img src="https://ci.appveyor.com/api/projects/status/github/CTU-Bern/presize?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
-<li><a href="https://codecov.io/github/CTU-Bern/presize"><img src="https://codecov.io/github/CTU-Bern/presize/branch/master/graphs/badge.svg" alt="codecov"></a></li>
+<li><a href="https://cran.r-project.org/package=presize"><img src="https://www.r-pkg.org/badges/version/presize?color=green"></a></li>
 <li><a href="https://github.com/CTU-Bern/presize"><img src="https://img.shields.io/badge/dev%20version-0.1.3-blue.svg"></a></li>
-<li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg"></a></li>
+<li><a href="https://ci.appveyor.com/project/CTU-Bern/presize"><img src="https://ci.appveyor.com/api/projects/status/github/CTU-Bern/presize?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
+<li><a href="https://github.com/CTU-Bern/presize/actions"><img src="https://github.com/CTU-Bern/presize/workflows/R-CMD-check/badge.svg" alt="Actions Status"></a></li>
+<li><a href="https://codecov.io/github/CTU-Bern/presize"><img src="https://codecov.io/github/CTU-Bern/presize/branch/master/graphs/badge.svg" alt="codecov"></a></li>
 </ul>
 </div>
 </div>
