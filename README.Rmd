@@ -109,7 +109,7 @@ An online interactive version of the package is available [here](https://ctu-ber
 `presize` was largely developed at CTU Bern, with collaboration from CTU Basel. Funding was provided by the Swiss Clinical Trials Organisation.
 
 ```{r, echo=FALSE}
-knitr::include_graphics("inst/fig/scto_ctu_member_cmyk.jpg")
+knitr::include_graphics("inst/fig/SCTO_Platform_Logo_2020_RZ_SM.emf")
 ```
 
 <!-- ![](man/fig/scto_ctu_member_cmyk.jpg) -->
