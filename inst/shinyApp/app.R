@@ -64,7 +64,7 @@ ui <- dashboardPage(skin = "red",
                  br(),
                  "presize was developed by members of the Swiss Clinical Trials Organisation",
                  br(),
-                 img(src = "scto_ctu_member_cmyk.jpg"),
+                 img(src = "SCTO_Platform_Logo_2020_RZ_SM.jpg"),
                  width = 12
              )
          ),
