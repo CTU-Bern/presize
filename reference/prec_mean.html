@@ -122,7 +122,7 @@ mean and standard deviation." />
 mean and standard deviation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>prec_mean</span>(<span class='no'>mu</span>, <span class='no'>sd</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>prec_mean</span>(<span class='kw'>mu</span>, <span class='kw'>sd</span>, n = <span class='kw'>NULL</span>, conf.width = <span class='kw'>NULL</span>, conf.level = <span class='fl'>0.95</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -169,11 +169,13 @@ from the t-distribution with n-1 degrees of freedom.</p>
 <p><code><a href='https://rdrr.io/r/stats/uniroot.html'>uniroot</a></code> is used to solve <code>n</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>prec_mean</span>(<span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>2.5</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>20</span>)</div><div class='output co'>#&gt; 
+    <pre class="examples"><div class='input'><span class='fu'>prec_mean</span>(mu = <span class='fl'>5</span>, sd = <span class='fl'>2.5</span>, n = <span class='fl'>20</span>)
+</div><div class='output co'>#&gt; 
 #&gt;      precision for mean 
 #&gt; 
 #&gt;   mu  sd  n conf.width conf.level      lwr      upr
-#&gt; 1  5 2.5 20   2.340072       0.95 3.829964 6.170036</div><div class='input'><span class='fu'>prec_mean</span>(<span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>2.5</span>, <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='fl'>2.34</span>)  <span class='co'># approximately the inverse of above</span></div><div class='output co'>#&gt; 
+#&gt; 1  5 2.5 20   2.340072       0.95 3.829964 6.170036</div><div class='input'><span class='fu'>prec_mean</span>(mu = <span class='fl'>5</span>, sd = <span class='fl'>2.5</span>, conf.width = <span class='fl'>2.34</span>)  <span class='co'># approximately the inverse of above</span>
+</div><div class='output co'>#&gt; 
 #&gt;      sample size for mean 
 #&gt; 
 #&gt;   mu  sd        n conf.width conf.level  lwr  upr
@@ -193,7 +195,7 @@ from the t-distribution with n-1 degrees of freedom.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

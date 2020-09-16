@@ -123,15 +123,15 @@ provided mean difference and standard deviations.</p>
     </div>
 
     <pre class="usage"><span class='fu'>prec_meandiff</span>(
-  <span class='no'>delta</span>,
-  <span class='no'>sd1</span>,
-  <span class='kw'>sd2</span> <span class='kw'>=</span> <span class='no'>sd1</span>,
-  <span class='kw'>n1</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>r</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>variance</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"equal"</span>, <span class='st'>"unequal"</span>),
-  <span class='no'>...</span>
+  <span class='kw'>delta</span>,
+  <span class='kw'>sd1</span>,
+  sd2 = <span class='kw'>sd1</span>,
+  n1 = <span class='kw'>NULL</span>,
+  r = <span class='fl'>1</span>,
+  conf.width = <span class='kw'>NULL</span>,
+  conf.level = <span class='fl'>0.95</span>,
+  variance = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"equal"</span>, <span class='st'>"unequal"</span>),
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -185,11 +185,13 @@ provided mean difference and standard deviations.</p>
 and that parameter is determined from the other.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>prec_meandiff</span>(<span class='kw'>delta</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>sd1</span> <span class='kw'>=</span> <span class='fl'>2.5</span>, <span class='kw'>n1</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"equal"</span>)</div><div class='output co'>#&gt; 
+    <pre class="examples"><div class='input'><span class='fu'>prec_meandiff</span>(delta = <span class='fl'>5</span>, sd1 = <span class='fl'>2.5</span>, n1 = <span class='fl'>20</span>, var = <span class='st'>"equal"</span>)
+</div><div class='output co'>#&gt; 
 #&gt;      precision for mean difference with equal variance 
 #&gt; 
 #&gt;   delta sd1 sd2 n1 n2 conf.width conf.level      lwr      upr
-#&gt; 1     5 2.5 2.5 20 20   3.044614       0.95 3.477693 6.522307</div><div class='input'><span class='fu'>prec_meandiff</span>(<span class='kw'>delta</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>sd1</span> <span class='kw'>=</span> <span class='fl'>2.5</span>, <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"equal"</span>)</div><div class='output co'>#&gt; 
+#&gt; 1     5 2.5 2.5 20 20   3.044614       0.95 3.477693 6.522307</div><div class='input'><span class='fu'>prec_meandiff</span>(delta = <span class='fl'>5</span>, sd1 = <span class='fl'>2.5</span>, conf.width = <span class='fl'>3</span>, var = <span class='st'>"equal"</span>)
+</div><div class='output co'>#&gt; 
 #&gt;      sample size for mean difference with equal variance 
 #&gt; 
 #&gt;   delta sd1 sd2       n1       n2 conf.width conf.level lwr upr
@@ -209,7 +211,7 @@ and that parameter is determined from the other.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

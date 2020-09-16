@@ -136,26 +136,26 @@ calculations for negative likelihood ratios by allowing sensitivity and
 specificity to be given explicitly.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>prec_lr</span>(<span class='no'>prev</span>, <span class='no'>p1</span>, <span class='no'>p2</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>prec_lr</span>(<span class='kw'>prev</span>, <span class='kw'>p1</span>, <span class='kw'>p2</span>, n = <span class='kw'>NULL</span>, conf.width = <span class='kw'>NULL</span>, conf.level = <span class='fl'>0.95</span>, <span class='kw'>...</span>)
 
 <span class='fu'>prec_pos_lr</span>(
-  <span class='no'>prev</span>,
-  <span class='no'>sens</span>,
-  <span class='no'>spec</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='no'>...</span>
+  <span class='kw'>prev</span>,
+  <span class='kw'>sens</span>,
+  <span class='kw'>spec</span>,
+  n = <span class='kw'>NULL</span>,
+  conf.width = <span class='kw'>NULL</span>,
+  conf.level = <span class='fl'>0.95</span>,
+  <span class='kw'>...</span>
 )
 
 <span class='fu'>prec_neg_lr</span>(
-  <span class='no'>prev</span>,
-  <span class='no'>sens</span>,
-  <span class='no'>spec</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='no'>...</span>
+  <span class='kw'>prev</span>,
+  <span class='kw'>sens</span>,
+  <span class='kw'>spec</span>,
+  n = <span class='kw'>NULL</span>,
+  conf.width = <span class='kw'>NULL</span>,
+  conf.level = <span class='fl'>0.95</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -233,7 +233,8 @@ would be the proportion of positive or negative tests in the non-diseased group.
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># equal numbers of diseased/non-diseased, 80% sens, 73% spec, 74 participants total</span>
-<span class='fu'>prec_lr</span>(<span class='fl'>.5</span>, <span class='fl'>.8</span>, <span class='fl'>.27</span>, <span class='fl'>74</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>prec_lr</span>(<span class='fl'>.5</span>, <span class='fl'>.8</span>, <span class='fl'>.27</span>, <span class='fl'>74</span>)
+</div><div class='output co'>#&gt; 
 #&gt;      precision for likelihood ratios 
 #&gt; 
 #&gt;   prev  p1   p2  n n1 n2       lr      lwr     upr conf.width conf.level
@@ -242,13 +243,15 @@ would be the proportion of positive or negative tests in the non-diseased group.
 <span class='co'># Sensitivity of a new test is at least 80%, specificity is 73% and the LR+</span>
 <span class='co'># is 2.96 (= 0.8/(1-0.73)). We have as many diseased as not diseased</span>
 <span class='co'># (n1 = n2, n = 2*n1 = 146.8, prevalence = .5)</span>
-<span class='fu'>prec_lr</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>p1</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>p2</span> <span class='kw'>=</span> <span class='fl'>1</span>-<span class='fl'>.73</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>146.8</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>prec_lr</span>(prev = <span class='fl'>.5</span>, p1 = <span class='fl'>.8</span>, p2 = <span class='fl'>1</span><span class='op'>-</span><span class='fl'>.73</span>, n = <span class='fl'>146.8</span>)
+</div><div class='output co'>#&gt; 
 #&gt;      precision for likelihood ratios 
 #&gt; 
 #&gt;   prev  p1   p2     n   n1   n2       lr      lwr      upr conf.width
 #&gt; 1  0.5 0.8 0.27 146.8 73.4 73.4 2.962963 1.999739 4.390147   2.390407
 #&gt;   conf.level
-#&gt; 1       0.95</div><div class='input'><span class='fu'>prec_pos_lr</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.73</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>146.8</span>)</div><div class='output co'>#&gt; 
+#&gt; 1       0.95</div><div class='input'><span class='fu'>prec_pos_lr</span>(prev = <span class='fl'>.5</span>, sens = <span class='fl'>.8</span>, spec = <span class='fl'>.73</span>, n = <span class='fl'>146.8</span>)
+</div><div class='output co'>#&gt; 
 #&gt;      precision for positive likelihood ratio 
 #&gt; 
 #&gt;   prev  p1   p2     n   n1   n2       lr      lwr      upr conf.width
@@ -260,13 +263,15 @@ would be the proportion of positive or negative tests in the non-diseased group.
 <span class='co'># of the CI should be 2.0, the confidence interval width is approximately</span>
 <span class='co'># exp(2*(log(2.96) - log(2))) = 2.19 (approximate because the CI Of the LR</span>
 <span class='co'># is only symetrical on the log(LR) scale), which we can put in conf.width</span>
-<span class='fu'>prec_lr</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>p1</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>p2</span> <span class='kw'>=</span> <span class='fl'>1</span>-<span class='fl'>.73</span>, <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='fl'>2.2</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>prec_lr</span>(prev = <span class='fl'>.5</span>, p1 = <span class='fl'>.8</span>, p2 = <span class='fl'>1</span><span class='op'>-</span><span class='fl'>.73</span>, conf.width = <span class='fl'>2.2</span>)
+</div><div class='output co'>#&gt; 
 #&gt;      sample size for likelihood ratios 
 #&gt; 
 #&gt;   prev  p1   p2        n       n1       n2       lr      lwr      upr
 #&gt; 1  0.5 0.8 0.27 172.0183 86.00915 86.00915 2.962963 2.060562 4.260562
 #&gt;   conf.width conf.level
-#&gt; 1        2.2       0.95</div><div class='input'><span class='fu'>prec_pos_lr</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.73</span>, <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='fl'>2.2</span>)</div><div class='output co'>#&gt; 
+#&gt; 1        2.2       0.95</div><div class='input'><span class='fu'>prec_pos_lr</span>(prev = <span class='fl'>.5</span>, sens = <span class='fl'>.8</span>, spec = <span class='fl'>.73</span>, conf.width = <span class='fl'>2.2</span>)
+</div><div class='output co'>#&gt; 
 #&gt;      sample size for positive likelihood ratio 
 #&gt; 
 #&gt;   prev  p1   p2        n       n1       n2       lr      lwr      upr
@@ -276,11 +281,13 @@ would be the proportion of positive or negative tests in the non-diseased group.
 <span class='co'># Simel et al 1991, problem 2 - LR- CI width from N</span>
 <span class='co'># p1 = 1 - sens = .1, p2 = spec = .5</span>
 <span class='co'># n1 = n2, n = 160, prev = .5</span>
-<span class='fu'>prec_lr</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>p1</span> <span class='kw'>=</span> <span class='fl'>.1</span>, <span class='kw'>p2</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>160</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>prec_lr</span>(prev = <span class='fl'>.5</span>, p1 = <span class='fl'>.1</span>, p2 = <span class='fl'>.5</span>, n = <span class='fl'>160</span>)
+</div><div class='output co'>#&gt; 
 #&gt;      precision for likelihood ratios 
 #&gt; 
 #&gt;   prev  p1  p2   n n1 n2  lr       lwr       upr conf.width conf.level
-#&gt; 1  0.5 0.1 0.5 160 80 80 0.2 0.1000195 0.3999219  0.2999024       0.95</div><div class='input'><span class='fu'>prec_neg_lr</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.9</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>160</span>)</div><div class='output co'>#&gt; 
+#&gt; 1  0.5 0.1 0.5 160 80 80 0.2 0.1000195 0.3999219  0.2999024       0.95</div><div class='input'><span class='fu'>prec_neg_lr</span>(prev = <span class='fl'>.5</span>, sens = <span class='fl'>.9</span>, spec = <span class='fl'>.5</span>, n = <span class='fl'>160</span>)
+</div><div class='output co'>#&gt; 
 #&gt;      precision for negative likelihood ratio 
 #&gt; 
 #&gt;   prev  p1  p2   n n1 n2  lr       lwr       upr conf.width conf.level
@@ -301,7 +308,7 @@ would be the proportion of positive or negative tests in the non-diseased group.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -123,12 +123,12 @@ provided proportions.</p>
     </div>
 
     <pre class="usage"><span class='fu'>prec_rateratio</span>(
-  <span class='kw'>n1</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>rate1</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>rate2</span> <span class='kw'>=</span> <span class='fl'>2</span> * <span class='no'>rate1</span>,
-  <span class='kw'>prec.level</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>r</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>
+  n1 = <span class='kw'>NULL</span>,
+  rate1 = <span class='kw'>NULL</span>,
+  rate2 = <span class='fl'>2</span> <span class='op'>*</span> <span class='kw'>rate1</span>,
+  prec.level = <span class='kw'>NULL</span>,
+  r = <span class='fl'>1</span>,
+  conf.level = <span class='fl'>0.95</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -176,11 +176,13 @@ groups should also be provided (<code>rate1, rate2</code>). If only
   <a href='https://doi.org/10.1097/EDE.0000000000000876'>doi:10.1097/EDE.0000000000000876</a>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>prec_rateratio</span>(<span class='fl'>20</span>, <span class='fl'>.5</span>, <span class='fl'>3</span>)</div><div class='output co'>#&gt; 
+    <pre class="examples"><div class='input'><span class='fu'>prec_rateratio</span>(<span class='fl'>20</span>, <span class='fl'>.5</span>, <span class='fl'>3</span>)
+</div><div class='output co'>#&gt; 
 #&gt;      precision for a rate ratio 
 #&gt; 
 #&gt;   n1 n2 r ntot rate1 rate2        rr        lwr       upr prec.level conf.level
-#&gt; 1 20 20 1   40   0.5     3 0.1666667 0.08533124 0.3255288   3.814884       0.95</div><div class='input'><span class='fu'>prec_rateratio</span>(<span class='kw'>rate1</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>rate2</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>prec.level</span> <span class='kw'>=</span> <span class='fl'>3.81</span>)</div><div class='output co'>#&gt; 
+#&gt; 1 20 20 1   40   0.5     3 0.1666667 0.08533124 0.3255288   3.814884       0.95</div><div class='input'><span class='fu'>prec_rateratio</span>(rate1 = <span class='fl'>.5</span>, rate2 = <span class='fl'>3</span>, prec.level = <span class='fl'>3.81</span>)
+</div><div class='output co'>#&gt; 
 #&gt;      sample size for a rate ratio 
 #&gt; 
 #&gt;         n1       n2 r     ntot rate1 rate2        rr        lwr       upr
@@ -202,7 +204,7 @@ groups should also be provided (<code>rate1, rate2</code>). If only
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

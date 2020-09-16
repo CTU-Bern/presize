@@ -123,23 +123,23 @@ act as wrappers for <code>prec_prop</code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>prec_sens</span>(
-  <span class='no'>sens</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ntot</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>prev</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>round</span> <span class='kw'>=</span> <span class='st'>"ceiling"</span>,
-  <span class='no'>...</span>
+  <span class='kw'>sens</span>,
+  n = <span class='kw'>NULL</span>,
+  ntot = <span class='kw'>NULL</span>,
+  prev = <span class='kw'>NULL</span>,
+  conf.width = <span class='kw'>NULL</span>,
+  round = <span class='st'>"ceiling"</span>,
+  <span class='kw'>...</span>
 )
 
 <span class='fu'>prec_spec</span>(
-  <span class='no'>spec</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ntot</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>prev</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>round</span> <span class='kw'>=</span> <span class='st'>"ceiling"</span>,
-  <span class='no'>...</span>
+  <span class='kw'>spec</span>,
+  n = <span class='kw'>NULL</span>,
+  ntot = <span class='kw'>NULL</span>,
+  prev = <span class='kw'>NULL</span>,
+  conf.width = <span class='kw'>NULL</span>,
+  round = <span class='st'>"ceiling"</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -197,7 +197,8 @@ conf.width, conf.level).</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>  <span class='co'># confidence interval width with n</span>
-  <span class='fu'>prec_sens</span>(<span class='fl'>.6</span>, <span class='fl'>50</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: more than one method was chosen, 'wilson' will be used</span></div><div class='output co'>#&gt; 
+  <span class='fu'>prec_sens</span>(<span class='fl'>.6</span>, <span class='fl'>50</span>)
+</div><div class='output co'>#&gt; <span class='warning'>Warning: more than one method was chosen, 'wilson' will be used</span></div><div class='output co'>#&gt; 
 #&gt;      precision for a sensitivity with Wilson confidence interval. 
 #&gt; 
 #&gt;   sens   sensadj  n prev ntot conf.width conf.level       lwr       upr
@@ -205,7 +206,8 @@ conf.width, conf.level).</p></td>
 #&gt; 
 #&gt; NOTE: sensadj is the adjusted sensitivity, from which the ci is calculated.
 #&gt; </div><div class='input'>  <span class='co'># confidence interval width with ntot and prevalence (assuming 50% prev)</span>
-  <span class='fu'>prec_sens</span>(<span class='fl'>.6</span>, <span class='kw'>ntot</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.5</span>)</div><div class='output co'>#&gt; <span class='message'>estimating n from 'ntot' and 'prev'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: more than one method was chosen, 'wilson' will be used</span></div><div class='output co'>#&gt; 
+  <span class='fu'>prec_sens</span>(<span class='fl'>.6</span>, ntot = <span class='fl'>100</span>, prev = <span class='fl'>.5</span>)
+</div><div class='output co'>#&gt; <span class='message'>estimating n from 'ntot' and 'prev'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: more than one method was chosen, 'wilson' will be used</span></div><div class='output co'>#&gt; 
 #&gt;      precision for a sensitivity with Wilson confidence interval. 
 #&gt; 
 #&gt;   sens   sensadj  n prev ntot conf.width conf.level       lwr       upr
@@ -213,7 +215,8 @@ conf.width, conf.level).</p></td>
 #&gt; 
 #&gt; NOTE: sensadj is the adjusted sensitivity, from which the ci is calculated.
 #&gt; </div><div class='input'>  <span class='co'># sample size with confidence interval width</span>
-  <span class='fu'>prec_sens</span>(<span class='fl'>.6</span>, <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='fl'>0.262</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: more than one method was chosen, 'wilson' will be used</span></div><div class='output co'>#&gt; 
+  <span class='fu'>prec_sens</span>(<span class='fl'>.6</span>, conf.width = <span class='fl'>0.262</span>)
+</div><div class='output co'>#&gt; <span class='warning'>Warning: more than one method was chosen, 'wilson' will be used</span></div><div class='output co'>#&gt; 
 #&gt;      sample size for a sensitivity with Wilson confidence interval. 
 #&gt; 
 #&gt;   sens   sensadj        n prev ntot conf.width conf.level       lwr       upr
@@ -236,7 +239,7 @@ conf.width, conf.level).</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

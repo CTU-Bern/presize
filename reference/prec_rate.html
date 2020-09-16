@@ -123,12 +123,12 @@ rate.</p>
     </div>
 
     <pre class="usage"><span class='fu'>prec_rate</span>(
-  <span class='no'>r</span>,
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"score"</span>, <span class='st'>"vs"</span>, <span class='st'>"exact"</span>, <span class='st'>"wald"</span>),
-  <span class='no'>...</span>
+  <span class='kw'>r</span>,
+  x = <span class='kw'>NULL</span>,
+  conf.width = <span class='kw'>NULL</span>,
+  conf.level = <span class='fl'>0.95</span>,
+  method = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"score"</span>, <span class='st'>"vs"</span>, <span class='st'>"exact"</span>, <span class='st'>"wald"</span>),
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -188,21 +188,24 @@ The American Statistician, 56:2, 85-89,
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/poisson.test.html'>poisson.test</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>prec_rate</span>(<span class='fl'>2.5</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>met</span> <span class='kw'>=</span> <span class='st'>"score"</span>)</div><div class='output co'>#&gt; 
+    <pre class="examples"><div class='input'><span class='fu'>prec_rate</span>(<span class='fl'>2.5</span>, x = <span class='fl'>20</span>, met = <span class='st'>"score"</span>)
+</div><div class='output co'>#&gt; 
 #&gt;      precision for a rate with score confidence interval 
 #&gt; 
 #&gt;     r     radj  x time conf.width conf.level      lwr      upr
 #&gt; 1 2.5 2.740091 20    8   2.243301       0.95 1.618441 3.861742
 #&gt; 
 #&gt; NOTE: 'x / r' units of time are needed to accumulate 'x' events.
-#&gt; </div><div class='input'><span class='fu'>prec_rate</span>(<span class='fl'>2.5</span>, <span class='kw'>conf.width</span> <span class='kw'>=</span> <span class='fl'>2.243</span>, <span class='kw'>met</span> <span class='kw'>=</span> <span class='st'>"score"</span>)</div><div class='output co'>#&gt; 
+#&gt; </div><div class='input'><span class='fu'>prec_rate</span>(<span class='fl'>2.5</span>, conf.width = <span class='fl'>2.243</span>, met = <span class='st'>"score"</span>)
+</div><div class='output co'>#&gt; 
 #&gt;      sample size for a rate with score confidence interval 
 #&gt; 
 #&gt;     r    radj        x     time conf.width conf.level     lwr     upr
 #&gt; 1 2.5 2.74003 20.00514 8.002055      2.243       0.95 1.61853 3.86153
 #&gt; 
 #&gt; NOTE: 'x / r' units of time are needed to accumulate 'x' events.
-#&gt; </div><div class='input'><span class='fu'>prec_rate</span>(<span class='fl'>2.5</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>met</span> <span class='kw'>=</span> <span class='st'>"exact"</span>)</div><div class='output co'>#&gt; 
+#&gt; </div><div class='input'><span class='fu'>prec_rate</span>(<span class='fl'>2.5</span>, x = <span class='fl'>20</span>, met = <span class='st'>"exact"</span>)
+</div><div class='output co'>#&gt; 
 #&gt;      precision for a rate with exact confidence interval 
 #&gt; 
 #&gt;     r radj  x time conf.width conf.level      lwr      upr
@@ -210,14 +213,16 @@ The American Statistician, 56:2, 85-89,
 #&gt; 
 #&gt; NOTE: 'x / r' units of time are needed to accumulate 'x' events.
 #&gt; </div><div class='input'><span class='co'># vs and wald have the same conf.width, but different lwr and upr</span>
-<span class='fu'>prec_rate</span>(<span class='fl'>2.5</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>met</span> <span class='kw'>=</span> <span class='st'>"wald"</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>prec_rate</span>(<span class='fl'>2.5</span>, x = <span class='fl'>20</span>, met = <span class='st'>"wald"</span>)
+</div><div class='output co'>#&gt; 
 #&gt;      precision for a rate with wald confidence interval 
 #&gt; 
 #&gt;     r radj  x time conf.width conf.level      lwr      upr
 #&gt; 1 2.5  2.5 20    8   2.191306       0.95 1.404347 3.595653
 #&gt; 
 #&gt; NOTE: 'x / r' units of time are needed to accumulate 'x' events.
-#&gt; </div><div class='input'><span class='fu'>prec_rate</span>(<span class='fl'>2.5</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>met</span> <span class='kw'>=</span> <span class='st'>"vs"</span>)</div><div class='output co'>#&gt; 
+#&gt; </div><div class='input'><span class='fu'>prec_rate</span>(<span class='fl'>2.5</span>, x = <span class='fl'>20</span>, met = <span class='st'>"vs"</span>)
+</div><div class='output co'>#&gt; 
 #&gt;      precision for a rate with vs confidence interval 
 #&gt; 
 #&gt;     r     radj  x time conf.width conf.level      lwr      upr
@@ -240,7 +245,7 @@ The American Statistician, 56:2, 85-89,
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
