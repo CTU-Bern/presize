@@ -38,7 +38,9 @@
 prec_sens <- function(sens, n = NULL, ntot = NULL, prev = NULL,
                       conf.width = NULL, round = "ceiling", ...){
   if (!is.null(n) & !is.null(ntot)) stop("supply 'n' or 'ntot' and 'prev'")
-  if (!round %in% c("ceiling", "floor")) stop("choices for 'round' are 'ceiling' or 'floor'")
+  if (!is.null(ntot) & is.null(prev)) stop("'prev' required when 'ntot' is specified")
+  # if (!round %in% c("ceiling", "floor")) stop("choices for 'round' are 'ceiling' or 'floor'")
+  round <- match.arg(round, c("ceiling", "floor"))
   numrange_check(prev)
   rounder <- switch(round,
                     ceiling = ceiling,
@@ -154,7 +156,7 @@ prec_auc <- function(auc, prev, n = NULL, conf.width = NULL, conf.level = .95,
 
   if (sum(sapply(list(n, conf.width), is.null)) != 1)
     stop("exactly one of 'n', and 'conf.width' must be NULL")
-  if (prev < 0 | prev > 1) stop("'prev' must be numeric in [0, 1]")
+  if (any(prev < 0 | prev > 1)) stop("'prev' must be numeric in [0, 1]")
   numrange_check(conf.level)
 
   fn <- function(n, prev, auc){
