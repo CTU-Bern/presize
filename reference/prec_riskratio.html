@@ -73,7 +73,7 @@ precision for the provided proportions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">presize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4</span>
       </span>
     </div>
 
@@ -122,16 +122,16 @@ precision for the provided proportions." />
 precision for the provided proportions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>prec_riskratio</span>(
-  <span class='kw'>p1</span>,
-  <span class='kw'>p2</span>,
-  n1 = <span class='kw'>NULL</span>,
-  r = <span class='fl'>1</span>,
-  conf.width = <span class='kw'>NULL</span>,
-  conf.level = <span class='fl'>0.95</span>,
-  method = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"koopman"</span>, <span class='st'>"katz"</span>),
-  <span class='kw'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>prec_riskratio</span><span class='op'>(</span>
+  <span class='va'>p1</span>,
+  <span class='va'>p2</span>,
+  n1 <span class='op'>=</span> <span class='cn'>NULL</span>,
+  r <span class='op'>=</span> <span class='fl'>1</span>,
+  conf.width <span class='op'>=</span> <span class='cn'>NULL</span>,
+  conf.level <span class='op'>=</span> <span class='fl'>0.95</span>,
+  method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"koopman"</span>, <span class='st'>"katz"</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -197,13 +197,13 @@ Proportions</em>, Biometrics 40:513-517.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Validate function with example in Fagerland et al. (2015), Table 5.</span>
-<span class='fu'>prec_riskratio</span>(p1 = <span class='fl'>7</span><span class='op'>/</span><span class='fl'>34</span>, p2 = <span class='fl'>1</span><span class='op'>/</span><span class='fl'>34</span>, n1 = <span class='fl'>34</span>, r = <span class='fl'>1</span>, met = <span class='st'>"katz"</span>)
+<span class='fu'>prec_riskratio</span><span class='op'>(</span>p1 <span class='op'>=</span> <span class='fl'>7</span><span class='op'>/</span><span class='fl'>34</span>, p2 <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>34</span>, n1 <span class='op'>=</span> <span class='fl'>34</span>, r <span class='op'>=</span> <span class='fl'>1</span>, met <span class='op'>=</span> <span class='st'>"katz"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
 #&gt;      precision for a relative risk with katz confidence interval 
 #&gt; 
 #&gt;          p1         p2 n1 n2 ntot r rr       lwr      upr conf.width conf.level
 #&gt; 1 0.2058824 0.02941176 34 34   68 1  7 0.9096055 53.86951    52.9599       0.95</div><div class='input'><span class='co'># 7 (0.91 to 54)</span>
-<span class='fu'>prec_riskratio</span>(p1 = <span class='fl'>7</span><span class='op'>/</span><span class='fl'>34</span>, p2 = <span class='fl'>1</span><span class='op'>/</span><span class='fl'>34</span>, n1 = <span class='fl'>34</span>, r = <span class='fl'>1</span>, met = <span class='st'>"koopman"</span>)
+<span class='fu'>prec_riskratio</span><span class='op'>(</span>p1 <span class='op'>=</span> <span class='fl'>7</span><span class='op'>/</span><span class='fl'>34</span>, p2 <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>34</span>, n1 <span class='op'>=</span> <span class='fl'>34</span>, r <span class='op'>=</span> <span class='fl'>1</span>, met <span class='op'>=</span> <span class='st'>"koopman"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
 #&gt;      precision for a relative risk with koopman confidence interval 
 #&gt; 
@@ -211,7 +211,7 @@ Proportions</em>, Biometrics 40:513-517.</p>
 #&gt; 1 0.2058824 0.02941176 34 34   68 1  7 1.220853 42.57571   41.35486       0.95</div><div class='input'><span class='co'># 7 (1.21 to 43)</span>
 
 <span class='co'># Validate the Koopman method with example in Koopman (1984)</span>
-<span class='fu'>prec_riskratio</span>(p1 = <span class='fl'>36</span><span class='op'>/</span><span class='fl'>40</span>, p2 = <span class='fl'>16</span><span class='op'>/</span><span class='fl'>80</span>, n1 = <span class='fl'>40</span>, r = <span class='fl'>2</span>, met = <span class='st'>"koopman"</span>)
+<span class='fu'>prec_riskratio</span><span class='op'>(</span>p1 <span class='op'>=</span> <span class='fl'>36</span><span class='op'>/</span><span class='fl'>40</span>, p2 <span class='op'>=</span> <span class='fl'>16</span><span class='op'>/</span><span class='fl'>80</span>, n1 <span class='op'>=</span> <span class='fl'>40</span>, r <span class='op'>=</span> <span class='fl'>2</span>, met <span class='op'>=</span> <span class='st'>"koopman"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
 #&gt;      precision for a relative risk with koopman confidence interval 
 #&gt; 
