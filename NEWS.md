@@ -1,3 +1,8 @@
+presize 0.1.4
+-----------------------------------------
+
+* minor changes to readme and shinyapp (corrections of references/typos)
+
 presize 0.1.3
 -----------------------------------------
 

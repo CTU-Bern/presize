@@ -32,13 +32,11 @@ helppage <- tabItem(
   " R package",
   " (version ",
   textOutput("version", inline = TRUE),
-  "), which was developed at CTU Bern, the Clinical Trials Unit of the University of Bern and University Hospital Bern, which is part of the ",
-  tags$a(href = "https://www.scto.ch", "Swiss Clinical Trials Orgnization"),
+  "), which was developed at CTU Bern, the Clinical Trials Unit of the University of Bern and University Hospital Bern, on behalf of the Statistics & Methodology Platform of the ",
+  tags$a(href = "https://www.scto.ch/de/network/scto-platforms/statistics-and-methodology.html", "Swiss Clinical Trials Organisation"),
   ". The R package version of ",
   tags$code("presize"),
-  " can be installed in R using the ",
-  tags$code("remotes"),
-  "package via ",
-  tags$code("remotes::install_github('ctu-bern/presize')"),
-  ". The R code for running the calculations in this site is shown after the results."
+  " can be installed in R using the from CRAN (",
+  tags$code("install.packages('presize')"),
+  "). The R code for running the calculations in this site is shown after the results."
 )
