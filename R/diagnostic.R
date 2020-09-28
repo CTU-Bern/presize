@@ -39,7 +39,9 @@ prec_sens <- function(sens, n = NULL, ntot = NULL, prev = NULL,
                       conf.width = NULL, round = "ceiling", ...){
   if (!is.null(n) & !is.null(ntot)) stop("supply 'n' or 'ntot' and 'prev'")
   if (!is.null(ntot) & is.null(prev)) stop("'prev' required when 'ntot' is specified")
+  if (is.null(ntot) & !is.null(prev)) stop("'ntot' required when 'prev' is specified")
   # if (!round %in% c("ceiling", "floor")) stop("choices for 'round' are 'ceiling' or 'floor'")
+
   round <- match.arg(round, c("ceiling", "floor"))
   numrange_check(prev)
   rounder <- switch(round,
@@ -82,8 +84,11 @@ prec_sens <- function(sens, n = NULL, ntot = NULL, prev = NULL,
 #' @rdname sensspec
 prec_spec <- function(spec, n = NULL, ntot = NULL, prev = NULL, conf.width = NULL, round = "ceiling",...){
   if (!is.null(n) & !is.null(ntot)) stop("supply 'n' or 'ntot' and 'prev'")
-  if (!round %in% c("ceiling", "floor")) stop("choices for 'round' are 'ceiling' or 'floor'")
+  # if (!round %in% c("ceiling", "floor")) stop("choices for 'round' are 'ceiling' or 'floor'")
+  if (!is.null(ntot) & is.null(prev)) stop("'prev' required when 'ntot' is specified")
+  if (is.null(ntot) & !is.null(prev)) stop("'ntot' required when 'prev' is specified")
   numrange_check(prev)
+  round <- match.arg(round, c("ceiling", "floor"))
   rounder <- switch(round,
                     ceiling = ceiling,
                     floor = floor)
