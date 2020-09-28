@@ -28,8 +28,8 @@
 #' @param conf.width precision (the full width of the confidence interval).
 #' @param conf.level confidence level.
 #' @param ... other arguments to uniroot (e.g. \code{tol}).
-#' @return Object of class "presize", a list with \code{mu} mean, \code{sd} standard deviation, \code{n} sample size, 
-#' \code{conf.width} precision (the width of the conficence interval), 
+#' @return Object of class "presize", a list with \code{mu} mean, \code{sd} standard deviation, \code{n} sample size,
+#' \code{conf.width} precision (the width of the confidence interval),
 #' \code{lwr} lower bound of confidence interval, \code{upr} upper bound of confidence interval,
 #'  augmented with method and note elements.
 #' @examples
@@ -197,7 +197,7 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
     if (is.null(x)) {
       x <- eval(get_x)
     }
-    if (r == 0 & meth == "vs")
+    if (any(r == 0) & meth == "vs")
       warning("The confidence interval is degenerate at z^2/(4t), if r is 0.")
 
     radj <- eval(get_radj)
