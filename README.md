@@ -103,7 +103,7 @@ Funding
 -------
 
 `presize` was largely developed at CTU Bern, with collaboration from CTU
-Basel. Funding was provided by the Swiss Clinical Trials Organisation.
+Basel. Funding was provided by the Swiss Clinical Trial Organisation.
 
 <img src="inst/fig/SCTO_Platform_Logo_2020_RZ_SM.jpg" width="148" />
 
