@@ -33,7 +33,7 @@ helppage <- tabItem(
   " (version ",
   textOutput("version", inline = TRUE),
   "), which was developed at CTU Bern, the Clinical Trials Unit of the University of Bern and University Hospital Bern, on behalf of the Statistics & Methodology Platform of the ",
-  tags$a(href = "https://www.scto.ch/de/network/scto-platforms/statistics-and-methodology.html", "Swiss Clinical Trials Organisation"),
+  tags$a(href = "https://www.scto.ch/de/network/scto-platforms/statistics-and-methodology.html", "Swiss Clinical Trial Organisation"),
   ". The R package version of ",
   tags$code("presize"),
   " can be installed in R using the from CRAN (",
