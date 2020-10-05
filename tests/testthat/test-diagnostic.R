@@ -6,7 +6,7 @@ test_that("throws error", {
   expect_error(prec_sens(.5, prev = 1.1, ntot = 100, method = "wilson"))
   expect_error(prec_sens(.5, ntot = 100, method = "wilson"))
   expect_error(prec_sens(.5, prev = 100, method = "wilson"))
-  expect_message(prec_sens(.5, prev = .1, method = "wilson", conf.width = .1), NA)
+  expect_error(prec_sens(.5, prev = .1, method = "wilson", conf.width = .1))
   expect_message(prec_sens(.5, prev = .1, ntot = 100, method = "wilson"))
   expect_error(prec_sens(.5, n = 100, ntot = 100, prev = .6, method = "wilson"))
   expect_error(prec_spec(1.1, 100, method = "wilson"))
@@ -14,7 +14,7 @@ test_that("throws error", {
   expect_error(prec_spec(.5, prev = 1.1, ntot = 100, method = "wilson"))
   expect_error(prec_spec(.5, ntot = 100, method = "wilson"))
   expect_error(prec_spec(.5, prev = 100, method = "wilson"))
-  expect_message(prec_spec(.5, prev = .1, method = "wilson", conf.width = .1), NA)
+  expect_error(prec_spec(.5, prev = .1, method = "wilson", conf.width = .1))
   expect_message(prec_spec(.5, prev = .1, ntot = 100, method = "wilson"))
   expect_error(prec_spec(.5, n = 100, ntot = 100, prev = .6, method = "wilson"))
 })
@@ -51,28 +51,28 @@ test_that("ntot + prev gives same as n", {
 
 test_that("sens and spec comparison with stata proportion function", {
   # . cii proportions 100 50, wilson
-  # 
+  #
   # ------ Wilson ------
   #   Variable |        Obs  Proportion    Std. Err.       [95% Conf. Interval]
   # -----------+---------------------------------------------------------------
   #            |        100          .4    .0489898        .3094013    .4979974
-  
+
   ex <- prec_sens(.4, n = 100, method = "wilson")
   expect_equal(c(ex$lwr, ex$upr) , c(.3094013, .4979974) , tolerance = .001, scale = 1)
-  
+
   ex <- prec_sens(.4, prev = .5, ntot = 200, method = "wilson")
   expect_equal(ex$n , 100 , tolerance = 1, scale = 1)
-  
+
   ex <- prec_spec(.4, n = 100, method = "wilson")
   expect_equal(c(ex$lwr, ex$upr) , c(.3094013, .4979974) , tolerance = .001, scale = 1)
-  
+
   ex <- prec_spec(.4, prev = .5, ntot = 200, method = "wilson")
   expect_equal(ex$n , 100 , tolerance = 1, scale = 1)
 })
 
 test_that("sens and spec different methods compared to stata", {
   # . cii proportions 100 50, wilson
-  # 
+  #
   # ------ Wilson ------
   #   Variable |        Obs  Proportion    Std. Err.       [95% Conf. Interval]
   # -----------+---------------------------------------------------------------
@@ -83,7 +83,7 @@ test_that("sens and spec different methods compared to stata", {
   expect_equal(c(ex$lwr, ex$upr) , c(.3094013, .4979974) , tolerance = .001, scale = 1)
 
   # .   cii proportions 100 40, agresti
-  # 
+  #
   # -- Agresti-Coull ---
   #     Variable |        Obs  Proportion    Std. Err.       [95% Conf. Interval]
   # -------------+---------------------------------------------------------------
@@ -94,24 +94,24 @@ test_that("sens and spec different methods compared to stata", {
   expect_equal(c(ex$lwr, ex$upr) , c(.3093314, .4980673) , tolerance = .001, scale = 1)
 
   #  .  cii proportions 100 40, exact
-  # 
+  #
   # -- Binomial Exact --
   #     Variable |        Obs  Proportion    Std. Err.       [95% Conf. Interval]
   # -------------+---------------------------------------------------------------
   #              |        100          .4    .0489898        .3032948    .5027908
-  
+
   ex <- prec_sens(.4, n = 100, method = "exact")
   expect_equal(c(ex$lwr, ex$upr) , c(.3032948, .5027908) , tolerance = .001, scale = 1)
   ex <- prec_spec(.4, n = 100, method = "exact")
   expect_equal(c(ex$lwr, ex$upr) , c(.3032948, .5027908) , tolerance = .001, scale = 1)
-  
+
   # . cii proportions 100 40, wald
-  # 
+  #
   # -- Binomial Wald ---
   #     Variable |        Obs  Proportion    Std. Err.       [95% Conf. Interval]
   # -------------+---------------------------------------------------------------
   #              |        100          .4    .0489898        .3039818    .4960182
-  
+
   ex <- prec_sens(.4, n = 100, method = "wald")
   expect_equal(c(ex$lwr, ex$upr) , c(.3039818, .4960182) , tolerance = .001, scale = 1)
   ex <- prec_spec(.4, n = 100, method = "wald")
@@ -134,7 +134,7 @@ test_that("errors issued", {
 test_that("Example from Ref. Hanley, JA and McNeil, BJ (1982) ", {
   ex <- prec_auc(auc = 0.85, prev = 0.5, n= 80)
   expect_equal( (ex$conf.width/2)/1.96, 0.0437 , tolerance = .001, scale = 1)
-  
+
   ex <- prec_auc(auc = 0.85, prev = 0.5, n= 120)
   expect_equal( (ex$conf.width/2)/1.96, 0.0356 , tolerance = .001, scale = 1)
 })
