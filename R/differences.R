@@ -530,7 +530,7 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
       x1 <- n1 * p1
       x2 <- n2 * p2
       ntot <- n1 + n2
-      midp <- rr
+      midp <- min(rr)
 
       kp <- quote({
         A <- phi * (n1 + x2) + x1 + n2
