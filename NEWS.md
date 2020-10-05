@@ -1,3 +1,9 @@
+presize 0.2.0
+-----------------------------------------
+
+* various changes to ensure that all functions support vectors for different scenarios
+
+
 presize 0.1.4
 -----------------------------------------
 

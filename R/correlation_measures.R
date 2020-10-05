@@ -45,7 +45,7 @@
 prec_icc <- function(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95) {
   is.wholenumber <-
     function(x, tol = .Machine$double.eps ^ 0.5)  abs(x - round(x)) < tol
-  if (!is.null(k) && (!is.numeric(k) || !is.wholenumber(k)))
+  if (any(!is.null(k)) && (!is.numeric(k) || any(!is.wholenumber(k))))
     stop("'k' must be numeric and a whole number")
   if (sum(sapply(list(n, conf.width), is.null)) != 1)
     stop("exactly one of 'n', and 'conf.width' must be NULL")
@@ -273,7 +273,7 @@ prec_lim_agree <- function(n = NULL, conf.width = NULL, conf.level = 0.95){
 #' Sample size or precision for Cohen's kappa
 #'
 #' \code{prec_kappa} returns the sample size or the precision for the provided Cohen's kappa coefficient.
-#' 
+#'
 #' @param kappa expected value of Cohen's kappa.
 #' @param raters number of raters (maximum of 6).
 #' @param n_category number of categories of outcomes (maximum of 5).
@@ -345,7 +345,7 @@ prec_kappa <- function(kappa,
                raters = raters,
                alpha = alpha)
                lwr <- f$kappaL
-               upr <- kappa + (kap - f$kappaL)
+               upr <- kap + (kap - f$kappaL)
                data.frame(
                  kappa = kap,
                  n = N,
