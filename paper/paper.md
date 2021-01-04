@@ -31,13 +31,15 @@ bibliography: paper.bib
 
 Sample size calculation is a crucial step in planning a clinical study. A too
 small study leads to inconclusive results; a too large study is a waste of
-resources. Either case might be unethical. There are many software packages
+resources. Either case might be unethical. 
+Furthermore, @bland2009 called for a focus on the width of confidence intervals 
+rather than the power of the test in sample size calculations. 
+There are many software packages
 for hypothesis-based sample size calculation, such as [Stata](https://www.stata.com/),
 [PASS](https://www.ncss.com/software/pass/), and [G*Power](https://www.gpower.hhu.de).
 However, many research projects aim at estimation rather than hypothesis testing,
 sample size calculation approaches for which are largely missing from other software
-packages. Furthermore, @bland2009 called for a focus on the width of confidence intervals 
-rather than the power of the test in sample size calculations. 
+packages. 
 We therefore developed a comprehensive tool for precision-based sample size calculation.
 
 # Development
@@ -103,11 +105,67 @@ command into the R-environment for further exploration as well as reproducibilit
 `presize` is available on [CRAN](https://CRAN.R-project.org/package=presize) or [GitHub](https://github.com/CTU-Bern/presize) and can be loaded into the R session using
 
 ```r
+# installation:
 # install.packages("presize") # CRAN
 # remotes::install_github('ctu-bern/presize') # development version on GitHub
 library(presize)
 ```
-Example (e.g. Gynocular)…
+Suppose we want to estimate the proportion of hospital admissions with diabetes. 
+Diabetes has a prevalence of approximately 10% (@diab) and assume that we have a 
+slightly higher proportion of diabetics, 
+15%, as diabetes is a risk factor for a wide range of conditions. We want to 
+estimate the prevalence of diabetes to within 5% (plus/minus 2.5%). With `presize`,
+this is simple. We use the `prec_prop` (precision of a proportion) function and pass 
+our 15% and 5% as arguments `p` and `conf.width`:
+
+```r
+prec_prop(p = 0.15, conf.width = 0.05)
+
+     sample size for a proportion with Wilson confidence interval. 
+
+     p      padj        n conf.width conf.level       lwr       upr
+1 0.15 0.1517077 783.4897       0.05       0.95 0.1267077 0.1767077
+```
+
+In the n column, we see that we would need to ask 784 patients to achieve the 
+desired confidence interval width. 
+Disappointingly, we also know that we only have funds to collect the data from 
+600 patients. 
+We wonder if 600 patients would yield sufficient precision - we could 
+also accept 6% (plus/minus 3%).
+In such a case, we can pass the arguments `p` and `n`.
+
+```r
+prec_prop(p = 0.15, n = 600)
+
+     precision for a proportion with Wilson confidence interval. 
+
+     p      padj   n conf.width conf.level       lwr       upr
+1 0.15 0.1522266 600 0.05713404       0.95 0.1236596 0.1807936
+```
+
+Now we see that with 600 patients, the confidence interval would have a width of 
+5.7%. We are happy with this and continue planning our study with those values. 
+All of the functions listed in Table 1 can be used similarly.
+
+We can also look at a range of scenarios simulatenously by passing a vector to 
+one of the arguments, which could be used to create something analogous to a 
+power curve: 
+
+```r
+prec_prop(p = 0.15, n = seq(600, 800, 50))
+
+     precision for a proportion with Wilson confidence interval. 
+
+     p      padj   n conf.width conf.level       lwr       upr
+1 0.15 0.1522266 600 0.05713404       0.95 0.1236596 0.1807936
+2 0.15 0.1520563 650 0.05489329       0.95 0.1246097 0.1795030
+3 0.15 0.1519102 700 0.05289705       0.95 0.1254617 0.1783588
+4 0.15 0.1517835 750 0.05110386       0.95 0.1262316 0.1773355
+5 0.15 0.1516726 800 0.04948148       0.95 0.1269319 0.1764133
+```
+
+
 
 # Discussion
 
@@ -116,13 +174,12 @@ sample size calculation. As far as we know, presize is the first package that co
 the most common summary measures used in estimation-based clinical research.
 A limitation of the package is that it does not allow calculating the probability 
 of a confidence interval, i.e. the probability that a future confidence interval 
-will have at least the desired precision. This is closely related to the concept 
-of power in hypothesis testing. Stating that the confidence interval around an 
-expected value will exclude a certain value with a probability of 80% is equivalent 
-to testing that value against the expected value with a power of 80%, i.e. both 
-approaches will yield the same sample size. We do not regard it as sensible that 
-an estimation-based approach is used for inference and therefore only implemented 
-simple calculations that will on average yield a given precision.
+will have at least the desired precision. The functions currently return the average 
+confidence interval width. In practice, 50% of trials will yield narrower CIs and 
+50% will yield wider CIs due to sampling variation. Providing a method to specify 
+the coverage probability is one possible avenue 
+for further development
+
 We often observe in our consulting activity that researchers try to implement a 
 hypothesis-based approach into a project that is in fact purely descriptive. Reasons 
 for this might be a lack of methodological understanding, but also a lack of appropriate 
