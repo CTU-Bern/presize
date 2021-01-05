@@ -83,8 +83,8 @@ Intraclass correlation | `prec_icc` | @bonnett2002
 Limit of agreement | `prec_lim_agree` | @ba1986
 Cohens kappa | `prec_kappa` | @rd2012
 **Diagnostic measures** | |
-Sensitivity | `prec_sens` | As per prec_prop
-Specificity | `prec_spec` | As per prec_prop
+Sensitivity | `prec_sens` | As per `prec_prop`
+Specificity | `prec_spec` | As per `prec_prop`
 Area under the curve | `prec_auc` | @hm1982
 
 
