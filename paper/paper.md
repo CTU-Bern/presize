@@ -18,9 +18,9 @@ authors:
    orcid: 0000-0002-9094-9476
    affiliation: "1, 2"
 affiliations:
- - name: CTU Bern, University of Bern
+ - name: CTU Bern, University of Bern, Bern, Switzerland
    index: 1
- - name: Statistics and Methodology Platform of the Swiss Clinical Trial Organisation (SCTO)
+ - name: Statistics and Methodology Platform of the Swiss Clinical Trial Organisation (SCTO), Bern, Switzerland
    index: 2
 bibliography: paper.bib
 ---
