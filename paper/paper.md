@@ -52,12 +52,10 @@ There are two approaches for each measure. First, based on a given sample size,
 e.g. for a retrospective data analysis, the precision of an expected measure can
 be calculated. Precision is expressed as the confidence interval around the
 measure. The level of confidence can be specified; the usual 95%-confidence
-interval is the default. Second, based on a given precision (i.e. confidence
-interval), the sample size can be calculated. This is mainly of use in the
+interval (CI) is the default. Second, based on a given precision (i.e. CI), the sample size can be calculated. This is mainly of use in the
 planning of prospective studies, where the aim is to estimate a measure of
 interest with enough confidence. The available functions in the package require
-common input arguments; either the sample size or the width of the confidence
-interval, and the level of the confidence interval. Depending on the function,
+common input arguments; either the sample size or the width of the CI, and the level of the CI. Depending on the function,
 further specific input arguments are required such as the expected area under
 the curve (AUC) for test accuracy.
 
@@ -127,12 +125,11 @@ prec_prop(p = 0.15, conf.width = 0.05)
 1 0.15 0.1517077 783.4897       0.05       0.95 0.1267077 0.1767077
 ```
 
-In the n column, we see that we would need to ask 784 patients to achieve the 
-desired confidence interval width. 
+In the n column, we see that we would need to ask 784 (rounding 783.5 up) patients to achieve the desired CI width. 
 Disappointingly, we also know that we only have funds to collect the data from 
 600 patients. 
 We wonder if 600 patients would yield sufficient precision - we could 
-also accept 6% (plus/minus 3%).
+also accept a CI width of 6% (plus/minus 3%).
 In such a case, we can pass the arguments `p` and `n`.
 
 ```r
@@ -144,7 +141,7 @@ prec_prop(p = 0.15, n = 600)
 1 0.15 0.1522266 600 0.05713404       0.95 0.1236596 0.1807936
 ```
 
-Now we see that with 600 patients, the confidence interval would have a width of 
+Now we see that with 600 patients, the CI would have a width of 
 5.7%. We are happy with this and continue planning our study with those values. 
 All of the functions listed in Table 1 can be used similarly.
 
@@ -173,9 +170,9 @@ We developed a comprehensive and easy-to-use software package for precision-base
 sample size calculation. As far as we know, presize is the first package that comprises 
 the most common summary measures used in estimation-based clinical research.
 A limitation of the package is that it does not allow calculating the probability 
-of a confidence interval, i.e. the probability that a future confidence interval 
+of a CI, i.e. the probability that a future confidence interval 
 will have at least the desired precision. The functions currently return the average 
-confidence interval width. In practice, 50% of trials will yield narrower CIs and 
+CI width. In practice, 50% of trials will yield narrower CIs and 
 50% will yield wider CIs due to sampling variation. Providing a method to specify 
 the coverage probability is one possible avenue 
 for further development
