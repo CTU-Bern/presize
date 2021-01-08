@@ -79,7 +79,7 @@ Rate ratio | `prec_rateratio` | Rothman [@rg2018]
 Correlation coefficient | `prec_cor` | Pearson, Kendall, Spearman [see @bw2000]
 Intraclass correlation | `prec_icc` | @bonnett2002
 Limit of agreement | `prec_lim_agree` | @ba1986
-Cohens kappa | `prec_kappa` | @rd2012
+Cohen's kappa | `prec_kappa` | @rd2012
 **Diagnostic measures** | |
 Sensitivity | `prec_sens` | As per `prec_prop`
 Specificity | `prec_spec` | As per `prec_prop`
@@ -175,7 +175,7 @@ will have at least the desired precision. The functions currently return the ave
 CI width. In practice, 50% of trials will yield narrower CIs and 
 50% will yield wider CIs due to sampling variation. Providing a method to specify 
 the coverage probability is one possible avenue 
-for further development
+for further development.
 
 We often observe in our consulting activity that researchers try to implement a 
 hypothesis-based approach into a project that is in fact purely descriptive. Reasons 
