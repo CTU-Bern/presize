@@ -84,6 +84,9 @@ Cohen's kappa | `prec_kappa` | @rd2012
 Sensitivity | `prec_sens` | As per `prec_prop`
 Specificity | `prec_spec` | As per `prec_prop`
 Area under the curve | `prec_auc` | @hm1982
+Negative likelilood ratio | `preg_neg_lr` | @simel1991
+Pogitive likelilood ratio | `preg_neg_lr` | @simel1991
+Generic likelilood ratio | `preg_lr` | @simel1991
 
 
 
@@ -109,7 +112,7 @@ command into the R-environment for further exploration as well as reproducibilit
 library(presize)
 ```
 Suppose we want to estimate the proportion of hospital admissions with diabetes. 
-Diabetes has a prevalence of approximately 10% (@diab) and assume that we have a 
+Diabetes has a prevalence of approximately 10% (@diab). We assume a 
 slightly higher proportion of diabetics, 
 15%, as diabetes is a risk factor for a wide range of conditions. We want to 
 estimate the prevalence of diabetes to within 5% (plus/minus 2.5%). With `presize`,
