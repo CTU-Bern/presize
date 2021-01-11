@@ -85,7 +85,7 @@ Sensitivity | `prec_sens` | As per `prec_prop`
 Specificity | `prec_spec` | As per `prec_prop`
 Area under the curve | `prec_auc` | @hm1982
 Negative likelilood ratio | `preg_neg_lr` | @simel1991
-Pogitive likelilood ratio | `preg_neg_lr` | @simel1991
+Pogitive likelilood ratio | `preg_pos_lr` | @simel1991
 Generic likelilood ratio | `preg_lr` | @simel1991
 
 
