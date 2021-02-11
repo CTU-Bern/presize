@@ -23,6 +23,7 @@ affiliations:
  - name: Statistics and Methodology Platform of the Swiss Clinical Trial Organisation (SCTO), Bern, Switzerland
    index: 2
 bibliography: paper.bib
+date: 2021-02-11
 ---
 
 
