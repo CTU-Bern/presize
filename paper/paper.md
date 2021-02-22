@@ -12,7 +12,7 @@ authors:
    orcid: 0000-0001-5888-0846
    affiliation: "1, 2"
  - name: Odile Stalder
-   orcid:
+   orcid: 0000-0002-5563-2975
    affiliation: "1, 2"
  - name: Andreas Limacher
    orcid: 0000-0002-9094-9476
