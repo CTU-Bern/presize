@@ -5,8 +5,9 @@ on:
   pull_request:
     branches:
       - master
+  workflow_dispatch:
 
-name: R-CMD-check
+name: R-CMD-fullcheck
 
 jobs:
   R-CMD-check:
