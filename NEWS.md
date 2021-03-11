@@ -1,3 +1,9 @@
+presize 0.2.1
+-----------------------------------------
+
+* add reset buttons to shiny app
+* correct copy/paste error on ICC page
+
 presize 0.2.0
 -----------------------------------------
 

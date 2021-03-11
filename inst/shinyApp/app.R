@@ -112,6 +112,14 @@ server <- function(input, output, session) {
                      c("mu", "sd", "n", "lwr", "upr", "conf.width", "conf.level"),]
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
+    output$mean_resetable_input <- renderUI({
+        times <- input$mean_reset_input
+        div(id=letters[(times %% length(letters)) + 1],
+            numericInput("mean_n", "Number of observations",
+                         value = NULL, min = 0, step = 1),
+            numericInput("mean_ciwidth", "Confidence interval width",
+                         value = NULL, min = 0, step = .1))
+    })
 
     # proportion ----
     output$prop_code <- renderPrint(prop_fn(input, TRUE))
@@ -121,6 +129,14 @@ server <- function(input, output, session) {
         tmp1 <- res_vars[res_vars$column %in%
                      c("p", "padj", "n", "lwr", "upr", "conf.width", "conf.level"),]
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
+    })
+    output$prop_resetable_input <- renderUI({
+        times <- input$prop_reset_input
+        div(id=letters[(times %% length(letters)) + 1],
+            numericInput("prop_n", "Number of observations",
+                         value = NULL, min = 0, step = 1),
+            numericInput("prop_ciwidth", "Confidence interval width",
+                         value = NULL, min = 0, max = .99, step = .1))
     })
 
     # rate ----
@@ -132,6 +148,13 @@ server <- function(input, output, session) {
                      c("r", "radj", "x", "time", "conf.width", "conf.level",
                        "lwr", "upr"),]
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
+    })
+    output$rate_resetable_input <- renderUI({
+        times <- input$rate_reset_input
+        div(id=letters[(times %% length(letters)) + 1],
+            numericInput("rate_x", "Number of Events", value = NULL, min = 0),
+            numericInput("rate_ciwidth", "Confidence interval width",
+                         value = NULL, min = 0))
     })
 
     # meandiff ----
@@ -145,6 +168,15 @@ server <- function(input, output, session) {
         tmp1$column[tmp1$column == "ar"] <- "r"
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
+    output$meandiff_resetable_input <- renderUI({
+        times <- input$meandiff_reset_input
+        div(id=letters[(times %% length(letters)) + 1],
+            numericInput("meandiff_n", "Number of observations in group 1",
+                         value = NULL),
+            "(the number of observations in group 2 is estimated based on group 1 and the allocation ratio)",
+            numericInput("meandiff_ciwidth", "Confidence interval width",
+                         value = NULL))
+    })
 
     # riskdiff ----
     output$riskdiff_out <- renderPrint(riskdiff_fn(input))
@@ -157,6 +189,17 @@ server <- function(input, output, session) {
         tmp1$column[tmp1$column == "ar"] <- "r"
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
+    output$riskdiff_resetable_input <- renderUI({
+        times <- input$riskdiff_reset_input
+        div(id=letters[(times %% length(letters)) + 1],
+            numericInput("riskdiff_n1",
+                         "Number of observations in group 1",
+                         value = NULL),
+            "(the number of observations in group 2 is estimated based on group 1 and the allocation ratio)",
+            numericInput("riskdiff_ciwidth",
+                         "Confidence interval width",
+                         value = NULL))
+    })
 
     # or ----
     output$or_out <- renderPrint(or_fn(input))
@@ -167,6 +210,17 @@ server <- function(input, output, session) {
         tmp1 <- tmp1[-which(tmp1$column == "r"), ]
         tmp1$column[tmp1$column == "ar"] <- "r"
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
+    })
+    output$or_resetable_input <- renderUI({
+        times <- input$or_reset_input
+        div(id=letters[(times %% length(letters)) + 1],
+            numericInput("or_n1",
+                         "Number of observations in group 1",
+                         value = NULL),
+            "(the number of observations in group 2 is estimated based on group 1 and the allocation ratio)",
+            numericInput("or_ciwidth",
+                         "Confidence interval width",
+                         value = NULL))
     })
 
     # risk ratio ----
@@ -179,6 +233,17 @@ server <- function(input, output, session) {
         tmp1$column[tmp1$column == "ar"] <- "r"
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
+    output$riskratio_resetable_input <- renderUI({
+        times <- input$riskratio_reset_input
+        div(id=letters[(times %% length(letters)) + 1],
+            numericInput("riskratio_n1",
+                         "Number of observations in group 1",
+                         value = NULL),
+            "(the number of observations in group 2 is estimated based on group 1 and the allocation ratio)",
+            numericInput("riskratio_ciwidth",
+                         "Confidence interval width",
+                         value = NULL))
+    })
 
     # rate ratio ----
     output$rateratio_out <- renderPrint(rateratio_fn(input))
@@ -189,6 +254,14 @@ server <- function(input, output, session) {
         tmp1 <- tmp1[-which(tmp1$column == "r"), ]
         tmp1$column[tmp1$column == "ar"] <- "r"
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
+    })
+    output$rateratio_resetable_input <- renderUI({
+        times <- input$rateratio_reset_input
+        div(id=letters[(times %% length(letters)) + 1],
+            numericInput("rateratio_n_exp", "Number of observations in the exposed group", value = NULL, step = .1),
+            "(the number of observations in group 2 is estimated based on the number of exposed individuals and the allocation ratio)",
+            numericInput("rateratio_ciwidth", "Upper-lower ratio",
+                         value = NULL, step = .1))
     })
 
     # correlation coefficient ----
@@ -201,6 +274,14 @@ server <- function(input, output, session) {
         tmp1$column[tmp1$column == "cr"] <- "r"
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
+    output$cor_resetable_input <- renderUI({
+        times <- input$cor_reset_input
+        div(id=letters[(times %% length(letters)) + 1],
+            numericInput("cor_n", "Number of observations", value = NULL),
+            numericInput("cor_ciwidth", "Confidence interval width",
+                         value = NULL, min = 0, max = 1)
+            )
+    })
 
     # ICC ----
     output$icc_out <- renderPrint(icc_fn(input))
@@ -209,6 +290,14 @@ server <- function(input, output, session) {
         tmp <- icc_fn(input)
         tmp1 <- res_vars[res_vars$column %in% names(tmp),]
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
+    })
+    output$icc_resetable_input <- renderUI({
+        times <- input$icc_reset_input
+        div(id=letters[(times %% length(letters)) + 1],
+            numericInput("icc_n", "Number of subjects", value = NULL),
+            numericInput("icc_ciwidth", "Confidence interval width",
+                         value = NULL, min = 0, max = 1)
+        )
     })
 
     # limit of agreement ----
@@ -243,6 +332,15 @@ server <- function(input, output, session) {
         tmp1 <- res_vars[res_vars$column %in% names(tmp),]
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
+    output$limit_resetable_input <- renderUI({
+        times <- input$limit_reset_input
+        div(id=letters[(times %% length(letters)) + 1],
+            numericInput("limit_n", "Sample size",
+                         value = NULL),
+            numericInput("limit_ciwidth", "Confidence interval width",
+                         value = NULL, min = 0, max = 1)
+        )
+    })
 
     # kappa ----
     output$kappa_out <- renderPrint(kappa_fn(input))
@@ -251,6 +349,13 @@ server <- function(input, output, session) {
         tmp <- kappa_fn(input)
         tmp1 <- res_vars[res_vars$column %in% names(tmp),]
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
+    })
+    output$kappa_resetable_input <- renderUI({
+        times <- input$kappa_reset_input
+        div(id=letters[(times %% length(letters)) + 1],
+            numericInput("kappa_n", "Sample size", min = 0, value = NULL),
+            numericInput("kappa_ciwidth", "Confidence interval width", min = 0, value = NULL)
+        )
     })
 
     # sens ----
@@ -263,6 +368,16 @@ server <- function(input, output, session) {
         tmp1$column[tmp1$column == "nsens"] <- "n"
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
+    output$sens_resetable_input <- renderUI({
+        times <- input$sens_reset_input
+        div(id=letters[(times %% length(letters)) + 1],
+            numericInput("sens_ntot", "Total sample size",
+                         value = NULL),
+            numericInput("sens_ciwidth", "Confidence interval width",
+                         value = NULL, min = 0, max = 1)
+        )
+    })
+
 
     # spec ----
     output$spec_out <- renderPrint(spec_fn(input))
@@ -273,6 +388,15 @@ server <- function(input, output, session) {
         tmp1 <- tmp1[-which(tmp1$column == "n"), ]
         tmp1$column[tmp1$column == "nspec"] <- "n"
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
+    })
+    output$spec_resetable_input <- renderUI({
+        times <- input$spec_reset_input
+        div(id=letters[(times %% length(letters)) + 1],
+            numericInput("spec_ntot", "Total sample size",
+                         value = NULL),
+            numericInput("spec_ciwidth", "Confidence interval width",
+                         value = NULL, min = 0, max = 1)
+        )
     })
 
     # auc ----
@@ -301,6 +425,15 @@ server <- function(input, output, session) {
             ggplot2::annotate("text", x = .6, y = .25, label = "AUC") +
             ggplot2::annotate("text", x = .2, y = .85, label = "ROC")
     })
+    output$auc_resetable_input <- renderUI({
+        times <- input$auc_reset_input
+        div(id=letters[(times %% length(letters)) + 1],
+            numericInput("auc_n", "Total sample size",
+                         value = NULL),
+            numericInput("auc_ciwidth", "Confidence interval width",
+                         value = NULL, min = 0, max = 1)
+        )
+    })
 
     # likelihood ratio ----
     output$lrp_out <- renderPrint(lrp_fn(input))
@@ -315,6 +448,16 @@ server <- function(input, output, session) {
         tmp1$column[tmp1$column == "lr_p2"] <- "p2"
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
+    output$lrp_resetable_input <- renderUI({
+        times <- input$lpr_reset_input
+        div(id=letters[(times %% length(letters)) + 1],
+            numericInput("lrp_n", "Total sample size",
+                         value = NULL),
+            "The number in each group (e.g. diseased and healthy) is calculated as sample size * prevalence (group 1, which might be diseased people) and sample size * 1-prevalence (group 2).",
+            numericInput("lrp_ciwidth", "Confidence interval width",
+                         value = NULL, min = 0, max = 1)
+        )
+    })
 
     output$lrn_out <- renderPrint(lrn_fn(input))
     output$lrn_code <- renderPrint(lrn_fn(input, TRUE))
@@ -327,6 +470,16 @@ server <- function(input, output, session) {
         tmp1$column[tmp1$column == "lr_p1"] <- "p1"
         tmp1$column[tmp1$column == "lr_p2"] <- "p2"
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
+    })
+    output$lrn_resetable_input <- renderUI({
+        times <- input$lpn_reset_input
+        div(id=letters[(times %% length(letters)) + 1],
+            numericInput("lrn_n", "Total sample size",
+                         value = NULL),
+            "The number in each group (e.g. diseased and healthy) is calculated as sample size * prevalence (group 1, which might be diseased people) and sample size * 1-prevalence (group 2).",
+            numericInput("lrn_ciwidth", "Confidence interval width",
+                         value = NULL, min = 0, max = 1)
+        )
     })
 }
 
