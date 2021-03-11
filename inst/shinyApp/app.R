@@ -112,6 +112,14 @@ server <- function(input, output, session) {
                      c("mu", "sd", "n", "lwr", "upr", "conf.width", "conf.level"),]
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
+    output$mean_resetable_input <- renderUI({
+        times <- input$mean_reset_input
+        div(id=letters[(times %% length(letters)) + 1],
+            numericInput("mean_n", "Number of observations",
+                         value = NULL, min = 0, step = 1),
+            numericInput("mean_ciwidth", "Confidence interval width",
+                         value = NULL, min = 0, step = .1))
+    })
 
     # proportion ----
     output$prop_code <- renderPrint(prop_fn(input, TRUE))
@@ -121,6 +129,14 @@ server <- function(input, output, session) {
         tmp1 <- res_vars[res_vars$column %in%
                      c("p", "padj", "n", "lwr", "upr", "conf.width", "conf.level"),]
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
+    })
+    output$prop_resetable_input <- renderUI({
+        times <- input$prop_reset_input
+        div(id=letters[(times %% length(letters)) + 1],
+            numericInput("prop_n", "Number of observations",
+                         value = NULL, min = 0, step = 1),
+            numericInput("prop_ciwidth", "Confidence interval width",
+                         value = NULL, min = 0, max = .99, step = .1))
     })
 
     # rate ----
@@ -132,6 +148,13 @@ server <- function(input, output, session) {
                      c("r", "radj", "x", "time", "conf.width", "conf.level",
                        "lwr", "upr"),]
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
+    })
+    output$rate_resetable_input <- renderUI({
+        times <- input$rate_reset_input
+        div(id=letters[(times %% length(letters)) + 1],
+            numericInput("rate_x", "Number of Events", value = NULL, min = 0),
+            numericInput("rate_ciwidth", "Confidence interval width",
+                         value = NULL, min = 0))
     })
 
     # meandiff ----
@@ -145,6 +168,15 @@ server <- function(input, output, session) {
         tmp1$column[tmp1$column == "ar"] <- "r"
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
+    output$meandiff_resetable_input <- renderUI({
+        times <- input$meandiff_reset_input
+        div(id=letters[(times %% length(letters)) + 1],
+            numericInput("meandiff_n", "Number of observations in group 1",
+                         value = NULL),
+            "(the number of observations in group 2 is estimated based on group 1 and the allocation ratio)",
+            numericInput("meandiff_ciwidth", "Confidence interval width",
+                         value = NULL))
+    })
 
     # riskdiff ----
     output$riskdiff_out <- renderPrint(riskdiff_fn(input))
@@ -157,6 +189,17 @@ server <- function(input, output, session) {
         tmp1$column[tmp1$column == "ar"] <- "r"
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
+    output$riskdiff_resetable_input <- renderUI({
+        times <- input$riskdiff_reset_input
+        div(id=letters[(times %% length(letters)) + 1],
+            numericInput("riskdiff_n1",
+                         "Number of observations in group 1",
+                         value = NULL),
+            "(the number of observations in group 2 is estimated based on group 1 and the allocation ratio)",
+            numericInput("riskdiff_ciwidth",
+                         "Confidence interval width",
+                         value = NULL))
+    })
 
     # or ----
     output$or_out <- renderPrint(or_fn(input))
@@ -168,6 +211,17 @@ server <- function(input, output, session) {
         tmp1$column[tmp1$column == "ar"] <- "r"
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
+    output$or_resetable_input <- renderUI({
+        times <- input$or_reset_input
+        div(id=letters[(times %% length(letters)) + 1],
+            numericInput("or_n1",
+                         "Number of observations in group 1",
+                         value = NULL),
+            "(the number of observations in group 2 is estimated based on group 1 and the allocation ratio)",
+            numericInput("or_ciwidth",
+                         "Confidence interval width",
+                         value = NULL))
+    })
 
     # risk ratio ----
     output$riskratio_out <- renderPrint(riskratio_fn(input))
@@ -178,6 +232,17 @@ server <- function(input, output, session) {
         tmp1 <- tmp1[-which(tmp1$column == "r"), ]
         tmp1$column[tmp1$column == "ar"] <- "r"
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
+    })
+    output$riskratio_resetable_input <- renderUI({
+        times <- input$riskratio_reset_input
+        div(id=letters[(times %% length(letters)) + 1],
+            numericInput("riskratio_n1",
+                         "Number of observations in group 1",
+                         value = NULL),
+            "(the number of observations in group 2 is estimated based on group 1 and the allocation ratio)",
+            numericInput("riskratio_ciwidth",
+                         "Confidence interval width",
+                         value = NULL))
     })
 
     # rate ratio ----
