@@ -2,7 +2,7 @@
 # UI ----
 iccpage <- tabItem(tabName = "icc",
         h2("Precision of an intraclass correlation coefficient"),
-        "Enter the intraclass correlation coefficient you expect. To estimate the confidence interval width from a number of events, enter the number of events in 'Number of events'. To estimate the number of observations required to get a confidence interval width of X, enter the width in 'Confidence interval width'.",
+        "Enter the intraclass correlation coefficient you expect. To estimate the confidence interval width from a number of subjects, enter the number of subjects in 'Number of subjects'. To estimate the number of observations required to get a confidence interval width of X, enter the desired width in 'Confidence interval width'.",
         h4("Please enter the following"),
         numericInput("icc_rho", "Intraclass correlation coefficient",
                      value = 0, min = 0, max = 1),
