@@ -6,6 +6,7 @@ name: render readme and pkgdown
 on:
   push:
     branches: master
+  workflow_dispatch:
 
 jobs:
   render:
@@ -31,6 +32,12 @@ jobs:
         key: macOS-r-4.0-1-${{ hashFiles('.github/depends.Rds') }}
         restore-keys: macOS-r-4.0-1-
 
+    - name: Install macOS packages
+      if: runner.os == 'macOS'
+      run: |
+        brew install harfbuzz
+        brew install fribidi
+      
     - name: Install dependencies
       run: |
         install.packages("remotes")
