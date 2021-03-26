@@ -45,9 +45,12 @@ prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
     stop("'mu' must be numeric")
   if (!is.null(sd) && !is.numeric(sd))
     stop("'sd' must be numeric")
+  if(sd <= 0)
+    stop("'sd' should be larger than 0")
   if (sum(sapply(list(n, conf.width), is.null)) != 1)
     stop("exactly one of 'n', and 'conf.width' must be NULL")
   numrange_check(conf.level)
+
 
   alpha <- (1 - conf.level) / 2
 
@@ -104,6 +107,8 @@ prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
 #'
 #' @param r rate or rate ratio.
 #' @param x number of events.
+#' @param conf.width precision (the full width of the confidence interval).
+#'  Should not exceed 5 times \code{r}.
 #' @param method The method to use to calculate precision. Exactly one method
 #'   may be provided. Methods can be abbreviated.
 #' @inheritParams prec_mean
@@ -129,6 +134,8 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
 
   if (sum(sapply(list(x, conf.width), is.null)) != 1)
     stop("exactly one of 'x', and 'conf.width' must be NULL")
+
+  numrange_check(conf.width, lo = 0.1, hi = 5*r)
 
   # checks for the method
   if (length(method) > 1) {
