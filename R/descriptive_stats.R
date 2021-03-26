@@ -286,6 +286,7 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
   if (sum(sapply(list(n, conf.width), is.null)) != 1)
     stop("exactly one of 'n', and 'conf.width' must be NULL")
   numrange_check(conf.level)
+  numrange_check(conf.width, lo = .000001)
   numrange_check(p)
 
   if (length(method) > 1) {
