@@ -248,11 +248,14 @@ Shiny app
 ---------
 
 An online interactive version of the package is available
-[here](https://ctu-bern.shinyapps.io/presize). The app can also be
-launched locally via `launch_presize_app()` in RStudio.
+[here](https://shiny.ctu.unibe.ch/presize). The app can also be launched
+locally via `launch_presize_app()` in RStudio.
 
 Getting help
 ------------
+
+The package website, including more details on the functions, can be
+found [here](https://ctu-bern.github.io/presize/).
 
 If you have a question, feel free to make a thread on the
 [discussion](https://github.com/CTU-Bern/presize/discussions) page.
