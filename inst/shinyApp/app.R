@@ -22,7 +22,7 @@ ui <- dashboardPage(skin = "red",
                          titleWidth = 500),
          dashboardSidebar(width = 300,
              sidebarMenu(menuItem("Help/Instructions", tabName = "help")),
-             tags$style(HTML(".irs--shiny .irs-grid-text{ color: #FFFFFF;}
+             tags$style(HTML(".irs--shiny .irs-grid-text{ color: #999999;}
                               .irs--shiny .irs-grid-pol { background-color: #999999 }")),
              sliderInput("conflevel", "Confidence level",
                           value = 0.95, min = 0, max = 1),
@@ -138,7 +138,7 @@ server <- function(input, output, session) {
             numericInput("prop_n", "Number of observations",
                          value = NULL, min = 0, step = 1),
             numericInput("prop_ciwidth", "Confidence interval width",
-                         value = NULL, min = 0, max = .99, step = .1))
+                         value = NULL, step = .1))
     })
 
     # rate ----
