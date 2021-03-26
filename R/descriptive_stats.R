@@ -41,16 +41,13 @@
 #' @export
 prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
                       ...) {
-  if (!is.null(mu) && !is.numeric(mu))
-    stop("'mu' must be numeric")
-  if (!is.null(sd) && !is.numeric(sd))
-    stop("'sd' must be numeric")
-  if(sd <= 0)
-    stop("'sd' should be larger than 0")
+
+  numrange_check_gt(sd)
+  numrange_check(conf.level)
   if (sum(sapply(list(n, conf.width), is.null)) != 1)
     stop("exactly one of 'n', and 'conf.width' must be NULL")
-  numrange_check(conf.level)
-
+  if(!is.null(n)) numrange_check_gt(n)
+  if(!is.null(n)) numrange_check_gt(conf.width, 0.01)
 
   alpha <- (1 - conf.level) / 2
 
@@ -136,7 +133,7 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
     stop("exactly one of 'x', and 'conf.width' must be NULL")
 
   numrange_check(conf.width, lo = 0.1, hi = 5*r)
-
+  if(!is.null(x)) numrange_check_gt(x)
   # checks for the method
   if (length(method) > 1) {
     warning("more than one method was chosen, 'score' will be used")
@@ -295,6 +292,7 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
   numrange_check(conf.level)
   numrange_check(conf.width, lo = .001, hi = 0.89)
   numrange_check(p)
+  if(!is.null(n)) numrange_check_gt(n)
 
   if (length(method) > 1) {
     warning("more than one method was chosen, 'wilson' will be used")

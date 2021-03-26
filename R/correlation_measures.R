@@ -51,6 +51,9 @@ prec_icc <- function(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95) {
     stop("exactly one of 'n', and 'conf.width' must be NULL")
   numrange_check(rho)
   numrange_check(conf.level)
+  if(!is.null(n)) numrange_check_gt(n)
+  if(!is.null(conf.width)) numrange_check_gt(conf.width, .01)
+  numrange_check_gt(k, 1)
 
   alpha <- 1 - conf.level
   z <- qnorm(1 - alpha / 2)
@@ -126,8 +129,11 @@ prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
 
   if (sum(sapply(list(n, conf.width), is.null)) != 1)
     stop("exactly one of 'n', and 'conf.width' must be NULL")
-  numrange_check(r)
+  numrange_check(r, -1, 1)
   numrange_check(conf.level)
+  if(!is.null(n)) numrange_check_gt(n)
+  if(!is.null(conf.width)) numrange_check_gt(conf.width, .01)
+
 
   default_meth <- "pearson"
   if (length(method) > 1) {
@@ -236,6 +242,8 @@ prec_lim_agree <- function(n = NULL, conf.width = NULL, conf.level = 0.95){
 
   if (sum(sapply(list(n, conf.width), is.null)) != 1)
     stop("exactly one of 'n', and 'conf.width' must be NULL")
+  if(!is.null(n)) numrange_check_gt(n)
+  if(!is.null(conf.width)) numrange_check_gt(conf.width, .01)
 
   alpha <- 1 - conf.level
   z <- qnorm(1 - alpha / 2) * 2
@@ -322,9 +330,13 @@ prec_kappa <- function(kappa,
 
   if (n_category < 2) stop("there must be at least 2 outcome categories")
   if (n_category > 5) stop("more than 5 outcome categories is not supported")
+  if (any(!is.wholenumber(n_category)))
+    stop("'n_category' must be numeric and a whole number")
   if (sum(sapply(list(n, conf.width), is.null)) != 1)
     stop("exactly one of 'n', and 'conf.width' must be NULL")
   numrange_check(conf.level)
+  if(!is.null(n)) numrange_check_gt(n)
+  if(!is.null(conf.width)) numrange_check_gt(conf.width, .01)
 
   alpha <- 1-conf.level
 
