@@ -1,5 +1,6 @@
 ---
 output: github_document
+bibliography: paper/paper.bib
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -96,6 +97,7 @@ this is simple. We use the `prec_prop` (precision of a proportion) function and 
 our 15% and 5% as arguments `p` and `conf.width`:
 
 ```{r}
+library(presize) # load the package
 prec_prop(p = 0.15, conf.width = 0.05)
 ```
 
@@ -149,3 +151,7 @@ knitr::include_graphics("inst/fig/SCTO_Platform_Logo_2020_RZ_SM.png")
 ```
 
 <!-- ![](man/fig/scto_ctu_member_cmyk.jpg) -->
+
+
+
+## References
