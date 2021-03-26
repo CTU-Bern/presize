@@ -18,7 +18,8 @@ prec_rate(
 
 \item{x}{number of events.}
 
-\item{conf.width}{precision (the full width of the confidence interval).}
+\item{conf.width}{precision (the full width of the confidence interval).
+Should not exceed 5 times \code{r}.}
 
 \item{conf.level}{confidence level.}
 
