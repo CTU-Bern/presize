@@ -10,6 +10,7 @@
 require(shiny)
 require(shinydashboard)
 require(presize)
+require(ggplot2)
 
 icon <- icon("calculator")
 
