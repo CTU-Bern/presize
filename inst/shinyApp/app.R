@@ -22,6 +22,8 @@ ui <- dashboardPage(skin = "red",
                          titleWidth = 500),
          dashboardSidebar(width = 300,
              sidebarMenu(menuItem("Help/Instructions", tabName = "help")),
+             tags$style(HTML(".irs--shiny .irs-grid-text{ color: #FFFFFF;}
+                              .irs--shiny .irs-grid-pol { background-color: #999999 }")),
              sliderInput("conflevel", "Confidence level",
                           value = 0.95, min = 0, max = 1),
              sidebarMenu(
