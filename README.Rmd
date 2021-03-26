@@ -149,7 +149,7 @@ If you want to contribute code, please feel free to fork the repository, make yo
 `presize` was largely developed at CTU Bern, with collaboration from CTU Basel. Funding was provided by the Swiss Clinical Trial Organisation.
 
 ```{r, echo=FALSE}
-knitr::include_graphics("inst/fig/SCTO_Platform_Logo_2020_RZ_SM.png")
+knitr::include_graphics("man/figures/SCTO_Platform_Logo_2020_RZ_SM.png")
 ```
 
 <!-- ![](man/fig/scto_ctu_member_cmyk.jpg) -->
