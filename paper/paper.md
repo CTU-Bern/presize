@@ -96,10 +96,10 @@ prec_prop(p = 0.15, conf.width = 0.05)
 1 0.15 0.1517077 783.4897       0.05       0.95 0.1267077 0.1767077
 ```
 
-In the n column, we see that we would need to ask 784 (rounding 783.5 up) patients to achieve the desired CI width. It is also possible to calculate the CI width with a given number of participants: 
+In the `n` column, we see that we would need to ask 784 (rounding 783.5 up) patients to achieve the desired CI width. It is also possible to calculate the CI width with a given number of participants, for the case that we know roughly how many participants we could include: 
 
 ```r
-prec_prop(p = 0.15, n = 0.05)
+prec_prop(p = 0.15, n = 600)
 
      sample size for a proportion with Wilson confidence interval. 
 
@@ -107,11 +107,8 @@ prec_prop(p = 0.15, n = 0.05)
 1 0.15 0.1522266 600 0.05713404       0.95 0.1236596 0.1807936
 ```
 
-# Summary
+# A limitation
 
-We developed a comprehensive and easy-to-use software package for precision-based 
-sample size calculation. As far as we know, `presize` is the first package that comprises 
-the most common summary measures used in estimation-based clinical research.
 A limitation of the package is that it does not allow calculating the probability 
 of a CI, i.e. the probability that a future confidence interval 
 will have at least the desired precision. The functions currently return the average 
@@ -120,10 +117,14 @@ CI width. In practice, 50% of trials will yield narrower CIs and
 the coverage probability is one possible avenue 
 for further development.
 
+# Summary
+
 We often observe in our consulting activity that researchers try to implement a 
 hypothesis-based approach into a project that is in fact purely descriptive. Reasons 
 for this might be a lack of methodological understanding, but also a lack of appropriate 
-tools. To conclude, we believe that our software package will fascilitate the 
+tools. Therefore, we developed a comprehensive and easy-to-use software package in R for precision-based sample size calculation. As far as we know, `presize` is the first 
+package that comprises the most common summary measures used in estimation-based 
+clinical research. We believe that `presize` will fascilitate the 
 adequate use of estimation-based sample size calculation in descriptive research projects.
 
 # Acknowledgements
