@@ -47,7 +47,7 @@ prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
   if (sum(sapply(list(n, conf.width), is.null)) != 1)
     stop("exactly one of 'n', and 'conf.width' must be NULL")
   if(!is.null(n)) numrange_check_gt(n)
-  if(!is.null(n)) numrange_check_gt(conf.width, 0.01)
+  if(!is.null(conf.width)) numrange_check(conf.width, 0.01, 17*sd)
 
   alpha <- (1 - conf.level) / 2
 
@@ -133,7 +133,9 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
     stop("exactly one of 'x', and 'conf.width' must be NULL")
 
   numrange_check(conf.width, lo = 0.1, hi = 5*r)
+  numrange_check_gt(r, 0)
   if(!is.null(x)) numrange_check_gt(x)
+
   # checks for the method
   if (length(method) > 1) {
     warning("more than one method was chosen, 'score' will be used")
@@ -293,6 +295,7 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
   numrange_check(conf.width, lo = .001, hi = 0.89)
   numrange_check(p)
   if(!is.null(n)) numrange_check_gt(n)
+  if(!is.null(conf.width) && conf.width > .7) warning("risk of failure in calculations increases with higher 'conf.width', particularly when 'p' is close to 0 or 1")
 
   if (length(method) > 1) {
     warning("more than one method was chosen, 'wilson' will be used")
