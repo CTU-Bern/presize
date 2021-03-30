@@ -50,19 +50,15 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
   numrange_check(conf.level)
   numrange_check_gt(r, 0)
   
-  if (!is.null(n1)) {
-    numrange_check_gt(n1, 1)
-    numrange_check_gt(n1*r, 1)
-  }
-  if (!is.null(sd1)) {
-    numrange_check_gt(sd1, 0)
-  }
-  if (!is.null(sd2)) {
-    numrange_check_gt(sd2, 0)
-  }
-  if (!is.null(conf.width)) {
-    numrange_check_gt(conf.width,0)
-  }
+  if (!is.null(n1)) numrange_check_gt(n1, 1)
+    
+  if (n1*r<=1)
+  stop("'n1'*'r' must be greater than 1")
+  
+  if (!is.null(sd1)) numrange_check_gt(sd1, 0)
+  if (!is.null(sd2)) numrange_check_gt(sd2, 0)
+  if (!is.null(conf.width)) numrange_check_gt(conf.width,0)
+
   alpha <- 1 - conf.level
   if (is.null(n1)) {
     prec <- conf.width * 0.5
@@ -232,15 +228,10 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
   if (!is.null(p2) && !is.numeric(p2) || any(0 > p2 | p2 > 1))
     stop("'p2' must be numeric in [0, 1]")
   
-  if (!is.null(n1)) {
-    numrange_check_gt(n1,0)
-   }
-  if (!is.null(r)) {
-    numrange_check_gt(r,0)
-   }
-    if (!is.null(conf.width)) {
-    numrange_check_gt(conf.width,0)
-   }
+  if (!is.null(n1)) numrange_check_gt(n1,0)
+  if (!is.null(r)) numrange_check_gt(r,0)
+  if (!is.null(conf.width)) numrange_check_gt(conf.width,0)
+
   if (length(method) > 1) {
     warning("more than one method was chosen, 'newcombe' will be used")
     method <- "newcombe"
@@ -513,15 +504,9 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
   if (!is.null(p2) && !is.numeric(p2) || any(0 > p2 | p2 > 1))
     stop("'p2' must be numeric in [0, 1]")
 
-  if (!is.null(n1)) {
-    numrange_check_gt(n1,0)
-   }
-  if (!is.null(r)) {
-    numrange_check_gt(r,0)
-   }
-  if (!is.null(conf.width)) {
-    numrange_check_gt(conf.width,0)
-   }
+  if (!is.null(n1)) numrange_check_gt(n1,0)
+  if (!is.null(r)) numrange_check_gt(r,0)
+  if (!is.null(conf.width)) numrange_check_gt(conf.width,0)
   
   default_meth <- "koopman"
   if (length(method) > 1) {
@@ -707,15 +692,9 @@ prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.
     method <- default_meth
   }
   
-  if (!is.null(n1)) {
-    numrange_check_gt(n1,0)
-  }
-  if (!is.null(r)) {
-    numrange_check_gt(r,0)
-  }
-  if (!is.null(conf.width)) {
-    numrange_check_gt(conf.width,0)
-  }
+  if (!is.null(n1)) numrange_check_gt(n1,0)
+  if (!is.null(r)) numrange_check_gt(r,0)
+  if (!is.null(conf.width)) numrange_check_gt(conf.width,0)
   
   meths <- c("gart", "woolf", "indip_smooth")
   id <- pmatch(method, meths)
@@ -856,21 +835,11 @@ prec_rateratio <- function(n1 = NULL, # n exposed
     stop("both rate_exp and rate_control required")
   if (sum(sapply(list(n1, prec.level), is.null)) != 1)
     stop("exactly one of 'n1', and 'prec.level' must be NULL")
-  if (!is.null(n1)) {
-    numrange_check_gt(n1,0)
-  }
-  if (!is.null(r)) {
-    numrange_check_gt(r,0)
-  }
-  if (!is.null(prec.level)) {
-    numrange_check(prec.level,0,Inf)
-  }
-  if (!is.null(rate1)) {
-    numrange_check_gt(rate1,0)
-  }
-  if (!is.null(rate2)) {
-    numrange_check_gt(rate2,0)
-  }
+  if (!is.null(n1)) numrange_check_gt(n1,0)
+  if (!is.null(r)) numrange_check_gt(r,0)
+  if (!is.null(prec.level)) numrange_check(prec.level,0,Inf)
+  if (!is.null(rate1)) numrange_check_gt(rate1,0)
+  if (!is.null(rate2)) numrange_check_gt(rate2,0)
   
   if (is.null(prec.level)){
     est <- "precision"
