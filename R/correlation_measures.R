@@ -43,8 +43,7 @@
 #'   computed one) augmented with method and note elements.
 
 prec_icc <- function(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95) {
-  is.wholenumber <-
-    function(x, tol = .Machine$double.eps ^ 0.5)  abs(x - round(x)) < tol
+
   if (any(!is.null(k)) && (!is.numeric(k) || any(!is.wholenumber(k))))
     stop("'k' must be numeric and a whole number")
   if (sum(sapply(list(n, conf.width), is.null)) != 1)
