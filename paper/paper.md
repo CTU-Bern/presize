@@ -26,6 +26,13 @@ bibliography: paper.bib
 date: 2021-02-11
 ---
 
+# Summary
+
+Sample size calculation based on precision rather than hypothesis testing is 
+underused and respective tools not widely available. We therefore developed a 
+software package, `presize`, for precision-based sample size calculation that 
+covers most common summary measures and can be used with the R-environment or a 
+Shiny application.
 
 # Statement of need
 
@@ -52,12 +59,13 @@ There are two approaches for each measure. First, based on a given sample size,
 e.g. for a retrospective data analysis, the precision of an expected measure can
 be calculated. Precision is expressed as the confidence interval around the
 measure. The level of confidence can be specified; the usual 95%-confidence
-interval (CI) is the default. Second, based on a given precision (i.e. CI), the sample size can be calculated. This is mainly of use in the
-planning of prospective studies, where the aim is to estimate a measure of
-interest with enough confidence. The available functions in the package require
-common input arguments; either the sample size or the width of the CI, and the level of the CI. Depending on the function,
-further specific input arguments are required such as the expected area under
-the curve (AUC) for test accuracy.
+interval (CI) is the default. Second, based on a given precision (i.e. CI), the 
+sample size can be calculated. This is mainly of use in the planning of prospective 
+studies, where the aim is to estimate a measure of interest with enough confidence. 
+The available functions in the package require common input arguments; either the 
+sample size or the width of the CI, and the level of the CI. Depending on the 
+function, further specific input arguments are required such as the expected area 
+under the curve (AUC) for test accuracy.
 
 
 For ease-of-use, we also implemented a Shiny application which can be used
@@ -79,13 +87,13 @@ command into the R-environment for further exploration as well as reproducibilit
 # remotes::install_github('ctu-bern/presize') # development version on GitHub
 library(presize)
 ```
-As a brief example, suppose we want to estimate the proportion of hospital admissions with diabetes. 
-Diabetes has a prevalence of approximately 10% (@diab). We assume a 
-slightly higher proportion of diabetics, 
-15%, as diabetes is a risk factor for a wide range of conditions. We want to 
-estimate the prevalence of diabetes to within 5% (plus/minus 2.5%). With `presize`,
-this is simple. We use the `prec_prop` (precision of a proportion) function and pass 
-our 15% and 5% as arguments `p` and `conf.width`:
+As a brief example, suppose we want to estimate the proportion of hospital admissions 
+with diabetes. Diabetes has a prevalence of approximately 10% (@diab). We assume a 
+slightly higher proportion of diabetics, 15%, as diabetes is a risk factor for a 
+wide range of conditions. We want to estimate the prevalence of diabetes to within 
+5% (plus/minus 2.5%). With `presize`, this is simple. We use the `prec_prop` 
+(precision of a proportion) function and pass our 15% and 5% as arguments `p` 
+and `conf.width`:
 
 ```r
 prec_prop(p = 0.15, conf.width = 0.05)
@@ -96,7 +104,10 @@ prec_prop(p = 0.15, conf.width = 0.05)
 1 0.15 0.1517077 783.4897       0.05       0.95 0.1267077 0.1767077
 ```
 
-In the `n` column, we see that we would need to ask 784 (rounding 783.5 up) patients to achieve the desired CI width. It is also possible to calculate the CI width with a given number of participants, for the case that we know roughly how many participants we could include: 
+In the `n` column, we see that we would need to ask 784 (rounding 783.5 up) 
+patients to achieve the desired CI width. It is also possible to calculate the 
+CI width with a given number of participants, for the case that we know roughly 
+how many participants we could include: 
 
 ```r
 prec_prop(p = 0.15, n = 600)
@@ -107,8 +118,11 @@ prec_prop(p = 0.15, n = 600)
 1 0.15 0.1522266 600 0.05713404       0.95 0.1236596 0.1807936
 ```
 
-# A limitation
+# Discussion
 
+We developed a comprehensive and easy-to-use software package for precision-based 
+sample size calculation. As far as we know, presize is the first package that comprises 
+the most common summary measures used in estimation-based clinical research.
 A limitation of the package is that it does not allow calculating the probability 
 of a CI, i.e. the probability that a future confidence interval 
 will have at least the desired precision. The functions currently return the average 
@@ -117,14 +131,10 @@ CI width. In practice, 50% of trials will yield narrower CIs and
 the coverage probability is one possible avenue 
 for further development.
 
-# Summary
-
 We often observe in our consulting activity that researchers try to implement a 
 hypothesis-based approach into a project that is in fact purely descriptive. Reasons 
 for this might be a lack of methodological understanding, but also a lack of appropriate 
-tools. Therefore, we developed a comprehensive and easy-to-use software package in R for precision-based sample size calculation. As far as we know, `presize` is the first 
-package that comprises the most common summary measures used in estimation-based 
-clinical research. We believe that `presize` will fascilitate the 
+tools. To conclude, we believe that our software package will fascilitate the 
 adequate use of estimation-based sample size calculation in descriptive research projects.
 
 # Acknowledgements
