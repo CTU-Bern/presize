@@ -54,11 +54,11 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
     numrange_check_gt(n1, 1)
     numrange_check_gt(n1*r, 1)
   }
-  if (!is.null(s1)) {
-    numrange_check_gt(s1, 0)
+  if (!is.null(sd1)) {
+    numrange_check_gt(sd1, 0)
   }
-  if (!is.null(s2)) {
-    numrange_check_gt(s2, 0)
+  if (!is.null(sd2)) {
+    numrange_check_gt(sd2, 0)
   }
   if (!is.null(conf.width)) {
     numrange_check_gt(conf.width,0)
