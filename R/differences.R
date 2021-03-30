@@ -47,10 +47,13 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
   if (sum(sapply(list(n1, conf.width), is.null)) != 1)
     stop("exactly one of 'n', and 'conf.width' must be NULL")
   numrange_check(conf.level)
-  numrange_check(r, 0, Inf)
+  numrange_check_gt(r, 0)
   if (!is.null(n1)) {
     numrange_check_gt(n1, 1)
     numrange_check_gt(n1*r, 1)
+  }
+  if (!is.null(conf.width)){
+    numrange_check_gt(conf.width,0)
   }
   alpha <- 1 - conf.level
   if (is.null(n1)) {
@@ -220,7 +223,15 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
     stop("'p1' must be numeric in [0, 1]")
   if (!is.null(p2) && !is.numeric(p2) || any(0 > p2 | p2 > 1))
     stop("'p2' must be numeric in [0, 1]")
-
+  if (!is.null(n1)){
+    numrange_check_gt(n1,0)
+   }
+  if (!is.null(r)){
+    numrange_check_gt(r,0)
+   }
+    if (!is.null(conf.width)){
+    numrange_check_gt(conf.width,0)
+   }
   if (length(method) > 1) {
     warning("more than one method was chosen, 'newcombe' will be used")
     method <- "newcombe"
