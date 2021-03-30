@@ -336,6 +336,10 @@ prec_kappa <- function(kappa,
   numrange_check(conf.level)
   if(!is.null(n)) numrange_check_gt(n)
   if(!is.null(conf.width)) numrange_check_gt(conf.width, .01)
+  if (any(!is.wholenumber(raters)))
+    stop("'raters' must be numeric and a whole number")
+  if(!is.null(raters)) numrange_check(raters,2,6)
+  if(!is.null(props)) numrange_check(props)
 
   alpha <- 1-conf.level
 
