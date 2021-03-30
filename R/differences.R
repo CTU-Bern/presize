@@ -48,7 +48,10 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
     stop("exactly one of 'n', and 'conf.width' must be NULL")
   numrange_check(conf.level)
   numrange_check(r, 0, Inf)
-
+  if (!is.null(n1)) {
+    numrange_check_gt(n1, 1)
+    numrange_check_gt(n1*r, 1)
+  }
   alpha <- 1 - conf.level
   if (is.null(n1)) {
     prec <- conf.width * 0.5
