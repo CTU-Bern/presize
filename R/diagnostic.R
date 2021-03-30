@@ -174,6 +174,10 @@ prec_auc <- function(auc, prev, n = NULL, conf.width = NULL, conf.level = .95,
     stop("exactly one of 'n', and 'conf.width' must be NULL")
   if (any(prev < 0 | prev > 1)) stop("'prev' must be numeric in [0, 1]")
   numrange_check(conf.level)
+  
+  if (!is.null(conf.width)) numrange_check_gt(conf.width)
+  if (!is.null(n)) numrange_check_gt(n)
+  if (!is.null(auc)) numrange_check(auc)
 
   fn <- function(n, prev, auc){
     n1 <- n*prev
@@ -327,6 +331,9 @@ prec_lr <- function(prev, p1, p2, n = NULL, conf.width = NULL, conf.level = 0.95
   numrange_check(p1)
   numrange_check(p2)
   numrange_check(conf.level)
+  
+  if (!is.null(n)) numrange_check_gt(n)
+  if (!is.null(conf.width)) numrange_check_gt(conf.width)
 
   quo <- quote({
     n1 <- n * prev
