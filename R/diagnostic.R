@@ -42,8 +42,13 @@ prec_sens <- function(sens, n = NULL, ntot = NULL, prev = NULL,
   if (is.null(ntot) & !is.null(prev)) stop("'ntot' required when 'prev' is specified")
   # if (!round %in% c("ceiling", "floor")) stop("choices for 'round' are 'ceiling' or 'floor'")
 
+  if (!is.null(sens)) numrange_check(sens)
+  if (!is.null(n)) numrange_check_gt(n)
+  if (!is.null(ntot)) numrange_check_gt(ntot)
+  if (!is.null(conf.width)) numrange_check_gt(conf.width)
+
   round <- match.arg(round, c("ceiling", "floor"))
-  numrange_check(prev)
+  if (!is.null(prev)) numrange_check(prev)
   rounder <- switch(round,
                     ceiling = ceiling,
                     floor = floor)
@@ -87,7 +92,13 @@ prec_spec <- function(spec, n = NULL, ntot = NULL, prev = NULL, conf.width = NUL
   # if (!round %in% c("ceiling", "floor")) stop("choices for 'round' are 'ceiling' or 'floor'")
   if (!is.null(ntot) & is.null(prev)) stop("'prev' required when 'ntot' is specified")
   if (is.null(ntot) & !is.null(prev)) stop("'ntot' required when 'prev' is specified")
-  numrange_check(prev)
+  
+  if (!is.null(spec)) numrange_check(spec)
+  if (!is.null(n)) numrange_check_gt(n)
+  if (!is.null(ntot)) numrange_check_gt(ntot)
+  if (!is.null(conf.width)) numrange_check_gt(conf.width)
+
+  if (!is.null(prev)) numrange_check(prev)
   round <- match.arg(round, c("ceiling", "floor"))
   rounder <- switch(round,
                     ceiling = ceiling,
@@ -163,6 +174,10 @@ prec_auc <- function(auc, prev, n = NULL, conf.width = NULL, conf.level = .95,
     stop("exactly one of 'n', and 'conf.width' must be NULL")
   if (any(prev < 0 | prev > 1)) stop("'prev' must be numeric in [0, 1]")
   numrange_check(conf.level)
+  
+  if (!is.null(conf.width)) numrange_check_gt(conf.width)
+  if (!is.null(n)) numrange_check_gt(n)
+  if (!is.null(auc)) numrange_check(auc)
 
   fn <- function(n, prev, auc){
     n1 <- n*prev
@@ -316,6 +331,9 @@ prec_lr <- function(prev, p1, p2, n = NULL, conf.width = NULL, conf.level = 0.95
   numrange_check(p1)
   numrange_check(p2)
   numrange_check(conf.level)
+  
+  if (!is.null(n)) numrange_check_gt(n)
+  if (!is.null(conf.width)) numrange_check_gt(conf.width)
 
   quo <- quote({
     n1 <- n * prev
