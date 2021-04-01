@@ -47,7 +47,7 @@ prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
   if (sum(sapply(list(n, conf.width), is.null)) != 1)
     stop("exactly one of 'n', and 'conf.width' must be NULL")
   if(!is.null(n)) numrange_check_gt(n)
-  if(!is.null(conf.width)) numrange_check(conf.width, 0.01, 17*sd)
+  if(!is.null(conf.width)) numrange_check_gt(conf.width)
 
   alpha <- (1 - conf.level) / 2
 
@@ -64,8 +64,15 @@ prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
     prec <- conf.width / 2
     f <- function(sd, prec, alpha) uniroot(function(n) eval(ci) - prec,
                                     c(2, 1e+07), ...)$root
-    n <- mapply(f, sd = sd, prec = prec, alpha = alpha)
-    est <- "sample size"
+    if(conf.width<sd){
+      n <- try(mapply(f, sd = sd, prec = prec, alpha = alpha), silent = TRUE)
+      if(inherits(n,"try-error")) stop("'conf.width' too small")
+      est <- "sample size"
+    } else {
+      n <- try(mapply(f, sd = sd, prec = prec, alpha = alpha), silent = TRUE)
+      if(inherits(n,"try-error")) stop("'conf.width' too wide")
+      est <- "sample size"
+    }
   }
 
   structure(list(mu = mu,
@@ -132,9 +139,9 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
   if (sum(sapply(list(x, conf.width), is.null)) != 1)
     stop("exactly one of 'x', and 'conf.width' must be NULL")
 
-  numrange_check(conf.width, lo = 0.1, hi = 5*r)
-  numrange_check_gt(r, 0)
+  numrange_check_gt(r)
   if(!is.null(x)) numrange_check_gt(x)
+  if(!is.null(conf.width)) numrange_check_gt(conf.width)
 
   # checks for the method
   if (length(method) > 1) {
@@ -201,7 +208,13 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
       prec <- eval(quo)
     }
     if (is.null(x)) {
-      x <- eval(get_x)
+      if(conf.width<r){
+        n <- try( x <- eval(get_x), silent = TRUE)
+        if(inherits(n,"try-error")) stop("'conf.width' too small")
+      } else {
+        n <- try( x <- eval(get_x), silent = TRUE)
+        if(inherits(n,"try-error")) stop("'conf.width' too wide")
+      }
     }
     if (any(r == 0) & meth == "vs")
       warning("The confidence interval is degenerate at z^2/(4t), if r is 0.")
@@ -215,7 +228,13 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
   # exact
   if (meth == "exact") {
     if (is.null(x)) {
-      x <- eval(get_x)
+      if(conf.width<r){
+        n <- try( x <- eval(get_x), silent = TRUE)
+        if(inherits(n,"try-error")) stop("'conf.width' too small")
+      } else {
+        n <- try( x <- eval(get_x), silent = TRUE)
+        if(inherits(n,"try-error")) stop("'conf.width' too wide")
+      }
     }
     res <- eval(quo)
     radj <- eval(get_radj)
@@ -292,9 +311,9 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
   if (sum(sapply(list(n, conf.width), is.null)) != 1)
     stop("exactly one of 'n', and 'conf.width' must be NULL")
   numrange_check(conf.level)
-  numrange_check(conf.width, lo = .001, hi = 0.89)
   numrange_check(p)
   if(!is.null(n)) numrange_check_gt(n)
+  if(!is.null(conf.width)) numrange_check_gt(conf.width)
   if(!is.null(conf.width) && conf.width > .7) warning("risk of failure in calculations increases with higher 'conf.width', particularly when 'p' is close to 0 or 1")
 
   if (length(method) > 1) {
@@ -381,7 +400,17 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
       }
       if (is.null(n)) {
         f <- uniroot_fun
-        n <- mapply(f, p = p, prec = prec, z = z, z2 = z2)
+        
+        if(conf.width<p){
+          n <- try(mapply(f, p = p, prec = prec, z = z, z2 = z2), silent = TRUE)
+          if(inherits(n,"try-error")) stop("'conf.width' too small")
+          est <- "sample size"
+        } else {
+          n <- try(mapply(f, p = p, prec = prec, z = z, z2 = z2), silent = TRUE)
+          if(inherits(n,"try-error")) stop("'conf.width' too wide")
+          est <- "sample size"
+        }
+        
       }
       padj <- switch(meth,
                      'Agresti-Coull' = (p * n + 0.5 * z2) / (n + z2),
@@ -392,7 +421,17 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
     if (meth == "exact") {
       if (is.null(n)) {
         f <- uniroot_fun
-        n <- mapply(f, p = p, prec = prec, alpha = alpha)
+        
+        if(conf.width<p){
+          n <- try(mapply(f, p = p, prec = prec, alpha = alpha), silent = TRUE)
+          if(inherits(n,"try-error")) stop("'conf.width' too small")
+          est <- "sample size"
+        } else {
+          n <- try(mapply(f, p = p, prec = prec, alpha = alpha), silent = TRUE)
+          if(inherits(n,"try-error")) stop("'conf.width' too wide")
+          est <- "sample size"
+        }
+        
       }
       res <- eval(quo)
       lwr <- res$lwr
