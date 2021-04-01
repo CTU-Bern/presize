@@ -97,7 +97,7 @@ library(presize)
 prec_prop(p = c(.2, .4), n = 10, method = "wilson")
 ```
 
-THe problem being addressed is 'how wide is the confidence interval width given proportions of events of 20 and 40% and only 10 participants'.
+The problem being addressed is 'how wide is the confidence interval width, given proportions of events of 20 and 40% and only 10 participants'.
 
 
 ## Shiny app
