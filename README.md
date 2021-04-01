@@ -5,9 +5,6 @@ presize
 
 [![](https://www.r-pkg.org/badges/version/presize?color=green)](https://cran.r-project.org/package=presize)
 [![](https://img.shields.io/badge/dev%20version-0.2.2-blue.svg)](https://github.com/CTU-Bern/presize)
-![travis](https://travis-ci.com/CTU-Bern/presize.svg?branch=master)
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/CTU-Bern/presize?branch=master&svg=true)](https://ci.appveyor.com/project/CTU-Bern/presize)
 [![Actions
 Status](https://github.com/CTU-Bern/presize/workflows/R-CMD-check/badge.svg)](https://github.com/CTU-Bern/presize/actions)
 [![codecov](https://codecov.io/github/CTU-Bern/presize/branch/master/graphs/badge.svg)](https://codecov.io/github/CTU-Bern/presize)
