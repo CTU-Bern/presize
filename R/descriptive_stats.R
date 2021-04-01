@@ -64,7 +64,7 @@ prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
     prec <- conf.width / 2
     f <- function(sd, prec, alpha) uniroot(function(n) eval(ci) - prec,
                                     c(2, 1e+07), ...)$root
-    if(conf.width<sd){
+    if(conf.width<min(sd)){
       n <- try(mapply(f, sd = sd, prec = prec, alpha = alpha), silent = TRUE)
       if(inherits(n,"try-error")) stop("'conf.width' too small")
       est <- "sample size"
@@ -208,7 +208,7 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
       prec <- eval(quo)
     }
     if (is.null(x)) {
-      if(conf.width<r){
+      if(conf.width<min(r)){
         n <- try( x <- eval(get_x), silent = TRUE)
         if(inherits(n,"try-error")) stop("'conf.width' too small")
       } else {
@@ -228,7 +228,7 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
   # exact
   if (meth == "exact") {
     if (is.null(x)) {
-      if(conf.width<r){
+      if(conf.width<min(r)){
         n <- try( x <- eval(get_x), silent = TRUE)
         if(inherits(n,"try-error")) stop("'conf.width' too small")
       } else {
@@ -401,7 +401,7 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
       if (is.null(n)) {
         f <- uniroot_fun
         
-        if(conf.width<p){
+        if(conf.width<min(p)){
           n <- try(mapply(f, p = p, prec = prec, z = z, z2 = z2), silent = TRUE)
           if(inherits(n,"try-error")) stop("'conf.width' too small")
           est <- "sample size"
@@ -422,7 +422,7 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
       if (is.null(n)) {
         f <- uniroot_fun
         
-        if(conf.width<p){
+        if(conf.width<min(p)){
           n <- try(mapply(f, p = p, prec = prec, alpha = alpha), silent = TRUE)
           if(inherits(n,"try-error")) stop("'conf.width' too small")
           est <- "sample size"
