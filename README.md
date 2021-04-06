@@ -273,7 +273,8 @@ thread](https://github.com/CTU-Bern/presize/discussions) on GitHub.
 If you want to contribute code, please feel free to fork the repository,
 make your changes and make a pull request to have them integrated into
 the package. New functionality should have accompanying tests and pass
-continuous integration.
+continuous integration. See also the \[contributing
+guidelines\]{CONTRIBUTING}.
 
 Funding
 -------
