@@ -46,15 +46,15 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
     stop("'r' must be numeric")
   if (sum(sapply(list(n1, conf.width), is.null)) != 1)
     stop("exactly one of 'n', and 'conf.width' must be NULL")
-  
+
   numrange_check(conf.level)
   numrange_check_gt(r, 0)
-  
+
   if (!is.null(n1)) numrange_check_gt(n1, 1)
-    
+
   if (!is.null(n1) && n1*r<=1)
   stop("'n1'*'r' must be greater than 1")
-  
+
   if (!is.null(sd1)) numrange_check_gt(sd1, 0)
   if (!is.null(sd2)) numrange_check_gt(sd2, 0)
   if (!is.null(conf.width)) numrange_check_gt(conf.width,0)
@@ -101,7 +101,7 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
       prec <- eval(md)
     if (is.null(n1)) {
       eqn <- function(r, sd1, sd2, alpha, prec) uniroot(function(n1) eval(md) - prec,
-                                                      c(2, 1e+07), ...)$root      
+                                                      c(2, 1e+07), ...)$root
       if(conf.width<min(sd1)){
         n1 <- try(mapply(eqn, r = r, sd1 = sd1, sd2 = sd2, alpha = alpha, prec = prec), silent = TRUE)
         if(inherits(n1,"try-error")) stop("'conf.width' too small")
@@ -109,7 +109,7 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
         n1 <- try(mapply(eqn, r = r, sd1 = sd1, sd2 = sd2, alpha = alpha, prec = prec), silent = TRUE)
         if(inherits(n1,"try-error")) stop("'conf.width' too wide")
       }
-      
+
     }
   }
 
@@ -240,7 +240,7 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
     stop("'p1' must be numeric in [0, 1]")
   if (!is.null(p2) && !is.numeric(p2) || any(0 > p2 | p2 > 1))
     stop("'p2' must be numeric in [0, 1]")
-  
+
   if (!is.null(n1)) numrange_check_gt(n1,0)
   if (!is.null(r)) numrange_check_gt(r,0)
   if (!is.null(conf.width)) numrange_check_gt(conf.width,0)
@@ -437,7 +437,7 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
         },
         c(2, 1e+07), ...)$root
       }
-      
+
       if(conf.width<min(p1)){
         n1 <- try(mapply(mnn, p1 = p1, p2 = p2, conf.width = conf.width, r = r, conf.level = conf.level), silent = TRUE)
         if(inherits(n1,"try-error")) stop("'conf.width' too small")
@@ -451,7 +451,7 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
         x1 <- n1 * p1
         x2 <- n2 * p2
       }
-      
+
       if(conf.width<min(p1)){
         ci <- try(mapply(diffscoreci, x1 = x1, n1 = n1, x2 = x2, n2 = n2, conflev = conf.level), silent = TRUE)
         if(inherits(ci,"try-error")) stop("'conf.width' too small")
@@ -554,7 +554,7 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
   if (!is.null(n1)) numrange_check_gt(n1,0)
   if (!is.null(r)) numrange_check_gt(r,0)
   if (!is.null(conf.width)) numrange_check_gt(conf.width,0)
-  
+
   default_meth <- "koopman"
   if (length(method) > 1) {
     warning("more than one method was chosen, '", default_meth, "' will be used")
@@ -737,7 +737,7 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
 #'   computed one) augmented with method and note elements.
 #' @export
 #' @examples
-#' # 10% events in one group, 15% in the other, 200 participants total
+#' # 10\% events in one group, 15\% in the other, 200 participants total
 #' #  (= 100 in each group), estimate confidence interval width
 #' prec_or(p1 = .1, p2 = .15, n1 = 200/2)
 #' # formula by Gart
@@ -745,7 +745,7 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
 #' # formula by Woolf
 #' prec_or(p1 = .1, p2 = .15, n1 = 200/2, method = "woolf")
 #'
-#' # 10% odds in one group, 15% in the other, desired CI width of 0.1,
+#' # 10\% odds in one group, 15\% in the other, desired CI width of 0.1,
 #'    estimate N
 #' prec_or(p1 = .1, p2 = .15, conf.width = .1)
 #' # formula by Gart
@@ -770,11 +770,11 @@ prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.
     warning("more than one method was chosen, '", default_meth, "' will be used")
     method <- default_meth
   }
-  
+
   if (!is.null(n1)) numrange_check_gt(n1,0)
   if (!is.null(r)) numrange_check_gt(r,0)
   if (!is.null(conf.width)) numrange_check_gt(conf.width,0)
-  
+
   meths <- c("gart", "woolf", "indip_smooth")
   id <- pmatch(method, meths)
   meth <- meths[id]
@@ -927,7 +927,7 @@ prec_rateratio <- function(n1 = NULL, # n exposed
   if (!is.null(prec.level)) numrange_check(prec.level,0,Inf)
   if (!is.null(rate1)) numrange_check_gt(rate1,0)
   if (!is.null(rate2)) numrange_check_gt(rate2,0)
-  
+
   if (is.null(prec.level)){
     est <- "precision"
   } else {
