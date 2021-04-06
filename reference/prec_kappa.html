@@ -184,7 +184,16 @@ are symmetrical.</p>
 <code><a href='https://rdrr.io/pkg/kappaSize/man/CI3Cats.html'>CI3Cats</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># precision based on sample size</span>
+    <pre class="examples">prec_kappa,Sample size or precision for Cohen's kappa,Sample size or precision for Cohen's kappa — prec_kappa,Source: <a href='https://github.com/CTU-Bern/presize/blob/master/R/correlation_measures.R'><code>R/correlation_measures.R</code></a>,prec_kappa.Rd,character(0),prec_kappa,character(0),list(title = "Description", contents = "<p><code>prec_kappa</code> returns the sample size or the precision for the provided Cohen's kappa coefficient.</p>"),list(description = "prec_kappa returns the sample size or the precision for the provided Cohen's kappa coefficient."),<span class='fu'>prec_kappa</span><span class='op'>(</span>
+  <span class='va'>kappa</span>,
+  n <span class='op'>=</span> <span class='cn'>NULL</span>,
+  raters <span class='op'>=</span> <span class='fl'>2</span>,
+  n_category <span class='op'>=</span> <span class='fl'>2</span>,
+  <span class='va'>props</span>,
+  conf.width <span class='op'>=</span> <span class='cn'>NULL</span>,
+  conf.level <span class='op'>=</span> <span class='fl'>0.95</span>
+<span class='op'>)</span>,list(list(name = "kappa", description = "<p>expected value of Cohen's kappa.</p>"), list(name = "n", description = "<p>sample size.</p>"), list(name = "raters", description = "<p>number of raters (maximum of 6).</p>"), list(name = "n_category", description = "<p>number of categories of outcomes (maximum of 5).</p>"), list(name = "props", description = "<p>expected proportions of each outcome (should have length\n<code>n_category</code>).</p>"), list(name = "conf.width", description = "<p>precision (the full width of the confidence interval).</p>"), 
+    list(name = "conf.level", description = "<p>confidence level.</p>")),TRUE,<div class='input'><span class='co'># precision based on sample size</span>
 <span class='fu'>prec_kappa</span><span class='op'>(</span>kappa <span class='op'>=</span> <span class='fl'>.5</span>, n <span class='op'>=</span> <span class='fl'>200</span>, raters <span class='op'>=</span> <span class='fl'>4</span>, n_category <span class='op'>=</span> <span class='fl'>2</span>, props <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.3</span>,<span class='fl'>.7</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
 #&gt;      precision for Cohen's kappa 
@@ -214,7 +223,8 @@ are symmetrical.</p>
 #&gt;   kappa   n   lwr   upr conf.width conf.level
 #&gt; 1  0.50 198 0.425 0.575       0.15       0.95
 #&gt; 2  0.75  44 0.600 0.900       0.30       0.95</div><div class='input'>
-</div></pre>
+</div>,list(list(title = "Value", contents = "<p>Object of class \"presize\", a list of arguments (including the\n  computed one) augmented with method and note elements.</p>", slug = "value"), list(title = "Details", contents = "<p>This function wraps the <code>FixedN</code> and <code>CI</code> functions in the\n<code>kappaSize</code> package.\nThe <code>FixedN</code> functions in <code>kappaSize</code> return a one sided confidence\ninterval. The values that are passed to <code>kappaSize</code> ensure that two-sided\nconfidence intervals are returned, although we assume that confidence intervals\nare symmetrical.</p>", 
+    slug = "details"), list(title = "See also", contents = "<div class='dont-index'><p><code><a href='https://rdrr.io/pkg/kappaSize/man/FixedNBinary.html'>FixedNBinary</a></code>,\n<code><a href='https://rdrr.io/pkg/kappaSize/man/FixedN3Cats.html'>FixedN3Cats</a></code>,\n<code><a href='https://rdrr.io/pkg/kappaSize/man/CIBinary.html'>CIBinary</a></code>,\n<code><a href='https://rdrr.io/pkg/kappaSize/man/CI3Cats.html'>CI3Cats</a></code></p></div>", slug = "see-also")),2021,list(name = "presize", version = "0.2.1", authors = "Armando Lenz, Alan G. Haynes, Andreas Limacher"),list(destination = "dev", mode = "release", version_label = "default", version_tooltip = "Released version", in_dev = FALSE),list(root = "../", title = "presize"),list(),list(type = "default", left = "<li>\n  <a href=\"../index.html\">\n    <span class=\"fas fa-home fa-lg\"></span>\n     \n  </a>\n</li>\n<li>\n  <a href=\"../reference/index.html\">Reference</a>\n</li>\n<li>\n  <a href=\"../news/index.html\">Changelog</a>\n</li>", right = "<li>\n  <a href=\"https://github.com/CTU-Bern/presize/\">\n    <span class=\"fab fa-github fa-lg\"></span>\n     \n  </a>\n</li>"),list(.present = TRUE),list(version = "1.6.1"),FALSE</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
