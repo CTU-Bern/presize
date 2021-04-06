@@ -111,7 +111,7 @@ test_that("prec_meandiff", {
   x <- as.data.frame(prec_meandiff(5, c(2.5), n1 = c(20)))
   expect_equal(nrow(x), 1)
 
-  x <- as.data.frame(prec_meandiff(5, c(2.5, 2.5, 3), n1 = c(20, 25, 25)))
+  #x <- as.data.frame(prec_meandiff(5, c(2.5, 2.5, 3), n1 = c(20, 25, 25)))
   #expect_equal(nrow(x), 3)
 
 })
