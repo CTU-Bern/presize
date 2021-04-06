@@ -125,18 +125,18 @@ prec_icc <- function(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95) {
 #' @examples
 #' # calculate confidence interval width...
 #' # Pearson correlation coefficient
-#' prec_cor(.5, n = 100)
+#' prec_cor(r = 0.5, n = 100)
 #' # Kendall rank correlation coefficient (tau)
-#' prec_cor(.5, n = 100, method = "kendall")
+#' prec_cor(r = 0.5, n = 100, method = "kendall")
 #' # Spearman's rank correlation coefficient
-#' prec_cor(.5, n = 100, method = "spearman")
+#' prec_cor(r = 0.5, n = 100, method = "spearman")
 #' # calculate N required for a given confidence interval width...
 #' # Pearson correlation coefficient
-#' prec_cor(conf.width = .15, n = 100)
+#' prec_cor(r = 0.5, conf.width = .15)
 #' # Kendall rank correlation coefficient (tau)
-#' prec_cor(conf.width = .15, n = 100, method = "kendall")
+#' prec_cor(r = 0.5, conf.width = .15, method = "kendall")
 #' # Spearman's rank correlation coefficient
-#' prec_cor(conf.width = .15, n = 100, method = "spearman")
+#' prec_cor(r = 0.5, conf.width = .15, method = "spearman")
 prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
                       method = c("pearson", "kendall", "spearman"),
                       ...) {
