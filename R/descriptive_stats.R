@@ -33,7 +33,9 @@
 #' \code{lwr} lower bound of confidence interval, \code{upr} upper bound of confidence interval,
 #'  augmented with method and note elements.
 #' @examples
+#' # mean of 5, SD of 2.5, whats the confidence interval width with 20 participants?
 #' prec_mean(mu = 5, sd = 2.5, n = 20)
+#' # mean of 5, SD of 2.5, how many participants for CI width of 2.34?
 #' prec_mean(mu = 5, sd = 2.5, conf.width = 2.34)  # approximately the inverse of above
 #' @importFrom stats qt
 #' @importFrom stats qnorm
@@ -41,13 +43,13 @@
 #' @export
 prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
                       ...) {
-  if (!is.null(mu) && !is.numeric(mu))
-    stop("'mu' must be numeric")
-  if (!is.null(sd) && !is.numeric(sd))
-    stop("'sd' must be numeric")
+
+  numrange_check_gt(sd)
+  numrange_check(conf.level)
   if (sum(sapply(list(n, conf.width), is.null)) != 1)
     stop("exactly one of 'n', and 'conf.width' must be NULL")
-  numrange_check(conf.level)
+  if(!is.null(n)) numrange_check_gt(n)
+  if(!is.null(conf.width)) numrange_check_gt(conf.width)
 
   alpha <- (1 - conf.level) / 2
 
@@ -64,8 +66,15 @@ prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
     prec <- conf.width / 2
     f <- function(sd, prec, alpha) uniroot(function(n) eval(ci) - prec,
                                     c(2, 1e+07), ...)$root
-    n <- mapply(f, sd = sd, prec = prec, alpha = alpha)
-    est <- "sample size"
+    if(conf.width<min(sd)){
+      n <- try(mapply(f, sd = sd, prec = prec, alpha = alpha), silent = TRUE)
+      if(inherits(n,"try-error")) stop("'conf.width' too small")
+      est <- "sample size"
+    } else {
+      n <- try(mapply(f, sd = sd, prec = prec, alpha = alpha), silent = TRUE)
+      if(inherits(n,"try-error")) stop("'conf.width' too wide")
+      est <- "sample size"
+    }
   }
 
   structure(list(mu = mu,
@@ -104,6 +113,8 @@ prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
 #'
 #' @param r rate or rate ratio.
 #' @param x number of events.
+#' @param conf.width precision (the full width of the confidence interval).
+#'  Should not exceed 5 times \code{r}.
 #' @param method The method to use to calculate precision. Exactly one method
 #'   may be provided. Methods can be abbreviated.
 #' @inheritParams prec_mean
@@ -116,12 +127,18 @@ prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
 #' \href{https://doi.org/10.1198/000313002317572736}{DOI:
 #' 10.1198/000313002317572736}
 #' @examples
+#' # confidence interval width for a rate of 2.5 events per unit and 20 events,
+#' #  using the score method
 #' prec_rate(2.5, x = 20, met = "score")
+#' # number of events to yield a CI width of 2.243 for a rate of 2.5 events per
+#' #  unit and 20 events, using the score method
 #' prec_rate(2.5, conf.width = 2.243, met = "score")
+#' # confidence interval width for a rate of 2.5 events per unit and 20 events,
+#' #  using the exact method
 #' prec_rate(2.5, x = 20, met = "exact")
 #' # vs and wald have the same conf.width, but different lwr and upr
-#' prec_rate(2.5, x = 20, met = "wald")
 #' prec_rate(2.5, x = 20, met = "vs")
+#' prec_rate(2.5, x = 20, met = "wald")
 #' @export
 prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
                                method = c("score", "vs", "exact", "wald"),
@@ -129,6 +146,10 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
 
   if (sum(sapply(list(x, conf.width), is.null)) != 1)
     stop("exactly one of 'x', and 'conf.width' must be NULL")
+
+  numrange_check_gt(r)
+  if(!is.null(x)) numrange_check_gt(x)
+  if(!is.null(conf.width)) numrange_check_gt(conf.width)
 
   # checks for the method
   if (length(method) > 1) {
@@ -195,7 +216,13 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
       prec <- eval(quo)
     }
     if (is.null(x)) {
-      x <- eval(get_x)
+      if(conf.width<min(r)){
+        n <- try( x <- eval(get_x), silent = TRUE)
+        if(inherits(n,"try-error")) stop("'conf.width' too small")
+      } else {
+        n <- try( x <- eval(get_x), silent = TRUE)
+        if(inherits(n,"try-error")) stop("'conf.width' too wide")
+      }
     }
     if (any(r == 0) & meth == "vs")
       warning("The confidence interval is degenerate at z^2/(4t), if r is 0.")
@@ -209,7 +236,13 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
   # exact
   if (meth == "exact") {
     if (is.null(x)) {
-      x <- eval(get_x)
+      if(conf.width<min(r)){
+        n <- try( x <- eval(get_x), silent = TRUE)
+        if(inherits(n,"try-error")) stop("'conf.width' too small")
+      } else {
+        n <- try( x <- eval(get_x), silent = TRUE)
+        if(inherits(n,"try-error")) stop("'conf.width' too wide")
+      }
     }
     res <- eval(quo)
     radj <- eval(get_radj)
@@ -277,7 +310,15 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
 #'   \href{https://doi.org/10.1214/ss/1009213286}{doi:10.1214/ss/1009213286}
 #'
 #' @examples
+#' # CI width for 15\% with 50 participants
+#' prec_prop(0.15, n = 50)
+#' # number of participants for 15\% with a CI width of 0.2
+#' prec_prop(0.15, conf.width = 0.2)
+#' # confidence interval width for a range of scenarios between 10 and 90\% with
+#' #  100 participants via the wilson method
 #' prec_prop(p = 1:9 / 10, n = 100, method = "wilson")
+#' # number of participants for a range of scenarios between 10 and 90\% with
+#' #  a CI of 0.192 via the wilson method
 #' prec_prop(p = 1:9 / 10, conf.width = .192, method = "wilson")
 #' @export
 prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
@@ -287,6 +328,9 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
     stop("exactly one of 'n', and 'conf.width' must be NULL")
   numrange_check(conf.level)
   numrange_check(p)
+  if(!is.null(n)) numrange_check_gt(n)
+  if(!is.null(conf.width)) numrange_check_gt(conf.width)
+  if(!is.null(conf.width) && conf.width > .7) warning("risk of failure in calculations increases with higher 'conf.width', particularly when 'p' is close to 0 or 1")
 
   if (length(method) > 1) {
     warning("more than one method was chosen, 'wilson' will be used")
@@ -372,7 +416,17 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
       }
       if (is.null(n)) {
         f <- uniroot_fun
-        n <- mapply(f, p = p, prec = prec, z = z, z2 = z2)
+
+        if(conf.width<min(p)){
+          n <- try(mapply(f, p = p, prec = prec, z = z, z2 = z2), silent = TRUE)
+          if(inherits(n,"try-error")) stop("'conf.width' too small")
+          est <- "sample size"
+        } else {
+          n <- try(mapply(f, p = p, prec = prec, z = z, z2 = z2), silent = TRUE)
+          if(inherits(n,"try-error")) stop("'conf.width' too wide")
+          est <- "sample size"
+        }
+
       }
       padj <- switch(meth,
                      'Agresti-Coull' = (p * n + 0.5 * z2) / (n + z2),
@@ -383,7 +437,17 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
     if (meth == "exact") {
       if (is.null(n)) {
         f <- uniroot_fun
-        n <- mapply(f, p = p, prec = prec, alpha = alpha)
+
+        if(conf.width<min(p)){
+          n <- try(mapply(f, p = p, prec = prec, alpha = alpha), silent = TRUE)
+          if(inherits(n,"try-error")) stop("'conf.width' too small")
+          est <- "sample size"
+        } else {
+          n <- try(mapply(f, p = p, prec = prec, alpha = alpha), silent = TRUE)
+          if(inherits(n,"try-error")) stop("'conf.width' too wide")
+          est <- "sample size"
+        }
+
       }
       res <- eval(quo)
       lwr <- res$lwr

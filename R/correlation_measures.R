@@ -43,14 +43,16 @@
 #'   computed one) augmented with method and note elements.
 
 prec_icc <- function(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95) {
-  is.wholenumber <-
-    function(x, tol = .Machine$double.eps ^ 0.5)  abs(x - round(x)) < tol
+
   if (any(!is.null(k)) && (!is.numeric(k) || any(!is.wholenumber(k))))
     stop("'k' must be numeric and a whole number")
   if (sum(sapply(list(n, conf.width), is.null)) != 1)
     stop("exactly one of 'n', and 'conf.width' must be NULL")
   numrange_check(rho)
   numrange_check(conf.level)
+  if(!is.null(n)) numrange_check_gt(n)
+  if(!is.null(conf.width)) numrange_check_gt(conf.width)
+  numrange_check_gt(k, 1)
 
   alpha <- 1 - conf.level
   z <- qnorm(1 - alpha / 2)
@@ -65,8 +67,8 @@ prec_icc <- function(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95) {
     n <- 8 * z2 * (1 - rho) ^ 2 * (1 + (k - 1) * rho) ^ 2 /
     (k * (k - 1) * conf.width ^ 2) + 1
 
-  # add cases after calculation of n, if n is unknown, or before calculaiton of
-  # conf.widht, if n is known
+  # add cases after calculation of n, if n is unknown, or before calculation of
+  # conf.width, if n is known
   n <- n + (k == 2 & rho >= 0.7) * 5 * rho
 
   if (is.null(conf.width))
@@ -120,14 +122,32 @@ prec_icc <- function(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95) {
 #' @export
 #' @return Object of class "presize", a list of arguments (including the
 #'   computed one) augmented with method and note elements.
+#' @examples
+#' # calculate confidence interval width...
+#' # Pearson correlation coefficient
+#' prec_cor(r = 0.5, n = 100)
+#' # Kendall rank correlation coefficient (tau)
+#' prec_cor(r = 0.5, n = 100, method = "kendall")
+#' # Spearman's rank correlation coefficient
+#' prec_cor(r = 0.5, n = 100, method = "spearman")
+#' # calculate N required for a given confidence interval width...
+#' # Pearson correlation coefficient
+#' prec_cor(r = 0.5, conf.width = .15)
+#' # Kendall rank correlation coefficient (tau)
+#' prec_cor(r = 0.5, conf.width = .15, method = "kendall")
+#' # Spearman's rank correlation coefficient
+#' prec_cor(r = 0.5, conf.width = .15, method = "spearman")
 prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
                       method = c("pearson", "kendall", "spearman"),
                       ...) {
 
   if (sum(sapply(list(n, conf.width), is.null)) != 1)
     stop("exactly one of 'n', and 'conf.width' must be NULL")
-  numrange_check(r)
+  numrange_check(r, -1, 1)
   numrange_check(conf.level)
+  if(!is.null(n)) numrange_check_gt(n)
+  if(!is.null(conf.width)) numrange_check_gt(conf.width)
+
 
   default_meth <- "pearson"
   if (length(method) > 1) {
@@ -189,9 +209,17 @@ prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
     f <- function(r, z, b, c, conf.width) uniroot(function(n) eval(calc_ci)$cw - conf.width,
                                             c(5, 1e+07), ...,
                                             extendInt = "yes")$root
-    n <- mapply(f, r = r, z = z, b = b, c = c, conf.width = conf.width)
-    n <- ceiling(n)
-    eval(calc_ci)
+    if(conf.width<min(r)){
+      n <- try(mapply(f, r = r, z = z, b = b, c = c, conf.width = conf.width), silent = TRUE)
+      if(inherits(n,"try-error")) stop("'conf.width' too small")
+      n <- ceiling(n)
+      eval(calc_ci)
+    } else {
+      n <- try(mapply(f, r = r, z = z, b = b, c = c, conf.width = conf.width), silent = TRUE)
+      if(inherits(n,"try-error")) stop("'conf.width' too wide")
+      n <- ceiling(n)
+      eval(calc_ci)
+    }
   }
 
   structure(list(r = r,
@@ -220,7 +248,7 @@ prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
 #' and that parameter is determined from the other.
 #'
 #' The sample size and precision are calculated according to formulae in Bland &
-#' Altman (1986).
+#' Altman (1986). The CI width is a simple function of the sample size only.
 #'
 #' @param n sample size.
 #' @param conf.width precision (the full width of the confidence interval).
@@ -231,11 +259,18 @@ prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
 #' between two methods of clinical measurement} Lancet i(8476):307-310
 #' \href{https://doi.org/10.1016/S0140-6736(86)90837-8}{doi:10.1016/S0140-6736(86)90837-8}
 #' @export
+#' @examples
+#' # calculate confidence interval width, given N
+#' prec_lim_agree(200)
+#' # calculate N given, confidence interval width
+#' prec_lim_agree(conf.width = .1)
 
 prec_lim_agree <- function(n = NULL, conf.width = NULL, conf.level = 0.95){
 
   if (sum(sapply(list(n, conf.width), is.null)) != 1)
     stop("exactly one of 'n', and 'conf.width' must be NULL")
+  if(!is.null(n)) numrange_check_gt(n)
+  if(!is.null(conf.width)) numrange_check_gt(conf.width)
 
   alpha <- 1 - conf.level
   z <- qnorm(1 - alpha / 2) * 2
@@ -301,12 +336,13 @@ prec_lim_agree <- function(n = NULL, conf.width = NULL, conf.level = 0.95){
 #'
 #' @examples
 #' # precision based on sample size
+#' #   two categories with proportions of 30 and 70\%, four raters
 #' prec_kappa(kappa = .5, n = 200, raters = 4, n_category = 2, props = c(.3,.7))
 #' # sample size to get a given precision
 #' prec_kappa(kappa = .5, conf.width = .15, raters = 4, n_category = 2,
 #'            props = c(.3,.7))
 #'
-#'
+#' # as above, but with two scenarios for kappa
 #' prec_kappa(kappa = c(.5, .75), conf.width = .15, raters = 4, n_category = 2,
 #'            props = c(.3,.7))
 #' prec_kappa(kappa = c(.5, .75), conf.width = c(.15, 0.3), raters = 4,
@@ -322,9 +358,17 @@ prec_kappa <- function(kappa,
 
   if (n_category < 2) stop("there must be at least 2 outcome categories")
   if (n_category > 5) stop("more than 5 outcome categories is not supported")
+  if (any(!is.wholenumber(n_category)))
+    stop("'n_category' must be numeric and a whole number")
   if (sum(sapply(list(n, conf.width), is.null)) != 1)
     stop("exactly one of 'n', and 'conf.width' must be NULL")
   numrange_check(conf.level)
+  if(!is.null(n)) numrange_check_gt(n)
+  if(!is.null(conf.width)) numrange_check_gt(conf.width, .01)
+  if (any(!is.wholenumber(raters)))
+    stop("'raters' must be numeric and a whole number")
+  if(!is.null(raters)) numrange_check(raters,2,6)
+  if(!is.null(props)) numrange_check(props)
 
   alpha <- 1-conf.level
 
@@ -375,7 +419,7 @@ prec_kappa <- function(kappa,
                   kappaSize::CI4Cats,
                   kappaSize::CI5Cats)
 
-    res <- mapply(function(kappa, kappa_L, kappa_U, conf.width){
+    res <- try(mapply(function(kappa, kappa_L, kappa_U, conf.width){
                   f <- fun(kappa0 = kappa,
                            kappaL = kappa_L,
                            kappaU = kappa_U,
@@ -390,8 +434,8 @@ prec_kappa <- function(kappa,
                     conf.level = conf.level,
                     n = f$n
                   )
-    }, vals$kappa, vals$kappa_L, vals$kappa_U, vals$conf.width, SIMPLIFY = FALSE)
-
+    }, vals$kappa, vals$kappa_L, vals$kappa_U, vals$conf.width, SIMPLIFY = FALSE), silent = TRUE)
+    if(inherits(res,"try-error")) stop("'conf.width' too wide")
   }
 
   res <- do.call("rbind", res)

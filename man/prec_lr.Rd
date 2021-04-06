@@ -108,12 +108,14 @@ prec_pos_lr(prev = .5, sens = .8, spec = .73, n = 146.8)
 # exp(2*(log(2.96) - log(2))) = 2.19 (approximate because the CI Of the LR
 # is only symetrical on the log(LR) scale), which we can put in conf.width
 prec_lr(prev = .5, p1 = .8, p2 = 1-.73, conf.width = 2.2)
+# same, but using the wrapper to specify sens and spec
 prec_pos_lr(prev = .5, sens = .8, spec = .73, conf.width = 2.2)
 
 # Simel et al 1991, problem 2 - LR- CI width from N
 # p1 = 1 - sens = .1, p2 = spec = .5
 # n1 = n2, n = 160, prev = .5
 prec_lr(prev = .5, p1 = .1, p2 = .5, n = 160)
+# same, but using the wrapper to specify sens and spec
 prec_neg_lr(prev = .5, sens = .9, spec = .5, n = 160)
 
 }

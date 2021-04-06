@@ -40,6 +40,8 @@ from the t-distribution with n-1 degrees of freedom.
 \code{\link[stats]{uniroot}} is used to solve \code{n}.
 }
 \examples{
+# mean of 5, SD of 2.5, whats the confidence interval width with 20 participants?
 prec_mean(mu = 5, sd = 2.5, n = 20)
+# mean of 5, SD of 2.5, how many participants for CI width of 2.34?
 prec_mean(mu = 5, sd = 2.5, conf.width = 2.34)  # approximately the inverse of above
 }

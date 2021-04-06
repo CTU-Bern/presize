@@ -60,6 +60,24 @@ recommended intervals (Fagerland et al. 2011).
 \code{\link[stats]{uniroot}} is used to solve n for the woolf, gart, and
 indip_smooth method.
 }
+\examples{
+# 10\\% events in one group, 15\\% in the other, 200 participants total
+#  (= 100 in each group), estimate confidence interval width
+prec_or(p1 = .1, p2 = .15, n1 = 200/2)
+# formula by Gart
+prec_or(p1 = .1, p2 = .15, n1 = 200/2, method = "gart")
+# formula by Woolf
+prec_or(p1 = .1, p2 = .15, n1 = 200/2, method = "woolf")
+
+# 10\\% odds in one group, 15\\% in the other, desired CI width of 0.1,
+#  estimate N
+prec_or(p1 = .1, p2 = .15, conf.width = .1)
+# formula by Gart
+prec_or(p1 = .1, p2 = .15, conf.width = .1, method = "gart")
+# formula by Woolf
+prec_or(p1 = .1, p2 = .15, conf.width = .1, method = "woolf")
+
+}
 \references{
 Fagerland MW, Lydersen S, Laake P (2015). \emph{Recommended
 confidence intervals for two independent binomial proportions}. Statistical

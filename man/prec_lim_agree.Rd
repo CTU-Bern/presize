@@ -28,7 +28,13 @@ Exactly one of the parameters \code{n} or \code{conf.width} must be passed as NU
 and that parameter is determined from the other.
 
 The sample size and precision are calculated according to formulae in Bland &
-Altman (1986).
+Altman (1986). The CI width is a simple function of the sample size only.
+}
+\examples{
+# calculate confidence interval width, given N
+prec_lim_agree(200)
+# calculate N given, confidence interval width
+prec_lim_agree(conf.width = .1)
 }
 \references{
 Bland & Altman (1986) \emph{Statistical methods for assessing agreement

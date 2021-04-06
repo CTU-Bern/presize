@@ -6,10 +6,16 @@ numrange_check <- function(x, lo = 0, hi = 1) {
     stop(paste0("'", param, "' must be numeric in [", lo, ", ", hi, "]"))
 }
 
+numrange_check_gt <- function(x, lo = 0) {
+  param <- substitute(x)
+  if (any(!is.null(x) && !is.numeric(x) || any(lo > x)))
+    stop(paste0("'", param, "' must be numeric greater than ", lo))
+}
+
 # # calculate the z-value of standard normal distribution
 # calc_zval <- function(conf.level) qnorm((1 + conf.level) / 2)
 
-
+is.wholenumber <- function(x, tol = .Machine$double.eps ^ 0.5)  abs(x - round(x)) < tol
 
 
 # print definition for class

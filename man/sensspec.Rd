@@ -69,5 +69,5 @@ Calculated \code{n} can take on non-integer numbers, but
   prec_sens(.6, conf.width = 0.262)
 }
 \seealso{
-\code{prec_prop}, \code{prec_sens_spec}
+\code{prec_prop}
 }

@@ -9,3 +9,5 @@
 ^.travis.yml$
 ^CONTRIBUTING.md$
 ^\.github$
+^paper
+^docker

@@ -1,5 +1,6 @@
 ---
 output: github_document
+bibliography: paper/paper.bib
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -17,10 +18,9 @@ knitr::opts_chunk$set(
 
 [![](https://www.r-pkg.org/badges/version/presize?color=green)](https://cran.r-project.org/package=presize) 
 `r badger::badge_custom("dev version", as.character(packageVersion("presize")), "blue", "https://github.com/CTU-Bern/presize")`
-![travis](https://travis-ci.com/CTU-Bern/presize.svg?branch=master)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/CTU-Bern/presize?branch=master&svg=true)](https://ci.appveyor.com/project/CTU-Bern/presize)
 [![Actions Status](https://github.com/CTU-Bern/presize/workflows/R-CMD-check/badge.svg)](https://github.com/CTU-Bern/presize/actions)
 [![codecov](https://codecov.io/github/CTU-Bern/presize/branch/master/graphs/badge.svg)](https://codecov.io/github/CTU-Bern/presize)
+[![status](https://joss.theoj.org/papers/780db6ae34eb2317ef9b084012cce4de/status.svg)](https://joss.theoj.org/papers/780db6ae34eb2317ef9b084012cce4de)
 
 [Bland (2009)](https://www.bmj.com/content/339/bmj.b3985) recommended to
 base study sizes on the width of the confidence interval rather the power of 
@@ -53,63 +53,110 @@ Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS = "true")
 
 
 ## Overview
-presize will provide functions for
+presize provides functions for
 
-* descriptive statistics
-    + mean (`prec_mean`)
-    + proportion (`prec_prop`)
-    + rate (`prec_rate`)
-  
-* absolute and relative differences
-    + mean difference (`prec_meandiff`)
-    + risk difference (`prec_riskdiff`)
-    + odds ration (`prec_or`)
-    + risk ratio (`prec_riskratio`)
-    + rate ratio (`prec_rateratio`)
-<!--    + hazard ratio -->
-  
-* correlation measures
-    + correlation coefficient (`prec_cor`)
-    + Cohens kappa (`prec_kappa`)
-    + ICC (`prec_icc`)
-    + limit of agreement from Bland Altman plot (`prec_lim_agree`)
-  
-* diagnostic measures
-    + sens (`prec_sens`<sup>1</sup>)
-    + spec (`prec_spec`<sup>1</sup>)
-    + likelihood ratios (`prec_lr`)
-      + positive likelihood ratio (`prec_pos_lr`<sup>2</sup>)
-      + negative likelihood ratio (`prec_neg_lr`<sup>2</sup>)
-    + AUC (`prec_auc`)
-    
+Measure | Function | Methods available 
+-------- | ---------- | --------
+**Descriptive measures** | |
+Mean | `prec_mean` |
+Proportion | `prec_prop` | Wilson, Agresti-Coull, exact, Wald [see @brown2001]
+Rate | `prec_rate` | Score, variance stabilizing, exact, Wald [see @barker2002]
+**Absolute differences** | |
+Mean difference | `prec_meandiff` |
+Risk difference | `prec_riskdiff` | Newcombe [@newcombe1998], Miettinen-Nurminen [@mn1985], Agresti-Caffo [@ac2000], Wald
+**Relative differences** | |
+Odds ratio | `prec_or` | Gart, Wolff, independence smoothed logit [see @fll2015]
+Risk ratio | `prec_riskratio` | Koopman [@koopman1984], Katz [@kbap1978]
+Rate ratio | `prec_rateratio` | Rothman [@rg2018]
+**Correlation measures** | |
+Correlation coefficient | `prec_cor` | Pearson, Kendall, Spearman [see @bw2000]
+Intraclass correlation | `prec_icc` | @bonnett2002
+Limit of agreement | `prec_lim_agree` | @ba1986
+Cohen's kappa | `prec_kappa` | @rd2012
+**Diagnostic measures** | |
+Sensitivity<sup>1</sup> | `prec_sens` | As per `prec_prop`
+Specificity<sup>1</sup> | `prec_spec` | As per `prec_prop`
+Area under the curve | `prec_auc` | @hm1982
+Negative likelilood ratio<sup>2</sup> | `preg_neg_lr` | @simel1991
+Pogitive likelilood ratio<sup>2</sup> | `preg_pos_lr` | @simel1991
+Generic likelilood ratio | `preg_lr` | @simel1991
+
 <sup>1</sup> Simple wrappers for `prec_prop`.
 
 <sup>2</sup> Wrappers for `prec_lr` with values provided via sens and spec
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+Suppose we want to estimate the proportion of hospital admissions with diabetes. 
+Diabetes has a prevalence of approximately 10% (@diab). We assume a 
+slightly higher proportion of diabetics, 
+15%, as diabetes is a risk factor for a wide range of conditions. We want to 
+estimate the prevalence of diabetes to within 5% (plus/minus 2.5%). With `presize`,
+this is simple. We use the `prec_prop` (precision of a proportion) function and pass 
+our 15% and 5% as arguments `p` and `conf.width`:
 
-```{r example}
-library(presize)
-
-# calculate sample size for a proportion of 0.2, or 0.4 with a precision of 0.2
-prec_prop(p = c(.2, .4), n = 10, method = "wilson")
+```{r}
+library(presize) # load the package
+prec_prop(p = 0.15, conf.width = 0.05)
 ```
 
-THe problem being addressed is 'how wide is the confidence interval width given proportions of events of 20 and 40% and only 10 participants'.
+
+In the n column, we see that we would need to ask 784 (rounding 783.5 up) patients to achieve the desired CI width. 
+Disappointingly, we also know that we only have funds to collect the data from 
+600 patients. 
+We wonder if 600 patients would yield sufficient precision - we could 
+also accept a CI width of 6% (plus/minus 3%).
+In such a case, we can pass the arguments `p` and `n`.
+
+```{r}
+prec_prop(p = 0.15, n = 600)
+```
+
+Now we see that with 600 patients, the CI would have a width of 
+5.7%. We are happy with this and continue planning our study with those values. 
+All of the functions listed in Table 1 can be used similarly.
+
+We can also look at a range of scenarios simulatenously by passing a vector to 
+one of the arguments, which could be used to create something analogous to a 
+power curve: 
+
+```{r}
+prec_prop(p = 0.15, n = seq(600, 800, 50))
+```
 
 
 ## Shiny app
 
-An online interactive version of the package is available [here](https://ctu-bern.shinyapps.io/presize). The app can also be launched locally via `launch_presize_app()` in RStudio.
+An online interactive version of the package is available [here](https://shiny.ctu.unibe.ch/presize). The app can also be launched locally via `launch_presize_app()` in RStudio.
+
+```{r, echo=FALSE}
+knitr::include_graphics("man/figures/app.png")
+```
+
+## Getting help
+
+The package website, including more details on the functions, can be found [here](https://ctu-bern.github.io/presize/).
+
+If you have a question, feel free to make a thread on the [discussion](https://github.com/CTU-Bern/presize/discussions) page.
+
+If you encounter a bug, please create an [issue](https://github.com/CTU-Bern/presize/issues).
+
+## Contributing
+
+Contributions to `presize` are welcome. If you have ideas, open an [issue](https://github.com/CTU-Bern/presize/issues) or a [discussion thread](https://github.com/CTU-Bern/presize/discussions) on GitHub. 
+
+If you want to contribute code, please feel free to fork the repository, make your changes and make a pull request to have them integrated into the package.  New functionality should have accompanying tests and pass continuous integration. See also the [contributing guidelines](https://github.com/CTU-Bern/presize/blob/master/CONTRIBUTING.md).
 
 ## Funding
 
 `presize` was largely developed at CTU Bern, with collaboration from CTU Basel. Funding was provided by the Swiss Clinical Trial Organisation.
 
 ```{r, echo=FALSE}
-knitr::include_graphics("inst/fig/SCTO_Platform_Logo_2020_RZ_SM.png")
+knitr::include_graphics("man/figures/SCTO_Platform_Logo_2020_RZ_SM.png")
 ```
 
 <!-- ![](man/fig/scto_ctu_member_cmyk.jpg) -->
+
+
+
+## References
