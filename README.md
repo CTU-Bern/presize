@@ -249,6 +249,8 @@ An online interactive version of the package is available
 [here](https://shiny.ctu.unibe.ch/presize). The app can also be launched
 locally via `launch_presize_app()` in RStudio.
 
+<img src="man/figures/app.png" width="1107" />
+
 Getting help
 ------------
 
