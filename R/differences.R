@@ -690,6 +690,24 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
 #' @return Object of class "presize", a list of arguments (including the
 #'   computed one) augmented with method and note elements.
 #' @export
+#' @examples
+#' # 10% events in one group, 15% in the other, 200 participants total
+#' #  (= 100 in each group), estimate confidence interval width
+#' prec_or(p1 = .1, p2 = .15, n1 = 200/2)
+#' # formula by Gart
+#' prec_or(p1 = .1, p2 = .15, n1 = 200/2, method = "gart")
+#' # formula by Woolf
+#' prec_or(p1 = .1, p2 = .15, n1 = 200/2, method = "woolf")
+#'
+#' # 10% odds in one group, 15% in the other, desired CI width of 0.1,
+#'    estimate N
+#' prec_or(p1 = .1, p2 = .15, conf.width = .1)
+#' # formula by Gart
+#' prec_or(p1 = .1, p2 = .15, conf.width = .1, method = "gart")
+#' # formula by Woolf
+#' prec_or(p1 = .1, p2 = .15, conf.width = .1, method = "woolf")
+#'
+
 prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.95,
                     method = c("gart", "woolf", "indip_smooth"),
                     ...)  {

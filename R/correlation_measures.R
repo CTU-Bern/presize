@@ -122,6 +122,21 @@ prec_icc <- function(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95) {
 #' @export
 #' @return Object of class "presize", a list of arguments (including the
 #'   computed one) augmented with method and note elements.
+#' @examples
+#' # calculate confidence interval width...
+#' # Pearson correlation coefficient
+#' prec_cor(.5, n = 100)
+#' # Kendall rank correlation coefficient (tau)
+#' prec_cor(.5, n = 100, method = "kendall")
+#' # Spearman's rank correlation coefficient
+#' prec_cor(.5, n = 100, method = "spearman")
+#' # calculate N required for a given confidence interval width...
+#' # Pearson correlation coefficient
+#' prec_cor(conf.width = .15, n = 100)
+#' # Kendall rank correlation coefficient (tau)
+#' prec_cor(conf.width = .15, n = 100, method = "kendall")
+#' # Spearman's rank correlation coefficient
+#' prec_cor(conf.width = .15, n = 100, method = "spearman")
 prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
                       method = c("pearson", "kendall", "spearman"),
                       ...) {
