@@ -746,7 +746,7 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
 #' prec_or(p1 = .1, p2 = .15, n1 = 200/2, method = "woolf")
 #'
 #' # 10\% odds in one group, 15\% in the other, desired CI width of 0.1,
-#'    estimate N
+#' #  estimate N
 #' prec_or(p1 = .1, p2 = .15, conf.width = .1)
 #' # formula by Gart
 #' prec_or(p1 = .1, p2 = .15, conf.width = .1, method = "gart")
