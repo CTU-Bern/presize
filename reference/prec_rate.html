@@ -73,7 +73,7 @@ rate." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">presize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -144,7 +144,8 @@ rate.</p>
     </tr>
     <tr>
       <th>conf.width</th>
-      <td><p>precision (the full width of the confidence interval).</p></td>
+      <td><p>precision (the full width of the confidence interval).
+Should not exceed 5 times <code>r</code>.</p></td>
     </tr>
     <tr>
       <th>conf.level</th>
@@ -195,7 +196,10 @@ The American Statistician, 56:2, 85-89,
   conf.level <span class='op'>=</span> <span class='fl'>0.95</span>,
   method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"score"</span>, <span class='st'>"vs"</span>, <span class='st'>"exact"</span>, <span class='st'>"wald"</span><span class='op'>)</span>,
   <span class='va'>...</span>
-<span class='op'>)</span>,list(list(name = "r", description = "<p>rate or rate ratio.</p>"), list(name = "x", description = "<p>number of events.</p>"), list(name = "conf.width", description = "<p>precision (the full width of the confidence interval).</p>"), list(name = "conf.level", description = "<p>confidence level.</p>"), list(name = "method", description = "<p>The method to use to calculate precision. Exactly one method\nmay be provided. Methods can be abbreviated.</p>"), list(name = "...", description = "<p>other arguments to uniroot (e.g. <code>tol</code>).</p>")),TRUE,<div class='input'><span class='fu'>prec_rate</span><span class='op'>(</span><span class='fl'>2.5</span>, x <span class='op'>=</span> <span class='fl'>20</span>, met <span class='op'>=</span> <span class='st'>"score"</span><span class='op'>)</span>
+<span class='op'>)</span>,list(list(name = "r", description = "<p>rate or rate ratio.</p>"), list(name = "x", description = "<p>number of events.</p>"), list(name = "conf.width", description = "<p>precision (the full width of the confidence interval).\nShould not exceed 5 times <code>r</code>.</p>"), list(name = "conf.level", description = "<p>confidence level.</p>"), list(name = "method", description = "<p>The method to use to calculate precision. Exactly one method\nmay be provided. Methods can be abbreviated.</p>"), list(
+    name = "...", description = "<p>other arguments to uniroot (e.g. <code>tol</code>).</p>")),TRUE,<div class='input'><span class='co'># confidence interval width for a rate of 2.5 events per unit and 20 events,</span>
+<span class='co'>#  using the score method</span>
+<span class='fu'>prec_rate</span><span class='op'>(</span><span class='fl'>2.5</span>, x <span class='op'>=</span> <span class='fl'>20</span>, met <span class='op'>=</span> <span class='st'>"score"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
 #&gt;      precision for a rate with score confidence interval 
 #&gt; 
@@ -203,7 +207,9 @@ The American Statistician, 56:2, 85-89,
 #&gt; 1 2.5 2.740091 20    8   2.243301       0.95 1.618441 3.861742
 #&gt; 
 #&gt; NOTE: 'x / r' units of time are needed to accumulate 'x' events.
-#&gt; </div><div class='input'><span class='fu'>prec_rate</span><span class='op'>(</span><span class='fl'>2.5</span>, conf.width <span class='op'>=</span> <span class='fl'>2.243</span>, met <span class='op'>=</span> <span class='st'>"score"</span><span class='op'>)</span>
+#&gt; </div><div class='input'><span class='co'># number of events to yield a CI width of 2.243 for a rate of 2.5 events per</span>
+<span class='co'>#  unit and 20 events, using the score method</span>
+<span class='fu'>prec_rate</span><span class='op'>(</span><span class='fl'>2.5</span>, conf.width <span class='op'>=</span> <span class='fl'>2.243</span>, met <span class='op'>=</span> <span class='st'>"score"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
 #&gt;      sample size for a rate with score confidence interval 
 #&gt; 
@@ -211,7 +217,9 @@ The American Statistician, 56:2, 85-89,
 #&gt; 1 2.5 2.74003 20.00514 8.002055      2.243       0.95 1.61853 3.86153
 #&gt; 
 #&gt; NOTE: 'x / r' units of time are needed to accumulate 'x' events.
-#&gt; </div><div class='input'><span class='fu'>prec_rate</span><span class='op'>(</span><span class='fl'>2.5</span>, x <span class='op'>=</span> <span class='fl'>20</span>, met <span class='op'>=</span> <span class='st'>"exact"</span><span class='op'>)</span>
+#&gt; </div><div class='input'><span class='co'># confidence interval width for a rate of 2.5 events per unit and 20 events,</span>
+<span class='co'>#  using the exact method</span>
+<span class='fu'>prec_rate</span><span class='op'>(</span><span class='fl'>2.5</span>, x <span class='op'>=</span> <span class='fl'>20</span>, met <span class='op'>=</span> <span class='st'>"exact"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
 #&gt;      precision for a rate with exact confidence interval 
 #&gt; 
@@ -220,15 +228,7 @@ The American Statistician, 56:2, 85-89,
 #&gt; 
 #&gt; NOTE: 'x / r' units of time are needed to accumulate 'x' events.
 #&gt; </div><div class='input'><span class='co'># vs and wald have the same conf.width, but different lwr and upr</span>
-<span class='fu'>prec_rate</span><span class='op'>(</span><span class='fl'>2.5</span>, x <span class='op'>=</span> <span class='fl'>20</span>, met <span class='op'>=</span> <span class='st'>"wald"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;      precision for a rate with wald confidence interval 
-#&gt; 
-#&gt;     r radj  x time conf.width conf.level      lwr      upr
-#&gt; 1 2.5  2.5 20    8   2.191306       0.95 1.404347 3.595653
-#&gt; 
-#&gt; NOTE: 'x / r' units of time are needed to accumulate 'x' events.
-#&gt; </div><div class='input'><span class='fu'>prec_rate</span><span class='op'>(</span><span class='fl'>2.5</span>, x <span class='op'>=</span> <span class='fl'>20</span>, met <span class='op'>=</span> <span class='st'>"vs"</span><span class='op'>)</span>
+<span class='fu'>prec_rate</span><span class='op'>(</span><span class='fl'>2.5</span>, x <span class='op'>=</span> <span class='fl'>20</span>, met <span class='op'>=</span> <span class='st'>"vs"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
 #&gt;      precision for a rate with vs confidence interval 
 #&gt; 
@@ -236,9 +236,17 @@ The American Statistician, 56:2, 85-89,
 #&gt; 1 2.5 2.620046 20    8   2.191306       0.95 1.524392 3.715699
 #&gt; 
 #&gt; NOTE: 'x / r' units of time are needed to accumulate 'x' events.
+#&gt; </div><div class='input'><span class='fu'>prec_rate</span><span class='op'>(</span><span class='fl'>2.5</span>, x <span class='op'>=</span> <span class='fl'>20</span>, met <span class='op'>=</span> <span class='st'>"wald"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
+#&gt;      precision for a rate with wald confidence interval 
+#&gt; 
+#&gt;     r radj  x time conf.width conf.level      lwr      upr
+#&gt; 1 2.5  2.5 20    8   2.191306       0.95 1.404347 3.595653
+#&gt; 
+#&gt; NOTE: 'x / r' units of time are needed to accumulate 'x' events.
 #&gt; </div>,list(list(title = "Value", contents = "<p>Object of class \"presize\", a list of arguments (including the\n  computed one) augmented with method and note elements.</p>", slug = "value"), list(title = "Details", contents = "<p>Exactly one of the parameters <code>r</code> or <code>conf.width</code> must be passed as NULL,\nand that parameter is determined from the other.</p>\n<p>The <code>score</code>, variance stabilizing (<code>vs</code>), <code>exact</code>, and\n<code>wald</code> method are implemented to calculate the rate and the precision.\nFor few events <code>x</code> (&lt;5), the exact method is recommended.</p>\n<p>If more than one method is specified or the method is miss-specified, the\n'score' method will be used.</p>\n<p><code><a href='https://rdrr.io/r/stats/uniroot.html'>uniroot</a></code> is used to solve n for the score and\nexact method.</p>", 
     slug = "details"), list(title = "References", contents = "<p>Barker, L. (2002) <em>A Comparison of Nine Confidence Intervals\nfor a Poisson Parameter When the Expected Number of Events is \\(\\le\\) 5</em>,\nThe American Statistician, 56:2, 85-89,\n<a href='https://doi.org/10.1198/000313002317572736'>DOI:\n10.1198/000313002317572736</a></p>", slug = "references"), list(title = "See also", contents = "<div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/poisson.test.html'>poisson.test</a></code></p></div>", 
-    slug = "see-also")),2021,list(name = "presize", version = "0.2.1", authors = "Armando Lenz, Alan G. Haynes, Andreas Limacher"),list(destination = "dev", mode = "release", version_label = "default", version_tooltip = "Released version", in_dev = FALSE),list(root = "../", title = "presize"),list(),list(type = "default", left = "<li>\n  <a href=\"../index.html\">\n    <span class=\"fas fa-home fa-lg\"></span>\n     \n  </a>\n</li>\n<li>\n  <a href=\"../reference/index.html\">Reference</a>\n</li>\n<li>\n  <a href=\"../news/index.html\">Changelog</a>\n</li>", right = "<li>\n  <a href=\"https://github.com/CTU-Bern/presize/\">\n    <span class=\"fab fa-github fa-lg\"></span>\n     \n  </a>\n</li>"),list(.present = TRUE),list(version = "1.6.1"),FALSE</pre>
+    slug = "see-also")),2021,list(name = "presize", version = "0.2.2", authors = "Armando Lenz, Alan G. Haynes, Andreas Limacher"),list(destination = "dev", mode = "release", version_label = "default", version_tooltip = "Released version", in_dev = FALSE),list(root = "../", title = "presize"),list(),list(type = "default", left = "<li>\n  <a href=\"../index.html\">\n    <span class=\"fas fa-home fa-lg\"></span>\n     \n  </a>\n</li>\n<li>\n  <a href=\"../reference/index.html\">Reference</a>\n</li>\n<li>\n  <a href=\"../news/index.html\">Changelog</a>\n</li>", right = "<li>\n  <a href=\"https://github.com/CTU-Bern/presize/\">\n    <span class=\"fab fa-github fa-lg\"></span>\n     \n  </a>\n</li>"),list(.present = TRUE),list(version = "1.6.1"),FALSE</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

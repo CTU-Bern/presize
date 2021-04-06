@@ -73,7 +73,7 @@ provided proportions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">presize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -199,6 +199,65 @@ confidence intervals for two independent binomial proportions</em>. Statistical
 Methods in Medical Research, 24(2):224-254.
 <a href='https://doi.org/10.1177/0962280211415469'>doi:10.1177/0962280211415469</a>.</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples">prec_or,Sample size or precision for an odds ratio,Sample size or precision for an odds ratio — prec_or,Source: <a href='https://github.com/CTU-Bern/presize/blob/master/R/differences.R'><code>R/differences.R</code></a>,prec_or.Rd,character(0),prec_or,character(0),list(title = "Description", contents = "<p><code>prec_or</code> returns the sample size or the precision for the\nprovided proportions.</p>"),list(description = "prec_or returns the sample size or the precision for the\nprovided proportions."),<span class='fu'>prec_or</span><span class='op'>(</span>
+  <span class='va'>p1</span>,
+  <span class='va'>p2</span>,
+  n1 <span class='op'>=</span> <span class='cn'>NULL</span>,
+  r <span class='op'>=</span> <span class='fl'>1</span>,
+  conf.width <span class='op'>=</span> <span class='cn'>NULL</span>,
+  conf.level <span class='op'>=</span> <span class='fl'>0.95</span>,
+  method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"gart"</span>, <span class='st'>"woolf"</span>, <span class='st'>"indip_smooth"</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>,list(list(name = "p1", description = "<p>risk among exposed.</p>"), list(name = "p2", description = "<p>risk among unexposed.</p>"), list(name = "n1", description = "<p>number of patients in exposed group.</p>"), list(name = "r", description = "<p>allocation ratio (relative size of unexposed and exposed cohort\n(<code>n2</code> / <code>n1</code>)).</p>"), list(name = "conf.width", description = "<p>precision (the full width of the confidence interval).</p>"), list(name = "conf.level", description = "<p>confidence level.</p>"), 
+    list(name = "method", description = "<p>Exactly one of <code>indip_smooth</code> (<em>default</em>),\n<code>gart</code>, or <code>woolf</code>. Methods can be abbreviated.</p>"), list(name = "...", description = "<p>other arguments to uniroot (e.g. <code>tol</code>).</p>")),TRUE,<div class='input'><span class='co'># 10\% events in one group, 15\% in the other, 200 participants total</span>
+<span class='co'>#  (= 100 in each group), estimate confidence interval width</span>
+<span class='fu'>prec_or</span><span class='op'>(</span>p1 <span class='op'>=</span> <span class='fl'>.1</span>, p2 <span class='op'>=</span> <span class='fl'>.15</span>, n1 <span class='op'>=</span> <span class='fl'>200</span><span class='op'>/</span><span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: more than one method was chosen, 'indip_smooth' will be used</span></div><div class='output co'>#&gt; 
+#&gt;      precision for an odds ratio with indip_smooth confidence interval 
+#&gt; 
+#&gt;    p1   p2  n1  n2 ntot r        or       lwr      upr conf.width conf.level
+#&gt; 1 0.1 0.15 100 100  200 1 0.6296296 0.2707144 1.478198   1.207484       0.95</div><div class='input'><span class='co'># formula by Gart</span>
+<span class='fu'>prec_or</span><span class='op'>(</span>p1 <span class='op'>=</span> <span class='fl'>.1</span>, p2 <span class='op'>=</span> <span class='fl'>.15</span>, n1 <span class='op'>=</span> <span class='fl'>200</span><span class='op'>/</span><span class='fl'>2</span>, method <span class='op'>=</span> <span class='st'>"gart"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
+#&gt;      precision for an odds ratio with gart confidence interval 
+#&gt; 
+#&gt;    p1   p2  n1  n2 ntot r        or       lwr      upr conf.width conf.level
+#&gt; 1 0.1 0.15 100 100  200 1 0.6296296 0.2770396 1.478456   1.201417       0.95</div><div class='input'><span class='co'># formula by Woolf</span>
+<span class='fu'>prec_or</span><span class='op'>(</span>p1 <span class='op'>=</span> <span class='fl'>.1</span>, p2 <span class='op'>=</span> <span class='fl'>.15</span>, n1 <span class='op'>=</span> <span class='fl'>200</span><span class='op'>/</span><span class='fl'>2</span>, method <span class='op'>=</span> <span class='st'>"woolf"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
+#&gt;      precision for an odds ratio with woolf confidence interval 
+#&gt; 
+#&gt;    p1   p2  n1  n2 ntot r        or       lwr      upr conf.width conf.level
+#&gt; 1 0.1 0.15 100 100  200 1 0.6296296 0.2682267 1.477979   1.209753       0.95</div><div class='input'>
+<span class='co'># 10\% odds in one group, 15\% in the other, desired CI width of 0.1,</span>
+<span class='co'>#  estimate N</span>
+<span class='fu'>prec_or</span><span class='op'>(</span>p1 <span class='op'>=</span> <span class='fl'>.1</span>, p2 <span class='op'>=</span> <span class='fl'>.15</span>, conf.width <span class='op'>=</span> <span class='fl'>.1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: more than one method was chosen, 'indip_smooth' will be used</span></div><div class='output co'>#&gt; 
+#&gt;      sample size for an odds ratio with indip_smooth confidence interval 
+#&gt; 
+#&gt;    p1   p2       n1       n2    ntot r        or       lwr       upr conf.width
+#&gt; 1 0.1 0.15 11570.15 11570.15 23140.3 1 0.6296296 0.5816375 0.6816375        0.1
+#&gt;   conf.level
+#&gt; 1       0.95</div><div class='input'><span class='co'># formula by Gart</span>
+<span class='fu'>prec_or</span><span class='op'>(</span>p1 <span class='op'>=</span> <span class='fl'>.1</span>, p2 <span class='op'>=</span> <span class='fl'>.15</span>, conf.width <span class='op'>=</span> <span class='fl'>.1</span>, method <span class='op'>=</span> <span class='st'>"gart"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
+#&gt;      sample size for an odds ratio with gart confidence interval 
+#&gt; 
+#&gt;    p1   p2       n1       n2     ntot r        or      lwr      upr conf.width
+#&gt; 1 0.1 0.15 11569.79 11569.79 23139.58 1 0.6296296 0.581704 0.681704        0.1
+#&gt;   conf.level
+#&gt; 1       0.95</div><div class='input'><span class='co'># formula by Woolf</span>
+<span class='fu'>prec_or</span><span class='op'>(</span>p1 <span class='op'>=</span> <span class='fl'>.1</span>, p2 <span class='op'>=</span> <span class='fl'>.15</span>, conf.width <span class='op'>=</span> <span class='fl'>.1</span>, method <span class='op'>=</span> <span class='st'>"woolf"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
+#&gt;      sample size for an odds ratio with woolf confidence interval 
+#&gt; 
+#&gt;    p1   p2       n1       n2     ntot r        or       lwr       upr
+#&gt; 1 0.1 0.15 11570.28 11570.28 23140.56 1 0.6296296 0.5816118 0.6816118
+#&gt;   conf.width conf.level
+#&gt; 1        0.1       0.95</div><div class='input'>
+</div>,list(list(title = "Value", contents = "<p>Object of class \"presize\", a list of arguments (including the\n  computed one) augmented with method and note elements.</p>", slug = "value"), list(title = "Details", contents = "<p>Exactly one of the parameters <code>n1</code> or <code>conf.width</code> must be passed as NULL,\nand that parameter is determined from the other.</p>\n<p>Woolf (<code>woolf</code>), Gart (<code>gart</code>), and Independence-smoothed logit\n(<code>indip_smooth</code>) belong to a general family of adjusted confidence\nintervals, adding 0 (woolf) to each cell, 0.5 (gart) to each cell, or an\nadjustment for each cell based on observed data (independence-smoothed). In\ngart and indip_smooth, estimate of the CI is not possible if \\(p1 = 0\\), in\nwhich case the OR becomes 0, but the lower level of the CI is &gt; 0. Further,\nif \\(p1 = 1\\) and \\(p2 &lt; 1\\), or if \\(p1 &gt; 0\\) and \\(p2 = 0\\), the OR\nbecomes \\(\\infty\\), but the upper limit of the CI is finite. For the\napproximate intervals, <code>gart</code> and <code>indip_smooth</code> are the\nrecommended intervals (Fagerland et al. 2011).</p>\n<p><code><a href='https://rdrr.io/r/stats/uniroot.html'>uniroot</a></code> is used to solve n for the woolf, gart, and\nindip_smooth method.</p>", 
+    slug = "details"), list(title = "References", contents = "<p>Fagerland MW, Lydersen S, Laake P (2015). <em>Recommended\nconfidence intervals for two independent binomial proportions</em>. Statistical\nMethods in Medical Research, 24(2):224-254.\n<a href='https://doi.org/10.1177/0962280211415469'>doi:10.1177/0962280211415469</a>.</p>", slug = "references")),2021,list(name = "presize", version = "0.2.2", authors = "Armando Lenz, Alan G. Haynes, Andreas Limacher"),list(destination = "dev", mode = "release", version_label = "default", version_tooltip = "Released version", in_dev = FALSE),list(root = "../", title = "presize"),list(),list(type = "default", left = "<li>\n  <a href=\"../index.html\">\n    <span class=\"fas fa-home fa-lg\"></span>\n     \n  </a>\n</li>\n<li>\n  <a href=\"../reference/index.html\">Reference</a>\n</li>\n<li>\n  <a href=\"../news/index.html\">Changelog</a>\n</li>", right = "<li>\n  <a href=\"https://github.com/CTU-Bern/presize/\">\n    <span class=\"fab fa-github fa-lg\"></span>\n     \n  </a>\n</li>"),list(.present = TRUE),list(version = "1.6.1"),FALSE</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

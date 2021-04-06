@@ -36,7 +36,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">presize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -93,79 +93,359 @@
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p>presize will provide functions for</p>
-<ul>
-<li>descriptive statistics
-<ul>
-<li>mean (<code>prec_mean</code>)</li>
-<li>proportion (<code>prec_prop</code>)</li>
-<li>rate (<code>prec_rate</code>)</li>
-</ul>
-</li>
-<li>absolute and relative differences
-<ul>
-<li>mean difference (<code>prec_meandiff</code>)</li>
-<li>risk difference (<code>prec_riskdiff</code>)</li>
-<li>odds ration (<code>prec_or</code>)</li>
-<li>risk ratio (<code>prec_riskratio</code>)</li>
-<li>rate ratio (<code>prec_rateratio</code>) <!--    + hazard ratio -->
-</li>
-</ul>
-</li>
-<li>correlation measures
-<ul>
-<li>correlation coefficient (<code>prec_cor</code>)</li>
-<li>Cohens kappa (<code>prec_kappa</code>)</li>
-<li>ICC (<code>prec_icc</code>)</li>
-<li>limit of agreement from Bland Altman plot (<code>prec_lim_agree</code>)</li>
-</ul>
-</li>
-<li>diagnostic measures
-<ul>
-<li>sens (<code>prec_sens</code><sup>1</sup>)</li>
-<li>spec (<code>prec_spec</code><sup>1</sup>)</li>
-<li>likelihood ratios (<code>prec_lr</code>)
-<ul>
-<li>positive likelihood ratio (<code>prec_pos_lr</code><sup>2</sup>)</li>
-<li>negative likelihood ratio (<code>prec_neg_lr</code><sup>2</sup>)</li>
-</ul>
-</li>
-<li>AUC (<code>prec_auc</code>)</li>
-</ul>
-</li>
-</ul>
+<p>presize provides functions for</p>
+<table class="table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 38%">
+<col style="width: 30%">
+</colgroup>
+<thead><tr class="header">
+<th>
+Measure
+</th>
+<th>
+Function
+</th>
+<th>
+Methods available
+</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>
+<strong>Descriptive measures</strong>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+Mean
+</td>
+<td>
+<code>prec_mean</code>
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+Proportion
+</td>
+<td>
+<code>prec_prop</code>
+</td>
+<td>
+Wilson, Agresti-Coull, exact, Wald <span class="citation" data-cites="brown2001">(see Brown, Cai, and DasGupta 2001)</span>
+</td>
+</tr>
+<tr class="even">
+<td>
+Rate
+</td>
+<td>
+<code>prec_rate</code>
+</td>
+<td>
+Score, variance stabilizing, exact, Wald <span class="citation" data-cites="barker2002">(see Barker 2002)</span>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<strong>Absolute differences</strong>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+Mean difference
+</td>
+<td>
+<code>prec_meandiff</code>
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+Risk difference
+</td>
+<td>
+<code>prec_riskdiff</code>
+</td>
+<td>
+Newcombe <span class="citation" data-cites="newcombe1998">(Newcombe 1998)</span>, Miettinen-Nurminen <span class="citation" data-cites="mn1985">(Miettinen and Nurminen 1985)</span>, Agresti-Caffo <span class="citation" data-cites="ac2000">(Agresti and Caffo 2000)</span>, Wald
+</td>
+</tr>
+<tr class="even">
+<td>
+<strong>Relative differences</strong>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+Odds ratio
+</td>
+<td>
+<code>prec_or</code>
+</td>
+<td>
+Gart, Wolff, independence smoothed logit <span class="citation" data-cites="fll2015">(see Fagerland, Lydersen, and Laake 2015)</span>
+</td>
+</tr>
+<tr class="even">
+<td>
+Risk ratio
+</td>
+<td>
+<code>prec_riskratio</code>
+</td>
+<td>
+Koopman <span class="citation" data-cites="koopman1984">(Koopman 1984)</span>, Katz <span class="citation" data-cites="kbap1978">(Katz et al. 1978)</span>
+</td>
+</tr>
+<tr class="odd">
+<td>
+Rate ratio
+</td>
+<td>
+<code>prec_rateratio</code>
+</td>
+<td>
+Rothman <span class="citation" data-cites="rg2018">(Rothman and Greenland 2018)</span>
+</td>
+</tr>
+<tr class="even">
+<td>
+<strong>Correlation measures</strong>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+Correlation coefficient
+</td>
+<td>
+<code>prec_cor</code>
+</td>
+<td>
+Pearson, Kendall, Spearman <span class="citation" data-cites="bw2000">(see Bonnett and Wright 2000)</span>
+</td>
+</tr>
+<tr class="even">
+<td>
+Intraclass correlation
+</td>
+<td>
+<code>prec_icc</code>
+</td>
+<td>
+<span class="citation" data-cites="bonnett2002">Bonnett (2002)</span>
+</td>
+</tr>
+<tr class="odd">
+<td>
+Limit of agreement
+</td>
+<td>
+<code>prec_lim_agree</code>
+</td>
+<td>
+<span class="citation" data-cites="ba1986">Bland and Altman (1986)</span>
+</td>
+</tr>
+<tr class="even">
+<td>
+Cohen’s kappa
+</td>
+<td>
+<code>prec_kappa</code>
+</td>
+<td>
+<span class="citation" data-cites="rd2012">Rotondi and Donner (2012)</span>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<strong>Diagnostic measures</strong>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+Sensitivity<sup>1</sup>
+</td>
+<td>
+<code>prec_sens</code>
+</td>
+<td>
+As per <code>prec_prop</code>
+</td>
+</tr>
+<tr class="odd">
+<td>
+Specificity<sup>1</sup>
+</td>
+<td>
+<code>prec_spec</code>
+</td>
+<td>
+As per <code>prec_prop</code>
+</td>
+</tr>
+<tr class="even">
+<td>
+Area under the curve
+</td>
+<td>
+<code>prec_auc</code>
+</td>
+<td>
+<span class="citation" data-cites="hm1982">Hanley and McNeil (1982)</span>
+</td>
+</tr>
+<tr class="odd">
+<td>
+Negative likelilood ratio<sup>2</sup>
+</td>
+<td>
+<code>preg_neg_lr</code>
+</td>
+<td>
+<span class="citation" data-cites="simel1991">Simel, Samsa, and Matchar (1991)</span>
+</td>
+</tr>
+<tr class="even">
+<td>
+Pogitive likelilood ratio<sup>2</sup>
+</td>
+<td>
+<code>preg_pos_lr</code>
+</td>
+<td>
+<span class="citation" data-cites="simel1991">Simel, Samsa, and Matchar (1991)</span>
+</td>
+</tr>
+<tr class="odd">
+<td>
+Generic likelilood ratio
+</td>
+<td>
+<code>preg_lr</code>
+</td>
+<td>
+<span class="citation" data-cites="simel1991">Simel, Samsa, and Matchar (1991)</span>
+</td>
+</tr>
+</tbody>
+</table>
 <p><sup>1</sup> Simple wrappers for <code>prec_prop</code>.</p>
 <p><sup>2</sup> Wrappers for <code>prec_lr</code> with values provided via sens and spec</p>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
-<p>This is a basic example which shows you how to solve a common problem:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">library</span>(presize)</span>
-<span id="cb4-2"><a href="#cb4-2"></a></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="co"># calculate sample size for a proportion of 0.2, or 0.4 with a precision of 0.2</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="kw">prec_prop</span>(<span class="dt">p =</span> <span class="kw">c</span>(.<span class="dv">2</span>, <span class="fl">.4</span>), <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">method =</span> <span class="st">"wilson"</span>)</span>
+<p>Suppose we want to estimate the proportion of hospital admissions with diabetes. Diabetes has a prevalence of approximately 10% (Emerging Risk Factors Collaboration et al. (2010)). We assume a slightly higher proportion of diabetics, 15%, as diabetes is a risk factor for a wide range of conditions. We want to estimate the prevalence of diabetes to within 5% (plus/minus 2.5%). With <code>presize</code>, this is simple. We use the <code>prec_prop</code> (precision of a proportion) function and pass our 15% and 5% as arguments <code>p</code> and <code>conf.width</code>:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">library</span>(presize) <span class="co"># load the package</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="kw">prec_prop</span>(<span class="dt">p =</span> <span class="fl">0.15</span>, <span class="dt">conf.width =</span> <span class="fl">0.05</span>)</span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt; Warning in prec_prop(p = 0.15, conf.width = 0.05): more than one method was</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="co">#&gt; chosen, 'wilson' will be used</span></span>
 <span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt; </span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt;      precision for a proportion with Wilson confidence interval. </span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt;      sample size for a proportion with Wilson confidence interval. </span></span>
 <span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt; </span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt;     p      padj  n conf.width conf.level        lwr       upr</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt; 1 0.2 0.2832598 10  0.4531554       0.95 0.05668215 0.5098375</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt; 2 0.4 0.4277533 10  0.5191459       0.95 0.16818033 0.6873262</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt; </span></span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt; </span><span class="al">NOTE</span><span class="co">: padj is the adjusted proportion, from which the ci is calculated.</span></span></code></pre></div>
-<p>THe problem being addressed is ‘how wide is the confidence interval width given proportions of events of 20 and 40% and only 10 participants’.</p>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt;      p      padj        n conf.width conf.level       lwr       upr</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt; 1 0.15 0.1517077 783.4897       0.05       0.95 0.1267077 0.1767077</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt; </span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt; </span><span class="al">NOTE</span><span class="co">: padj is the adjusted proportion, from which the ci is calculated.</span></span></code></pre></div>
+<p>In the n column, we see that we would need to ask 784 (rounding 783.5 up) patients to achieve the desired CI width. Disappointingly, we also know that we only have funds to collect the data from 600 patients. We wonder if 600 patients would yield sufficient precision - we could also accept a CI width of 6% (plus/minus 3%). In such a case, we can pass the arguments <code>p</code> and <code>n</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">prec_prop</span>(<span class="dt">p =</span> <span class="fl">0.15</span>, <span class="dt">n =</span> <span class="dv">600</span>)</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="co">#&gt; Warning in prec_prop(p = 0.15, n = 600): more than one method was chosen,</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co">#&gt; 'wilson' will be used</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#&gt; </span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#&gt;      precision for a proportion with Wilson confidence interval. </span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#&gt; </span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt;      p      padj   n conf.width conf.level       lwr       upr</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt; 1 0.15 0.1522266 600 0.05713404       0.95 0.1236596 0.1807936</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt; </span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt; </span><span class="al">NOTE</span><span class="co">: padj is the adjusted proportion, from which the ci is calculated.</span></span></code></pre></div>
+<p>Now we see that with 600 patients, the CI would have a width of 5.7%. We are happy with this and continue planning our study with those values. All of the functions listed in Table 1 can be used similarly.</p>
+<p>We can also look at a range of scenarios simulatenously by passing a vector to one of the arguments, which could be used to create something analogous to a power curve:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">prec_prop</span>(<span class="dt">p =</span> <span class="fl">0.15</span>, <span class="dt">n =</span> <span class="kw">seq</span>(<span class="dv">600</span>, <span class="dv">800</span>, <span class="dv">50</span>))</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co">#&gt; Warning in prec_prop(p = 0.15, n = seq(600, 800, 50)): more than one method was</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="co">#&gt; chosen, 'wilson' will be used</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt; </span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt;      precision for a proportion with Wilson confidence interval. </span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt; </span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt;      p      padj   n conf.width conf.level       lwr       upr</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt; 1 0.15 0.1522266 600 0.05713404       0.95 0.1236596 0.1807936</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt; 2 0.15 0.1520563 650 0.05489329       0.95 0.1246097 0.1795030</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="co">#&gt; 3 0.15 0.1519102 700 0.05289705       0.95 0.1254617 0.1783588</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt; 4 0.15 0.1517835 750 0.05110386       0.95 0.1262316 0.1773355</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt; 5 0.15 0.1516726 800 0.04948148       0.95 0.1269319 0.1764133</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt; </span></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt; </span><span class="al">NOTE</span><span class="co">: padj is the adjusted proportion, from which the ci is calculated.</span></span></code></pre></div>
 </div>
 <div id="shiny-app" class="section level2">
 <h2 class="hasAnchor">
 <a href="#shiny-app" class="anchor"></a>Shiny app</h2>
-<p>An online interactive version of the package is available <a href="https://ctu-bern.shinyapps.io/presize">here</a>. The app can also be launched locally via <code><a href="reference/launch_presize_app.html">launch_presize_app()</a></code> in RStudio.</p>
+<p>An online interactive version of the package is available <a href="https://shiny.ctu.unibe.ch/presize">here</a>. The app can also be launched locally via <code><a href="reference/launch_presize_app.html">launch_presize_app()</a></code> in RStudio.</p>
+<p><img src="reference/figures/app.png" width="1107"></p>
+</div>
+<div id="getting-help" class="section level2">
+<h2 class="hasAnchor">
+<a href="#getting-help" class="anchor"></a>Getting help</h2>
+<p>The package website, including more details on the functions, can be found <a href="https://ctu-bern.github.io/presize/">here</a>.</p>
+<p>If you have a question, feel free to make a thread on the <a href="https://github.com/CTU-Bern/presize/discussions">discussion</a> page.</p>
+<p>If you encounter a bug, please create an <a href="https://github.com/CTU-Bern/presize/issues">issue</a>.</p>
+</div>
+<div id="contributing" class="section level2">
+<h2 class="hasAnchor">
+<a href="#contributing" class="anchor"></a>Contributing</h2>
+<p>Contributions to <code>presize</code> are welcome. If you have ideas, open an <a href="https://github.com/CTU-Bern/presize/issues">issue</a> or a <a href="https://github.com/CTU-Bern/presize/discussions">discussion thread</a> on GitHub.</p>
+<p>If you want to contribute code, please feel free to fork the repository, make your changes and make a pull request to have them integrated into the package. New functionality should have accompanying tests and pass continuous integration. See also the <a href="https://github.com/CTU-Bern/presize/blob/master/CONTRIBUTING.md">contributing guidelines</a>.</p>
 </div>
 <div id="funding" class="section level2">
 <h2 class="hasAnchor">
 <a href="#funding" class="anchor"></a>Funding</h2>
 <p><code>presize</code> was largely developed at CTU Bern, with collaboration from CTU Basel. Funding was provided by the Swiss Clinical Trial Organisation.</p>
-<p><img src="inst/fig/SCTO_Platform_Logo_2020_RZ_SM.png" width="148"></p>
+<p><img src="reference/figures/SCTO_Platform_Logo_2020_RZ_SM.png" width="148"></p>
 <!-- ![](man/fig/scto_ctu_member_cmyk.jpg) -->
+</div>
+<div id="references" class="section level2">
+<h2 class="hasAnchor">
+<a href="#references" class="anchor"></a>References</h2>
+<p>Agresti, A, and B Caffo. 2000. “Simple and Effective Confidence Intervals for Proportions and Differences of Proportions Result from Adding Two Successes and Two Failures.” <em>The Americal Statistician</em> 54 (4): 280–88. <a href="https://doi.org/10.2307/2685779" class="uri">https://doi.org/10.2307/2685779</a>.</p>
+<p>Barker, L. 2002. “A Comparison of Nine Confidence Intervals for a Poisson Parameter When the Expected Number of Events Is ≤ 5.” <em>The Americal Statistician</em> 56 (2): 85–89. <a href="https://doi.org/10.1198/000313002317572736" class="uri">https://doi.org/10.1198/000313002317572736</a>.</p>
+<p>Bland, J M, and D G Altman. 1986. “Statistical Methods for Assessing Agreement Between Two Methods of Clinical Measurement.” <em>Lancet</em> i(8476): 307–10. <a href="https://doi.org/10.1016/S0140-6736(86)90837-8" class="uri">https://doi.org/10.1016/S0140-6736(86)90837-8</a>.</p>
+<p>Bonnett, D G. 2002. “Sample Size Requirements for Estimating Intraclass Correlations with Desired Precision.” <em>Statistics in Medicine</em> 21: 1331–5. <a href="https://doi.org/10.1002/sim.1108" class="uri">https://doi.org/10.1002/sim.1108</a>.</p>
+<p>Bonnett, D G, and T A Wright. 2000. “Sample Size Requirements for Estimating Pearson, Kendall and Spearman Correlations.” <em>Psychometrika</em> 65: 23–28. <a href="https://doi.org/10.1007/BF02294183" class="uri">https://doi.org/10.1007/BF02294183</a>.</p>
+<p>Brown, L D, T T Cai, and A DasGupta. 2001. “Interval Estimation for a Binomial Proportion.” <em>Statistical Science</em> 16 (2): 101–17. <a href="https://doi.org/10.1214/ss/1009213286" class="uri">https://doi.org/10.1214/ss/1009213286</a>.</p>
+<p>Emerging Risk Factors Collaboration, N Sarwar, P Gao, S R Seshasai, R Gobin, S Kaptoge, E Di Angelantonio, et al. 2010. “Diabetes Mellitus, Fasting Blood Glucose Concentration, and Risk of Vascular Disease: A Collaborative Meta-Analysis of 102 Prospective Studies.” <em>Lancet</em> 375 (9733): 2215–22. <a href="https://doi.org/10.1016/S0140-6736(10)60484-9" class="uri">https://doi.org/10.1016/S0140-6736(10)60484-9</a>.</p>
+<p>Fagerland, M W, S Lydersen, and P Laake. 2015. “Recommended Confidence Intervals for Two Independent Binomial Proportions.” <em>Statistical Methods in Medical Research</em> 24 (2): 224–54. <a href="https://doi.org/10.1177/0962280211415469" class="uri">https://doi.org/10.1177/0962280211415469</a>.</p>
+<p>Hanley, J A, and B J McNeil. 1982. “The Meaning and Use of the Area Under a Receiver Operating Characteristic (Roc) Curve.” <em>Radiology</em> 148: 29–36. <a href="https://doi.org/10.1148/radiology.143.1.7063747" class="uri">https://doi.org/10.1148/radiology.143.1.7063747</a>.</p>
+<p>Katz, D, J Baptista, S P Azen, and M C Pike. 1978. “Obtaining Confidence Intervals for the Risk Ratio in Cohort Studies.” <em>Biometrics</em> 34: 469–74. <a href="https://doi.org/10.2307/2530610" class="uri">https://doi.org/10.2307/2530610</a>.</p>
+<p>Koopman, P A R. 1984. “Confidence Intervals for the Ratio of Two Binomial Proportions.” <em>Biometrics</em> 40: 513–17. <a href="https://doi.org/10.2307/2531551" class="uri">https://doi.org/10.2307/2531551</a>.</p>
+<p>Miettinen, O, and M Nurminen. 1985. “Comparative Analysis of Two Rates.” <em>Statistics in Medicine</em> 4: 213–26. <a href="https://doi.org/10.1002/sim.4780040211" class="uri">https://doi.org/10.1002/sim.4780040211</a>.</p>
+<p>Newcombe, R G. 1998. “Interval Estimation for the Difference Between Independent Proportions: Comparison of Eleven Methods.” <em>Statistics in Medicine</em> 17: 873–90. <a href="https://doi.org/10.1002/(sici)1097-0258(19980430)17:8%3C873::aid-sim779%3E3.0.co;2-i" class="uri">https://doi.org/10.1002/(sici)1097-0258(19980430)17:8%3C873::aid-sim779%3E3.0.co;2-i</a>.</p>
+<p>Rothman, K J, and S Greenland. 2018. “Planning Study Size Based on Precision Rather Than Power.” <em>Epidemiology</em> 29: 599–603. <a href="https://doi.org/10.1097/EDE.0000000000000876" class="uri">https://doi.org/10.1097/EDE.0000000000000876</a>.</p>
+<p>Rotondi, M A, and A Donner. 2012. “A Confidence Interval Approach to Sample Size Estimation for Interobserver Agreement Studies with Multiple Raters and Outcomes.” <em>Journal of Clinical Epidemiology</em> 65: 778–84. <a href="https://doi.org/10.1016/j.jclinepi.2011.10.019%20">https://doi.org/10.1016/j.jclinepi.2011.10.019</a>.</p>
+<p>Simel, D L, G P Samsa, and D B Matchar. 1991. “Likelihood Ratios with Confidence: Sample Size Estimation for Diagnostic Test Studies.” <em>Journal of Clinical Epidemiology</em> 44 (8): 763–70. <a href="https://doi.org/10.1016/0895-4356(91)90128-v" class="uri">https://doi.org/10.1016/0895-4356(91)90128-v</a>.</p>
 </div>
 </div>
   </div>
@@ -210,10 +490,10 @@
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://cran.r-project.org/package=presize"><img src="https://www.r-pkg.org/badges/version/presize?color=green"></a></li>
-<li><a href="https://github.com/CTU-Bern/presize"><img src="https://img.shields.io/badge/dev%20version-0.2.1-blue.svg"></a></li>
-<li><a href="https://ci.appveyor.com/project/CTU-Bern/presize"><img src="https://ci.appveyor.com/api/projects/status/github/CTU-Bern/presize?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
+<li><a href="https://github.com/CTU-Bern/presize"><img src="https://img.shields.io/badge/dev%20version-0.2.2-blue.svg"></a></li>
 <li><a href="https://github.com/CTU-Bern/presize/actions"><img src="https://github.com/CTU-Bern/presize/workflows/R-CMD-check/badge.svg" alt="Actions Status"></a></li>
 <li><a href="https://codecov.io/github/CTU-Bern/presize"><img src="https://codecov.io/github/CTU-Bern/presize/branch/master/graphs/badge.svg" alt="codecov"></a></li>
+<li><a href="https://joss.theoj.org/papers/780db6ae34eb2317ef9b084012cce4de"><img src="https://joss.theoj.org/papers/780db6ae34eb2317ef9b084012cce4de/status.svg" alt="status"></a></li>
 </ul>
 </div>
 </div>
