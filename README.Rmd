@@ -129,6 +129,10 @@ prec_prop(p = 0.15, n = seq(600, 800, 50))
 
 An online interactive version of the package is available [here](https://shiny.ctu.unibe.ch/presize). The app can also be launched locally via `launch_presize_app()` in RStudio.
 
+```{r, echo=FALSE}
+knitr::include_graphics("man/figures/app.png")
+```
+
 ## Getting help
 
 The package website, including more details on the functions, can be found [here](https://ctu-bern.github.io/presize/).
