@@ -145,7 +145,7 @@ If you encounter a bug, please create an [issue](https://github.com/CTU-Bern/pre
 
 Contributions to `presize` are welcome. If you have ideas, open an [issue](https://github.com/CTU-Bern/presize/issues) or a [discussion thread](https://github.com/CTU-Bern/presize/discussions) on GitHub. 
 
-If you want to contribute code, please feel free to fork the repository, make your changes and make a pull request to have them integrated into the package.  New functionality should have accompanying tests and pass continuous integration. See also the [contributing guidelines]{https://github.com/CTU-Bern/presize/CONTRIBUTING.md}.
+If you want to contribute code, please feel free to fork the repository, make your changes and make a pull request to have them integrated into the package.  New functionality should have accompanying tests and pass continuous integration. See also the [contributing guidelines](https://github.com/CTU-Bern/presize/CONTRIBUTING.md).
 
 ## Funding
 
