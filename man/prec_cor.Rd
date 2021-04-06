@@ -49,6 +49,22 @@ n is rounded up to the next whole number using \code{ceiling}.
 
 \code{\link[stats]{uniroot}} is used to solve n.
 }
+\examples{
+# calculate confidence interval width...
+# Pearson correlation coefficient
+prec_cor(.5, n = 100)
+# Kendall rank correlation coefficient (tau)
+prec_cor(.5, n = 100, method = "kendall")
+# Spearman's rank correlation coefficient
+prec_cor(.5, n = 100, method = "spearman")
+# calculate N required for a given confidence interval width...
+# Pearson correlation coefficient
+prec_cor(conf.width = .15, n = 100)
+# Kendall rank correlation coefficient (tau)
+prec_cor(conf.width = .15, n = 100, method = "kendall")
+# Spearman's rank correlation coefficient
+prec_cor(conf.width = .15, n = 100, method = "spearman")
+}
 \references{
 Bonett DG, and Wright TA (2000) \emph{Sample size requirements
   for estimating Pearson, Kendall and Spearman correlations} Psychometrika

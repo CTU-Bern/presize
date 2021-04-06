@@ -8,6 +8,11 @@
 #'
 #' The main disadvantage to the app is that it only allows a single scenario at
 #' a time.
+#'
+#' The app is also available at \href{https://shiny.ctu.unibe.ch/presize}{https://shiny.ctu.unibe.ch/presize}.
+#'
+#' \if{html}{\figure{app.png}{options: width="100\%"}}
+#'
 #' @usage
 #' launch_presize_app()
 #' @export

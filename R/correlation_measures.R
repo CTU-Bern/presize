@@ -251,6 +251,11 @@ prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
 #' between two methods of clinical measurement} Lancet i(8476):307-310
 #' \href{https://doi.org/10.1016/S0140-6736(86)90837-8}{doi:10.1016/S0140-6736(86)90837-8}
 #' @export
+#' @examples
+#' # calculate confidence interval width, given N
+#' prec_lim_agree(200)
+#' # calculate N given, confidence interval width
+#' prec_lim_agree(conf.width = .1)
 
 prec_lim_agree <- function(n = NULL, conf.width = NULL, conf.level = 0.95){
 

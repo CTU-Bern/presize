@@ -30,6 +30,12 @@ and that parameter is determined from the other.
 The sample size and precision are calculated according to formulae in Bland &
 Altman (1986).
 }
+\examples{
+# calculate confidence interval width, given N
+prec_lim_agree(200)
+# calculate N given, confidence interval width
+prec_lim_agree(conf.width = .1)
+}
 \references{
 Bland & Altman (1986) \emph{Statistical methods for assessing agreement
 between two methods of clinical measurement} Lancet i(8476):307-310
