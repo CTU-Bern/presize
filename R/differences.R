@@ -29,7 +29,10 @@
 #' @return Object of class "presize", a list of arguments (including the
 #'   computed one) augmented with method and note elements.
 #' @examples
+#' # mean difference of 5, SD of 2.5, CI width with 20 participants assuming equal variances
 #' prec_meandiff(delta = 5, sd1 = 2.5, n1 = 20, var = "equal")
+#' # mean difference of 5, SD of 2.5, number of participants for a CI width of 3,
+#' #  assuming equal variances
 #' prec_meandiff(delta = 5, sd1 = 2.5, conf.width = 3, var = "equal")
 #' @export
 prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
@@ -218,10 +221,16 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
 #' medical research 24(2):224-254.
 #'
 #' @examples
+#' # proportions of 40 and 30\%, 50 participants, how wide is the CI?
+#' prec_riskdiff(p1 = .4, p2 = .3, n1 = 50)
+#' # proportions of 40 and 30\%, 50 participants, how many participants for a CI 0.2 wide?
+#' prec_riskdiff(p1 = .4, p2 = .3, conf.width = .2)
+#'
 #' # Validate Newcombe (1998)
 #' prec_riskdiff(p1 = 56/70, p2 = 48/80, n1 = 70, r = 70/80, met = "newcombe")  # Table IIa
 #' prec_riskdiff(p1 = 10/10, p2 = 0/10, n1 = 10, met = "newcombe")  # Table IIh
 #'
+#' # multiple scenarios
 #' prec_riskdiff(p1 = c(56/70, 9/10, 6/7, 5/56),
 #'               p2 = c(48/80, 3/10, 2/7, 0/29),
 #'               n1 = c(70, 10, 7, 56),
@@ -908,7 +917,10 @@ prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.
 #'   Precision Rather Than Power}. Epidemiology, 29:599-603.
 #'   \href{https://doi.org/10.1097/EDE.0000000000000876}{doi:10.1097/EDE.0000000000000876}.
 #' @examples
+#' # 20 participants, a rate of 50%  against a rate of 300\%
 #' prec_rateratio(20, .5, 3)
+#' # sample size required to attain a CI whose upper limit is not more than 3.81 larger
+#' #  than the lower limit
 #' prec_rateratio(rate1 = .5, rate2 = 3, prec.level = 3.81)
 #' @export
 prec_rateratio <- function(n1 = NULL, # n exposed

@@ -33,7 +33,9 @@
 #' \code{lwr} lower bound of confidence interval, \code{upr} upper bound of confidence interval,
 #'  augmented with method and note elements.
 #' @examples
+#' # mean of 5, SD of 2.5, whats the confidence interval width with 20 participants?
 #' prec_mean(mu = 5, sd = 2.5, n = 20)
+#' # mean of 5, SD of 2.5, how many participants for CI width of 2.34?
 #' prec_mean(mu = 5, sd = 2.5, conf.width = 2.34)  # approximately the inverse of above
 #' @importFrom stats qt
 #' @importFrom stats qnorm
@@ -125,12 +127,18 @@ prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
 #' \href{https://doi.org/10.1198/000313002317572736}{DOI:
 #' 10.1198/000313002317572736}
 #' @examples
+#' # confidence interval width for a rate of 2.5 events per unit and 20 events,
+#' #  using the score method
 #' prec_rate(2.5, x = 20, met = "score")
+#' # number of events to yield a CI width of 2.243 for a rate of 2.5 events per
+#' #  unit and 20 events, using the score method
 #' prec_rate(2.5, conf.width = 2.243, met = "score")
+#' # confidence interval width for a rate of 2.5 events per unit and 20 events,
+#' #  using the exact method
 #' prec_rate(2.5, x = 20, met = "exact")
 #' # vs and wald have the same conf.width, but different lwr and upr
-#' prec_rate(2.5, x = 20, met = "wald")
 #' prec_rate(2.5, x = 20, met = "vs")
+#' prec_rate(2.5, x = 20, met = "wald")
 #' @export
 prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
                                method = c("score", "vs", "exact", "wald"),
@@ -302,7 +310,15 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
 #'   \href{https://doi.org/10.1214/ss/1009213286}{doi:10.1214/ss/1009213286}
 #'
 #' @examples
+#' # CI width for 15\% with 50 participants
+#' prec_prop(0.15, n = 50)
+#' # number of participants for 15\% with a CI width of 0.2
+#' prec_prop(0.15, conf.width = 0.2)
+#' # confidence interval width for a range of scenarios between 10 and 90\% with
+#' #  100 participants via the wilson method
 #' prec_prop(p = 1:9 / 10, n = 100, method = "wilson")
+#' # number of participants for a range of scenarios between 10 and 90\% with
+#' #  a CI of 0.192 via the wilson method
 #' prec_prop(p = 1:9 / 10, conf.width = .192, method = "wilson")
 #' @export
 prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
@@ -400,7 +416,7 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
       }
       if (is.null(n)) {
         f <- uniroot_fun
-        
+
         if(conf.width<min(p)){
           n <- try(mapply(f, p = p, prec = prec, z = z, z2 = z2), silent = TRUE)
           if(inherits(n,"try-error")) stop("'conf.width' too small")
@@ -410,7 +426,7 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
           if(inherits(n,"try-error")) stop("'conf.width' too wide")
           est <- "sample size"
         }
-        
+
       }
       padj <- switch(meth,
                      'Agresti-Coull' = (p * n + 0.5 * z2) / (n + z2),
@@ -421,7 +437,7 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
     if (meth == "exact") {
       if (is.null(n)) {
         f <- uniroot_fun
-        
+
         if(conf.width<min(p)){
           n <- try(mapply(f, p = p, prec = prec, alpha = alpha), silent = TRUE)
           if(inherits(n,"try-error")) stop("'conf.width' too small")
@@ -431,7 +447,7 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
           if(inherits(n,"try-error")) stop("'conf.width' too wide")
           est <- "sample size"
         }
-        
+
       }
       res <- eval(quo)
       lwr <- res$lwr

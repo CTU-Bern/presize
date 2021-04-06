@@ -51,7 +51,15 @@ but provided due to its widely distributed use.
 wilson, and exact methods. Agresti-coull can be abbreviated by ac.
 }
 \examples{
+# CI width for 15\\% with 50 participants
+prec_prop(0.15, n = 50)
+# number of participants for 15\\% with a CI width of 0.2
+prec_prop(0.15, conf.width = 0.2)
+# confidence interval width for a range of scenarios between 10 and 90\\% with
+#  100 participants via the wilson method
 prec_prop(p = 1:9 / 10, n = 100, method = "wilson")
+# number of participants for a range of scenarios between 10 and 90\\% with
+#  a CI of 0.192 via the wilson method
 prec_prop(p = 1:9 / 10, conf.width = .192, method = "wilson")
 }
 \references{

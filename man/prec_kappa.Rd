@@ -47,12 +47,13 @@ are symmetrical.
 }
 \examples{
 # precision based on sample size
+#   two categories with proportions of 30 and 70\\%, four raters
 prec_kappa(kappa = .5, n = 200, raters = 4, n_category = 2, props = c(.3,.7))
 # sample size to get a given precision
 prec_kappa(kappa = .5, conf.width = .15, raters = 4, n_category = 2,
            props = c(.3,.7))
 
-
+# as above, but with two scenarios for kappa
 prec_kappa(kappa = c(.5, .75), conf.width = .15, raters = 4, n_category = 2,
            props = c(.3,.7))
 prec_kappa(kappa = c(.5, .75), conf.width = c(.15, 0.3), raters = 4,

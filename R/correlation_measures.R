@@ -248,7 +248,7 @@ prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
 #' and that parameter is determined from the other.
 #'
 #' The sample size and precision are calculated according to formulae in Bland &
-#' Altman (1986).
+#' Altman (1986). The CI width is a simple function of the sample size only.
 #'
 #' @param n sample size.
 #' @param conf.width precision (the full width of the confidence interval).
@@ -336,12 +336,13 @@ prec_lim_agree <- function(n = NULL, conf.width = NULL, conf.level = 0.95){
 #'
 #' @examples
 #' # precision based on sample size
+#' #   two categories with proportions of 30 and 70\%, four raters
 #' prec_kappa(kappa = .5, n = 200, raters = 4, n_category = 2, props = c(.3,.7))
 #' # sample size to get a given precision
 #' prec_kappa(kappa = .5, conf.width = .15, raters = 4, n_category = 2,
 #'            props = c(.3,.7))
 #'
-#'
+#' # as above, but with two scenarios for kappa
 #' prec_kappa(kappa = c(.5, .75), conf.width = .15, raters = 4, n_category = 2,
 #'            props = c(.3,.7))
 #' prec_kappa(kappa = c(.5, .75), conf.width = c(.15, 0.3), raters = 4,

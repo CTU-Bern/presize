@@ -48,6 +48,9 @@ Exactly one of the parameters \code{n} or \code{conf.width} must be passed as NU
 and that parameter is determined from the other.
 }
 \examples{
+# mean difference of 5, SD of 2.5, CI width with 20 participants assuming equal variances
 prec_meandiff(delta = 5, sd1 = 2.5, n1 = 20, var = "equal")
+# mean difference of 5, SD of 2.5, number of participants for a CI width of 3,
+#  assuming equal variances
 prec_meandiff(delta = 5, sd1 = 2.5, conf.width = 3, var = "equal")
 }

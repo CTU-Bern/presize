@@ -26,7 +26,7 @@
 #' @aliases prec_sens prec_spec
 #' @return Object of class "presize", a list of arguments (including the
 #'   computed one) augmented with method and note elements.
-#' @seealso \code{prec_prop}, \code{prec_sens_spec}
+#' @seealso \code{prec_prop}
 #' @examples
 #'   # confidence interval width with n
 #'   prec_sens(.6, 50)
@@ -92,7 +92,7 @@ prec_spec <- function(spec, n = NULL, ntot = NULL, prev = NULL, conf.width = NUL
   # if (!round %in% c("ceiling", "floor")) stop("choices for 'round' are 'ceiling' or 'floor'")
   if (!is.null(ntot) & is.null(prev)) stop("'prev' required when 'ntot' is specified")
   if (is.null(ntot) & !is.null(prev)) stop("'ntot' required when 'prev' is specified")
-  
+
   if (!is.null(spec)) numrange_check(spec)
   if (!is.null(n)) numrange_check_gt(n)
   if (!is.null(ntot)) numrange_check_gt(ntot)
@@ -174,7 +174,7 @@ prec_auc <- function(auc, prev, n = NULL, conf.width = NULL, conf.level = .95,
     stop("exactly one of 'n', and 'conf.width' must be NULL")
   if (any(prev < 0 | prev > 1)) stop("'prev' must be numeric in [0, 1]")
   numrange_check(conf.level)
-  
+
   if (!is.null(conf.width)) numrange_check_gt(conf.width)
   if (!is.null(n)) numrange_check_gt(n)
   if (!is.null(auc)) numrange_check(auc)
@@ -315,12 +315,14 @@ prec_auc <- function(auc, prev, n = NULL, conf.width = NULL, conf.level = .95,
 #' # exp(2*(log(2.96) - log(2))) = 2.19 (approximate because the CI Of the LR
 #' # is only symetrical on the log(LR) scale), which we can put in conf.width
 #' prec_lr(prev = .5, p1 = .8, p2 = 1-.73, conf.width = 2.2)
+#' # same, but using the wrapper to specify sens and spec
 #' prec_pos_lr(prev = .5, sens = .8, spec = .73, conf.width = 2.2)
 #'
 #' # Simel et al 1991, problem 2 - LR- CI width from N
 #' # p1 = 1 - sens = .1, p2 = spec = .5
 #' # n1 = n2, n = 160, prev = .5
 #' prec_lr(prev = .5, p1 = .1, p2 = .5, n = 160)
+#' # same, but using the wrapper to specify sens and spec
 #' prec_neg_lr(prev = .5, sens = .9, spec = .5, n = 160)
 #'
 prec_lr <- function(prev, p1, p2, n = NULL, conf.width = NULL, conf.level = 0.95, ...){
@@ -331,7 +333,7 @@ prec_lr <- function(prev, p1, p2, n = NULL, conf.width = NULL, conf.level = 0.95
   numrange_check(p1)
   numrange_check(p2)
   numrange_check(conf.level)
-  
+
   if (!is.null(n)) numrange_check_gt(n)
   if (!is.null(conf.width)) numrange_check_gt(conf.width)
 
