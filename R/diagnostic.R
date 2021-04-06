@@ -346,13 +346,25 @@ prec_lr <- function(prev, p1, p2, n = NULL, conf.width = NULL, conf.level = 0.95
   })
 
   if(is.null(n)){
-    n_ <- mapply(function(p1, p2, conf.width, prev)
-                  uniroot(function(n) eval(quo) - conf.width,
-                          c(1, 1e7), ...)$root,
-                p1, p2, conf.width, prev)
+      if(conf.width<min(p1)){
+    n_ <- try(mapply(function(p1, p2, conf.width, prev)
+      uniroot(function(n) eval(quo) - conf.width,
+              c(1, 1e7), ...)$root,
+      p1, p2, conf.width, prev), silent = TRUE)
+    if(inherits(n_,"try-error")) stop("'conf.width' too small")
     n <- n_
     eval(quo)
     est <- "sample size"
+    } else {
+      n_ <- try(mapply(function(p1, p2, conf.width, prev)
+        uniroot(function(n) eval(quo) - conf.width,
+                c(1, 1e7), ...)$root,
+        p1, p2, conf.width, prev), silent = TRUE)
+      if(inherits(n_,"try-error")) stop("'conf.width' too wide")
+      n <- n_
+      eval(quo)
+      est <- "sample size"
+    }
   } else {
     eval(quo)
     conf.width <- upr - lwr
