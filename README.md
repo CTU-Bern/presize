@@ -274,7 +274,7 @@ If you want to contribute code, please feel free to fork the repository,
 make your changes and make a pull request to have them integrated into
 the package. New functionality should have accompanying tests and pass
 continuous integration. See also the [contributing
-guidelines](https://github.com/CTU-Bern/presize/CONTRIBUTING.md).
+guidelines](https://github.com/CTU-Bern/presize/blob/master/CONTRIBUTING.md).
 
 Funding
 -------
