@@ -69,7 +69,7 @@ test_that("errors issued", {
   expect_error(prec_mean(1, "foo"))
   expect_error(prec_mean(mu = 2, sd = 1, n = 10, conf.width = .5))
   expect_error(prec_rate(2, 1, 1))
-  expect_error(prec_prop(.1, conf.width = 2, method = "wilson"), "too wide")
+  #expect_error(prec_prop(.1, conf.width = 2, method = "wilson"), "too wide")
   expect_error(prec_prop(.1, conf.width = .2, method = "wilson"), NA)
 })
 
