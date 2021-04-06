@@ -50,19 +50,15 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
   numrange_check(conf.level)
   numrange_check_gt(r, 0)
   
-  if (!is.null(n1)) {
-    numrange_check_gt(n1, 1)
-    numrange_check_gt(n1*r, 1)
-  }
-  if (!is.null(sd1)) {
-    numrange_check_gt(sd1, 0)
-  }
-  if (!is.null(sd2)) {
-    numrange_check_gt(sd2, 0)
-  }
-  if (!is.null(conf.width)) {
-    numrange_check_gt(conf.width,0)
-  }
+  if (!is.null(n1)) numrange_check_gt(n1, 1)
+    
+  if (!is.null(n1) && n1*r<=1)
+  stop("'n1'*'r' must be greater than 1")
+  
+  if (!is.null(sd1)) numrange_check_gt(sd1, 0)
+  if (!is.null(sd2)) numrange_check_gt(sd2, 0)
+  if (!is.null(conf.width)) numrange_check_gt(conf.width,0)
+
   alpha <- 1 - conf.level
   if (is.null(n1)) {
     prec <- conf.width * 0.5
@@ -105,8 +101,15 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
       prec <- eval(md)
     if (is.null(n1)) {
       eqn <- function(r, sd1, sd2, alpha, prec) uniroot(function(n1) eval(md) - prec,
-                                                      c(2, 1e+07), ...)$root
-      n1 <- mapply(eqn, r = r, sd1 = sd1, sd2 = sd2, alpha = alpha, prec = prec)
+                                                      c(2, 1e+07), ...)$root      
+      if(conf.width<min(sd1)){
+        n1 <- try(mapply(eqn, r = r, sd1 = sd1, sd2 = sd2, alpha = alpha, prec = prec), silent = TRUE)
+        if(inherits(n1,"try-error")) stop("'conf.width' too small")
+      } else {
+        n1 <- try(mapply(eqn, r = r, sd1 = sd1, sd2 = sd2, alpha = alpha, prec = prec), silent = TRUE)
+        if(inherits(n1,"try-error")) stop("'conf.width' too wide")
+      }
+      
     }
   }
 
@@ -124,7 +127,13 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
     if (is.null(n1)){
       un <- function(sd1, sd2, r, alpha, prec) uniroot(function(n1) eval(md_ueq) - prec,
                                                       c(2, 1e+07), ...)$root
-      n1 <- mapply(un, sd1 = sd1, sd2 = sd2, r = r, alpha = alpha, prec = prec)
+      if(conf.width<min(sd1)){
+        n1 <- try(mapply(un, sd1 = sd1, sd2 = sd2, r = r, alpha = alpha, prec = prec), silent = TRUE)
+        if(inherits(n1,"try-error")) stop("'conf.width' too small")
+      } else {
+        n1 <- try(mapply(un, sd1 = sd1, sd2 = sd2, r = r, alpha = alpha, prec = prec), silent = TRUE)
+        if(inherits(n1,"try-error")) stop("'conf.width' too wide")
+      }
     }
   }
 
@@ -232,15 +241,10 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
   if (!is.null(p2) && !is.numeric(p2) || any(0 > p2 | p2 > 1))
     stop("'p2' must be numeric in [0, 1]")
   
-  if (!is.null(n1)) {
-    numrange_check_gt(n1,0)
-   }
-  if (!is.null(r)) {
-    numrange_check_gt(r,0)
-   }
-    if (!is.null(conf.width)) {
-    numrange_check_gt(conf.width,0)
-   }
+  if (!is.null(n1)) numrange_check_gt(n1,0)
+  if (!is.null(r)) numrange_check_gt(r,0)
+  if (!is.null(conf.width)) numrange_check_gt(conf.width,0)
+
   if (length(method) > 1) {
     warning("more than one method was chosen, 'newcombe' will be used")
     method <- "newcombe"
@@ -292,9 +296,17 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
     if (is.null(n1)) {
       nn <- function(p1, p2, conf.level, conf.width) uniroot(function(n1) eval(nc)$cw - conf.width,
                                                             c(1, 1e+07), ...)$root
-      n1 <- mapply(nn, p1 = p1, p2 = p2, conf.level = conf.level, conf.width = conf.width)
-      ci <- eval(nc)
-      n2 <- ci$n2
+      if(conf.width<min(p1)){
+        n1 <- try(mapply(nn, p1 = p1, p2 = p2, conf.level = conf.level, conf.width = conf.width), silent = TRUE)
+        if(inherits(n1,"try-error")) stop("'conf.width' too small")
+        ci <- eval(nc)
+        n2 <- ci$n2
+      } else {
+        n1 <- try(mapply(nn, p1 = p1, p2 = p2, conf.level = conf.level, conf.width = conf.width), silent = TRUE)
+        if(inherits(n1,"try-error")) stop("'conf.width' too wide")
+        ci <- eval(nc)
+        n2 <- ci$n2
+      }
     }
     lwr <- ci$lwr
     upr <- ci$upr
@@ -333,8 +345,15 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
     if (is.null(n1)) {
       acn <- function(p1, p2, r, prec) uniroot(function(n1) eval(ac) - prec,
                               c(1, 1e+07), ...)$root
-      n1 <- mapply(acn, p1 = p1, p2 = p2, r = r, prec = prec)
-      n2 <- n1 / r
+      if(conf.width<min(p1)){
+        n1 <- try(mapply(acn, p1 = p1, p2 = p2, r = r, prec = prec), silent = TRUE)
+        if(inherits(n1,"try-error")) stop("'conf.width' too small")
+        n2 <- n1 / r
+      } else {
+        n1 <- try(mapply(acn, p1 = p1, p2 = p2, r = r, prec = prec), silent = TRUE)
+        if(inherits(n1,"try-error")) stop("'conf.width' too wide")
+        n2 <- n1 / r
+      }
     }
     lwr <- delta - prec
     upr <- delta + prec
@@ -418,13 +437,32 @@ prec_riskdiff <- function(p1, p2, n1 = NULL, conf.width = NULL,
         },
         c(2, 1e+07), ...)$root
       }
-      n1 <- mapply(mnn, p1 = p1, p2 = p2, conf.width = conf.width, r = r, conf.level = conf.level)
-      n2 <- n1 / r
-      x1 <- n1 * p1
-      x2 <- n2 * p2
-      ci <- mapply(diffscoreci, x1 = x1, n1 = n1, x2 = x2, n2 = n2, conflev = conf.level)
-      lwr <- ci[1,]
-      upr <- ci[2,]
+      
+      if(conf.width<min(p1)){
+        n1 <- try(mapply(mnn, p1 = p1, p2 = p2, conf.width = conf.width, r = r, conf.level = conf.level), silent = TRUE)
+        if(inherits(n1,"try-error")) stop("'conf.width' too small")
+        n2 <- n1 / r
+        x1 <- n1 * p1
+        x2 <- n2 * p2
+      } else {
+        n1 <- try(mapply(mnn, p1 = p1, p2 = p2, conf.width = conf.width, r = r, conf.level = conf.level), silent = TRUE)
+        if(inherits(n1,"try-error")) stop("'conf.width' too wide")
+        n2 <- n1 / r
+        x1 <- n1 * p1
+        x2 <- n2 * p2
+      }
+      
+      if(conf.width<min(p1)){
+        ci <- try(mapply(diffscoreci, x1 = x1, n1 = n1, x2 = x2, n2 = n2, conflev = conf.level), silent = TRUE)
+        if(inherits(ci,"try-error")) stop("'conf.width' too small")
+        lwr <- ci[1,]
+        upr <- ci[2,]
+      } else {
+        ci <- try(mapply(diffscoreci, x1 = x1, n1 = n1, x2 = x2, n2 = n2, conflev = conf.level), silent = TRUE)
+        if(inherits(ci,"try-error")) stop("'conf.width' too wide")
+        lwr <- ci[1,]
+        upr <- ci[2,]
+      }
     }
   }
 
@@ -513,15 +551,9 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
   if (!is.null(p2) && !is.numeric(p2) || any(0 > p2 | p2 > 1))
     stop("'p2' must be numeric in [0, 1]")
 
-  if (!is.null(n1)) {
-    numrange_check_gt(n1,0)
-   }
-  if (!is.null(r)) {
-    numrange_check_gt(r,0)
-   }
-  if (!is.null(conf.width)) {
-    numrange_check_gt(conf.width,0)
-   }
+  if (!is.null(n1)) numrange_check_gt(n1,0)
+  if (!is.null(r)) numrange_check_gt(r,0)
+  if (!is.null(conf.width)) numrange_check_gt(conf.width,0)
   
   default_meth <- "koopman"
   if (length(method) > 1) {
@@ -599,8 +631,15 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
         },
         c(2, 1e+07), ...)$root
 
-      n1 <- mapply(fkpn, p1 = p1, p2 = p2, r = r, conf.width = conf.width, conf.level = conf.level)
-      n2 <- n1 * r
+      if(conf.width<min(p1)){
+        n1 <- try(mapply(fkpn, p1 = p1, p2 = p2, r = r, conf.width = conf.width, conf.level = conf.level), silent = TRUE)
+        if(inherits(n1,"try-error")) stop("'conf.width' too small")
+        n2 <- n1 * r
+      } else {
+        n1 <- try(mapply(fkpn, p1 = p1, p2 = p2, r = r, conf.width = conf.width, conf.level = conf.level), silent = TRUE)
+        if(inherits(n1,"try-error")) stop("'conf.width' too wide")
+        n2 <- n1 * r
+      }
     }
     # the ci must be solved for an unknown conf.width, and an unknown n.
     ci <- mapply(fkp, p1 = p1, p2 = p2, n1 = n1, r = r, conf.level = conf.level)
@@ -628,9 +667,16 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
     if (is.null(n1)) {
       f <- function(p1, p2, rr, r, z, conf.width) uniroot(function(n1) eval(kt)$cw - conf.width,
                                                           c(2, 1e+07), ...)$root
-      n1 <- mapply(f, p1 = p1, p2 = p2, rr = rr, r = r, z = z, conf.width = conf.width)
-      ci <- eval(kt)
-      n2 <- ci$n2
+     if(conf.width<min(p1)){
+        n1 <- try(mapply(f, p1 = p1, p2 = p2, rr = rr, r = r, z = z, conf.width = conf.width), silent = TRUE)
+        if(inherits(n1,"try-error")) stop("'conf.width' too small")
+        ci <- eval(kt)
+        n2 <- ci$n2      } else {
+        n1 <- try(mapply(f, p1 = p1, p2 = p2, rr = rr, r = r, z = z, conf.width = conf.width), silent = TRUE)
+        if(inherits(n1,"try-error")) stop("'conf.width' too wide")
+        ci <- eval(kt)
+        n2 <- ci$n2
+      }
     }
     lwr <- ci$lwr
     upr <- ci$upr
@@ -707,15 +753,9 @@ prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.
     method <- default_meth
   }
   
-  if (!is.null(n1)) {
-    numrange_check_gt(n1,0)
-  }
-  if (!is.null(r)) {
-    numrange_check_gt(r,0)
-  }
-  if (!is.null(conf.width)) {
-    numrange_check_gt(conf.width,0)
-  }
+  if (!is.null(n1)) numrange_check_gt(n1,0)
+  if (!is.null(r)) numrange_check_gt(r,0)
+  if (!is.null(conf.width)) numrange_check_gt(conf.width,0)
   
   meths <- c("gart", "woolf", "indip_smooth")
   id <- pmatch(method, meths)
@@ -794,9 +834,17 @@ prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.
       f <- function(p1, p2, conf.width) uniroot(function(n1)
         eval(adjust_cells)$cw - conf.width,
         c(1, 1e+07), ...)$root
-      n1 <- mapply(f, p1 = p1, p2 = p2, conf.width = conf.width)
-      ci <- eval(adjust_cells)
-      n2 <- ci$n2
+      if(conf.width<min(p1)){
+        n1 <- try(mapply(f, p1 = p1, p2 = p2, conf.width = conf.width), silent = TRUE)
+        if(inherits(n1,"try-error")) stop("'conf.width' too small")
+        ci <- eval(adjust_cells)
+        n2 <- ci$n2
+      } else {
+          n1 <- try(mapply(f, p1 = p1, p2 = p2, conf.width = conf.width), silent = TRUE)
+          if(inherits(n1,"try-error")) stop("'conf.width' too wide")
+          ci <- eval(adjust_cells)
+          n2 <- ci$n2
+      }
     }
   }
 
@@ -856,21 +904,11 @@ prec_rateratio <- function(n1 = NULL, # n exposed
     stop("both rate_exp and rate_control required")
   if (sum(sapply(list(n1, prec.level), is.null)) != 1)
     stop("exactly one of 'n1', and 'prec.level' must be NULL")
-  if (!is.null(n1)) {
-    numrange_check_gt(n1,0)
-  }
-  if (!is.null(r)) {
-    numrange_check_gt(r,0)
-  }
-  if (!is.null(prec.level)) {
-    numrange_check(prec.level,0,Inf)
-  }
-  if (!is.null(rate1)) {
-    numrange_check_gt(rate1,0)
-  }
-  if (!is.null(rate2)) {
-    numrange_check_gt(rate2,0)
-  }
+  if (!is.null(n1)) numrange_check_gt(n1,0)
+  if (!is.null(r)) numrange_check_gt(r,0)
+  if (!is.null(prec.level)) numrange_check(prec.level,0,Inf)
+  if (!is.null(rate1)) numrange_check_gt(rate1,0)
+  if (!is.null(rate2)) numrange_check_gt(rate2,0)
   
   if (is.null(prec.level)){
     est <- "precision"
