@@ -160,7 +160,7 @@ presize provides functions for
 <td><span class="citation" data-cites="simel1991">Simel, Samsa, and Matchar (1991)</span></td>
 </tr>
 <tr class="even">
-<td>Pogitive likelilood ratio<sup>2</sup></td>
+<td>Positive likelilood ratio<sup>2</sup></td>
 <td><code>preg_pos_lr</code></td>
 <td><span class="citation" data-cites="simel1991">Simel, Samsa, and Matchar (1991)</span></td>
 </tr>
