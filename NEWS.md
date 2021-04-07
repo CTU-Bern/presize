@@ -1,3 +1,9 @@
+presize 0.2.2
+-----------------------------------------
+
+* improve documentation throughout
+* add extra input validation to all functions
+
 presize 0.2.1
 -----------------------------------------
 
