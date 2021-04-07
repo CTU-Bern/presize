@@ -7,8 +7,8 @@ senspage <- tabItem(tabName = "sens",
         h4("Please enter the following"),
         sliderInput("sens_sens", "Sensitivity",
                     min = 0, max = 1, value = .5),
-        sliderInput("sens_prev", "Prevalence",
-                    min = 0, max = 1, value = .4),
+        # sliderInput("sens_prev", "Prevalence",
+        #             min = 0, max = 1, value = .4),
         tags$br(),
         h4("Please enter one of the following"),
         uiOutput("sens_resetable_input"),
@@ -43,9 +43,8 @@ sens_fn <- function(input, code = FALSE){
         } else {
                 z <- ifelse(is.na(input$sens_ntot),
                             paste0("conf.width = ", input$sens_ciwidth),
-                            paste0("ntot = ", input$sens_ntot))
+                            paste0("ntot = ", input$sens_ntot, ", prev = ", input$sens_prev))
                 x <- paste0("prec_sens(sens = ", input$sens_sens,
-                            ", prev = ", input$sens_prev,
                             ", ", z, ", conf.level = ", input$conflevel,
                             ", round = '", input$sens_round,
                             "', method = '", input$sens_method, "')")

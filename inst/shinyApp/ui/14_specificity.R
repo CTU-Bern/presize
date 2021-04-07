@@ -6,8 +6,8 @@ specpage <- tabItem(tabName = "spec",
         h4("Please enter the following"),
         sliderInput("spec_spec", "Specificity",
                     min = 0, max = 1, value = .5),
-        sliderInput("spec_prev", "Prevalence",
-                    min = 0, max = 1, value = .4),
+        # sliderInput("spec_prev", "Prevalence",
+        #             min = 0, max = 1, value = .4),
         h4("Please enter one of the following"),
         uiOutput("spec_resetable_input"),
         actionButton("spec_reset_input",
@@ -41,9 +41,8 @@ spec_fn <- function(input, code = FALSE){
         } else {
                 z <- ifelse(is.na(input$spec_ntot),
                             paste0("conf.width = ", input$spec_ciwidth),
-                            paste0("ntot = ", input$spec_ntot))
+                            paste0("ntot = ", input$spec_ntot, ", prev = ", input$spec_prev))
                 x <- paste0("prec_spec(spec = ", input$spec_spec,
-                            ", prev = ", input$spec_prev,
                             ", ", z, ", conf.level = ", input$conflevel,
                             ", round = '", input$spec_round,
                             "', method = '", input$spec_method, "')")
