@@ -28,38 +28,36 @@ date: 2021-02-11
 
 # Summary
 
-Sample size calculation based on precision rather than hypothesis testing is 
-underused and respective tools not widely available. We therefore developed a 
-software package, `presize`, for precision-based sample size calculation that 
-covers most common summary measures and can be used with the R-environment or a 
-Shiny application.
-
-# Statement of need
-
-Sample size calculation is a crucial step in planning a clinical study. A too
-small study leads to inconclusive results; a too large study is a waste of
-resources. Either case might be unethical. 
+Sample size calculation is a crucial step for planning a clinical study. A study 
+that is too small leads to inconclusive results; a study that is too large is a 
+waste of resources. Either case might be unethical. 
 Furthermore, @bland2009 called for a focus on the width of confidence intervals 
-rather than the power of the test in sample size calculations. 
-There are many software packages
-for hypothesis-based sample size calculation, such as [Stata](https://www.stata.com/),
-[PASS](https://www.ncss.com/software/pass/), and [G*Power](https://www.gpower.hhu.de).
-However, many research projects aim at estimation rather than hypothesis testing,
+rather than the power of the test in sample size calculations. Indeed, many 
+research projects aim to estimate a quantity rather than test a hypothesis,
 sample size calculation approaches for which are largely missing from other software
-packages. 
-We therefore developed a comprehensive tool for precision-based sample size calculation.
+packages. There are many software packages for hypothesis-based sample size calculation, 
+such as [Stata](https://www.stata.com/), [PASS](https://www.ncss.com/software/pass/),
+[G*Power](https://www.gpower.hhu.de), including many R packages, such as 
+[`pwr`](https://CRAN.R-project.org/package=pwr) (@pwr) and
+[`TrialSize`](https://CRAN.R-project.org/package=TrialSize) 
+(@trialsize; see other packages detailed on the 
+[CRAN Clinical Trials taskview](https://cran.r-project.org/web/views/ClinicalTrials.html)).
+To the best of our knowledge, only Stata provides precision-based approaches, and 
+only then for a small number of statistics.
+We have, therefore, developed an R package for precision-based sample size calculation, 
+`presize`, which can be used within the R-environment or a shiny application.
 
 # Development
 
-We programmed a package in the R programming language that offers sample size
+`presize` is programmed in the R programming language (@cran), and offers sample size
 calculation for estimation-based research. We implemented the most common
 measures used in descriptive research, including descriptive, absolute and relative 
-difference, correlation and diagnostic measures. 
-There are two approaches for each measure. First, based on a given sample size,
+differences, correlation and diagnostic measures. 
+There are two approaches for each measure. Firstly, based on a given sample size,
 e.g. for a retrospective data analysis, the precision of an expected measure can
 be calculated. Precision is expressed as the confidence interval around the
 measure. The level of confidence can be specified; the usual 95%-confidence
-interval (CI) is the default. Second, based on a given precision (i.e. CI), the 
+interval (CI) is the default. Secondly, based on a given precision (i.e. CI), the 
 sample size can be calculated. This is mainly of use in the planning of prospective 
 studies, where the aim is to estimate a measure of interest with enough confidence. 
 The available functions in the package require common input arguments; either the 
@@ -68,7 +66,7 @@ function, further specific input arguments are required such as the expected are
 under the curve (AUC) for test accuracy.
 
 
-For ease-of-use, we also implemented a Shiny application which can be used
+For ease-of-use, we have also implemented a Shiny application which can be used
 [online](https://ctu-bern.shinyapps.io/presize) or from within the R-environment.
 Values of parameters can be entered using rulers and numeric fields. Based on
 the given parameters, the application will either display the sample size for a
@@ -79,7 +77,8 @@ command into the R-environment for further exploration as well as reproducibilit
 
 # Usage
 
-`presize` is available on [CRAN](https://CRAN.R-project.org/package=presize) or [GitHub](https://github.com/CTU-Bern/presize) and can be loaded into the R session using
+`presize` is available on [CRAN](https://CRAN.R-project.org/package=presize) or [GitHub](https://github.com/CTU-Bern/presize) and can be installed and loaded into 
+the R session using
 
 ```r
 # installation:
@@ -120,28 +119,30 @@ prec_prop(p = 0.15, n = 600)
 
 # Discussion
 
-We developed a comprehensive and easy-to-use software package for precision-based 
-sample size calculation. As far as we know, presize is the first package that comprises 
+We have developed a comprehensive and easy-to-use software package for precision-based 
+sample size calculation. As far as we know, `presize` is the first package that comprises 
 the most common summary measures used in estimation-based clinical research.
 A limitation of the package is that it does not allow calculating the probability 
 of a CI, i.e. the probability that a future confidence interval 
 will have at least the desired precision. The functions currently return the average 
 CI width. In practice, 50% of trials will yield narrower CIs and 
 50% will yield wider CIs due to sampling variation. Providing a method to specify 
-the coverage probability is one possible avenue 
-for further development.
+the coverage probability is one possible avenue for further development.
 
 We often observe in our consulting activity that researchers try to implement a 
 hypothesis-based approach into a project that is in fact purely descriptive. Reasons 
 for this might be a lack of methodological understanding, but also a lack of appropriate 
-tools. To conclude, we believe that our software package will fascilitate the 
-adequate use of estimation-based sample size calculation in descriptive research projects.
+tools. To conclude, we believe that our software package will facilitate the 
+appropriate use of estimation-based sample size calculation in descriptive research projects.
 
 # Acknowledgements
 The development of `presize` was enabled through financial support of the [Swiss 
 Clinical Trial Organisation (SCTO)](https://www.scto.ch/en) as part of it's [Statistics and Methodology Platform](https://www.scto.ch/en/network/scto-platforms/statistics-and-methodology.html).
-We also wish to thank statisticians of [CTU Bern](https://www.ctu.unibe.ch/) and [CTU Basel](https://www.unispital-basel.ch/ueber-uns/das-universitaetsspital/leitung/direktion/klinische-forschung/) 
-for suggestions and testing.
+We also wish to thank statisticians of [CTU Bern](https://www.ctu.unibe.ch/) and 
+[CTU Basel](https://www.unispital-basel.ch/ueber-uns/das-universitaetsspital/leitung/direktion/klinische-forschung/) 
+for suggestions and testing. We also thank [Tom Kelly](https://github.com/TomKellyGenetics) 
+and [Bruce Mecum](https://github.com/amoeba) for reviewing this paper and the package, 
+and [Mark Jensen](https://github.com/majensen) for providing editorial support.
 
 # References
 
