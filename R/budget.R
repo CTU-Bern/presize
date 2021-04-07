@@ -81,11 +81,15 @@ prec_budget <- function(budget, price, sd = NULL, n = NULL, fail = 0, conf.width
   }
 
   conf.level <- NA
-  prec <- NA
   conf.width <- NA
+  prec <- NA
+  mu <- NA
+  sd <- NA
+
 
   structure(list(budget = budget,
                  price = price,
+                 mu = mu,
                  sd = sd,
                  n = n,
                  conf.width = 2 * prec,
