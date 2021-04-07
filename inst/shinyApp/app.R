@@ -376,9 +376,17 @@ server <- function(input, output, session) {
         div(id=letters[(times %% length(letters)) + 1],
             numericInput("sens_ntot", "Total sample size",
                          value = NULL),
+            uiOutput("sens_prev_ui"),
             numericInput("sens_ciwidth", "Confidence interval width",
                          value = NULL, min = 0, max = 1)
         )
+    })
+    output$sens_prev_ui <- renderUI({
+        print(input$sens_ntot)
+        if(!is.na(input$sens_ntot)){
+            sliderInput("sens_prev", "Please also enter the prevalence",
+                        min = 0, max = 1, value = .4)
+        }
     })
 
 
@@ -397,9 +405,17 @@ server <- function(input, output, session) {
         div(id=letters[(times %% length(letters)) + 1],
             numericInput("spec_ntot", "Total sample size",
                          value = NULL),
+            uiOutput("spec_prev_ui"),
             numericInput("spec_ciwidth", "Confidence interval width",
                          value = NULL, min = 0, max = 1)
         )
+    })
+    output$spec_prev_ui <- renderUI({
+        print(input$spec_ntot)
+        if(!is.na(input$spec_ntot)){
+            sliderInput("spec_prev", "Please also enter the prevalence",
+                        min = 0, max = 1, value = .4)
+        }
     })
 
     # auc ----
