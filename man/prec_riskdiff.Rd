@@ -81,7 +81,7 @@ prec_riskdiff(p1 = c(56/70, 9/10, 6/7, 5/56),
 \references{
 Agresti A (2003) \emph{Categorical Data Analysis}, Second Edition, Wiley
 Series in Probability and Statistics,
-\href{https://doi.org/10.1002/0471249688}{doi:10.1002/0471249688}.
+\doi{10.1002/0471249688}.
 
 Agresti A and Caffo B (2000) \emph{Simple and Effective Confidence Intervals
 for Proportions and Differences of Proportions Result from Adding Two

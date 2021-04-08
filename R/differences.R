@@ -203,7 +203,7 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
 #' @references
 #' Agresti A (2003) \emph{Categorical Data Analysis}, Second Edition, Wiley
 #' Series in Probability and Statistics,
-#' \href{https://doi.org/10.1002/0471249688}{doi:10.1002/0471249688}.
+#' \doi{10.1002/0471249688}.
 #'
 #' Agresti A and Caffo B (2000) \emph{Simple and Effective Confidence Intervals
 #' for Proportions and Differences of Proportions Result from Adding Two
@@ -737,7 +737,7 @@ prec_riskratio <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL,
 #' Fagerland MW, Lydersen S, Laake P (2015). \emph{Recommended
 #' confidence intervals for two independent binomial proportions}. Statistical
 #' Methods in Medical Research, 24(2):224-254.
-#' \href{https://doi.org/10.1177/0962280211415469}{doi:10.1177/0962280211415469}.
+#' \doi{10.1177/0962280211415469}.
 #'
 #' @param method Exactly one of \code{indip_smooth} (\emph{default}),
 #'   \code{gart}, or \code{woolf}. Methods can be abbreviated.
@@ -915,7 +915,7 @@ prec_or <- function(p1, p2, n1 = NULL, r = 1, conf.width = NULL, conf.level = 0.
 #' @references
 #'   Rothman KJ, Greenland S (2018). \emph{Planning Study Size Based on
 #'   Precision Rather Than Power}. Epidemiology, 29:599-603.
-#'   \href{https://doi.org/10.1097/EDE.0000000000000876}{doi:10.1097/EDE.0000000000000876}.
+#'   \doi{10.1097/EDE.0000000000000876}.
 #' @examples
 #' # 20 participants, a rate of 50%  against a rate of 300\%
 #' prec_rateratio(20, .5, 3)

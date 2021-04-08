@@ -124,8 +124,7 @@ prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
 #' @references Barker, L. (2002) \emph{A Comparison of Nine Confidence Intervals
 #' for a Poisson Parameter When the Expected Number of Events is \eqn{\le} 5},
 #' The American Statistician, 56:2, 85-89,
-#' \href{https://doi.org/10.1198/000313002317572736}{DOI:
-#' 10.1198/000313002317572736}
+#' \doi{10.1198/000313002317572736}
 #' @examples
 #' # confidence interval width for a rate of 2.5 events per unit and 20 events,
 #' #  using the score method
@@ -307,7 +306,7 @@ prec_rate <- function(r, x = NULL, conf.width = NULL, conf.level = 0.95,
 #'
 #' @references Brown LD, Cai TT, DasGupta A (2001) \emph{Interval Estimation for
 #'   a Binomial Proportion}, Statistical Science, 16:2, 101-117,
-#'   \href{https://doi.org/10.1214/ss/1009213286}{doi:10.1214/ss/1009213286}
+#'   \doi{10.1214/ss/1009213286}
 #'
 #' @examples
 #' # CI width for 15\% with 50 participants
