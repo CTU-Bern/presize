@@ -1,3 +1,15 @@
+presize 0.2.3
+-----------------------------------------
+
+* minor formatting of URLs and references to pass CRAN checks
+
+presize 0.2.2
+-----------------------------------------
+
+* bug fix in shiny app for sens and spec
+* more examples, better described
+
+
 presize 0.2.1
 -----------------------------------------
 
