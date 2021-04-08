@@ -65,7 +65,7 @@ prec_prop(p = 1:9 / 10, conf.width = .192, method = "wilson")
 \references{
 Brown LD, Cai TT, DasGupta A (2001) \emph{Interval Estimation for
   a Binomial Proportion}, Statistical Science, 16:2, 101-117,
-  \href{https://doi.org/10.1214/ss/1009213286}{doi:10.1214/ss/1009213286}
+  \doi{10.1214/ss/1009213286}
 }
 \seealso{
 \code{\link[stats]{binom.test}}, \code{\link[binom]{binom.confint}}

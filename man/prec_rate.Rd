@@ -68,8 +68,7 @@ prec_rate(2.5, x = 20, met = "wald")
 Barker, L. (2002) \emph{A Comparison of Nine Confidence Intervals
 for a Poisson Parameter When the Expected Number of Events is \eqn{\le} 5},
 The American Statistician, 56:2, 85-89,
-\href{https://doi.org/10.1198/000313002317572736}{DOI:
-10.1198/000313002317572736}
+\doi{10.1198/000313002317572736}
 }
 \seealso{
 \code{\link[stats]{poisson.test}}

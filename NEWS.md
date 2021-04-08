@@ -1,7 +1,14 @@
+
+presize 0.2.3
+-----------------------------------------
+
+* minor formatting of URLs and references to pass CRAN checks
+
 presize 0.2.2
 -----------------------------------------
 
-* improve documentation throughout
+* bug fix in shiny app for sens and spec
+* more examples, better described
 * add extra input validation to all functions
 
 presize 0.2.1

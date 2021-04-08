@@ -23,7 +23,7 @@
 #'
 #' @references Bonett DG (2002). \emph{Sample size requirements for estimating
 #'   intraclass correlations with desired precision}. Statistics in Medicine,
-#'   21:1331-1335. \href{https://doi.org/10.1002/sim.1108}{doi:10.1002/sim.1108}
+#'   21:1331-1335. \doi{10.1002/sim.1108}
 #' @param rho desired intraclass correlation.
 #' @param k number of observations per n (subject).
 #' @param n number of subjects.
@@ -112,7 +112,7 @@ prec_icc <- function(rho, k, n = NULL, conf.width = NULL, conf.level = 0.95) {
 #'
 #' @references Bonett DG, and Wright TA (2000) \emph{Sample size requirements
 #'   for estimating Pearson, Kendall and Spearman correlations} Psychometrika
-#'   65:23-28. \href{https://doi.org/10.1007/BF02294183}{doi:10.1007/BF02294183}
+#'   65:23-28. \doi{10.1007/BF02294183}
 #'
 #' @param r desired correlation coefficient.
 #' @param n sample size.
@@ -257,7 +257,7 @@ prec_cor <-  function(r, n = NULL, conf.width = NULL, conf.level = 0.95,
 #'   computed one) augmented with method and note elements.
 #' @references Bland & Altman (1986) \emph{Statistical methods for assessing agreement
 #' between two methods of clinical measurement} Lancet i(8476):307-310
-#' \href{https://doi.org/10.1016/S0140-6736(86)90837-8}{doi:10.1016/S0140-6736(86)90837-8}
+#' \doi{10.1016/S0140-6736(86)90837-8}
 #' @export
 #' @examples
 #' # calculate confidence interval width, given N

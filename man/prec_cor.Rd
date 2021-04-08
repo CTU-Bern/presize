@@ -68,5 +68,5 @@ prec_cor(r = 0.5, conf.width = .15, method = "spearman")
 \references{
 Bonett DG, and Wright TA (2000) \emph{Sample size requirements
   for estimating Pearson, Kendall and Spearman correlations} Psychometrika
-  65:23-28. \href{https://doi.org/10.1007/BF02294183}{doi:10.1007/BF02294183}
+  65:23-28. \doi{10.1007/BF02294183}
 }

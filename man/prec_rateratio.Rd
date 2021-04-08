@@ -49,5 +49,5 @@ prec_rateratio(rate1 = .5, rate2 = 3, prec.level = 3.81)
 \references{
 Rothman KJ, Greenland S (2018). \emph{Planning Study Size Based on
   Precision Rather Than Power}. Epidemiology, 29:599-603.
-  \href{https://doi.org/10.1097/EDE.0000000000000876}{doi:10.1097/EDE.0000000000000876}.
+  \doi{10.1097/EDE.0000000000000876}.
 }

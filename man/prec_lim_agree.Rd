@@ -39,5 +39,5 @@ prec_lim_agree(conf.width = .1)
 \references{
 Bland & Altman (1986) \emph{Statistical methods for assessing agreement
 between two methods of clinical measurement} Lancet i(8476):307-310
-\href{https://doi.org/10.1016/S0140-6736(86)90837-8}{doi:10.1016/S0140-6736(86)90837-8}
+\doi{10.1016/S0140-6736(86)90837-8}
 }

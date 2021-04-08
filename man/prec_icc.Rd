@@ -50,5 +50,5 @@ prec_icc(0.85, 4, 20)
 \references{
 Bonett DG (2002). \emph{Sample size requirements for estimating
   intraclass correlations with desired precision}. Statistics in Medicine,
-  21:1331-1335. \href{https://doi.org/10.1002/sim.1108}{doi:10.1002/sim.1108}
+  21:1331-1335. \doi{10.1002/sim.1108}
 }

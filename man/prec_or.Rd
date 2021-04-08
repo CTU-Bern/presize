@@ -82,5 +82,5 @@ prec_or(p1 = .1, p2 = .15, conf.width = .1, method = "woolf")
 Fagerland MW, Lydersen S, Laake P (2015). \emph{Recommended
 confidence intervals for two independent binomial proportions}. Statistical
 Methods in Medical Research, 24(2):224-254.
-\href{https://doi.org/10.1177/0962280211415469}{doi:10.1177/0962280211415469}.
+\doi{10.1177/0962280211415469}.
 }
