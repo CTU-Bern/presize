@@ -33,11 +33,11 @@ Encoding: UTF-8
 RoxygenNote: 7.1.1
 Suggests:
     binom,
+    ggplot2,
     Hmisc,
     testthat,
+    shinydashboard,
     shinytest
 Imports:
-    ggplot2,
     kappaSize (>= 1.2),
-    shiny,
-    shinydashboard
+    shiny

@@ -1,3 +1,4 @@
+
 presize 0.2.3
 -----------------------------------------
 
@@ -8,7 +9,7 @@ presize 0.2.2
 
 * bug fix in shiny app for sens and spec
 * more examples, better described
-
+* add extra input validation to all functions
 
 presize 0.2.1
 -----------------------------------------
