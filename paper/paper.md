@@ -137,7 +137,7 @@ appropriate use of estimation-based sample size calculation in descriptive resea
 
 # Acknowledgements
 The development of `presize` was enabled through financial support of the [Swiss 
-Clinical Trial Organisation (SCTO)](https://www.scto.ch/en) as part of it's [Statistics and Methodology Platform](https://www.scto.ch/en/network/scto-platforms/statistics-and-methodology.html).
+Clinical Trial Organisation (SCTO)](https://www.scto.ch/en) as part of its [Statistics and Methodology Platform](https://www.scto.ch/en/network/scto-platforms/statistics-and-methodology.html).
 We also wish to thank statisticians of [CTU Bern](https://www.ctu.unibe.ch/) and 
 [CTU Basel](https://www.unispital-basel.ch/ueber-uns/das-universitaetsspital/leitung/direktion/klinische-forschung/) 
 for suggestions and testing. We also thank [Tom Kelly](https://github.com/TomKellyGenetics) 
