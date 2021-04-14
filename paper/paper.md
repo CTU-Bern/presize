@@ -26,7 +26,7 @@ bibliography: paper.bib
 date: 2021-02-11
 ---
 
-# Summary
+# Background
 
 Sample size calculation is a crucial step for planning a clinical study. A study 
 that is too small leads to inconclusive results; a study that is too large is a 
@@ -38,10 +38,13 @@ sample size calculation approaches for which are largely missing from other soft
 packages. There are many software packages for hypothesis-based sample size calculation, 
 such as [Stata](https://www.stata.com/), [PASS](https://www.ncss.com/software/pass/),
 [G*Power](https://www.gpower.hhu.de), including many R packages, such as 
-[`pwr`](https://CRAN.R-project.org/package=pwr) (@pwr) and
+[`pwr`](https://CRAN.R-project.org/package=pwr) [@pwr:2020] and
 [`TrialSize`](https://CRAN.R-project.org/package=TrialSize) 
-(@trialsize; see other packages detailed on the 
-[CRAN Clinical Trials taskview](https://cran.r-project.org/web/views/ClinicalTrials.html)).
+[@trialsize:2020; see other packages detailed on the 
+[CRAN Clinical Trials taskview](https://cran.r-project.org/web/views/ClinicalTrials.html)].
+
+# Statement of need
+
 To the best of our knowledge, only Stata provides precision-based approaches, and 
 only then for a small number of statistics.
 We have, therefore, developed an R package for precision-based sample size calculation, 
@@ -49,7 +52,7 @@ We have, therefore, developed an R package for precision-based sample size calcu
 
 # Development
 
-`presize` is programmed in the R programming language (@cran), and offers sample size
+`presize` is programmed in the R programming language [@cran:2020], and offers sample size
 calculation for estimation-based research. We implemented the most common
 measures used in descriptive research, including descriptive, absolute and relative 
 differences, correlation and diagnostic measures. 
@@ -77,7 +80,8 @@ command into the R-environment for further exploration as well as reproducibilit
 
 # Usage
 
-`presize` is available on [CRAN](https://CRAN.R-project.org/package=presize) or [GitHub](https://github.com/CTU-Bern/presize) and can be installed and loaded into 
+`presize` is available on [CRAN](https://CRAN.R-project.org/package=presize) or 
+[GitHub](https://github.com/CTU-Bern/presize) and can be installed and loaded into 
 the R session using
 
 ```r
@@ -87,7 +91,7 @@ the R session using
 library(presize)
 ```
 As a brief example, suppose we want to estimate the proportion of hospital admissions 
-with diabetes. Diabetes has a prevalence of approximately 10% (@diab). We assume a 
+with diabetes. Diabetes has a prevalence of approximately 10% [@diab:2010]. We assume a 
 slightly higher proportion of diabetics, 15%, as diabetes is a risk factor for a 
 wide range of conditions. We want to estimate the prevalence of diabetes to within 
 5% (plus/minus 2.5%). With `presize`, this is simple. We use the `prec_prop` 
