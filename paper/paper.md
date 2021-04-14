@@ -40,7 +40,7 @@ such as [Stata](https://www.stata.com/), [PASS](https://www.ncss.com/software/pa
 [G*Power](https://www.gpower.hhu.de), including many R packages, such as 
 [`pwr`](https://CRAN.R-project.org/package=pwr) [@pwr] and
 [`TrialSize`](https://CRAN.R-project.org/package=TrialSize) 
-[@trialsize; see other packages detailed on the 
+[[@trialsize]; see other packages detailed on the 
 [CRAN Clinical Trials taskview](https://cran.r-project.org/web/views/ClinicalTrials.html)].
 
 # Statement of need
