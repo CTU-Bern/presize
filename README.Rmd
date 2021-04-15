@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 
 [![](https://www.r-pkg.org/badges/version/presize?color=green)](https://cran.r-project.org/package=presize) 
 `r badger::badge_custom("dev version", as.character(packageVersion("presize")), "blue", "https://github.com/CTU-Bern/presize")`
+`r badger::badge_custom("shiny app", readLines("https://shiny.ctu.unibe.ch/version/presize"), "blue", "https://shiny.ctu.unibe.ch/presize")`
 [![Actions Status](https://github.com/CTU-Bern/presize/workflows/R-CMD-fullcheck/badge.svg)](https://github.com/CTU-Bern/presize/actions)
 [![codecov](https://codecov.io/github/CTU-Bern/presize/branch/master/graphs/badge.svg)](https://codecov.io/github/CTU-Bern/presize)
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.03118/status.svg)](https://doi.org/10.21105/joss.03118)
