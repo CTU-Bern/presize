@@ -4,8 +4,8 @@ presize
 =======
 
 [![](https://www.r-pkg.org/badges/version/presize?color=green)](https://cran.r-project.org/package=presize)
-[![](https://img.shields.io/badge/dev%20version-0.2.4-blue.svg)](https://github.com/CTU-Bern/presize)
-[![](https://img.shields.io/badge/shiny%20app-0.2.3-blue.svg)](https://shiny.ctu.unibe.ch/presize)
+[![](https://img.shields.io/badge/dev%20version-0.2.3.9000-blue.svg)](https://github.com/CTU-Bern/presize)
+[![](https://img.shields.io/badge/shiny%20app-0.2.3-silver.svg)](https://shiny.ctu.unibe.ch/presize)
 [![Actions
 Status](https://github.com/CTU-Bern/presize/workflows/R-CMD-fullcheck/badge.svg)](https://github.com/CTU-Bern/presize/actions)
 [![Codecov test
