@@ -37,7 +37,10 @@ Suggests:
     Hmisc,
     testthat,
     shinydashboard,
-    shinytest
+    shinytest,
+    knitr,
+    rmarkdown
 Imports:
     kappaSize (>= 1.2),
     shiny
+VignetteBuilder: knitr
