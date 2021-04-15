@@ -39,6 +39,7 @@ Suggests:
     shinydashboard,
     shinytest,
     knitr,
+    markdown,
     rmarkdown
 Imports:
     kappaSize (>= 1.2),
