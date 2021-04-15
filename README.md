@@ -4,11 +4,13 @@ presize
 =======
 
 [![](https://www.r-pkg.org/badges/version/presize?color=green)](https://cran.r-project.org/package=presize)
-[![](https://img.shields.io/badge/dev%20version-0.2.3-blue.svg)](https://github.com/CTU-Bern/presize)
+[![](https://img.shields.io/badge/dev%20version-0.2.3.9000-blue.svg)](https://github.com/CTU-Bern/presize)
+[![](https://img.shields.io/badge/shiny%20app-0.2.3-silver.svg)](https://shiny.ctu.unibe.ch/presize)
 [![Actions
-Status](https://github.com/CTU-Bern/presize/workflows/R-CMD-check/badge.svg)](https://github.com/CTU-Bern/presize/actions)
-[![codecov](https://codecov.io/github/CTU-Bern/presize/branch/master/graphs/badge.svg)](https://codecov.io/github/CTU-Bern/presize)
-[![status](https://joss.theoj.org/papers/780db6ae34eb2317ef9b084012cce4de/status.svg)](https://joss.theoj.org/papers/780db6ae34eb2317ef9b084012cce4de)
+Status](https://github.com/CTU-Bern/presize/workflows/R-CMD-fullcheck/badge.svg)](https://github.com/CTU-Bern/presize/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/CTU-Bern/presize/branch/master/graph/badge.svg)](https://codecov.io/gh/CTU-Bern/presize?branch=master)
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.03118/status.svg)](https://doi.org/10.21105/joss.03118)
 
 [Bland (2009)](https://www.bmj.com/content/339/bmj.b3985) recommended to
 base study sizes on the width of the confidence interval rather the
@@ -285,6 +287,15 @@ Basel. Funding was provided by the Swiss Clinical Trial Organisation.
 <img src="man/figures/SCTO_Platform_Logo_2020_RZ_SM.png" width="148" />
 
 <!-- ![](man/fig/scto_ctu_member_cmyk.jpg) -->
+
+Citation [![DOI](https://joss.theoj.org/papers/10.21105/joss.03118/status.svg)](https://doi.org/10.21105/joss.03118)
+--------------------------------------------------------------------------------------------------------------------
+
+If you use `presize`, please cite it in your publication as:  
+Haynes et al., (2021). presize: An R-package for precision-based sample
+size calculation in clinical research. Journal of Open Source Software,
+6(60), 3118,
+<a href="https://doi.org/10.21105/joss.03118" class="uri">https://doi.org/10.21105/joss.03118</a>
 
 References
 ----------

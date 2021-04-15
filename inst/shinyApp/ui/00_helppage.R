@@ -41,6 +41,9 @@ helppage <- tabItem(
   tags$code("presize"),
   "package website can be found ",
   tags$a(href = "https://ctu-bern.github.io/presize/", "here"),
-  "."
+  ".",
+  tags$br(),
+  "If you use ", tags$code("presize"), ", please cite it in your publication as: Haynes et al., (2021). presize: An R-package for precision-based sample size calculation in clinical research. Journal of Open Source Software, 6(60), 3118, ",
+  tags$a(href = "https://doi.org/10.21105/joss.03118", "DOI 10.21105/joss.03118")
 
 )

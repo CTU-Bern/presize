@@ -27,7 +27,7 @@ COPY presize ./presize
 
 # install deps
 RUN Rscript -e 'install.packages("remotes")'
-RUN Rscript -e 'remotes::install_deps("presize")'
+RUN Rscript -e 'remotes::install_deps("presize", dependencies = TRUE)'
 RUN Rscript -e 'remotes::install_local("presize")'
 
 # expose port

@@ -12,3 +12,4 @@
 ^paper
 ^docker
 ^LICENSE
+^codecov\.yml$
