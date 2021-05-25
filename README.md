@@ -4,7 +4,7 @@ presize
 =======
 
 [![](https://www.r-pkg.org/badges/version/presize?color=green)](https://cran.r-project.org/package=presize)
-[![](https://img.shields.io/badge/dev%20version-0.2.3.9000-blue.svg)](https://github.com/CTU-Bern/presize)
+[![](https://img.shields.io/badge/dev%20version-0.2.4.9000-blue.svg)](https://github.com/CTU-Bern/presize)
 [![](https://img.shields.io/badge/shiny%20app-0.2.3-silver.svg)](https://shiny.ctu.unibe.ch/presize)
 [![Actions
 Status](https://github.com/CTU-Bern/presize/workflows/R-CMD-fullcheck/badge.svg)](https://github.com/CTU-Bern/presize/actions)
@@ -251,7 +251,7 @@ An online interactive version of the package is available
 [here](https://shiny.ctu.unibe.ch/presize). The app can also be launched
 locally via `launch_presize_app()` in RStudio.
 
-<img src="man/figures/app.png" width="1107" />
+<img src="man/figures/app.png" width="1303" />
 
 Getting help
 ------------
@@ -284,7 +284,7 @@ Funding
 `presize` was largely developed at CTU Bern, with collaboration from CTU
 Basel. Funding was provided by the Swiss Clinical Trial Organisation.
 
-<img src="man/figures/SCTO_Platform_Logo_2020_RZ_SM.png" width="148" />
+<img src="man/figures/SCTO_Platforms.png" width="320" />
 
 <!-- ![](man/fig/scto_ctu_member_cmyk.jpg) -->
 
