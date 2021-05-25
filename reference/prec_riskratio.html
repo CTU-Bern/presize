@@ -73,7 +73,7 @@ precision for the provided proportions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">presize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4.9000</span>
       </span>
     </div>
 
@@ -196,40 +196,31 @@ Intervals for the Risk Ratio in Cohort Studies</em>, Biometrics 34:469-474.</p>
 Proportions</em>, Biometrics 40:513-517.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples">prec_riskratio,Sample size or precision for risk ratio,Sample size or precision for risk ratio — prec_riskratio,Source: <a href='https://github.com/CTU-Bern/presize/blob/master/R/differences.R'><code>R/differences.R</code></a>,prec_riskratio.Rd,character(0),prec_riskratio,character(0),list(title = "Description", contents = "<p><code>prec_riskratio</code> returns the risk ratio and the sample size or the\nprecision for the provided proportions.</p>"),list(description = "prec_riskratio returns the risk ratio and the sample size or the\nprecision for the provided proportions."),<span class='fu'>prec_riskratio</span><span class='op'>(</span>
-  <span class='va'>p1</span>,
-  <span class='va'>p2</span>,
-  n1 <span class='op'>=</span> <span class='cn'>NULL</span>,
-  r <span class='op'>=</span> <span class='fl'>1</span>,
-  conf.width <span class='op'>=</span> <span class='cn'>NULL</span>,
-  conf.level <span class='op'>=</span> <span class='fl'>0.95</span>,
-  method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"koopman"</span>, <span class='st'>"katz"</span><span class='op'>)</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span>,list(list(name = "p1", description = "<p>risk among exposed.</p>"), list(name = "p2", description = "<p>risk among unexposed.</p>"), list(name = "n1", description = "<p>number of patients in exposed group.</p>"), list(name = "r", description = "<p>allocation ratio (relative size of unexposed and exposed cohort\n(<code>n2</code> / <code>n1</code>)).</p>"), list(name = "conf.width", description = "<p>precision (the full width of the confidence interval).</p>"), list(name = "conf.level", description = "<p>confidence level.</p>"), 
-    list(name = "method", description = "<p>Exactly one of <code>koopman</code> (<em>default</em>), <code>katz</code>.\nMethods can be abbreviated.</p>"), list(name = "...", description = "<p>other arguments to uniroot (e.g. <code>tol</code>).</p>")),TRUE,<div class='input'><span class='co'># Validate function with example in Fagerland et al. (2015), Table 5.</span>
-<span class='fu'>prec_riskratio</span><span class='op'>(</span>p1 <span class='op'>=</span> <span class='fl'>7</span><span class='op'>/</span><span class='fl'>34</span>, p2 <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>34</span>, n1 <span class='op'>=</span> <span class='fl'>34</span>, r <span class='op'>=</span> <span class='fl'>1</span>, met <span class='op'>=</span> <span class='st'>"katz"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;      precision for a relative risk with katz confidence interval 
-#&gt; 
-#&gt;          p1         p2 n1 n2 ntot r rr       lwr      upr conf.width conf.level
-#&gt; 1 0.2058824 0.02941176 34 34   68 1  7 0.9096055 53.86951    52.9599       0.95</div><div class='input'><span class='co'># 7 (0.91 to 54)</span>
-<span class='fu'>prec_riskratio</span><span class='op'>(</span>p1 <span class='op'>=</span> <span class='fl'>7</span><span class='op'>/</span><span class='fl'>34</span>, p2 <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>34</span>, n1 <span class='op'>=</span> <span class='fl'>34</span>, r <span class='op'>=</span> <span class='fl'>1</span>, met <span class='op'>=</span> <span class='st'>"koopman"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;      precision for a relative risk with koopman confidence interval 
-#&gt; 
-#&gt;          p1         p2 n1 n2 ntot r rr      lwr      upr conf.width conf.level
-#&gt; 1 0.2058824 0.02941176 34 34   68 1  7 1.220853 42.57571   41.35486       0.95</div><div class='input'><span class='co'># 7 (1.21 to 43)</span>
-
-<span class='co'># Validate the Koopman method with example in Koopman (1984)</span>
-<span class='fu'>prec_riskratio</span><span class='op'>(</span>p1 <span class='op'>=</span> <span class='fl'>36</span><span class='op'>/</span><span class='fl'>40</span>, p2 <span class='op'>=</span> <span class='fl'>16</span><span class='op'>/</span><span class='fl'>80</span>, n1 <span class='op'>=</span> <span class='fl'>40</span>, r <span class='op'>=</span> <span class='fl'>2</span>, met <span class='op'>=</span> <span class='st'>"koopman"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;      precision for a relative risk with koopman confidence interval 
-#&gt; 
-#&gt;    p1  p2 n1 n2 ntot r  rr      lwr      upr conf.width conf.level
-#&gt; 1 0.9 0.2 40 80  120 2 4.5 2.939572 7.152241   4.212668       0.95</div><div class='input'><span class='co'># 4.5 (2.94 to 7.15)</span>
-</div>,list(list(title = "Details", contents = "<p>Exactly one of the parameters <code>n1</code> or <code>conf.width</code> must be passed as NULL,\nand that parameter is determined from the other.</p>\n<p>Koopman (<code>koopman</code>) provides an asymptotic score confidence interval\nthat is always consistent with Pearsons chi-squared test. It is the\nrecommended interval (Fagerland et al.).</p>\n<p>Katz (<code>katz</code>) use a logarithmic transformation to calculate the\nconfidence interval. The CI cannot be computed if one of the proportions is\nzero. If both proportions are 1, the estimate of the standard error becomes\nzero, resulting in a CI of [1, 1].</p>\n<p><code><a href='https://rdrr.io/r/stats/uniroot.html'>uniroot</a></code> is used to solve n for the katz, and koopman\nmethod.</p>", 
-    slug = "details"), list(title = "References", contents = "<p>Fagerland MW, Lydersen S, and Laake P (2015). <em>Recommended confidence\nintervals for two independent binomial proportions</em>, Statistical methods in\nmedical research 24(2):224-254.</p>\n<p>Katz D, Baptista J, Azen SP, and Pike MC (1978) <em>Obtaining Confidence\nIntervals for the Risk Ratio in Cohort Studies</em>, Biometrics 34:469-474.</p>\n<p>Koopman PAR (1984) <em>Confidence Intervals for the Ratio of Two Binomial\nProportions</em>, Biometrics 40:513-517.</p>", 
-    slug = "references")),2021,list(name = "presize", version = "0.2.3.9000", authors = "Armando Lenz, Alan G. Haynes, Andreas Limacher"),list(destination = "dev", mode = "release", version_label = "default", version_tooltip = "Released version", in_dev = FALSE),list(root = "../", title = "presize"),list(),list(type = "default", left = "<li>\n  <a href=\"../index.html\">\n    <span class=\"fas fa-home fa-lg\"></span>\n     \n  </a>\n</li>\n<li>\n  <a href=\"../reference/index.html\">Reference</a>\n</li>\n<li>\n  <a href=\"../news/index.html\">Changelog</a>\n</li>", right = "<li>\n  <a href=\"https://github.com/CTU-Bern/presize/\">\n    <span class=\"fab fa-github fa-lg\"></span>\n     \n  </a>\n</li>"),list(.present = TRUE),list(version = "1.6.1"),FALSE</pre>
+    <pre class="examples"><span class='r-in'><span class='co'># Validate function with example in Fagerland et al. (2015), Table 5.</span></span>
+<span class='r-in'><span class='fu'>prec_riskratio</span><span class='op'>(</span>p1 <span class='op'>=</span> <span class='fl'>7</span><span class='op'>/</span><span class='fl'>34</span>, p2 <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>34</span>, n1 <span class='op'>=</span> <span class='fl'>34</span>, r <span class='op'>=</span> <span class='fl'>1</span>, met <span class='op'>=</span> <span class='st'>"katz"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      precision for a relative risk with katz confidence interval </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          p1         p2 n1 n2 ntot r rr       lwr      upr conf.width conf.level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 0.2058824 0.02941176 34 34   68 1  7 0.9096055 53.86951    52.9599       0.95</span>
+<span class='r-in'><span class='co'># 7 (0.91 to 54)</span></span>
+<span class='r-in'><span class='fu'>prec_riskratio</span><span class='op'>(</span>p1 <span class='op'>=</span> <span class='fl'>7</span><span class='op'>/</span><span class='fl'>34</span>, p2 <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>34</span>, n1 <span class='op'>=</span> <span class='fl'>34</span>, r <span class='op'>=</span> <span class='fl'>1</span>, met <span class='op'>=</span> <span class='st'>"koopman"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      precision for a relative risk with koopman confidence interval </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          p1         p2 n1 n2 ntot r rr      lwr      upr conf.width conf.level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 0.2058824 0.02941176 34 34   68 1  7 1.220853 42.57571   41.35486       0.95</span>
+<span class='r-in'><span class='co'># 7 (1.21 to 43)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Validate the Koopman method with example in Koopman (1984)</span></span>
+<span class='r-in'><span class='fu'>prec_riskratio</span><span class='op'>(</span>p1 <span class='op'>=</span> <span class='fl'>36</span><span class='op'>/</span><span class='fl'>40</span>, p2 <span class='op'>=</span> <span class='fl'>16</span><span class='op'>/</span><span class='fl'>80</span>, n1 <span class='op'>=</span> <span class='fl'>40</span>, r <span class='op'>=</span> <span class='fl'>2</span>, met <span class='op'>=</span> <span class='st'>"koopman"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      precision for a relative risk with koopman confidence interval </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    p1  p2 n1 n2 ntot r  rr      lwr      upr conf.width conf.level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 0.9 0.2 40 80  120 2 4.5 2.939572 7.152241   4.212668       0.95</span>
+<span class='r-in'><span class='co'># 4.5 (2.94 to 7.15)</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
