@@ -1,8 +1,9 @@
 
-presize 0.2.4
+presize 0.2.4.9000
 -----------------------------------------
 
 * addition of citation info
+* update SCTO figures
 
 presize 0.2.3
 -----------------------------------------
