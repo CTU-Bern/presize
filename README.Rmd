@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# presize
+# presize <img src='man/figures/logo.png' align="right" height="200">
 
 
 [![](https://www.r-pkg.org/badges/version/presize?color=green)](https://cran.r-project.org/package=presize) 
@@ -39,19 +39,11 @@ install.packages("presize")
 ```
 
 
-You can install the development version of `presize` from github with:
+You can install the development version of `presize` with:
 
 ```{r gh-installation, eval = FALSE}
-# install.packages("remotes")
-remotes::install_github("CTU-Bern/presize")
+install.packages('presize', repos = 'https://ctu-bern.r-universe.dev')
 ```
-
-Note that `remotes` treats any warnings (e.g. that a certain package was built under a different version of R) as errors. If you see such an error, run the following line and try again:
-
-```{r remotes-error, eval = FALSE}
-Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS = "true")
-```
-
 
 ## Overview
 presize provides functions for
