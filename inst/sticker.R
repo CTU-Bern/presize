@@ -20,7 +20,6 @@ icon <- ggplot() +
   #           size = 45, col = "grey") +
   geom_polygon(data = arrow, aes(x = x, y = y), fill = CTUtemplate::unibeRed()) +
   geom_polygon(data = arrowhead, aes(x = x, y = y), fill = CTUtemplate::unibeRed()) +
-  geom_a
   xlim(0,2) +
   ylim(0,2) +
   theme_void() + theme_transparent()
