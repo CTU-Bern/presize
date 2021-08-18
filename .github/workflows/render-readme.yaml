@@ -37,7 +37,7 @@ jobs:
       run: |
         brew install harfbuzz
         brew install fribidi
-      
+
     - name: Install dependencies
       run: |
         install.packages("remotes")
@@ -71,6 +71,6 @@ jobs:
         git commit -m "Re-build README.md" || echo "No changes to commit"
         git push origin master || echo "No changes to commit"
 
-    - name: Deploy package
-      run: pkgdown::deploy_to_branch(new_process = FALSE)
-      shell: Rscript {0}
+    # - name: Deploy package
+    #   run: pkgdown::deploy_to_branch(new_process = FALSE)
+    #   shell: Rscript {0}
