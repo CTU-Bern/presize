@@ -48,6 +48,7 @@ jobs:
         install.packages("remotes")
         remotes::install_deps(dependencies = TRUE)
         install.packages("fs")
+        install.packages("cli")
         install.packages("pkgdown")
         devtools::document()
       shell: Rscript {0}
