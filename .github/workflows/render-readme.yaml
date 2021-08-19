@@ -1,6 +1,6 @@
 
 
-name: render readme and pkgdown
+name: render readme and helpfiles
 
 # Controls when the action will run
 on:
@@ -47,8 +47,6 @@ jobs:
       run: |
         install.packages("remotes")
         remotes::install_deps(dependencies = TRUE)
-        install.packages(c("fs", "cli", "rlang", "ellipsis", "fastmap", "cachem", "processx", "ps", "R6", "magrittr", "testthat", "glue", "stringi", "Rcpp", "xfun", "shiny"), dependencies = TRUE)
-        install.packages("pkgdown", dependencies = TRUE)
         devtools::document()
       shell: Rscript {0}
 
@@ -63,7 +61,7 @@ jobs:
 
     # install packages needed
     - name: install required packages
-      run: Rscript -e 'install.packages(c("rmarkdown", "knitr", "badger", "pkgdown"))'
+      run: Rscript -e 'install.packages(c("rmarkdown", "knitr", "badger"))'
 
     # Render READEME.md using rmarkdown
     - name: render README
