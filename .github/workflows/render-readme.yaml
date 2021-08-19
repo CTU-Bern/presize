@@ -47,6 +47,7 @@ jobs:
       run: |
         install.packages("remotes")
         remotes::install_deps(dependencies = TRUE)
+        #install.packages(c("fs", "cli", "rlang", "ellipsis", "fastmap", "cachem", "processx", "ps", "R6", "tidyverse"), dependencies = TRUE)
         install.packages("pkgdown", dependencies = TRUE, type = "binary)
         devtools::document()
       shell: Rscript {0}
