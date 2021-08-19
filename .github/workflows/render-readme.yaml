@@ -19,7 +19,7 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@v1
       - name: Install rmarkdown, remotes, and the local package
         run: |
-          install.packages("devtools")
+          install.packages(c("devtools", "badger"))
           devtools::install_local(".")
           devtools::install_cran("rmarkdown")
         shell: Rscript {0}
