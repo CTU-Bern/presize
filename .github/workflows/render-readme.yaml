@@ -47,8 +47,8 @@ jobs:
       run: |
         install.packages("remotes")
         remotes::install_deps(dependencies = TRUE)
-        install.packages(c("fs", "cli", "rlang", "ellipsis", "fastmap"))
-        install.packages("pkgdown")
+        install.packages(c("fs", "cli", "rlang", "ellipsis", "fastmap"), dependencies = TRUE)
+        install.packages("pkgdown", dependencies = TRUE)
         devtools::document()
       shell: Rscript {0}
 
