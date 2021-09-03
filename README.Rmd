@@ -156,4 +156,8 @@ If you use `presize`, please cite it in your publication as:
 Haynes et al., (2021). presize: An R-package for precision-based sample size calculation in clinical research. Journal of Open Source Software, 6(60), 3118, https://doi.org/10.21105/joss.03118
 
 
+### Acknowledgements
+
+The package logo was created with [`ggplot2`](https://ggplot2.tidyverse.org/) and [`hexSticker`](https://github.com/GuangchuangYu/hexSticker) with icons from [Font Awesome](https://fontawesome.com/) (via the [emojifont package](https://github.com/GuangchuangYu/emojifont)).
+
 ## References
