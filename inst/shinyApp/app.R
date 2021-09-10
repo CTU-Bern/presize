@@ -65,9 +65,9 @@ ui <- dashboardPage(skin = "red",
                  br(),
                  br(),
                  br(),
-                 "presize was developed by members of the Swiss Clinical Trials Organisation",
+                 "presize was developed by members of the statistics and methodology platform of the Swiss Clinical Trial Organisation",
                  br(),
-                 img(src = "SCTO_Platform_Logo_2020_RZ_SM.jpg"),
+                 img(src = "SCTO_Platforms.png", width = "95%", style="border: 2px solid #FFFFFF"),
                  width = 12
              )
          ),

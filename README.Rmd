@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# presize
+# presize <img src='man/figures/logo.png' align="right" height="200">
 
 
 [![](https://www.r-pkg.org/badges/version/presize?color=green)](https://cran.r-project.org/package=presize) 
@@ -39,19 +39,11 @@ install.packages("presize")
 ```
 
 
-You can install the development version of `presize` from github with:
+You can install the development version of `presize` with:
 
 ```{r gh-installation, eval = FALSE}
-# install.packages("remotes")
-remotes::install_github("CTU-Bern/presize")
+install.packages('presize', repos = 'https://ctu-bern.r-universe.dev')
 ```
-
-Note that `remotes` treats any warnings (e.g. that a certain package was built under a different version of R) as errors. If you see such an error, run the following line and try again:
-
-```{r remotes-error, eval = FALSE}
-Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS = "true")
-```
-
 
 ## Overview
 `presize` provides functions for
@@ -153,7 +145,7 @@ If you want to contribute code, please feel free to fork the repository, make yo
 `presize` was largely developed at CTU Bern, with collaboration from CTU Basel. Funding was provided by the Swiss Clinical Trial Organisation.
 
 ```{r, echo=FALSE}
-knitr::include_graphics("man/figures/SCTO_Platform_Logo_2020_RZ_SM.png")
+knitr::include_graphics("man/figures/SCTO_Platforms.png")
 ```
 
 <!-- ![](man/fig/scto_ctu_member_cmyk.jpg) -->
@@ -163,5 +155,9 @@ knitr::include_graphics("man/figures/SCTO_Platform_Logo_2020_RZ_SM.png")
 If you use `presize`, please cite it in your publication as:  
 Haynes et al., (2021). presize: An R-package for precision-based sample size calculation in clinical research. Journal of Open Source Software, 6(60), 3118, https://doi.org/10.21105/joss.03118
 
+
+### Acknowledgements
+
+The package logo was created with [`ggplot2`](https://ggplot2.tidyverse.org/) and [`hexSticker`](https://github.com/GuangchuangYu/hexSticker) with icons from [Font Awesome](https://fontawesome.com/) (via the [emojifont package](https://github.com/GuangchuangYu/emojifont)).
 
 ## References
