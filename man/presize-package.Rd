@@ -6,6 +6,8 @@
 \alias{presize-package}
 \title{presize: Precision Based Sample Size Calculation}
 \description{
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+
 Bland (2009) <doi:10.1136/bmj.b3985> recommended to
     base study sizes on the width of the confidence interval rather the power of 
     a statistical test. The goal of 'presize' is to provide functions for such 

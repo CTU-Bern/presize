@@ -1,8 +1,15 @@
+presize 0.2.4.9001
+-----------------------------------------
 
-presize 0.2.4
+* logo
+* installation via universe
+
+
+presize 0.2.4.9000
 -----------------------------------------
 
 * addition of citation info
+* update SCTO figures
 
 presize 0.2.3
 -----------------------------------------
