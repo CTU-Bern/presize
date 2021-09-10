@@ -4,7 +4,7 @@
 # presize <img src='man/figures/logo.png' align="right" height="200">
 
 [![](https://www.r-pkg.org/badges/version/presize?color=green)](https://cran.r-project.org/package=presize)
-[![](https://img.shields.io/badge/dev%20version-0.2.4.9001-blue.svg)](https://github.com/CTU-Bern/presize)
+[![](https://img.shields.io/badge/dev%20version-0.2.5-blue.svg)](https://github.com/CTU-Bern/presize)
 [![](https://img.shields.io/badge/shiny%20app-0.2.3-silver.svg)](https://shiny.ctu.unibe.ch/presize)
 [![Actions
 Status](https://github.com/CTU-Bern/presize/workflows/R-CMD-fullcheck/badge.svg)](https://github.com/CTU-Bern/presize/actions)
@@ -35,7 +35,7 @@ install.packages('presize', repos = 'https://ctu-bern.r-universe.dev')
 
 ## Overview
 
-presize provides functions for
+`presize` provides functions for
 
 | Measure                               | Function         | Methods available                                                                                                        |
 | ------------------------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------ |
