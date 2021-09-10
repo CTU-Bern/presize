@@ -39,7 +39,7 @@ prec_sens <- function(sens, n = NULL, ntot = NULL, prev = NULL,
                       conf.width = NULL, round = "ceiling", ...){
   if (!is.null(n) & !is.null(ntot)) stop("supply 'n' or 'ntot' and 'prev'")
   if (!is.null(ntot) & is.null(prev)) stop("'prev' required when 'ntot' is specified")
-  if (is.null(ntot) & !is.null(prev)) stop("'ntot' required when 'prev' is specified")
+  if (is.null(conf.width)) if(is.null(ntot) & !is.null(prev)) stop("'ntot' required when 'prev' is specified")
   # if (!round %in% c("ceiling", "floor")) stop("choices for 'round' are 'ceiling' or 'floor'")
 
   if (!is.null(sens)) numrange_check(sens)
@@ -65,7 +65,7 @@ prec_sens <- function(sens, n = NULL, ntot = NULL, prev = NULL,
 
   pp <- prec_prop(sens, n, conf.width, ...)
 
-  if (!is.null(prev) & is.na(ntot)) {
+  if (any(!is.null(prev) & is.na(ntot))) {
     ntot <- pp$n * (1 / prev)
   }
 
@@ -91,7 +91,7 @@ prec_spec <- function(spec, n = NULL, ntot = NULL, prev = NULL, conf.width = NUL
   if (!is.null(n) & !is.null(ntot)) stop("supply 'n' or 'ntot' and 'prev'")
   # if (!round %in% c("ceiling", "floor")) stop("choices for 'round' are 'ceiling' or 'floor'")
   if (!is.null(ntot) & is.null(prev)) stop("'prev' required when 'ntot' is specified")
-  if (is.null(ntot) & !is.null(prev)) stop("'ntot' required when 'prev' is specified")
+  if (is.null(conf.width)) if(is.null(ntot) & !is.null(prev)) stop("'ntot' required when 'prev' is specified")
 
   if (!is.null(spec)) numrange_check(spec)
   if (!is.null(n)) numrange_check_gt(n)
@@ -116,7 +116,7 @@ prec_spec <- function(spec, n = NULL, ntot = NULL, prev = NULL, conf.width = NUL
 
   pp <- prec_prop(spec, n, conf.width, ...)
 
-  if (!is.null(prev) & is.na(ntot)) {
+  if (any(!is.null(prev) & is.na(ntot))) {
     ntot <- pp$n * (1 / (1 - prev))
   }
 
