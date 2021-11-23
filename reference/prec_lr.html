@@ -88,7 +88,7 @@ specificity to be given explicitly." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">presize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -240,69 +240,76 @@ would be the proportion of positive or negative tests in the non-diseased group.
     <p>Simel, DL, Samsa, GP and Matchar, DB (1991) <em>Likelihood ratios with confidence: Sample size estimation for diagnostic test studies.</em> J Clin Epidemiol 44(8), 763-770</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># equal numbers of diseased/non-diseased, 80% sens, 73% spec, 74 participants total</span>
-<span class='fu'>prec_lr</span><span class='op'>(</span><span class='fl'>.5</span>, <span class='fl'>.8</span>, <span class='fl'>.27</span>, <span class='fl'>74</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;      precision for likelihood ratios 
-#&gt; 
-#&gt;   prev  p1   p2  n n1 n2       lr      lwr     upr conf.width conf.level
-#&gt; 1  0.5 0.8 0.27 74 37 37 2.962963 1.703046 5.15497   3.451925       0.95</div><div class='input'>
-<span class='co'># Simel et al 1991, problem 1 - LR+ CI width from N</span>
-<span class='co'># Sensitivity of a new test is at least 80%, specificity is 73% and the LR+</span>
-<span class='co'># is 2.96 (= 0.8/(1-0.73)). We have as many diseased as not diseased</span>
-<span class='co'># (n1 = n2, n = 2*n1 = 146.8, prevalence = .5)</span>
-<span class='fu'>prec_lr</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, p1 <span class='op'>=</span> <span class='fl'>.8</span>, p2 <span class='op'>=</span> <span class='fl'>1</span><span class='op'>-</span><span class='fl'>.73</span>, n <span class='op'>=</span> <span class='fl'>146.8</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;      precision for likelihood ratios 
-#&gt; 
-#&gt;   prev  p1   p2     n   n1   n2       lr      lwr      upr conf.width
-#&gt; 1  0.5 0.8 0.27 146.8 73.4 73.4 2.962963 1.999739 4.390147   2.390407
-#&gt;   conf.level
-#&gt; 1       0.95</div><div class='input'><span class='fu'>prec_pos_lr</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.73</span>, n <span class='op'>=</span> <span class='fl'>146.8</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;      precision for positive likelihood ratio 
-#&gt; 
-#&gt;   prev  p1   p2     n   n1   n2       lr      lwr      upr conf.width
-#&gt; 1  0.5 0.8 0.27 146.8 73.4 73.4 2.962963 1.999739 4.390147   2.390407
-#&gt;   conf.level
-#&gt; 1       0.95</div><div class='input'>
-<span class='co'># problem 1 of Simel et al actually derives n1 rather than the width of the</span>
-<span class='co'># confidence interval (ie N from CI width). If we know that the lower limit</span>
-<span class='co'># of the CI should be 2.0, the confidence interval width is approximately</span>
-<span class='co'># exp(2*(log(2.96) - log(2))) = 2.19 (approximate because the CI Of the LR</span>
-<span class='co'># is only symetrical on the log(LR) scale), which we can put in conf.width</span>
-<span class='fu'>prec_lr</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, p1 <span class='op'>=</span> <span class='fl'>.8</span>, p2 <span class='op'>=</span> <span class='fl'>1</span><span class='op'>-</span><span class='fl'>.73</span>, conf.width <span class='op'>=</span> <span class='fl'>2.2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;      sample size for likelihood ratios 
-#&gt; 
-#&gt;   prev  p1   p2        n       n1       n2       lr      lwr      upr
-#&gt; 1  0.5 0.8 0.27 172.0183 86.00915 86.00915 2.962963 2.060562 4.260562
-#&gt;   conf.width conf.level
-#&gt; 1        2.2       0.95</div><div class='input'><span class='co'># same, but using the wrapper to specify sens and spec</span>
-<span class='fu'>prec_pos_lr</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.73</span>, conf.width <span class='op'>=</span> <span class='fl'>2.2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;      sample size for positive likelihood ratio 
-#&gt; 
-#&gt;   prev  p1   p2        n       n1       n2       lr      lwr      upr
-#&gt; 1  0.5 0.8 0.27 172.0183 86.00915 86.00915 2.962963 2.060562 4.260562
-#&gt;   conf.width conf.level
-#&gt; 1        2.2       0.95</div><div class='input'>
-<span class='co'># Simel et al 1991, problem 2 - LR- CI width from N</span>
-<span class='co'># p1 = 1 - sens = .1, p2 = spec = .5</span>
-<span class='co'># n1 = n2, n = 160, prev = .5</span>
-<span class='fu'>prec_lr</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, p1 <span class='op'>=</span> <span class='fl'>.1</span>, p2 <span class='op'>=</span> <span class='fl'>.5</span>, n <span class='op'>=</span> <span class='fl'>160</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;      precision for likelihood ratios 
-#&gt; 
-#&gt;   prev  p1  p2   n n1 n2  lr       lwr       upr conf.width conf.level
-#&gt; 1  0.5 0.1 0.5 160 80 80 0.2 0.1000195 0.3999219  0.2999024       0.95</div><div class='input'><span class='co'># same, but using the wrapper to specify sens and spec</span>
-<span class='fu'>prec_neg_lr</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.9</span>, spec <span class='op'>=</span> <span class='fl'>.5</span>, n <span class='op'>=</span> <span class='fl'>160</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;      precision for negative likelihood ratio 
-#&gt; 
-#&gt;   prev  p1  p2   n n1 n2  lr       lwr       upr conf.width conf.level
-#&gt; 1  0.5 0.1 0.5 160 80 80 0.2 0.1000195 0.3999219  0.2999024       0.95</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># equal numbers of diseased/non-diseased, 80% sens, 73% spec, 74 participants total</span></span>
+<span class='r-in'><span class='fu'>prec_lr</span><span class='op'>(</span><span class='fl'>.5</span>, <span class='fl'>.8</span>, <span class='fl'>.27</span>, <span class='fl'>74</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      precision for likelihood ratios </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   prev  p1   p2  n n1 n2       lr      lwr     upr conf.width conf.level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  0.5 0.8 0.27 74 37 37 2.962963 1.703046 5.15497   3.451925       0.95</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Simel et al 1991, problem 1 - LR+ CI width from N</span></span>
+<span class='r-in'><span class='co'># Sensitivity of a new test is at least 80%, specificity is 73% and the LR+</span></span>
+<span class='r-in'><span class='co'># is 2.96 (= 0.8/(1-0.73)). We have as many diseased as not diseased</span></span>
+<span class='r-in'><span class='co'># (n1 = n2, n = 2*n1 = 146.8, prevalence = .5)</span></span>
+<span class='r-in'><span class='fu'>prec_lr</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, p1 <span class='op'>=</span> <span class='fl'>.8</span>, p2 <span class='op'>=</span> <span class='fl'>1</span><span class='op'>-</span><span class='fl'>.73</span>, n <span class='op'>=</span> <span class='fl'>146.8</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      precision for likelihood ratios </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   prev  p1   p2     n   n1   n2       lr      lwr      upr conf.width</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  0.5 0.8 0.27 146.8 73.4 73.4 2.962963 1.999739 4.390147   2.390407</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   conf.level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1       0.95</span>
+<span class='r-in'><span class='fu'>prec_pos_lr</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.73</span>, n <span class='op'>=</span> <span class='fl'>146.8</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      precision for positive likelihood ratio </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   prev  p1   p2     n   n1   n2       lr      lwr      upr conf.width</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  0.5 0.8 0.27 146.8 73.4 73.4 2.962963 1.999739 4.390147   2.390407</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   conf.level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1       0.95</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># problem 1 of Simel et al actually derives n1 rather than the width of the</span></span>
+<span class='r-in'><span class='co'># confidence interval (ie N from CI width). If we know that the lower limit</span></span>
+<span class='r-in'><span class='co'># of the CI should be 2.0, the confidence interval width is approximately</span></span>
+<span class='r-in'><span class='co'># exp(2*(log(2.96) - log(2))) = 2.19 (approximate because the CI Of the LR</span></span>
+<span class='r-in'><span class='co'># is only symetrical on the log(LR) scale), which we can put in conf.width</span></span>
+<span class='r-in'><span class='fu'>prec_lr</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, p1 <span class='op'>=</span> <span class='fl'>.8</span>, p2 <span class='op'>=</span> <span class='fl'>1</span><span class='op'>-</span><span class='fl'>.73</span>, conf.width <span class='op'>=</span> <span class='fl'>2.2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      sample size for likelihood ratios </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   prev  p1   p2        n       n1       n2       lr      lwr      upr</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  0.5 0.8 0.27 172.0183 86.00915 86.00915 2.962963 2.060562 4.260562</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   conf.width conf.level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1        2.2       0.95</span>
+<span class='r-in'><span class='co'># same, but using the wrapper to specify sens and spec</span></span>
+<span class='r-in'><span class='fu'>prec_pos_lr</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.73</span>, conf.width <span class='op'>=</span> <span class='fl'>2.2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      sample size for positive likelihood ratio </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   prev  p1   p2        n       n1       n2       lr      lwr      upr</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  0.5 0.8 0.27 172.0183 86.00915 86.00915 2.962963 2.060562 4.260562</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   conf.width conf.level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1        2.2       0.95</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Simel et al 1991, problem 2 - LR- CI width from N</span></span>
+<span class='r-in'><span class='co'># p1 = 1 - sens = .1, p2 = spec = .5</span></span>
+<span class='r-in'><span class='co'># n1 = n2, n = 160, prev = .5</span></span>
+<span class='r-in'><span class='fu'>prec_lr</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, p1 <span class='op'>=</span> <span class='fl'>.1</span>, p2 <span class='op'>=</span> <span class='fl'>.5</span>, n <span class='op'>=</span> <span class='fl'>160</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      precision for likelihood ratios </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   prev  p1  p2   n n1 n2  lr       lwr       upr conf.width conf.level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  0.5 0.1 0.5 160 80 80 0.2 0.1000195 0.3999219  0.2999024       0.95</span>
+<span class='r-in'><span class='co'># same, but using the wrapper to specify sens and spec</span></span>
+<span class='r-in'><span class='fu'>prec_neg_lr</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.9</span>, spec <span class='op'>=</span> <span class='fl'>.5</span>, n <span class='op'>=</span> <span class='fl'>160</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      precision for negative likelihood ratio </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   prev  p1  p2   n n1 n2  lr       lwr       upr conf.width conf.level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  0.5 0.1 0.5 160 80 80 0.2 0.1000195 0.3999219  0.2999024       0.95</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

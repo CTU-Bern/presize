@@ -83,7 +83,7 @@ instead of a Student t distribution." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">presize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -170,19 +170,21 @@ between two methods of clinical measurement</em> Lancet i(8476):307-310
 doi: <a href='https://doi.org/10.1016/S0140-6736(86)90837-8'>10.1016/S0140-6736(86)90837-8</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># calculate confidence interval width, given N</span>
-<span class='fu'>prec_lim_agree</span><span class='op'>(</span><span class='fl'>200</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;      precision for limit of agreement 
-#&gt; 
-#&gt;     n conf.width conf.level
-#&gt; 1 200  0.4800912       0.95</div><div class='input'><span class='co'># calculate N given, confidence interval width</span>
-<span class='fu'>prec_lim_agree</span><span class='op'>(</span>conf.width <span class='op'>=</span> <span class='fl'>.1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;      sample size for limit of agreement 
-#&gt; 
-#&gt;          n conf.width conf.level
-#&gt; 1 4609.751        0.1       0.95</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># calculate confidence interval width, given N</span></span>
+<span class='r-in'><span class='fu'>prec_lim_agree</span><span class='op'>(</span><span class='fl'>200</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      precision for limit of agreement </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     n conf.width conf.level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 200  0.4800912       0.95</span>
+<span class='r-in'><span class='co'># calculate N given, confidence interval width</span></span>
+<span class='r-in'><span class='fu'>prec_lim_agree</span><span class='op'>(</span>conf.width <span class='op'>=</span> <span class='fl'>.1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      sample size for limit of agreement </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          n conf.width conf.level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 4609.751        0.1       0.95</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

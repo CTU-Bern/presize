@@ -81,7 +81,7 @@ pearson, spearman, or kendall correlation coefficient." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">presize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -191,45 +191,53 @@ be considered.</p>
   65:23-28. doi: <a href='https://doi.org/10.1007/BF02294183'>10.1007/BF02294183</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># calculate confidence interval width...</span>
-<span class='co'># Pearson correlation coefficient</span>
-<span class='fu'>prec_cor</span><span class='op'>(</span>r <span class='op'>=</span> <span class='fl'>0.5</span>, n <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: more than one method was chosen, 'pearson' will be used</span></div><div class='output co'>#&gt; 
-#&gt;      precision for pearson 's correlation coefficient 
-#&gt; 
-#&gt;     r   n conf.width conf.level       lwr       upr
-#&gt; 1 0.5 100  0.2974965       0.95 0.3366433 0.6341398</div><div class='input'><span class='co'># Kendall rank correlation coefficient (tau)</span>
-<span class='fu'>prec_cor</span><span class='op'>(</span>r <span class='op'>=</span> <span class='fl'>0.5</span>, n <span class='op'>=</span> <span class='fl'>100</span>, method <span class='op'>=</span> <span class='st'>"kendall"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;      precision for kendall 's correlation coefficient 
-#&gt; 
-#&gt;     r   n conf.width conf.level       lwr       upr
-#&gt; 1 0.5 100  0.1980633       0.95 0.3944584 0.5925217</div><div class='input'><span class='co'># Spearman's rank correlation coefficient</span>
-<span class='fu'>prec_cor</span><span class='op'>(</span>r <span class='op'>=</span> <span class='fl'>0.5</span>, n <span class='op'>=</span> <span class='fl'>100</span>, method <span class='op'>=</span> <span class='st'>"spearman"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;      precision for spearman 's correlation coefficient 
-#&gt; 
-#&gt;     r   n conf.width conf.level       lwr       upr
-#&gt; 1 0.5 100  0.3154053       0.95 0.3258966 0.6413019</div><div class='input'><span class='co'># calculate N required for a given confidence interval width...</span>
-<span class='co'># Pearson correlation coefficient</span>
-<span class='fu'>prec_cor</span><span class='op'>(</span>r <span class='op'>=</span> <span class='fl'>0.5</span>, conf.width <span class='op'>=</span> <span class='fl'>.15</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: more than one method was chosen, 'pearson' will be used</span></div><div class='output co'>#&gt; 
-#&gt;      sample size for pearson 's correlation coefficient 
-#&gt; 
-#&gt;     r   n conf.width conf.level       lwr       upr
-#&gt; 1 0.5 387       0.15       0.95 0.4213129 0.5712155</div><div class='input'><span class='co'># Kendall rank correlation coefficient (tau)</span>
-<span class='fu'>prec_cor</span><span class='op'>(</span>r <span class='op'>=</span> <span class='fl'>0.5</span>, conf.width <span class='op'>=</span> <span class='fl'>.15</span>, method <span class='op'>=</span> <span class='st'>"kendall"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;      sample size for kendall 's correlation coefficient 
-#&gt; 
-#&gt;     r   n conf.width conf.level       lwr      upr
-#&gt; 1 0.5 172       0.15       0.95 0.4213599 0.571177</div><div class='input'><span class='co'># Spearman's rank correlation coefficient</span>
-<span class='fu'>prec_cor</span><span class='op'>(</span>r <span class='op'>=</span> <span class='fl'>0.5</span>, conf.width <span class='op'>=</span> <span class='fl'>.15</span>, method <span class='op'>=</span> <span class='st'>"spearman"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;      sample size for spearman 's correlation coefficient 
-#&gt; 
-#&gt;     r   n conf.width conf.level       lwr       upr
-#&gt; 1 0.5 435       0.15       0.95 0.4213129 0.5712155</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># calculate confidence interval width...</span></span>
+<span class='r-in'><span class='co'># Pearson correlation coefficient</span></span>
+<span class='r-in'><span class='fu'>prec_cor</span><span class='op'>(</span>r <span class='op'>=</span> <span class='fl'>0.5</span>, n <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>more than one method was chosen, 'pearson' will be used</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      precision for pearson 's correlation coefficient </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     r   n conf.width conf.level       lwr       upr</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 0.5 100  0.2974965       0.95 0.3366433 0.6341398</span>
+<span class='r-in'><span class='co'># Kendall rank correlation coefficient (tau)</span></span>
+<span class='r-in'><span class='fu'>prec_cor</span><span class='op'>(</span>r <span class='op'>=</span> <span class='fl'>0.5</span>, n <span class='op'>=</span> <span class='fl'>100</span>, method <span class='op'>=</span> <span class='st'>"kendall"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      precision for kendall 's correlation coefficient </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     r   n conf.width conf.level       lwr       upr</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 0.5 100  0.1980633       0.95 0.3944584 0.5925217</span>
+<span class='r-in'><span class='co'># Spearman's rank correlation coefficient</span></span>
+<span class='r-in'><span class='fu'>prec_cor</span><span class='op'>(</span>r <span class='op'>=</span> <span class='fl'>0.5</span>, n <span class='op'>=</span> <span class='fl'>100</span>, method <span class='op'>=</span> <span class='st'>"spearman"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      precision for spearman 's correlation coefficient </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     r   n conf.width conf.level       lwr       upr</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 0.5 100  0.3154053       0.95 0.3258966 0.6413019</span>
+<span class='r-in'><span class='co'># calculate N required for a given confidence interval width...</span></span>
+<span class='r-in'><span class='co'># Pearson correlation coefficient</span></span>
+<span class='r-in'><span class='fu'>prec_cor</span><span class='op'>(</span>r <span class='op'>=</span> <span class='fl'>0.5</span>, conf.width <span class='op'>=</span> <span class='fl'>.15</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>more than one method was chosen, 'pearson' will be used</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      sample size for pearson 's correlation coefficient </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     r   n conf.width conf.level       lwr       upr</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 0.5 387       0.15       0.95 0.4213129 0.5712155</span>
+<span class='r-in'><span class='co'># Kendall rank correlation coefficient (tau)</span></span>
+<span class='r-in'><span class='fu'>prec_cor</span><span class='op'>(</span>r <span class='op'>=</span> <span class='fl'>0.5</span>, conf.width <span class='op'>=</span> <span class='fl'>.15</span>, method <span class='op'>=</span> <span class='st'>"kendall"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      sample size for kendall 's correlation coefficient </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     r   n conf.width conf.level       lwr      upr</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 0.5 172       0.15       0.95 0.4213599 0.571177</span>
+<span class='r-in'><span class='co'># Spearman's rank correlation coefficient</span></span>
+<span class='r-in'><span class='fu'>prec_cor</span><span class='op'>(</span>r <span class='op'>=</span> <span class='fl'>0.5</span>, conf.width <span class='op'>=</span> <span class='fl'>.15</span>, method <span class='op'>=</span> <span class='st'>"spearman"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      sample size for spearman 's correlation coefficient </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     r   n conf.width conf.level       lwr       upr</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 0.5 435       0.15       0.95 0.4213129 0.5712155</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
