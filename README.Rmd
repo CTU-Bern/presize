@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# presize <img src='man/figures/logo.png' align="right" height="200">
+# presize <img src='man/figures/logo.png' align="right" width="200">
 
 
 [![](https://www.r-pkg.org/badges/version/presize?color=green)](https://cran.r-project.org/package=presize) 
