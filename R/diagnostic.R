@@ -4,8 +4,9 @@
 # sens/spec
 #' Sample size and precision of sensitivity and specificity
 #'
-#' Because sensitivity and specificity are simple proportions, these functions
-#' act as wrappers for \code{prec_prop}.
+#' Because sensitivity (true positives/total number of positives) and specificity (true
+#' negatives/total number of negatives) are simple proportions, these
+#' functions act as wrappers for \code{prec_prop}.
 #'
 #' If \code{ntot} and \code{prev} are given, they are used to calculate
 #'   \code{n}.
