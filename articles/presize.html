@@ -130,17 +130,17 @@
 <span class="co">#&gt; NOTE: specadj is the adjusted specificity, from which the ci is calculated.</span></code></pre></div>
 <p>Using the other functions in <code>presize</code> is the same. For instance the precision of a mean of 60 with an SD of 10 and 40 observations is calculated as follows.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/prec_mean.html">prec_mean</a></span><span class="op">(</span><span class="fl">22</span>, sd <span class="op">=</span> <span class="fl">10</span>, n <span class="op">=</span> <span class="fl">40</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/prec_mean.html">prec_mean</a></span><span class="op">(</span><span class="fl">60</span>, sd <span class="op">=</span> <span class="fl">10</span>, n <span class="op">=</span> <span class="fl">40</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;      precision for mean </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;   mean sd  n conf.width conf.level      lwr      upr</span>
-<span class="co">#&gt; 1   22 10 40    6.39631       0.95 18.80184 25.19816</span></code></pre></div>
+<span class="co">#&gt; 1   60 10 40    6.39631       0.95 56.80184 63.19816</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="n-for-a-fixed-precision">N for a fixed precision<a class="anchor" aria-label="anchor" href="#n-for-a-fixed-precision"></a>
 </h3>
-<p>While fixing the sample size is sometimes necessary, it is perhaps more common to select a sample size based on a given precision. For instance, We want to achieve a sensitivity of a given amount (e.g. plus-minus 5%). This is also possible with <code>presize</code>. Using the same code as above, we replace the <code>ntot</code> argument with the <code>conf.width</code> argument.</p>
+<p>While fixing the sample size is sometimes necessary, it is more common to select a sample size based on a given precision. We might want to achieve a sensitivity of a given amount (e.g. plus-minus 5%). This is also possible with <code>presize</code>. Using the same code as above, we replace the <code>ntot</code> argument with the <code>conf.width</code> argument.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">ss</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sensspec.html">prec_sens</a></span><span class="op">(</span>sens       <span class="op">=</span> <span class="fl">.75</span>,   <span class="co"># sensitivity </span>
                  prev       <span class="op">=</span> <span class="fl">.15</span>,   <span class="co"># prevalence</span>
@@ -156,7 +156,7 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; NOTE: sensadj is the adjusted sensitivity, from which the ci is calculated.</span></code></pre></div>
 <p>Under this scenario, 1904 participants (of which approximately 286 would have the condition) will yield a CI width of 0.1 (10%), on average.</p>
-<p>Most of the functions in <code>presize</code> function the same way, although the sample size argument is generally <code>n</code> instead of <code>ntot</code> (<code>prec_sens</code> and <code>prec_spec</code> are special in that you can pass either a number of individuals with a condition to be detected with <code>n</code>, or you pass <code>ntot</code> and <code>prev</code> to get the CI width for a mixed group in which case <code>n</code> is derived from <code>ntot</code> and <code>prev</code>). The calculations for sensitivity can also be preformed if the number of cases rather than the total number and prevalence are available. For instance, if we have 50 individuals with the condition and we expect a sensitivity of 60%, we can put those values in instead.</p>
+<p>Most of the functions in <code>presize</code> have similar options, although the sample size argument is generally <code>n</code> instead of <code>ntot</code> (<code>prec_sens</code> and <code>prec_spec</code> are special in that you can pass either a number of individuals with a condition to be detected with <code>n</code>, or you pass <code>ntot</code> and <code>prev</code> to get the CI width for a mixed group in which case <code>n</code> is derived from <code>ntot</code> and <code>prev</code>). The calculations for sensitivity can also be preformed if the number of cases rather than the total number and prevalence are available. For instance, if we have 50 individuals with the condition and we expect a sensitivity of 60%, we can put those values in instead.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/sensspec.html">prec_sens</a></span><span class="op">(</span><span class="fl">.6</span>, n <span class="op">=</span> <span class="fl">50</span>, method <span class="op">=</span> <span class="st">"wilson"</span><span class="op">)</span>
 <span class="co">#&gt; </span>
@@ -178,18 +178,18 @@
 <span class="co">#&gt; NOTE: padj is the adjusted proportion, from which the ci is calculated.</span></code></pre></div>
 <p>Using the other functions in <code>presize</code> is the same. For instance, the sample size to obtain a CI width of 5 units with a mean of 60 with an SD of 10 is calculated as follows.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/prec_mean.html">prec_mean</a></span><span class="op">(</span><span class="fl">22</span>, sd <span class="op">=</span> <span class="fl">10</span>, conf.width <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/prec_mean.html">prec_mean</a></span><span class="op">(</span><span class="fl">60</span>, sd <span class="op">=</span> <span class="fl">10</span>, conf.width <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;      sample size for mean </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;   mean sd       n conf.width conf.level  lwr  upr</span>
-<span class="co">#&gt; 1   22 10 63.8979          5       0.95 19.5 24.5</span></code></pre></div>
+<span class="co">#&gt; 1   60 10 63.8979          5       0.95 57.5 62.5</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="multiple-scenarios">Multiple scenarios<a class="anchor" aria-label="anchor" href="#multiple-scenarios"></a>
 </h3>
 <p>It is common for only a vague idea of what to expect in terms of SDs, sensitivities, etc, so it is often worthwhile creating a set of scenarios.</p>
-<p>Returning to the colposcope example from above… We want to see how the CI width varies with different sensitivities. With <code>presize</code>, it’s easy to run different scenarios, simply by passing multiple values to each parameter (where multiple values are passed, they should have the same length!). For instance, for varying a single parameter, scenarios we want to look at can be created with <code>seq</code> and passed that to the appropriate <code>presize</code> functions argument. Here we vary sensitivity between 50% and 95% in steps of 5%.</p>
+<p>Returning to the colposcope example from above… We want to see how the CI width varies with different sensitivities. With <code>presize</code>, it’s easy to run different scenarios, simply by passing multiple values to each parameter (where multiple values are passed, they should have the same length!). For varying a single parameter, scenarios can be created with <code>seq</code> and passed that to the appropriate <code>presize</code> functions argument. Here we vary sensitivity between 50% and 95% in steps of 5%.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">scenario_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sensspec.html">prec_sens</a></span><span class="op">(</span>sens <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.95</span>, <span class="fl">.05</span><span class="op">)</span>, 
                             prev <span class="op">=</span> <span class="fl">.15</span>, 
@@ -214,8 +214,8 @@
 <span class="co">#&gt; NOTE: sensadj is the adjusted sensitivity, from which the ci is calculated.</span></code></pre></div>
 <p>We can also use <code>expand.grid</code> to pass scenarios varying multiple parameters simultaneously. Below we vary sensitivity, prevalence and sample size.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">scenarios</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>sens <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.95</span>, <span class="fl">.05</span><span class="op">)</span>,
-                         prev <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">.1</span>, <span class="fl">.2</span>, <span class="fl">.02</span><span class="op">)</span>,
+<code class="sourceCode R"><span class="va">scenarios</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>sens <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.95</span>, <span class="fl">.1</span><span class="op">)</span>,
+                         prev <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">.1</span>, <span class="fl">.2</span>, <span class="fl">.04</span><span class="op">)</span>,
                          ntot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">250</span>, <span class="fl">350</span><span class="op">)</span><span class="op">)</span>
 
 <span class="op">(</span><span class="va">scenario_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sensspec.html">prec_sens</a></span><span class="op">(</span>sens <span class="op">=</span> <span class="va">scenarios</span><span class="op">$</span><span class="va">sens</span>, 
@@ -227,20 +227,20 @@
 <span class="co">#&gt;      precision for a sensitivity with Wilson confidence interval. </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    sens   sensadj  n prev ntot conf.width conf.level       lwr       upr</span>
-<span class="co">#&gt; 1  0.50 0.5000000 25  0.1  250  0.3649551       0.95 0.3175224 0.6824776</span>
-<span class="co">#&gt; 2  0.55 0.5433404 25  0.1  250  0.3633700       0.95 0.3616554 0.7250254</span>
-<span class="co">#&gt; 3  0.60 0.5866808 25  0.1  250  0.3585724       0.95 0.4073946 0.7659670</span>
-<span class="co">#&gt; 4  0.65 0.6300212 25  0.1  250  0.3504305       0.95 0.4548059 0.8052364</span>
-<span class="co">#&gt; 5  0.70 0.6733615 25  0.1  250  0.3387033       0.95 0.5040099 0.8427132</span>
-<span class="co">#&gt; 6  0.75 0.7167019 25  0.1  250  0.3230004       0.95 0.5552018 0.8782021</span>
-<span class="co">#&gt; 7  0.80 0.7600423 25  0.1  250  0.3027037       0.95 0.6086905 0.9113942</span>
-<span class="co">#&gt; 8  0.85 0.8033827 25  0.1  250  0.2768045       0.95 0.6649805 0.9417850</span>
-<span class="co">#&gt; 9  0.90 0.8467231 25  0.1  250  0.2435219       0.95 0.7249621 0.9684841</span>
-<span class="co">#&gt; 10 0.95 0.8900635 25  0.1  250  0.1991885       0.95 0.7904692 0.9896578</span>
+<span class="co">#&gt; 1   0.5 0.5000000 25 0.10  250  0.3649551       0.95 0.3175224 0.6824776</span>
+<span class="co">#&gt; 2   0.6 0.5866808 25 0.10  250  0.3585724       0.95 0.4073946 0.7659670</span>
+<span class="co">#&gt; 3   0.7 0.6733615 25 0.10  250  0.3387033       0.95 0.5040099 0.8427132</span>
+<span class="co">#&gt; 4   0.8 0.7600423 25 0.10  250  0.3027037       0.95 0.6086905 0.9113942</span>
+<span class="co">#&gt; 5   0.9 0.8467231 25 0.10  250  0.2435219       0.95 0.7249621 0.9684841</span>
+<span class="co">#&gt; 6   0.5 0.5000000 35 0.14  250  0.3144853       0.95 0.3427574 0.6572426</span>
+<span class="co">#&gt; 7   0.6 0.5901099 35 0.14  250  0.3087656       0.95 0.4357271 0.7444927</span>
+<span class="co">#&gt; 8   0.7 0.6802198 35 0.14  250  0.2909327       0.95 0.5347534 0.8256862</span>
+<span class="co">#&gt; 9   0.8 0.7703297 35 0.14  250  0.2584917       0.95 0.6410839 0.8995755</span>
+<span class="co">#&gt; 10  0.9 0.8604396 35 0.14  250  0.2046081       0.95 0.7581356 0.9627436</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;  [Output truncated at 10 of 120 rows]</span>
+<span class="co">#&gt;  [Output truncated at 10 of 30 rows]</span>
 <span class="co">#&gt; NOTE: sensadj is the adjusted sensitivity, from which the ci is calculated.</span></code></pre></div>
-<p>From the print method, we see the details of the individual scenarios. The print method for <code>presize</code> objects only prints the first 10 rows, but there are in fact 120 rows.</p>
+<p>From the print method, we see the details of the individual scenarios. The default print method for <code>presize</code> objects only prints the first 10 rows, but there are in fact 30 rows (there is also a <code>print</code> function, with an <code>n</code> option to define how many rows to print, e.g. <code>print(scenario_data, n = 5)</code> can be used to print the first five rows).</p>
 <p>Using the <code>as.data.frame</code> method, we can convert the list returned by <code>prec_sens</code> to a dataframe from which we can create tables or figures. Where multiple scenarios are calculated, plotting them can be particularly informative. <code>ggplot2</code>, for example, is particularly useful for this. Below we show CI width as a function of sensitivity, but the other parameters could be chosen instead.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">scenario_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">scenario_data</span><span class="op">)</span>
@@ -281,38 +281,38 @@
   <span class="co"># create the values needed specifically for the table</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>
     txt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%3.1f - %3.1f"</span>, <span class="va">lwr</span> <span class="op">*</span> <span class="fl">100</span>, <span class="va">upr</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span>,
-    Prevalence <span class="op">=</span> <span class="va">prev</span> <span class="op">*</span> <span class="fl">100</span>,
+    `Prevalence (%)` <span class="op">=</span> <span class="va">prev</span> <span class="op">*</span> <span class="fl">100</span>,
     Sensitivity <span class="op">=</span> <span class="va">sens</span> <span class="op">*</span> <span class="fl">100</span>,
     ntot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"N = %1.0f"</span>, <span class="va">ntot</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="co"># select particular scenarios and variables to keep</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">sens</span> <span class="op">&gt;</span> <span class="fl">.7</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ntot</span>, <span class="va">Sensitivity</span>, <span class="va">Prevalence</span>, <span class="va">txt</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ntot</span>, <span class="va">Sensitivity</span>, <span class="va">`Prevalence (%)`</span>, <span class="va">txt</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="co"># reshape</span>
   <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>
     names_from <span class="op">=</span> <span class="va">Sensitivity</span>, 
     values_from <span class="op">=</span> <span class="va">txt</span>, 
-    id_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">Prevalence</span>, <span class="va">ntot</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+    id_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">`Prevalence (%)`</span>, <span class="va">ntot</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="co"># group by ntot to split the table a little</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">ntot</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">ntot</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="co"># create the table</span>
   <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="co"># add a header</span>
   <span class="fu"><a href="https://gt.rstudio.com/reference/tab_spanner.html" class="external-link">tab_spanner</a></span><span class="op">(</span>
-    label <span class="op">=</span> <span class="st">"Sensitivity"</span>,
-    columns <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">7</span>
+    label <span class="op">=</span> <span class="st">"Sensitivity (%)"</span>,
+    columns <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">4</span>
   <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_align.html" class="external-link">cols_align</a></span><span class="op">(</span><span class="st">"center"</span>, columns <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_align.html" class="external-link">cols_align</a></span><span class="op">(</span><span class="st">"center"</span>, columns <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="co"># increase the spacing between cells</span>
   <span class="fu"><a href="https://gt.rstudio.com/reference/tab_style.html" class="external-link">tab_style</a></span><span class="op">(</span>
     style <span class="op">=</span> <span class="st">"padding-left:12px;padding-right:12px;"</span>,
     locations <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_body.html" class="external-link">cells_body</a></span><span class="op">(</span><span class="op">)</span>
   <span class="op">)</span></code></pre></div>
-<div id="yaqgwbnxch" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="mlakcqiuug" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#yaqgwbnxch .gt_table {
+#mlakcqiuug .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -337,7 +337,7 @@
   border-left-color: #D3D3D3;
 }
 
-#yaqgwbnxch .gt_heading {
+#mlakcqiuug .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -349,7 +349,7 @@
   border-right-color: #D3D3D3;
 }
 
-#yaqgwbnxch .gt_title {
+#mlakcqiuug .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -361,7 +361,7 @@
   border-bottom-width: 0;
 }
 
-#yaqgwbnxch .gt_subtitle {
+#mlakcqiuug .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -373,13 +373,13 @@
   border-top-width: 0;
 }
 
-#yaqgwbnxch .gt_bottom_border {
+#mlakcqiuug .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#yaqgwbnxch .gt_col_headings {
+#mlakcqiuug .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -394,7 +394,7 @@
   border-right-color: #D3D3D3;
 }
 
-#yaqgwbnxch .gt_col_heading {
+#mlakcqiuug .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -414,7 +414,7 @@
   overflow-x: hidden;
 }
 
-#yaqgwbnxch .gt_column_spanner_outer {
+#mlakcqiuug .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -426,15 +426,15 @@
   padding-right: 4px;
 }
 
-#yaqgwbnxch .gt_column_spanner_outer:first-child {
+#mlakcqiuug .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#yaqgwbnxch .gt_column_spanner_outer:last-child {
+#mlakcqiuug .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#yaqgwbnxch .gt_column_spanner {
+#mlakcqiuug .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -446,7 +446,7 @@
   width: 100%;
 }
 
-#yaqgwbnxch .gt_group_heading {
+#mlakcqiuug .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -471,7 +471,7 @@
   vertical-align: middle;
 }
 
-#yaqgwbnxch .gt_empty_group_heading {
+#mlakcqiuug .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -486,15 +486,15 @@
   vertical-align: middle;
 }
 
-#yaqgwbnxch .gt_from_md > :first-child {
+#mlakcqiuug .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#yaqgwbnxch .gt_from_md > :last-child {
+#mlakcqiuug .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#yaqgwbnxch .gt_row {
+#mlakcqiuug .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -513,7 +513,7 @@
   overflow-x: hidden;
 }
 
-#yaqgwbnxch .gt_stub {
+#mlakcqiuug .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -526,7 +526,7 @@
   padding-right: 5px;
 }
 
-#yaqgwbnxch .gt_stub_row_group {
+#mlakcqiuug .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -540,11 +540,11 @@
   vertical-align: top;
 }
 
-#yaqgwbnxch .gt_row_group_first td {
+#mlakcqiuug .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#yaqgwbnxch .gt_summary_row {
+#mlakcqiuug .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -554,16 +554,16 @@
   padding-right: 5px;
 }
 
-#yaqgwbnxch .gt_first_summary_row {
+#mlakcqiuug .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#yaqgwbnxch .gt_first_summary_row.thick {
+#mlakcqiuug .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#yaqgwbnxch .gt_last_summary_row {
+#mlakcqiuug .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -573,7 +573,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#yaqgwbnxch .gt_grand_summary_row {
+#mlakcqiuug .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -583,7 +583,7 @@
   padding-right: 5px;
 }
 
-#yaqgwbnxch .gt_first_grand_summary_row {
+#mlakcqiuug .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -593,11 +593,11 @@
   border-top-color: #D3D3D3;
 }
 
-#yaqgwbnxch .gt_striped {
+#mlakcqiuug .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#yaqgwbnxch .gt_table_body {
+#mlakcqiuug .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -606,7 +606,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#yaqgwbnxch .gt_footnotes {
+#mlakcqiuug .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -620,7 +620,7 @@
   border-right-color: #D3D3D3;
 }
 
-#yaqgwbnxch .gt_footnote {
+#mlakcqiuug .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -629,7 +629,7 @@
   padding-right: 5px;
 }
 
-#yaqgwbnxch .gt_sourcenotes {
+#mlakcqiuug .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -643,7 +643,7 @@
   border-right-color: #D3D3D3;
 }
 
-#yaqgwbnxch .gt_sourcenote {
+#mlakcqiuug .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -651,60 +651,60 @@
   padding-right: 5px;
 }
 
-#yaqgwbnxch .gt_left {
+#mlakcqiuug .gt_left {
   text-align: left;
 }
 
-#yaqgwbnxch .gt_center {
+#mlakcqiuug .gt_center {
   text-align: center;
 }
 
-#yaqgwbnxch .gt_right {
+#mlakcqiuug .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#yaqgwbnxch .gt_font_normal {
+#mlakcqiuug .gt_font_normal {
   font-weight: normal;
 }
 
-#yaqgwbnxch .gt_font_bold {
+#mlakcqiuug .gt_font_bold {
   font-weight: bold;
 }
 
-#yaqgwbnxch .gt_font_italic {
+#mlakcqiuug .gt_font_italic {
   font-style: italic;
 }
 
-#yaqgwbnxch .gt_super {
+#mlakcqiuug .gt_super {
   font-size: 65%;
 }
 
-#yaqgwbnxch .gt_footnote_marks {
+#mlakcqiuug .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#yaqgwbnxch .gt_asterisk {
+#mlakcqiuug .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#yaqgwbnxch .gt_slash_mark {
+#mlakcqiuug .gt_slash_mark {
   font-size: 0.7em;
   line-height: 0.7em;
   vertical-align: 0.15em;
 }
 
-#yaqgwbnxch .gt_fraction_numerator {
+#mlakcqiuug .gt_fraction_numerator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: 0.45em;
 }
 
-#yaqgwbnxch .gt_fraction_denominator {
+#mlakcqiuug .gt_fraction_denominator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: -0.05em;
@@ -713,121 +713,52 @@
 <table class="table gt_table">
 <thead class="gt_col_headings">
 <tr>
-<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="2" colspan="1">Prevalence</th>
-      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="5">
-        <span class="gt_column_spanner">Sensitivity</span>
+<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="2" colspan="1">Prevalence (%)</th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2">
+        <span class="gt_column_spanner">Sensitivity (%)</span>
       </th>
     </tr>
 <tr>
-<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">75</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">80</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">85</th>
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">80</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">90</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">95</th>
     </tr>
 </thead>
 <tbody class="gt_table_body">
 <tr class="gt_group_heading_row">
-<td colspan="6" class="gt_group_heading">N = 250</td>
+<td colspan="3" class="gt_group_heading">N = 250</td>
     </tr>
 <tr class="gt_row_group_first">
 <td class="gt_row gt_right" style="padding-left: 12px;padding-right: 12px;">10</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">55.5 - 87.8</td>
 <td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">60.9 - 91.1</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">66.5 - 94.2</td>
 <td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">72.5 - 96.8</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">79.0 - 99.0</td>
-</tr>
-<tr>
-<td class="gt_row gt_right" style="padding-left: 12px;padding-right: 12px;">12</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">57.6 - 86.9</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">63.0 - 90.4</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">68.7 - 93.6</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">74.7 - 96.5</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">81.3 - 98.8</td>
 </tr>
 <tr>
 <td class="gt_row gt_right" style="padding-left: 12px;padding-right: 12px;">14</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">58.7 - 86.4</td>
 <td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">64.1 - 90.0</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">69.8 - 93.3</td>
 <td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">75.8 - 96.3</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">82.4 - 98.7</td>
-</tr>
-<tr>
-<td class="gt_row gt_right" style="padding-left: 12px;padding-right: 12px;">16</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">59.8 - 85.8</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">65.2 - 89.5</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">70.9 - 92.9</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">76.9 - 96.0</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">83.5 - 98.6</td>
 </tr>
 <tr>
 <td class="gt_row gt_right" style="padding-left: 12px;padding-right: 12px;">18</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">60.7 - 85.3</td>
 <td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">66.2 - 89.1</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">71.9 - 92.6</td>
 <td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">77.9 - 95.8</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">84.4 - 98.5</td>
-</tr>
-<tr>
-<td class="gt_row gt_right" style="padding-left: 12px;padding-right: 12px;">20</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">61.5 - 84.9</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">67.0 - 88.8</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">72.6 - 92.4</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">78.6 - 95.7</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">85.1 - 98.4</td>
 </tr>
 <tr class="gt_group_heading_row">
-<td colspan="6" class="gt_group_heading">N = 350</td>
+<td colspan="3" class="gt_group_heading">N = 350</td>
     </tr>
 <tr class="gt_row_group_first">
 <td class="gt_row gt_right" style="padding-left: 12px;padding-right: 12px;">10</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">58.7 - 86.4</td>
 <td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">64.1 - 90.0</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">69.8 - 93.3</td>
 <td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">75.8 - 96.3</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">82.4 - 98.7</td>
-</tr>
-<tr>
-<td class="gt_row gt_right" style="padding-left: 12px;padding-right: 12px;">12</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">60.2 - 85.6</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">65.6 - 89.3</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">71.3 - 92.8</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">77.3 - 96.0</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">83.9 - 98.6</td>
 </tr>
 <tr>
 <td class="gt_row gt_right" style="padding-left: 12px;padding-right: 12px;">14</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">61.5 - 84.9</td>
 <td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">67.0 - 88.8</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">72.6 - 92.4</td>
 <td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">78.6 - 95.7</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">85.1 - 98.4</td>
-</tr>
-<tr>
-<td class="gt_row gt_right" style="padding-left: 12px;padding-right: 12px;">16</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">62.3 - 84.5</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">67.8 - 88.4</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">73.4 - 92.1</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">79.4 - 95.5</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">85.9 - 98.3</td>
 </tr>
 <tr>
 <td class="gt_row gt_right" style="padding-left: 12px;padding-right: 12px;">18</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">63.1 - 84.0</td>
 <td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">68.5 - 88.0</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">74.2 - 91.8</td>
 <td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">80.2 - 95.3</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">86.6 - 98.2</td>
-</tr>
-<tr>
-<td class="gt_row gt_right" style="padding-left: 12px;padding-right: 12px;">20</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">63.7 - 83.7</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">69.2 - 87.7</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">74.8 - 91.5</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">80.8 - 95.1</td>
-<td class="gt_row gt_center" style="padding-left: 12px;padding-right: 12px;">87.2 - 98.2</td>
 </tr>
 </tbody>
 </table>
