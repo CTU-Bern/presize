@@ -48,8 +48,9 @@ Object of class "presize", a list of arguments (including the
   computed one) augmented with method and note elements.
 }
 \description{
-Because sensitivity and specificity are simple proportions, these functions
-act as wrappers for \code{prec_prop}.
+Because sensitivity (true positives/total number of positives) and specificity (true
+negatives/total number of negatives) are simple proportions, these
+functions act as wrappers for \code{prec_prop}.
 }
 \details{
 If \code{ntot} and \code{prev} are given, they are used to calculate
