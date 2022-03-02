@@ -10,7 +10,7 @@ db <- function(input, type){
 
 # table of variables listed in output
 
-res_vars <- c(mu = "mean", "sd" = "standard deviation",
+res_vars <- c(mean = "mean", "sd" = "standard deviation",
               n = "sample size",
               conf.width = "confidence interval width",
               conf.level = "confidence level (1 - type 1 error rate)",

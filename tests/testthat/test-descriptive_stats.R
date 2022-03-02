@@ -1,9 +1,9 @@
 context("descritive stats")
 
 test_that("no errors with normal settings", {
-  expect_error(prec_mean(mu = 5, sd = 2.5, n = 20),
+  expect_error(prec_mean(mean = 5, sd = 2.5, n = 20),
                regexp = NA)
-  expect_error(prec_mean(mu = 5, sd = 2.5, conf.width = 2.34),
+  expect_error(prec_mean(mean = 5, sd = 2.5, conf.width = 2.34),
                regexp = NA)
 
   expect_warning(prec_rate(2.5, x = 20))
@@ -67,7 +67,7 @@ test_that("no errors with normal settings", {
 test_that("errors issued", {
   expect_error(prec_mean("foo", 1))
   expect_error(prec_mean(1, "foo"))
-  expect_error(prec_mean(mu = 2, sd = 1, n = 10, conf.width = .5))
+  expect_error(prec_mean(mean = 2, sd = 1, n = 10, conf.width = .5))
   expect_error(prec_rate(2, 1, 1))
   expect_error(suppressWarnings(prec_prop(.1, conf.width = 2, method = "wilson")), "too wide")
   expect_error(prec_prop(.1, conf.width = .2, method = "wilson"), NA)
@@ -116,10 +116,10 @@ test_that("mean conf int = stata", {
   # ---------+---------------------------------------------------------------
   #          |        100          10          .2        9.603157    10.39684
 
-  ex <- prec_mean(mu = 10 , sd = 2, n = 100, conf.level = 0.95)
+  ex <- prec_mean(mean = 10 , sd = 2, n = 100, conf.level = 0.95)
   expect_equal(c(ex$lwr, ex$upr) , c(9.603157, 10.39684) , tolerance = .0001, scale = 1)
 
-  ex <- prec_mean(mu = 10 , sd = 2, conf.width = 10.39684-9.603157, conf.level = 0.95)
+  ex <- prec_mean(mean = 10 , sd = 2, conf.width = 10.39684-9.603157, conf.level = 0.95)
   expect_equal(ex$n , 100 , tolerance = 1, scale = 1)
 })
 

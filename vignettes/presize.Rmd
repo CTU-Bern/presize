@@ -45,7 +45,7 @@ We plug the values into the `prec_sens` (precision of sensitivity) function as f
                  method = "wilson"))
 ```
 
-We see that with 250 participants, the confidence interval would be from `r round(ss$lwr, 2) * 100` (`lwr`) to `r round(ss$upr, 2) * 100` (`upr`).
+We see that with 250 participants, the confidence interval would be from `r round(ss$lwr, 2) * 100`% (`lwr`) to `r round(ss$upr, 2) * 100`% (`upr`).
 
 Note that Wilson's method of calculating confidence intervals adjusts the point estimate to allow the calculation of a symmetrical CI. This is the `sensadj` variable. For some measures there are multiple methods available. In the case of `prec_sens` (as well as `prec_spec` and `prec_prop`), there are four different approaches for creating confidence intervals, each yielding slightly different results. 
 

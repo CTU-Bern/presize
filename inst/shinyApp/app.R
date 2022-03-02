@@ -112,7 +112,7 @@ server <- function(input, output, session) {
     output$mean_tab <- renderTable({
         tmp <- mean_fn(input, FALSE)
         tmp1 <- res_vars[res_vars$column %in%
-                     c("mu", "sd", "n", "lwr", "upr", "conf.width", "conf.level"),]
+                     c("mean", "sd", "n", "lwr", "upr", "conf.width", "conf.level"),]
         tmp1[na.omit(match(names(tmp), tmp1$column)),]
     })
     output$mean_resetable_input <- renderUI({

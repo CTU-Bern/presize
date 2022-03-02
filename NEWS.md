@@ -1,3 +1,14 @@
+presize 0.3.1
+-----------------------------------------
+
+* addition of vignette
+
+presize 0.3.0
+-----------------------------------------
+
+* BREAKING CHANGE - prec_mean argument changed from 'mu' to 'mean'.
+
+
 presize 0.2.4.9001
 -----------------------------------------
 
