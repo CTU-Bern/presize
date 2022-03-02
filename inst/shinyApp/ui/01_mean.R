@@ -31,7 +31,7 @@ mean_fn <- function(input, code = FALSE){
                 z <- ifelse(is.na(input$mean_n),
                             paste0(", conf.width = ", input$mean_ciwidth),
                             paste0(", n = ", input$mean_n))
-                x <- paste0("prec_mean(mu = ", input$mean_mean, ", sd = ", input$mean_sd,
+                x <- paste0("prec_mean(mean = ", input$mean_mean, ", sd = ", input$mean_sd,
                             z, ", conf.level = ", input$conflevel, ")")
                 if(code){
                         cat(x)

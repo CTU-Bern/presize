@@ -1,7 +1,7 @@
 Package: presize
 Type: Package
 Title: Precision Based Sample Size Calculation
-Version: 0.2.5
+Version: 0.3.1
 Authors@R: 
     c(person(given = "Armando",
     family = "Lenz",

@@ -22,27 +22,29 @@
 #'
 #' \code{\link[stats]{uniroot}} is used to solve \code{n}.
 #'
-#' @param mu mean.
+#' @param mean mean.
 #' @param sd standard deviation.
 #' @param n number of observations.
 #' @param conf.width precision (the full width of the confidence interval).
 #' @param conf.level confidence level.
 #' @param ... other arguments to uniroot (e.g. \code{tol}).
-#' @return Object of class "presize", a list with \code{mu} mean, \code{sd} standard deviation, \code{n} sample size,
+#' @param mu deprecated argument
+#' @return Object of class "presize", a list with \code{mean} mean, \code{sd} standard deviation, \code{n} sample size,
 #' \code{conf.width} precision (the width of the confidence interval),
 #' \code{lwr} lower bound of confidence interval, \code{upr} upper bound of confidence interval,
 #'  augmented with method and note elements.
 #' @examples
 #' # mean of 5, SD of 2.5, whats the confidence interval width with 20 participants?
-#' prec_mean(mu = 5, sd = 2.5, n = 20)
+#' prec_mean(mean = 5, sd = 2.5, n = 20)
 #' # mean of 5, SD of 2.5, how many participants for CI width of 2.34?
-#' prec_mean(mu = 5, sd = 2.5, conf.width = 2.34)  # approximately the inverse of above
+#' prec_mean(mean = 5, sd = 2.5, conf.width = 2.34)  # approximately the inverse of above
 #' @importFrom stats qt
 #' @importFrom stats qnorm
 #' @importFrom stats uniroot
 #' @export
-prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
-                      ...) {
+prec_mean <- function(mean, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
+                      ..., mu = NULL) {
+  if(!is.null(mu)) stop("'mu' is no longer a valid argument. Use 'mean' instead.")
 
   numrange_check_gt(sd)
   numrange_check(conf.level)
@@ -77,13 +79,13 @@ prec_mean <- function(mu, sd, n = NULL, conf.width = NULL, conf.level = 0.95,
     }
   }
 
-  structure(list(mu = mu,
+  structure(list(mean = mean,
                  sd = sd,
                  n = n,
                  conf.width = 2 * prec,
                  conf.level = conf.level,
-                 lwr = mu - prec,
-                 upr = mu + prec,
+                 lwr = mean - prec,
+                 upr = mean + prec,
                  #note = "n is number in *each* group",
                  method = paste(est, "for mean")),
             class = "presize")
