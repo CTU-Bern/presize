@@ -1,7 +1,7 @@
 Package: presize
 Type: Package
 Title: Precision Based Sample Size Calculation
-Version: 0.3.0
+Version: 0.3.1
 Authors@R: 
     c(person(given = "Armando",
     family = "Lenz",
@@ -33,11 +33,19 @@ Encoding: UTF-8
 RoxygenNote: 7.1.1
 Suggests:
     binom,
+    dplyr,
     ggplot2,
+    gt,
     Hmisc,
-    testthat,
+    knitr,
+    magrittr,
+    markdown,
+    rmarkdown,
     shinydashboard,
-    shinytest
+    shinytest,
+    testthat,
+    tidyr
 Imports:
     kappaSize (>= 1.2),
     shiny
+VignetteBuilder: knitr

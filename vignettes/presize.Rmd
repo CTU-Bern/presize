@@ -1,0 +1,189 @@
+---
+title: "`presize`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{presize}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+[Bland (2009)](https://www.bmj.com/content/339/bmj.b3985) recommended to
+base study sizes on the width of the confidence interval rather the power of 
+a statistical test. The goal of `presize` is to provide functions for such 
+precision based sample size calculations. For a given sample size, the 
+functions will return the precision (width of the confidence interval), and 
+vice versa.
+
+`presize` is loaded like any other R Package:
+
+```{r setup}
+library(presize)
+```
+
+## Using `presize`
+
+Here we present a couple of examples of using `presize` to determine the suitable sample size for a trial.
+
+### Precision with a fixed N
+
+As preparation for a trial to estimate the sensitivity and specificity of a mobile colposcope, a device for detecting tissue abnormality, a sample size calculation was made to estimate the precision of the sensitivity of the device. A best guess for sensitivity was 75% at a prevalence of 15% with a desired sample size of 250 participants. As such, the question to be answered is how wide is the confidence interval going to be under such a scenario?
+
+We plug the values into the `prec_sens` (precision of sensitivity) function as follows 
+
+```{r}
+(ss <- prec_sens(sens   = .75,  # sensitivity 
+                 prev   = .15,  # prevalence
+                 ntot   = 250,  # sample size
+                 method = "wilson"))
+```
+
+We see that with 250 participants, the confidence interval would be from `r round(ss$lwr, 2) * 100`% (`lwr`) to `r round(ss$upr, 2) * 100`% (`upr`).
+
+Note that Wilson's method of calculating confidence intervals adjusts the point estimate to allow the calculation of a symmetrical CI. This is the `sensadj` variable. For some measures there are multiple methods available. In the case of `prec_sens` (as well as `prec_spec` and `prec_prop`), there are four different approaches for creating confidence intervals, each yielding slightly different results. 
+
+For specificity, we use the `prec_spec` function instead. For demonstration purposes, we can also change the method used to calculate the CI.
+
+```{r}
+prec_spec(spec   = .75,  # specificity 
+          prev   = .15,  # prevalence
+          ntot   = 250,  # sample size
+          method = "exact")
+```
+
+Using the other functions in `presize` is the same. For instance the precision of a mean of 60 with an SD of 10 and 40 observations is calculated as follows.
+
+```{r}
+prec_mean(60, sd = 10, n = 40)
+```
+
+### N for a fixed precision
+
+While fixing the sample size is sometimes necessary, it is more common to select a sample size based on a given precision. We might want to achieve a sensitivity of a given amount (e.g. plus-minus 5%). This is also possible with `presize`. Using the same code as above, we replace the `ntot` argument with the `conf.width` argument. 
+
+```{r}
+(ss <- prec_sens(sens       = .75,   # sensitivity 
+                 prev       = .15,   # prevalence
+                 conf.width = .1,    # CI width
+                 method     = "wilson"))
+```
+
+Under this scenario, `r ceiling(ss$ntot)` participants (of which approximately `r ceiling(ss$n)` would have the condition) will yield a CI width of 0.1 (10%), on average.
+
+Most of the functions in `presize` have similar options, although the sample size argument is generally `n` instead of `ntot` (`prec_sens` and `prec_spec` are special in that you can pass either a number of individuals with a condition to be detected with `n`, or you pass `ntot` and `prev` to get the CI width for a mixed group in which case `n` is derived from `ntot` and `prev`). The calculations for sensitivity can also be preformed if the number of cases rather than the total number and prevalence are available. For instance, if we have 50 individuals with the condition and we expect a sensitivity of 60%, we can put those values in instead.
+
+```{r}
+prec_sens(.6, n = 50, method = "wilson")
+```
+
+Sensitivities and specificities are just proportions so `prec_prop` can also be used for this latter example.
+
+```{r}
+prec_prop(.6, n = 50, method = "wilson")
+```
+
+Using the other functions in `presize` is the same. For instance, the sample size to obtain a CI width of 5 units with a mean of 60 with an SD of 10 is calculated as follows.
+
+```{r}
+prec_mean(60, sd = 10, conf.width = 5)
+```
+
+### Multiple scenarios
+
+It is common for only a vague idea of what to expect in terms of SDs, sensitivities, etc, so it is often worthwhile creating a set of scenarios.
+
+Returning to the colposcope example from above... We want to see how the CI width varies with different sensitivities. With `presize`, it's easy to run different scenarios, simply by passing multiple values to each parameter (where multiple values are passed, they should have the same length!). For varying a single parameter, scenarios can be created with `seq` and passed that to the appropriate `presize` functions argument. Here we vary sensitivity between 50% and 95% in steps of 5%.
+
+```{r}
+(scenario_data <- prec_sens(sens = seq(.5, .95, .05), 
+                            prev = .15, 
+                            ntot = 250, 
+                            method = "wilson"))
+
+```
+
+We can also use `expand.grid` to pass scenarios varying multiple parameters simultaneously. Below we vary sensitivity, prevalence and sample size.
+
+```{r}
+scenarios <- expand.grid(sens = seq(.5, .95, .1),
+                         prev = seq(.1, .2, .04),
+                         ntot = c(250, 350))
+
+(scenario_data <- prec_sens(sens = scenarios$sens, 
+                            prev = scenarios$prev, 
+                            ntot = scenarios$ntot, 
+                            method = "wilson"))
+```
+
+From the print method, we see the details of the individual scenarios. The default print method for `presize` objects only prints the first 10 rows, but there are in fact `r length(scenario_data$sens)` rows (there is also a `print` function, with an `n` option to define how many rows to print, e.g. `print(scenario_data, n = 5)` can be used to print the first five rows).
+
+Using the `as.data.frame` method, we can convert the list returned by `prec_sens` to a dataframe from which we can create tables or figures. Where multiple scenarios are calculated, plotting them can be particularly informative. `ggplot2`, for example, is particularly useful for this. Below we show CI width as a function of sensitivity, but the other parameters could be chosen instead.
+
+```{r, fig.width=7}
+scenario_df <- as.data.frame(scenario_data)
+
+library(ggplot2)
+
+ggplot(scenario_df, 
+       aes(x = sens, 
+           y = conf.width, 
+           # convert colour to factor for distinct colours rather than a continuum
+           col = as.factor(prev), 
+           group = prev)) +
+  geom_line() +
+  labs(x = "Sensitivity", y = "CI width", col = "Prevalence") + 
+  facet_wrap(vars(ntot))
+
+```
+
+We could also create a table of the scenarios containing the CIs. Below we select only the scenarios with sensitivities above 70% and reshape and format the table and use the `gt` package to print a nice table in HTML. 
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(magrittr)
+library(gt)
+
+scenario_df %>% 
+  # create the values needed specifically for the table
+  mutate(
+    txt = sprintf("%3.1f - %3.1f", lwr * 100, upr * 100),
+    `Prevalence (%)` = prev * 100,
+    Sensitivity = sens * 100,
+    ntot = sprintf("N = %1.0f", ntot)) %>% 
+  # select particular scenarios and variables to keep
+  filter(sens > .7) %>% 
+  select(ntot, Sensitivity, `Prevalence (%)`, txt) %>% 
+  # reshape
+  pivot_wider(
+    names_from = Sensitivity, 
+    values_from = txt, 
+    id_cols = c(`Prevalence (%)`, ntot)) %>% 
+  # group by ntot to split the table a little
+  group_by(ntot) %>%
+  # create the table
+  gt() %>% 
+  # add a header
+  tab_spanner(
+    label = "Sensitivity (%)",
+    columns = 2:4
+  ) %>% 
+  cols_align("center", columns = 2:4) %>% 
+  # increase the spacing between cells
+  tab_style(
+    style = "padding-left:12px;padding-right:12px;",
+    locations = cells_body()
+  )
+
+```
+
+
+
+

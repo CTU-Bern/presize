@@ -46,7 +46,7 @@ install.packages('presize', repos = 'https://ctu-bern.r-universe.dev')
 ```
 
 ## Overview
-presize provides functions for
+`presize` provides functions for
 
 Measure | Function | Methods available 
 -------- | ---------- | --------
