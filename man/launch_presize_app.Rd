@@ -21,3 +21,7 @@ The app is also available at \href{https://shiny.ctu.unibe.ch/presize/}{https://
 
 \if{html}{\figure{app.png}{options: width="100\%"}}
 }
+\examples{
+# launch the app
+launch_presize_app()
+}

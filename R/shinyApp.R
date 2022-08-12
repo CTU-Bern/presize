@@ -16,7 +16,7 @@
 #' @usage
 #' launch_presize_app()
 #' @export
-#' @example
+#' @examples
 #' # launch the app
 #' launch_presize_app()
 

@@ -38,7 +38,7 @@ install.packages('presize', repos = 'https://ctu-bern.r-universe.dev')
 `presize` provides functions for
 
 | Measure                               | Function         | Methods available                                                                                                        |
-| ------------------------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------ |
+|---------------------------------------|------------------|--------------------------------------------------------------------------------------------------------------------------|
 | **Descriptive measures**              |                  |                                                                                                                          |
 | Mean                                  | `prec_mean`      |                                                                                                                          |
 | Proportion                            | `prec_prop`      | Wilson, Agresti-Coull, exact, Wald (see Brown, Cai, and DasGupta 2001)                                                   |
@@ -144,7 +144,7 @@ An online interactive version of the package is available
 [here](https://shiny.ctu.unibe.ch/presize). The app can also be launched
 locally via `launch_presize_app()` in RStudio.
 
-<img src="man/figures/app.png" width="1303" />
+![](man/figures/app.png)<!-- -->
 
 ## Getting help
 
@@ -174,7 +174,7 @@ guidelines](https://github.com/CTU-Bern/presize/blob/master/CONTRIBUTING.md).
 `presize` was largely developed at CTU Bern, with collaboration from CTU
 Basel. Funding was provided by the Swiss Clinical Trial Organisation.
 
-<img src="man/figures/SCTO_Platforms.png" width="320" />
+![](man/figures/SCTO_Platforms.png)<!-- -->
 
 <!-- ![](man/fig/scto_ctu_member_cmyk.jpg) -->
 
@@ -195,9 +195,9 @@ package](https://github.com/GuangchuangYu/emojifont)).
 
 ## References
 
-<div id="refs" class="references">
+<div id="refs" class="references csl-bib-body hanging-indent">
 
-<div id="ref-ac2000">
+<div id="ref-ac2000" class="csl-entry">
 
 Agresti, A, and B Caffo. 2000. “Simple and Effective Confidence
 Intervals for Proportions and Differences of Proportions Result from
@@ -206,7 +206,7 @@ Adding Two Successes and Two Failures.” *The Americal Statistician* 54
 
 </div>
 
-<div id="ref-barker2002">
+<div id="ref-barker2002" class="csl-entry">
 
 Barker, L. 2002. “A Comparison of Nine Confidence Intervals for a
 Poisson Parameter When the Expected Number of Events Is ≤ 5.” *The
@@ -215,7 +215,7 @@ Americal Statistician* 56 (2): 85–89.
 
 </div>
 
-<div id="ref-ba1986">
+<div id="ref-ba1986" class="csl-entry">
 
 Bland, J M, and D G Altman. 1986. “Statistical Methods for Assessing
 Agreement Between Two Methods of Clinical Measurement.” *Lancet*
@@ -223,15 +223,15 @@ i(8476): 307–10. <https://doi.org/10.1016/S0140-6736(86)90837-8>.
 
 </div>
 
-<div id="ref-bonnett2002">
+<div id="ref-bonnett2002" class="csl-entry">
 
 Bonnett, D G. 2002. “Sample Size Requirements for Estimating Intraclass
 Correlations with Desired Precision.” *Statistics in Medicine* 21:
-1331–5. <https://doi.org/10.1002/sim.1108>.
+1331–35. <https://doi.org/10.1002/sim.1108>.
 
 </div>
 
-<div id="ref-bw2000">
+<div id="ref-bw2000" class="csl-entry">
 
 Bonnett, D G, and T A Wright. 2000. “Sample Size Requirements for
 Estimating Pearson, Kendall and Spearman Correlations.” *Psychometrika*
@@ -239,7 +239,7 @@ Estimating Pearson, Kendall and Spearman Correlations.” *Psychometrika*
 
 </div>
 
-<div id="ref-brown2001">
+<div id="ref-brown2001" class="csl-entry">
 
 Brown, L D, T T Cai, and A DasGupta. 2001. “Interval Estimation for a
 Binomial Proportion.” *Statistical Science* 16 (2): 101–17.
@@ -247,17 +247,17 @@ Binomial Proportion.” *Statistical Science* 16 (2): 101–17.
 
 </div>
 
-<div id="ref-diab">
+<div id="ref-diab" class="csl-entry">
 
 Emerging Risk Factors Collaboration, N Sarwar, P Gao, S R Seshasai, R
 Gobin, S Kaptoge, E Di Angelantonio, et al. 2010. “Diabetes Mellitus,
 Fasting Blood Glucose Concentration, and Risk of Vascular Disease: A
-Collaborative Meta-Analysis of 102 Prospective Studies.” *Lancet* 375
-(9733): 2215–22. <https://doi.org/10.1016/S0140-6736(10)60484-9>.
+Collaborative Meta-Analysis of 102 Prospective Studies.” *Lancet* 375:
+2215–22. <https://doi.org/10.1016/S0140-6736(10)60484-9>.
 
 </div>
 
-<div id="ref-fll2015">
+<div id="ref-fll2015" class="csl-entry">
 
 Fagerland, M W, S Lydersen, and P Laake. 2015. “Recommended Confidence
 Intervals for Two Independent Binomial Proportions.” *Statistical
@@ -266,15 +266,15 @@ Methods in Medical Research* 24 (2): 224–54.
 
 </div>
 
-<div id="ref-hm1982">
+<div id="ref-hm1982" class="csl-entry">
 
 Hanley, J A, and B J McNeil. 1982. “The Meaning and Use of the Area
-Under a Receiver Operating Characteristic (Roc) Curve.” *Radiology* 148:
+Under a Receiver Operating Characteristic (ROC) Curve.” *Radiology* 148:
 29–36. <https://doi.org/10.1148/radiology.143.1.7063747>.
 
 </div>
 
-<div id="ref-kbap1978">
+<div id="ref-kbap1978" class="csl-entry">
 
 Katz, D, J Baptista, S P Azen, and M C Pike. 1978. “Obtaining Confidence
 Intervals for the Risk Ratio in Cohort Studies.” *Biometrics* 34:
@@ -282,7 +282,7 @@ Intervals for the Risk Ratio in Cohort Studies.” *Biometrics* 34:
 
 </div>
 
-<div id="ref-koopman1984">
+<div id="ref-koopman1984" class="csl-entry">
 
 Koopman, P A R. 1984. “Confidence Intervals for the Ratio of Two
 Binomial Proportions.” *Biometrics* 40: 513–17.
@@ -290,7 +290,7 @@ Binomial Proportions.” *Biometrics* 40: 513–17.
 
 </div>
 
-<div id="ref-mn1985">
+<div id="ref-mn1985" class="csl-entry">
 
 Miettinen, O, and M Nurminen. 1985. “Comparative Analysis of Two Rates.”
 *Statistics in Medicine* 4: 213–26.
@@ -298,16 +298,16 @@ Miettinen, O, and M Nurminen. 1985. “Comparative Analysis of Two Rates.”
 
 </div>
 
-<div id="ref-newcombe1998">
+<div id="ref-newcombe1998" class="csl-entry">
 
 Newcombe, R G. 1998. “Interval Estimation for the Difference Between
 Independent Proportions: Comparison of Eleven Methods.” *Statistics in
 Medicine* 17: 873–90.
-[https://doi.org/10.1002/(sici)1097-0258(19980430)17:8\<873::aid-sim779\>3.0.co;2-i](https://doi.org/10.1002/\(sici\)1097-0258\(19980430\)17:8%3C873::aid-sim779%3E3.0.co;2-i).
+[https://doi.org/10.1002/(sici)1097-0258(19980430)17:8\<873::aid-sim779\>3.0.co;2-i](https://doi.org/10.1002/(sici)1097-0258(19980430)17:8<873::aid-sim779>3.0.co;2-i).
 
 </div>
 
-<div id="ref-rg2018">
+<div id="ref-rg2018" class="csl-entry">
 
 Rothman, K J, and S Greenland. 2018. “Planning Study Size Based on
 Precision Rather Than Power.” *Epidemiology* 29: 599–603.
@@ -315,20 +315,21 @@ Precision Rather Than Power.” *Epidemiology* 29: 599–603.
 
 </div>
 
-<div id="ref-rd2012">
+<div id="ref-rd2012" class="csl-entry">
 
 Rotondi, M A, and A Donner. 2012. “A Confidence Interval Approach to
 Sample Size Estimation for Interobserver Agreement Studies with Multiple
 Raters and Outcomes.” *Journal of Clinical Epidemiology* 65: 778–84.
-[https://doi.org/10.1016/j.jclinepi.2011.10.019](https://doi.org/10.1016/j.jclinepi.2011.10.019%20).
+[https://doi.org/10.1016/j.jclinepi.2011.10.019
+](https://doi.org/10.1016/j.jclinepi.2011.10.019 ).
 
 </div>
 
-<div id="ref-simel1991">
+<div id="ref-simel1991" class="csl-entry">
 
 Simel, D L, G P Samsa, and D B Matchar. 1991. “Likelihood Ratios with
 Confidence: Sample Size Estimation for Diagnostic Test Studies.”
-*Journal of Clinical Epidemiology* 44 (8): 763–70.
+*Journal of Clinical Epidemiology* 44: 763–70.
 <https://doi.org/10.1016/0895-4356(91)90128-v>.
 
 </div>
