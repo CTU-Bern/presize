@@ -86,11 +86,11 @@ would be the proportion of positive or negative tests in the non-diseased group.
 }
 \section{Functions}{
 \itemize{
-\item \code{prec_pos_lr}: "Positive likelihood ratio"
+\item \code{prec_pos_lr()}: "Positive likelihood ratio"
 
-\item \code{prec_neg_lr}: "Negative likelihood ratio"
+\item \code{prec_neg_lr()}: "Negative likelihood ratio"
+
 }}
-
 \examples{
 # equal numbers of diseased/non-diseased, 80\% sens, 73\% spec, 74 participants total
 prec_lr(.5, .8, .27, 74)
