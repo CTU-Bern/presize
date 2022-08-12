@@ -23,5 +23,8 @@ The app is also available at \href{https://shiny.ctu.unibe.ch/presize/}{https://
 }
 \examples{
 # launch the app
+\dontrun{
 launch_presize_app()
+}
+
 }
