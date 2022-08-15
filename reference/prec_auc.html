@@ -19,7 +19,7 @@ size, following Hanley and McNeil (1982)."><meta property="og:image" content="/l
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">presize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.2</span>
       </span>
     </div>
 
@@ -60,27 +60,40 @@ size, following Hanley and McNeil (1982).</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">prec_auc</span><span class="op">(</span><span class="va">auc</span>, <span class="va">prev</span>, n <span class="op">=</span> <span class="cn">NULL</span>, conf.width <span class="op">=</span> <span class="cn">NULL</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">prec_auc</span><span class="op">(</span><span class="va">auc</span>, <span class="va">prev</span>, n <span class="op">=</span> <span class="cn">NULL</span>, conf.width <span class="op">=</span> <span class="cn">NULL</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>auc</dt>
 <dd><p>AUC value.</p></dd>
+
+
 <dt>prev</dt>
 <dd><p>prevalence.</p></dd>
+
+
 <dt>n</dt>
 <dd><p>number of observations.</p></dd>
+
+
 <dt>conf.width</dt>
 <dd><p>precision (the full width of the confidence interval).</p></dd>
+
+
 <dt>conf.level</dt>
 <dd><p>confidence level.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>other arguments to <code>optimize</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Object of class "presize", a list of arguments (including the
+    
+
+<p>Object of class "presize", a list of arguments (including the
   computed one) augmented with method and note elements.</p>
     </div>
     <div id="details">
@@ -96,19 +109,19 @@ between the lower and upper limits of the confidence interval and
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># confidence interval width</span></span>
-<span class="r-in"><span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">500</span></span>
-<span class="r-in"><span class="va">prev</span> <span class="op">&lt;-</span> <span class="fl">.1</span></span>
-<span class="r-in"><span class="va">auc</span> <span class="op">&lt;-</span> <span class="fl">.65</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">prec</span> <span class="op">&lt;-</span> <span class="fu">prec_auc</span><span class="op">(</span><span class="va">auc</span>, <span class="va">prev</span>, n <span class="op">=</span> <span class="va">N</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># confidence interval width</span></span></span>
+<span class="r-in"><span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">500</span></span></span>
+<span class="r-in"><span><span class="va">prev</span> <span class="op">&lt;-</span> <span class="fl">.1</span></span></span>
+<span class="r-in"><span><span class="va">auc</span> <span class="op">&lt;-</span> <span class="fl">.65</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">prec</span> <span class="op">&lt;-</span> <span class="fu">prec_auc</span><span class="op">(</span><span class="va">auc</span>, <span class="va">prev</span>, n <span class="op">=</span> <span class="va">N</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      precision for AUC </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    auc   n prev n1  n2       lwr       upr conf.width conf.level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.65 500  0.1 50 450 0.5639623 0.7360377  0.1720755       0.95</span>
-<span class="r-in"><span class="va">cwidth</span> <span class="op">&lt;-</span> <span class="va">prec</span><span class="op">$</span><span class="va">conf.width</span></span>
-<span class="r-in"><span class="co"># sample size</span></span>
-<span class="r-in"><span class="fu">prec_auc</span><span class="op">(</span><span class="va">auc</span>, <span class="va">prev</span>, conf.width <span class="op">=</span> <span class="va">cwidth</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">cwidth</span> <span class="op">&lt;-</span> <span class="va">prec</span><span class="op">$</span><span class="va">conf.width</span></span></span>
+<span class="r-in"><span><span class="co"># sample size</span></span></span>
+<span class="r-in"><span><span class="fu">prec_auc</span><span class="op">(</span><span class="va">auc</span>, <span class="va">prev</span>, conf.width <span class="op">=</span> <span class="va">cwidth</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      sample size for AUC </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -128,7 +141,7 @@ between the lower and upper limits of the confidence interval and
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

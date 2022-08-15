@@ -18,7 +18,7 @@ precision for the provided proportions."><meta property="og:image" content="/log
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">presize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.2</span>
       </span>
     </div>
 
@@ -58,39 +58,54 @@ precision for the provided proportions.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">prec_riskdiff</span><span class="op">(</span>
-  <span class="va">p1</span>,
-  <span class="va">p2</span>,
-  n1 <span class="op">=</span> <span class="cn">NULL</span>,
-  conf.width <span class="op">=</span> <span class="cn">NULL</span>,
-  r <span class="op">=</span> <span class="fl">1</span>,
-  conf.level <span class="op">=</span> <span class="fl">0.95</span>,
-  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"newcombe"</span>, <span class="st">"mn"</span>, <span class="st">"ac"</span>, <span class="st">"wald"</span><span class="op">)</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">prec_riskdiff</span><span class="op">(</span></span>
+<span>  <span class="va">p1</span>,</span>
+<span>  <span class="va">p2</span>,</span>
+<span>  n1 <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  conf.width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  r <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  conf.level <span class="op">=</span> <span class="fl">0.95</span>,</span>
+<span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"newcombe"</span>, <span class="st">"mn"</span>, <span class="st">"ac"</span>, <span class="st">"wald"</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>p1</dt>
 <dd><p>risk among exposed.</p></dd>
+
+
 <dt>p2</dt>
 <dd><p>risk among unexposed.</p></dd>
+
+
 <dt>n1</dt>
 <dd><p>number of patients in exposed group.</p></dd>
+
+
 <dt>conf.width</dt>
 <dd><p>precision (the full width of the confidence interval).</p></dd>
+
+
 <dt>r</dt>
 <dd><p>allocation ratio (relative size of exposed and unexposed cohort
 (<code>n1</code> / <code>n2</code>)).</p></dd>
+
+
 <dt>conf.level</dt>
 <dd><p>confidence level.</p></dd>
+
+
 <dt>method</dt>
 <dd><p>Exactly one of <code>newcombe</code> (<em>default</em>), <code>mn</code>
 (Miettinen-Nurminen), <code>ac</code> (Agresti-Caffo), <code>wald</code>. Methods can
 be abbreviated.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>other options to uniroot (e.g. <code>tol</code>)</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -114,7 +129,7 @@ method.</p>
     <h2>References</h2>
     <p>Agresti A (2003) <em>Categorical Data Analysis</em>, Second Edition, Wiley
 Series in Probability and Statistics,
-doi: <a href="https://doi.org/10.1002/0471249688" class="external-link">10.1002/0471249688</a>
+<a href="https://doi.org/10.1002/0471249688" class="external-link">doi:10.1002/0471249688</a>
 .</p>
 <p>Agresti A and Caffo B (2000) <em>Simple and Effective Confidence Intervals
 for Proportions and Differences of Proportions Result from Adding Two
@@ -131,16 +146,16 @@ medical research 24(2):224-254.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># proportions of 40 and 30\%, 50 participants, how wide is the CI?</span></span>
-<span class="r-in"><span class="fu">prec_riskdiff</span><span class="op">(</span>p1 <span class="op">=</span> <span class="fl">.4</span>, p2 <span class="op">=</span> <span class="fl">.3</span>, n1 <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># proportions of 40 and 30\%, 50 participants, how wide is the CI?</span></span></span>
+<span class="r-in"><span><span class="fu">prec_riskdiff</span><span class="op">(</span>p1 <span class="op">=</span> <span class="fl">.4</span>, p2 <span class="op">=</span> <span class="fl">.3</span>, n1 <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>more than one method was chosen, 'newcombe' will be used</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      precision for a risk difference with newcombe confidence interval </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    p1  p2 n1 n2 ntot r delta         lwr       upr conf.width conf.level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.4 0.3 50 50  100 1   0.1 -0.08510109 0.2759788  0.3610798       0.95</span>
-<span class="r-in"><span class="co"># proportions of 40 and 30\%, 50 participants, how many participants for a CI 0.2 wide?</span></span>
-<span class="r-in"><span class="fu">prec_riskdiff</span><span class="op">(</span>p1 <span class="op">=</span> <span class="fl">.4</span>, p2 <span class="op">=</span> <span class="fl">.3</span>, conf.width <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># proportions of 40 and 30\%, 50 participants, how many participants for a CI 0.2 wide?</span></span></span>
+<span class="r-in"><span><span class="fu">prec_riskdiff</span><span class="op">(</span>p1 <span class="op">=</span> <span class="fl">.4</span>, p2 <span class="op">=</span> <span class="fl">.3</span>, conf.width <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>more than one method was chosen, 'newcombe' will be used</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      sample size for a risk difference with newcombe confidence interval </span>
@@ -149,27 +164,27 @@ medical research 24(2):224-254.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.4 0.3 169.8394 169.8394 339.6787 1   0.1 -0.001408915 0.1985911        0.2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   conf.level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1       0.95</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Validate Newcombe (1998)</span></span>
-<span class="r-in"><span class="fu">prec_riskdiff</span><span class="op">(</span>p1 <span class="op">=</span> <span class="fl">56</span><span class="op">/</span><span class="fl">70</span>, p2 <span class="op">=</span> <span class="fl">48</span><span class="op">/</span><span class="fl">80</span>, n1 <span class="op">=</span> <span class="fl">70</span>, r <span class="op">=</span> <span class="fl">70</span><span class="op">/</span><span class="fl">80</span>, met <span class="op">=</span> <span class="st">"newcombe"</span><span class="op">)</span>  <span class="co"># Table IIa</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Validate Newcombe (1998)</span></span></span>
+<span class="r-in"><span><span class="fu">prec_riskdiff</span><span class="op">(</span>p1 <span class="op">=</span> <span class="fl">56</span><span class="op">/</span><span class="fl">70</span>, p2 <span class="op">=</span> <span class="fl">48</span><span class="op">/</span><span class="fl">80</span>, n1 <span class="op">=</span> <span class="fl">70</span>, r <span class="op">=</span> <span class="fl">70</span><span class="op">/</span><span class="fl">80</span>, met <span class="op">=</span> <span class="st">"newcombe"</span><span class="op">)</span>  <span class="co"># Table IIa</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      precision for a risk difference with newcombe confidence interval </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    p1  p2 n1 n2 ntot     r delta        lwr       upr conf.width conf.level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.8 0.6 70 80  150 0.875   0.2 0.05243147 0.3338727  0.2814412       0.95</span>
-<span class="r-in"><span class="fu">prec_riskdiff</span><span class="op">(</span>p1 <span class="op">=</span> <span class="fl">10</span><span class="op">/</span><span class="fl">10</span>, p2 <span class="op">=</span> <span class="fl">0</span><span class="op">/</span><span class="fl">10</span>, n1 <span class="op">=</span> <span class="fl">10</span>, met <span class="op">=</span> <span class="st">"newcombe"</span><span class="op">)</span>  <span class="co"># Table IIh</span></span>
+<span class="r-in"><span><span class="fu">prec_riskdiff</span><span class="op">(</span>p1 <span class="op">=</span> <span class="fl">10</span><span class="op">/</span><span class="fl">10</span>, p2 <span class="op">=</span> <span class="fl">0</span><span class="op">/</span><span class="fl">10</span>, n1 <span class="op">=</span> <span class="fl">10</span>, met <span class="op">=</span> <span class="st">"newcombe"</span><span class="op">)</span>  <span class="co"># Table IIh</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      precision for a risk difference with newcombe confidence interval </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   p1 p2 n1 n2 ntot r delta       lwr upr conf.width conf.level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  1  0 10 10   20 1     1 0.6075094   1  0.3924906       0.95</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># multiple scenarios</span></span>
-<span class="r-in"><span class="fu">prec_riskdiff</span><span class="op">(</span>p1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">56</span><span class="op">/</span><span class="fl">70</span>, <span class="fl">9</span><span class="op">/</span><span class="fl">10</span>, <span class="fl">6</span><span class="op">/</span><span class="fl">7</span>, <span class="fl">5</span><span class="op">/</span><span class="fl">56</span><span class="op">)</span>,</span>
-<span class="r-in">              p2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">48</span><span class="op">/</span><span class="fl">80</span>, <span class="fl">3</span><span class="op">/</span><span class="fl">10</span>, <span class="fl">2</span><span class="op">/</span><span class="fl">7</span>, <span class="fl">0</span><span class="op">/</span><span class="fl">29</span><span class="op">)</span>,</span>
-<span class="r-in">              n1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">70</span>, <span class="fl">10</span>, <span class="fl">7</span>, <span class="fl">56</span><span class="op">)</span>,</span>
-<span class="r-in">              r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">70</span><span class="op">/</span><span class="fl">80</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">56</span><span class="op">/</span><span class="fl">29</span><span class="op">)</span>,</span>
-<span class="r-in">              method <span class="op">=</span> <span class="st">"wald"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># multiple scenarios</span></span></span>
+<span class="r-in"><span><span class="fu">prec_riskdiff</span><span class="op">(</span>p1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">56</span><span class="op">/</span><span class="fl">70</span>, <span class="fl">9</span><span class="op">/</span><span class="fl">10</span>, <span class="fl">6</span><span class="op">/</span><span class="fl">7</span>, <span class="fl">5</span><span class="op">/</span><span class="fl">56</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              p2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">48</span><span class="op">/</span><span class="fl">80</span>, <span class="fl">3</span><span class="op">/</span><span class="fl">10</span>, <span class="fl">2</span><span class="op">/</span><span class="fl">7</span>, <span class="fl">0</span><span class="op">/</span><span class="fl">29</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              n1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">70</span>, <span class="fl">10</span>, <span class="fl">7</span>, <span class="fl">56</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">70</span><span class="op">/</span><span class="fl">80</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">56</span><span class="op">/</span><span class="fl">29</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              method <span class="op">=</span> <span class="st">"wald"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      precision for a risk difference with wald confidence interval </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -183,7 +198,7 @@ medical research 24(2):224-254.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.6789514       0.95</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.8466249       0.95</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.1493709       0.95</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -198,7 +213,7 @@ medical research 24(2):224-254.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -20,7 +20,7 @@ instead of a Student t distribution."><meta property="og:image" content="/logo.p
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">presize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.2</span>
       </span>
     </div>
 
@@ -62,21 +62,28 @@ instead of a Student t distribution.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">prec_lim_agree</span><span class="op">(</span>n <span class="op">=</span> <span class="cn">NULL</span>, conf.width <span class="op">=</span> <span class="cn">NULL</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">prec_lim_agree</span><span class="op">(</span>n <span class="op">=</span> <span class="cn">NULL</span>, conf.width <span class="op">=</span> <span class="cn">NULL</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>n</dt>
 <dd><p>sample size.</p></dd>
+
+
 <dt>conf.width</dt>
 <dd><p>precision (the full width of the confidence interval).</p></dd>
+
+
 <dt>conf.level</dt>
 <dd><p>confidence level.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Object of class "presize", a list of arguments (including the
+    
+
+<p>Object of class "presize", a list of arguments (including the
   computed one) augmented with method and note elements.</p>
     </div>
     <div id="details">
@@ -90,20 +97,20 @@ Altman (1986). The CI width is a simple function of the sample size only.</p>
     <h2>References</h2>
     <p>Bland &amp; Altman (1986) <em>Statistical methods for assessing agreement
 between two methods of clinical measurement</em> Lancet i(8476):307-310
-doi: <a href="https://doi.org/10.1016/S0140-6736(86)90837-8" class="external-link">10.1016/S0140-6736(86)90837-8</a></p>
+<a href="https://doi.org/10.1016/S0140-6736%2886%2990837-8" class="external-link">doi:10.1016/S0140-6736(86)90837-8</a></p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># calculate confidence interval width, given N</span></span>
-<span class="r-in"><span class="fu">prec_lim_agree</span><span class="op">(</span><span class="fl">200</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># calculate confidence interval width, given N</span></span></span>
+<span class="r-in"><span><span class="fu">prec_lim_agree</span><span class="op">(</span><span class="fl">200</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      precision for limit of agreement </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     n conf.width conf.level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 200  0.4800912       0.95</span>
-<span class="r-in"><span class="co"># calculate N given, confidence interval width</span></span>
-<span class="r-in"><span class="fu">prec_lim_agree</span><span class="op">(</span>conf.width <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># calculate N given, confidence interval width</span></span></span>
+<span class="r-in"><span><span class="fu">prec_lim_agree</span><span class="op">(</span>conf.width <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      sample size for limit of agreement </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -123,7 +130,7 @@ doi: <a href="https://doi.org/10.1016/S0140-6736(86)90837-8" class="external-lin
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

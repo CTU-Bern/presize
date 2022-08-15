@@ -19,7 +19,7 @@ functions act as wrappers for prec_prop."><meta property="og:image" content="/lo
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">presize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.2</span>
       </span>
     </div>
 
@@ -60,50 +60,65 @@ functions act as wrappers for <code>prec_prop</code>.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">prec_sens</span><span class="op">(</span>
-  <span class="va">sens</span>,
-  n <span class="op">=</span> <span class="cn">NULL</span>,
-  ntot <span class="op">=</span> <span class="cn">NULL</span>,
-  prev <span class="op">=</span> <span class="cn">NULL</span>,
-  conf.width <span class="op">=</span> <span class="cn">NULL</span>,
-  round <span class="op">=</span> <span class="st">"ceiling"</span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="fu">prec_spec</span><span class="op">(</span>
-  <span class="va">spec</span>,
-  n <span class="op">=</span> <span class="cn">NULL</span>,
-  ntot <span class="op">=</span> <span class="cn">NULL</span>,
-  prev <span class="op">=</span> <span class="cn">NULL</span>,
-  conf.width <span class="op">=</span> <span class="cn">NULL</span>,
-  round <span class="op">=</span> <span class="st">"ceiling"</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">prec_sens</span><span class="op">(</span></span>
+<span>  <span class="va">sens</span>,</span>
+<span>  n <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ntot <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  prev <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  conf.width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  round <span class="op">=</span> <span class="st">"ceiling"</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">prec_spec</span><span class="op">(</span></span>
+<span>  <span class="va">spec</span>,</span>
+<span>  n <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ntot <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  prev <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  conf.width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  round <span class="op">=</span> <span class="st">"ceiling"</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>sens, spec</dt>
 <dd><p>proportions.</p></dd>
+
+
 <dt>n</dt>
 <dd><p>number of observations.</p></dd>
+
+
 <dt>ntot</dt>
 <dd><p>total sample size.</p></dd>
+
+
 <dt>prev</dt>
 <dd><p>prevalence of cases/disease (i.e. proportion of <code>ntot</code> with
 the disease).</p></dd>
+
+
 <dt>conf.width</dt>
 <dd><p>precision (the full width of the confidence interval).</p></dd>
+
+
 <dt>round</dt>
 <dd><p>string, round calculated <code>n</code> up (<code>ceiling</code>) or down
 (<code>floor</code>).</p></dd>
+
+
 <dt>...</dt>
 <dd><p>options passed to prec_prop (e.g. method,
 conf.width, conf.level).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Object of class "presize", a list of arguments (including the
+    
+
+<p>Object of class "presize", a list of arguments (including the
   computed one) augmented with method and note elements.</p>
     </div>
     <div id="details">
@@ -124,8 +139,8 @@ conf.width, conf.level).</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in">  <span class="co"># confidence interval width with n</span></span>
-<span class="r-in">  <span class="fu">prec_sens</span><span class="op">(</span><span class="fl">.6</span>, <span class="fl">50</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span>  <span class="co"># confidence interval width with n</span></span></span>
+<span class="r-in"><span>  <span class="fu">prec_sens</span><span class="op">(</span><span class="fl">.6</span>, <span class="fl">50</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>more than one method was chosen, 'wilson' will be used</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      precision for a sensitivity with Wilson confidence interval. </span>
@@ -135,8 +150,8 @@ conf.width, conf.level).</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NOTE: sensadj is the adjusted sensitivity, from which the ci is calculated.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in">  <span class="co"># confidence interval width with ntot and prevalence (assuming 50% prev)</span></span>
-<span class="r-in">  <span class="fu">prec_sens</span><span class="op">(</span><span class="fl">.6</span>, ntot <span class="op">=</span> <span class="fl">100</span>, prev <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span></span>
+<span class="r-in"><span>  <span class="co"># confidence interval width with ntot and prevalence (assuming 50% prev)</span></span></span>
+<span class="r-in"><span>  <span class="fu">prec_sens</span><span class="op">(</span><span class="fl">.6</span>, ntot <span class="op">=</span> <span class="fl">100</span>, prev <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> estimating n from 'ntot' and 'prev'</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>more than one method was chosen, 'wilson' will be used</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -147,8 +162,8 @@ conf.width, conf.level).</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NOTE: sensadj is the adjusted sensitivity, from which the ci is calculated.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in">  <span class="co"># sample size with confidence interval width</span></span>
-<span class="r-in">  <span class="fu">prec_sens</span><span class="op">(</span><span class="fl">.6</span>, conf.width <span class="op">=</span> <span class="fl">0.262</span><span class="op">)</span></span>
+<span class="r-in"><span>  <span class="co"># sample size with confidence interval width</span></span></span>
+<span class="r-in"><span>  <span class="fu">prec_sens</span><span class="op">(</span><span class="fl">.6</span>, conf.width <span class="op">=</span> <span class="fl">0.262</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>more than one method was chosen, 'wilson' will be used</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      sample size for a sensitivity with Wilson confidence interval. </span>
@@ -172,7 +187,7 @@ conf.width, conf.level).</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

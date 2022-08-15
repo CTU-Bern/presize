@@ -18,7 +18,7 @@ mean and standard deviation."><meta property="og:image" content="/logo.png"><!--
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">presize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.2</span>
       </span>
     </div>
 
@@ -58,37 +58,52 @@ mean and standard deviation.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">prec_mean</span><span class="op">(</span>
-  <span class="va">mean</span>,
-  <span class="va">sd</span>,
-  n <span class="op">=</span> <span class="cn">NULL</span>,
-  conf.width <span class="op">=</span> <span class="cn">NULL</span>,
-  conf.level <span class="op">=</span> <span class="fl">0.95</span>,
-  <span class="va">...</span>,
-  mu <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">prec_mean</span><span class="op">(</span></span>
+<span>  <span class="va">mean</span>,</span>
+<span>  <span class="va">sd</span>,</span>
+<span>  n <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  conf.width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  conf.level <span class="op">=</span> <span class="fl">0.95</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  mu <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>mean</dt>
 <dd><p>mean.</p></dd>
+
+
 <dt>sd</dt>
 <dd><p>standard deviation.</p></dd>
+
+
 <dt>n</dt>
 <dd><p>number of observations.</p></dd>
+
+
 <dt>conf.width</dt>
 <dd><p>precision (the full width of the confidence interval).</p></dd>
+
+
 <dt>conf.level</dt>
 <dd><p>confidence level.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>other arguments to uniroot (e.g. <code>tol</code>).</p></dd>
+
+
 <dt>mu</dt>
 <dd><p>deprecated argument</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Object of class "presize", a list with <code>mean</code> mean, <code>sd</code> standard deviation, <code>n</code> sample size,
+    
+
+<p>Object of class "presize", a list with <code>mean</code> mean, <code>sd</code> standard deviation, <code>n</code> sample size,
 <code>conf.width</code> precision (the width of the confidence interval),
 <code>lwr</code> lower bound of confidence interval, <code>upr</code> upper bound of confidence interval,
  augmented with method and note elements.</p>
@@ -105,15 +120,15 @@ from the t-distribution with n-1 degrees of freedom.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># mean of 5, SD of 2.5, whats the confidence interval width with 20 participants?</span></span>
-<span class="r-in"><span class="fu">prec_mean</span><span class="op">(</span>mean <span class="op">=</span> <span class="fl">5</span>, sd <span class="op">=</span> <span class="fl">2.5</span>, n <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># mean of 5, SD of 2.5, whats the confidence interval width with 20 participants?</span></span></span>
+<span class="r-in"><span><span class="fu">prec_mean</span><span class="op">(</span>mean <span class="op">=</span> <span class="fl">5</span>, sd <span class="op">=</span> <span class="fl">2.5</span>, n <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      precision for mean </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   mean  sd  n conf.width conf.level      lwr      upr</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    5 2.5 20   2.340072       0.95 3.829964 6.170036</span>
-<span class="r-in"><span class="co"># mean of 5, SD of 2.5, how many participants for CI width of 2.34?</span></span>
-<span class="r-in"><span class="fu">prec_mean</span><span class="op">(</span>mean <span class="op">=</span> <span class="fl">5</span>, sd <span class="op">=</span> <span class="fl">2.5</span>, conf.width <span class="op">=</span> <span class="fl">2.34</span><span class="op">)</span>  <span class="co"># approximately the inverse of above</span></span>
+<span class="r-in"><span><span class="co"># mean of 5, SD of 2.5, how many participants for CI width of 2.34?</span></span></span>
+<span class="r-in"><span><span class="fu">prec_mean</span><span class="op">(</span>mean <span class="op">=</span> <span class="fl">5</span>, sd <span class="op">=</span> <span class="fl">2.5</span>, conf.width <span class="op">=</span> <span class="fl">2.34</span><span class="op">)</span>  <span class="co"># approximately the inverse of above</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      sample size for mean </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -133,7 +148,7 @@ from the t-distribution with n-1 degrees of freedom.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

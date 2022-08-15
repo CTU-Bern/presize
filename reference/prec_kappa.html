@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">presize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.2</span>
       </span>
     </div>
 
@@ -56,38 +56,53 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">prec_kappa</span><span class="op">(</span>
-  <span class="va">kappa</span>,
-  n <span class="op">=</span> <span class="cn">NULL</span>,
-  raters <span class="op">=</span> <span class="fl">2</span>,
-  n_category <span class="op">=</span> <span class="fl">2</span>,
-  <span class="va">props</span>,
-  conf.width <span class="op">=</span> <span class="cn">NULL</span>,
-  conf.level <span class="op">=</span> <span class="fl">0.95</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">prec_kappa</span><span class="op">(</span></span>
+<span>  <span class="va">kappa</span>,</span>
+<span>  n <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  raters <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  n_category <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  <span class="va">props</span>,</span>
+<span>  conf.width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  conf.level <span class="op">=</span> <span class="fl">0.95</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>kappa</dt>
 <dd><p>expected value of Cohen's kappa.</p></dd>
+
+
 <dt>n</dt>
 <dd><p>sample size.</p></dd>
+
+
 <dt>raters</dt>
 <dd><p>number of raters (maximum of 6).</p></dd>
+
+
 <dt>n_category</dt>
 <dd><p>number of categories of outcomes (maximum of 5).</p></dd>
+
+
 <dt>props</dt>
 <dd><p>expected proportions of each outcome (should have length
 <code>n_category</code>).</p></dd>
+
+
 <dt>conf.width</dt>
 <dd><p>precision (the full width of the confidence interval).</p></dd>
+
+
 <dt>conf.level</dt>
 <dd><p>confidence level.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Object of class "presize", a list of arguments (including the
+    
+
+<p>Object of class "presize", a list of arguments (including the
   computed one) augmented with method and note elements.</p>
     </div>
     <div id="details">
@@ -109,41 +124,41 @@ are symmetrical.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># precision based on sample size</span></span>
-<span class="r-in"><span class="co">#   two categories with proportions of 30 and 70\%, four raters</span></span>
-<span class="r-in"><span class="fu">prec_kappa</span><span class="op">(</span>kappa <span class="op">=</span> <span class="fl">.5</span>, n <span class="op">=</span> <span class="fl">200</span>, raters <span class="op">=</span> <span class="fl">4</span>, n_category <span class="op">=</span> <span class="fl">2</span>, props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.3</span>,<span class="fl">.7</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># precision based on sample size</span></span></span>
+<span class="r-in"><span><span class="co">#   two categories with proportions of 30 and 70\%, four raters</span></span></span>
+<span class="r-in"><span><span class="fu">prec_kappa</span><span class="op">(</span>kappa <span class="op">=</span> <span class="fl">.5</span>, n <span class="op">=</span> <span class="fl">200</span>, raters <span class="op">=</span> <span class="fl">4</span>, n_category <span class="op">=</span> <span class="fl">2</span>, props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.3</span>,<span class="fl">.7</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      precision for Cohen's kappa </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   kappa   n   lwr   upr conf.width conf.level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   0.5 200 0.425 0.575       0.15       0.95</span>
-<span class="r-in"><span class="co"># sample size to get a given precision</span></span>
-<span class="r-in"><span class="fu">prec_kappa</span><span class="op">(</span>kappa <span class="op">=</span> <span class="fl">.5</span>, conf.width <span class="op">=</span> <span class="fl">.15</span>, raters <span class="op">=</span> <span class="fl">4</span>, n_category <span class="op">=</span> <span class="fl">2</span>,</span>
-<span class="r-in">           props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.3</span>,<span class="fl">.7</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># sample size to get a given precision</span></span></span>
+<span class="r-in"><span><span class="fu">prec_kappa</span><span class="op">(</span>kappa <span class="op">=</span> <span class="fl">.5</span>, conf.width <span class="op">=</span> <span class="fl">.15</span>, raters <span class="op">=</span> <span class="fl">4</span>, n_category <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>           props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.3</span>,<span class="fl">.7</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      sample size for Cohen's kappa </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   kappa   n   lwr   upr conf.width conf.level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   0.5 198 0.425 0.575       0.15       0.95</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># as above, but with two scenarios for kappa</span></span>
-<span class="r-in"><span class="fu">prec_kappa</span><span class="op">(</span>kappa <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.75</span><span class="op">)</span>, conf.width <span class="op">=</span> <span class="fl">.15</span>, raters <span class="op">=</span> <span class="fl">4</span>, n_category <span class="op">=</span> <span class="fl">2</span>,</span>
-<span class="r-in">           props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.3</span>,<span class="fl">.7</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># as above, but with two scenarios for kappa</span></span></span>
+<span class="r-in"><span><span class="fu">prec_kappa</span><span class="op">(</span>kappa <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.75</span><span class="op">)</span>, conf.width <span class="op">=</span> <span class="fl">.15</span>, raters <span class="op">=</span> <span class="fl">4</span>, n_category <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>           props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.3</span>,<span class="fl">.7</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      sample size for Cohen's kappa </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   kappa   n   lwr   upr conf.width conf.level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.50 198 0.425 0.575       0.15       0.95</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.75 155 0.675 0.825       0.15       0.95</span>
-<span class="r-in"><span class="fu">prec_kappa</span><span class="op">(</span>kappa <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.75</span><span class="op">)</span>, conf.width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.15</span>, <span class="fl">0.3</span><span class="op">)</span>, raters <span class="op">=</span> <span class="fl">4</span>,</span>
-<span class="r-in">           n_category <span class="op">=</span> <span class="fl">2</span>, props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.3</span>,<span class="fl">.7</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">prec_kappa</span><span class="op">(</span>kappa <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.75</span><span class="op">)</span>, conf.width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.15</span>, <span class="fl">0.3</span><span class="op">)</span>, raters <span class="op">=</span> <span class="fl">4</span>,</span></span>
+<span class="r-in"><span>           n_category <span class="op">=</span> <span class="fl">2</span>, props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.3</span>,<span class="fl">.7</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      sample size for Cohen's kappa </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   kappa   n   lwr   upr conf.width conf.level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.50 198 0.425 0.575       0.15       0.95</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.75  44 0.600 0.900       0.30       0.95</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -158,7 +173,7 @@ are symmetrical.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

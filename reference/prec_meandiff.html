@@ -18,7 +18,7 @@ provided mean difference and standard deviations."><meta property="og:image" con
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">presize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.2</span>
       </span>
     </div>
 
@@ -58,43 +58,62 @@ provided mean difference and standard deviations.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">prec_meandiff</span><span class="op">(</span>
-  <span class="va">delta</span>,
-  <span class="va">sd1</span>,
-  sd2 <span class="op">=</span> <span class="va">sd1</span>,
-  n1 <span class="op">=</span> <span class="cn">NULL</span>,
-  r <span class="op">=</span> <span class="fl">1</span>,
-  conf.width <span class="op">=</span> <span class="cn">NULL</span>,
-  conf.level <span class="op">=</span> <span class="fl">0.95</span>,
-  variance <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"equal"</span>, <span class="st">"unequal"</span><span class="op">)</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">prec_meandiff</span><span class="op">(</span></span>
+<span>  <span class="va">delta</span>,</span>
+<span>  <span class="va">sd1</span>,</span>
+<span>  sd2 <span class="op">=</span> <span class="va">sd1</span>,</span>
+<span>  n1 <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  r <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  conf.width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  conf.level <span class="op">=</span> <span class="fl">0.95</span>,</span>
+<span>  variance <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"equal"</span>, <span class="st">"unequal"</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>delta</dt>
 <dd><p>difference in means between the two groups.</p></dd>
+
+
 <dt>sd1</dt>
 <dd><p>standard deviation in group 1.</p></dd>
+
+
 <dt>sd2</dt>
 <dd><p>standard deviation in group 2.</p></dd>
+
+
 <dt>n1</dt>
 <dd><p>number of patients in group 1.</p></dd>
+
+
 <dt>r</dt>
 <dd><p>allocation ratio (relative size of group 2 and group 1 (n2 / n1)).</p></dd>
+
+
 <dt>conf.width</dt>
 <dd><p>precision (the full width of the confidence interval).</p></dd>
+
+
 <dt>conf.level</dt>
 <dd><p>confidence level.</p></dd>
+
+
 <dt>variance</dt>
 <dd><p><code>equal</code> (<em>default</em>) or <code>unequal</code> variance.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>other options to uniroot (e.g. <code>tol</code>)</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Object of class "presize", a list of arguments (including the
+    
+
+<p>Object of class "presize", a list of arguments (including the
   computed one) augmented with method and note elements.</p>
     </div>
     <div id="details">
@@ -105,16 +124,16 @@ and that parameter is determined from the other.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># mean difference of 5, SD of 2.5, CI width with 20 participants assuming equal variances</span></span>
-<span class="r-in"><span class="fu">prec_meandiff</span><span class="op">(</span>delta <span class="op">=</span> <span class="fl">5</span>, sd1 <span class="op">=</span> <span class="fl">2.5</span>, n1 <span class="op">=</span> <span class="fl">20</span>, var <span class="op">=</span> <span class="st">"equal"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># mean difference of 5, SD of 2.5, CI width with 20 participants assuming equal variances</span></span></span>
+<span class="r-in"><span><span class="fu">prec_meandiff</span><span class="op">(</span>delta <span class="op">=</span> <span class="fl">5</span>, sd1 <span class="op">=</span> <span class="fl">2.5</span>, n1 <span class="op">=</span> <span class="fl">20</span>, var <span class="op">=</span> <span class="st">"equal"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      precision for mean difference with equal variance </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   delta sd1 sd2 n1 n2 conf.width conf.level      lwr      upr</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1     5 2.5 2.5 20 20   3.044614       0.95 3.477693 6.522307</span>
-<span class="r-in"><span class="co"># mean difference of 5, SD of 2.5, number of participants for a CI width of 3,</span></span>
-<span class="r-in"><span class="co">#  assuming equal variances</span></span>
-<span class="r-in"><span class="fu">prec_meandiff</span><span class="op">(</span>delta <span class="op">=</span> <span class="fl">5</span>, sd1 <span class="op">=</span> <span class="fl">2.5</span>, conf.width <span class="op">=</span> <span class="fl">3</span>, var <span class="op">=</span> <span class="st">"equal"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># mean difference of 5, SD of 2.5, number of participants for a CI width of 3,</span></span></span>
+<span class="r-in"><span><span class="co">#  assuming equal variances</span></span></span>
+<span class="r-in"><span><span class="fu">prec_meandiff</span><span class="op">(</span>delta <span class="op">=</span> <span class="fl">5</span>, sd1 <span class="op">=</span> <span class="fl">2.5</span>, conf.width <span class="op">=</span> <span class="fl">3</span>, var <span class="op">=</span> <span class="st">"equal"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      sample size for mean difference with equal variance </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -134,7 +153,7 @@ and that parameter is determined from the other.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

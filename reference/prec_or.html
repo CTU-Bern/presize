@@ -18,7 +18,7 @@ provided proportions."><meta property="og:image" content="/logo.png"><!-- mathja
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">presize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.2</span>
       </span>
     </div>
 
@@ -58,42 +58,59 @@ provided proportions.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">prec_or</span><span class="op">(</span>
-  <span class="va">p1</span>,
-  <span class="va">p2</span>,
-  n1 <span class="op">=</span> <span class="cn">NULL</span>,
-  r <span class="op">=</span> <span class="fl">1</span>,
-  conf.width <span class="op">=</span> <span class="cn">NULL</span>,
-  conf.level <span class="op">=</span> <span class="fl">0.95</span>,
-  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gart"</span>, <span class="st">"woolf"</span>, <span class="st">"indip_smooth"</span><span class="op">)</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">prec_or</span><span class="op">(</span></span>
+<span>  <span class="va">p1</span>,</span>
+<span>  <span class="va">p2</span>,</span>
+<span>  n1 <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  r <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  conf.width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  conf.level <span class="op">=</span> <span class="fl">0.95</span>,</span>
+<span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gart"</span>, <span class="st">"woolf"</span>, <span class="st">"indip_smooth"</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>p1</dt>
 <dd><p>risk among exposed.</p></dd>
+
+
 <dt>p2</dt>
 <dd><p>risk among unexposed.</p></dd>
+
+
 <dt>n1</dt>
 <dd><p>number of patients in exposed group.</p></dd>
+
+
 <dt>r</dt>
 <dd><p>allocation ratio (relative size of unexposed and exposed cohort
 (<code>n2</code> / <code>n1</code>)).</p></dd>
+
+
 <dt>conf.width</dt>
 <dd><p>precision (the full width of the confidence interval).</p></dd>
+
+
 <dt>conf.level</dt>
 <dd><p>confidence level.</p></dd>
+
+
 <dt>method</dt>
 <dd><p>Exactly one of <code>indip_smooth</code> (<em>default</em>),
 <code>gart</code>, or <code>woolf</code>. Methods can be abbreviated.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>other arguments to uniroot (e.g. <code>tol</code>).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Object of class "presize", a list of arguments (including the
+    
+
+<p>Object of class "presize", a list of arguments (including the
   computed one) augmented with method and note elements.</p>
     </div>
     <div id="details">
@@ -118,39 +135,39 @@ indip_smooth method.</p>
     <p>Fagerland MW, Lydersen S, Laake P (2015). <em>Recommended
 confidence intervals for two independent binomial proportions</em>. Statistical
 Methods in Medical Research, 24(2):224-254.
-doi: <a href="https://doi.org/10.1177/0962280211415469" class="external-link">10.1177/0962280211415469</a>
+<a href="https://doi.org/10.1177/0962280211415469" class="external-link">doi:10.1177/0962280211415469</a>
 .</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># 10\% events in one group, 15\% in the other, 200 participants total</span></span>
-<span class="r-in"><span class="co">#  (= 100 in each group), estimate confidence interval width</span></span>
-<span class="r-in"><span class="fu">prec_or</span><span class="op">(</span>p1 <span class="op">=</span> <span class="fl">.1</span>, p2 <span class="op">=</span> <span class="fl">.15</span>, n1 <span class="op">=</span> <span class="fl">200</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># 10\% events in one group, 15\% in the other, 200 participants total</span></span></span>
+<span class="r-in"><span><span class="co">#  (= 100 in each group), estimate confidence interval width</span></span></span>
+<span class="r-in"><span><span class="fu">prec_or</span><span class="op">(</span>p1 <span class="op">=</span> <span class="fl">.1</span>, p2 <span class="op">=</span> <span class="fl">.15</span>, n1 <span class="op">=</span> <span class="fl">200</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>more than one method was chosen, 'indip_smooth' will be used</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      precision for an odds ratio with indip_smooth confidence interval </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    p1   p2  n1  n2 ntot r        or       lwr      upr conf.width conf.level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.1 0.15 100 100  200 1 0.6296296 0.2707144 1.478198   1.207484       0.95</span>
-<span class="r-in"><span class="co"># formula by Gart</span></span>
-<span class="r-in"><span class="fu">prec_or</span><span class="op">(</span>p1 <span class="op">=</span> <span class="fl">.1</span>, p2 <span class="op">=</span> <span class="fl">.15</span>, n1 <span class="op">=</span> <span class="fl">200</span><span class="op">/</span><span class="fl">2</span>, method <span class="op">=</span> <span class="st">"gart"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># formula by Gart</span></span></span>
+<span class="r-in"><span><span class="fu">prec_or</span><span class="op">(</span>p1 <span class="op">=</span> <span class="fl">.1</span>, p2 <span class="op">=</span> <span class="fl">.15</span>, n1 <span class="op">=</span> <span class="fl">200</span><span class="op">/</span><span class="fl">2</span>, method <span class="op">=</span> <span class="st">"gart"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      precision for an odds ratio with gart confidence interval </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    p1   p2  n1  n2 ntot r        or       lwr      upr conf.width conf.level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.1 0.15 100 100  200 1 0.6296296 0.2770396 1.478456   1.201417       0.95</span>
-<span class="r-in"><span class="co"># formula by Woolf</span></span>
-<span class="r-in"><span class="fu">prec_or</span><span class="op">(</span>p1 <span class="op">=</span> <span class="fl">.1</span>, p2 <span class="op">=</span> <span class="fl">.15</span>, n1 <span class="op">=</span> <span class="fl">200</span><span class="op">/</span><span class="fl">2</span>, method <span class="op">=</span> <span class="st">"woolf"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># formula by Woolf</span></span></span>
+<span class="r-in"><span><span class="fu">prec_or</span><span class="op">(</span>p1 <span class="op">=</span> <span class="fl">.1</span>, p2 <span class="op">=</span> <span class="fl">.15</span>, n1 <span class="op">=</span> <span class="fl">200</span><span class="op">/</span><span class="fl">2</span>, method <span class="op">=</span> <span class="st">"woolf"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      precision for an odds ratio with woolf confidence interval </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    p1   p2  n1  n2 ntot r        or       lwr      upr conf.width conf.level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.1 0.15 100 100  200 1 0.6296296 0.2682267 1.477979   1.209753       0.95</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># 10\% odds in one group, 15\% in the other, desired CI width of 0.1,</span></span>
-<span class="r-in"><span class="co">#  estimate N</span></span>
-<span class="r-in"><span class="fu">prec_or</span><span class="op">(</span>p1 <span class="op">=</span> <span class="fl">.1</span>, p2 <span class="op">=</span> <span class="fl">.15</span>, conf.width <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># 10\% odds in one group, 15\% in the other, desired CI width of 0.1,</span></span></span>
+<span class="r-in"><span><span class="co">#  estimate N</span></span></span>
+<span class="r-in"><span><span class="fu">prec_or</span><span class="op">(</span>p1 <span class="op">=</span> <span class="fl">.1</span>, p2 <span class="op">=</span> <span class="fl">.15</span>, conf.width <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>more than one method was chosen, 'indip_smooth' will be used</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      sample size for an odds ratio with indip_smooth confidence interval </span>
@@ -159,8 +176,8 @@ doi: <a href="https://doi.org/10.1177/0962280211415469" class="external-link">10
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.1 0.15 11570.15 11570.15 23140.3 1 0.6296296 0.5816375 0.6816375        0.1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   conf.level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1       0.95</span>
-<span class="r-in"><span class="co"># formula by Gart</span></span>
-<span class="r-in"><span class="fu">prec_or</span><span class="op">(</span>p1 <span class="op">=</span> <span class="fl">.1</span>, p2 <span class="op">=</span> <span class="fl">.15</span>, conf.width <span class="op">=</span> <span class="fl">.1</span>, method <span class="op">=</span> <span class="st">"gart"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># formula by Gart</span></span></span>
+<span class="r-in"><span><span class="fu">prec_or</span><span class="op">(</span>p1 <span class="op">=</span> <span class="fl">.1</span>, p2 <span class="op">=</span> <span class="fl">.15</span>, conf.width <span class="op">=</span> <span class="fl">.1</span>, method <span class="op">=</span> <span class="st">"gart"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      sample size for an odds ratio with gart confidence interval </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -168,8 +185,8 @@ doi: <a href="https://doi.org/10.1177/0962280211415469" class="external-link">10
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.1 0.15 11569.79 11569.79 23139.58 1 0.6296296 0.581704 0.681704        0.1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   conf.level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1       0.95</span>
-<span class="r-in"><span class="co"># formula by Woolf</span></span>
-<span class="r-in"><span class="fu">prec_or</span><span class="op">(</span>p1 <span class="op">=</span> <span class="fl">.1</span>, p2 <span class="op">=</span> <span class="fl">.15</span>, conf.width <span class="op">=</span> <span class="fl">.1</span>, method <span class="op">=</span> <span class="st">"woolf"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># formula by Woolf</span></span></span>
+<span class="r-in"><span><span class="fu">prec_or</span><span class="op">(</span>p1 <span class="op">=</span> <span class="fl">.1</span>, p2 <span class="op">=</span> <span class="fl">.15</span>, conf.width <span class="op">=</span> <span class="fl">.1</span>, method <span class="op">=</span> <span class="st">"woolf"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      sample size for an odds ratio with woolf confidence interval </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -177,7 +194,7 @@ doi: <a href="https://doi.org/10.1177/0962280211415469" class="external-link">10
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.1 0.15 11570.28 11570.28 23140.56 1 0.6296296 0.5816118 0.6816118</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   conf.width conf.level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1        0.1       0.95</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -192,7 +209,7 @@ doi: <a href="https://doi.org/10.1177/0962280211415469" class="external-link">10
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
