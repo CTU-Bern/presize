@@ -1,3 +1,8 @@
+presize 0.3.2
+-----------------------------------------
+
+* minor changes requested by CRAN to update to HTML5 helpfiles.
+
 presize 0.3.1
 -----------------------------------------
 

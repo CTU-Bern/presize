@@ -16,9 +16,12 @@
 #' @usage
 #' launch_presize_app()
 #' @export
-#' @example
+#' @examples
 #' # launch the app
+#' \dontrun{
 #' launch_presize_app()
+#' }
+#'
 
 launch_presize_app <- function(){
   shiny::runApp(system.file("shinyApp", package = "presize"))

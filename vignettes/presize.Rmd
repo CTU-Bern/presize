@@ -178,7 +178,7 @@ scenario_df %>%
   cols_align("center", columns = 2:4) %>% 
   # increase the spacing between cells
   tab_style(
-    style = "padding-left:12px;padding-right:12px;",
+    style = "padding-left:12;padding-right:12;",
     locations = cells_body()
   )
 
