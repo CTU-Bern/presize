@@ -179,7 +179,7 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
 #' Miettinen-Nurminen (\code{mn}) provide a closed from equation for the
 #' restricted maximum likelihood estimate . The implementation is based on
 #' code provided by Yongyi Min on
-#' \url{http://users.stat.ufl.edu/~aa/cda/R/two-sample/R2/index.html}.
+#' \url{https://users.stat.ufl.edu/~aa/cda/R/two-sample/R2/index.html}.
 #'
 #' Agresti-Caffo (\code{ac}) confidence interval is based on the Wald confidence
 #' interval, adding 1 success to each cell of the 2 x 2 table (see Agresti and
