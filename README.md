@@ -11,6 +11,8 @@ Status](https://github.com/CTU-Bern/presize/workflows/R-CMD-fullcheck/badge.svg)
 [![Codecov test
 coverage](https://codecov.io/gh/CTU-Bern/presize/branch/master/graph/badge.svg)](https://codecov.io/gh/CTU-Bern/presize?branch=master)
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.03118/status.svg)](https://doi.org/10.21105/joss.03118)
+[![metacran
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/presize)](https://cran.r-project.org/package=presize)
 
 [Bland (2009)](https://www.bmj.com/content/339/bmj.b3985) recommended to
 base study sizes on the width of the confidence interval rather the
