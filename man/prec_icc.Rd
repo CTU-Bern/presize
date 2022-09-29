@@ -32,7 +32,8 @@ and that parameter is determined from the others.
 Sample size or precision is calculated according to formula 3 in Bonett
 (2002), which is an approximation. Whether ICC is calculated for a one-way or
 a two-way ANOVA does not matter in the approximation. As suggested by the
-author, \eqn{5*rho} is added to n, if \eqn{k = 2} and \eqn{rho \ge 7}.
+author, \eqn{5*rho} is added to n, if \eqn{k = 2} and \eqn{rho \ge 7}. This
+makes the assumption that there is no interaction between rater and subject.
 
 n is rounded up to the next whole number using \code{ceiling}.
 }
