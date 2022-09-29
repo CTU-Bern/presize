@@ -1,3 +1,8 @@
+presize 0.3.4
+-----------------------------------------
+
+* extra note for `prec_sens` and `prec_spec` regarding the `n` in the output
+
 presize 0.3.3
 -----------------------------------------
 
