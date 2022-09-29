@@ -1,3 +1,10 @@
+presize 0.3.4
+-----------------------------------------
+
+* extra note for `prec_sens` and `prec_spec` regarding the `n` in the output
+* minor clarification for `prec_icc` regarding assumption of no interaction between rater and subject (see #97)
+* address warnings with prec_prop (see #94)
+
 presize 0.3.3
 -----------------------------------------
 

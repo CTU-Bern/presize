@@ -330,8 +330,11 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
   numrange_check(conf.level)
   numrange_check(p)
   if(!is.null(n)) numrange_check_gt(n)
-  if(!is.null(conf.width)) numrange_check_gt(conf.width)
-  if(!is.null(conf.width) && conf.width > .7) warning("risk of failure in calculations increases with higher 'conf.width', particularly when 'p' is close to 0 or 1")
+  if(!is.null(conf.width)){
+    numrange_check_gt(conf.width)
+    if(any(conf.width > .7)) warning("risk of failure in calculations increases with higher 'conf.width', particularly when 'p' is close to 0 or 1")
+  }
+
 
   if (length(method) > 1) {
     warning("more than one method was chosen, 'wilson' will be used")
@@ -418,14 +421,12 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
       if (is.null(n)) {
         f <- uniroot_fun
 
-        if(conf.width<min(p)){
+        if(any(conf.width<min(p))){
           n <- try(mapply(f, p = p, prec = prec, z = z, z2 = z2), silent = TRUE)
           if(inherits(n,"try-error")) stop("'conf.width' too small")
-          est <- "sample size"
         } else {
           n <- try(mapply(f, p = p, prec = prec, z = z, z2 = z2), silent = TRUE)
           if(inherits(n,"try-error")) stop("'conf.width' too wide")
-          est <- "sample size"
         }
 
       }
@@ -439,14 +440,12 @@ prec_prop <- function(p, n = NULL, conf.width = NULL, conf.level = 0.95,
       if (is.null(n)) {
         f <- uniroot_fun
 
-        if(conf.width<min(p)){
+        if(any(conf.width<min(p))){
           n <- try(mapply(f, p = p, prec = prec, alpha = alpha), silent = TRUE)
           if(inherits(n,"try-error")) stop("'conf.width' too small")
-          est <- "sample size"
         } else {
           n <- try(mapply(f, p = p, prec = prec, alpha = alpha), silent = TRUE)
           if(inherits(n,"try-error")) stop("'conf.width' too wide")
-          est <- "sample size"
         }
 
       }
