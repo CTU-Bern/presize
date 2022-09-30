@@ -18,7 +18,7 @@ intraclass correlation."><meta property="og:image" content="/logo.png"><!-- math
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">presize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.4</span>
       </span>
     </div>
 
@@ -97,7 +97,8 @@ and that parameter is determined from the others.</p>
 <p>Sample size or precision is calculated according to formula 3 in Bonett
 (2002), which is an approximation. Whether ICC is calculated for a one-way or
 a two-way ANOVA does not matter in the approximation. As suggested by the
-author, \(5*rho\) is added to n, if \(k = 2\) and \(rho \ge 7\).</p>
+author, \(5*rho\) is added to n, if \(k = 2\) and \(rho \ge 7\). This
+makes the assumption that there is no interaction between rater and subject.</p>
 <p>n is rounded up to the next whole number using <code>ceiling</code>.</p>
     </div>
     <div id="references">

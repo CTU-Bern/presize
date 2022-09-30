@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">presize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.4</span>
       </span>
     </div>
 
@@ -111,7 +111,8 @@
 <span><span class="co">#&gt;   sens   sensadj  n prev ntot conf.width conf.level       lwr       upr</span></span>
 <span><span class="co">#&gt; 1 0.75 0.7270475 38 0.15  250  0.2663919       0.95 0.5938516 0.8602435</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; NOTE: sensadj is the adjusted sensitivity, from which the ci is calculated.</span></span></code></pre></div>
+<span><span class="co">#&gt; NOTE: sensadj is the adjusted sensitivity, from which the ci is calculated.</span></span>
+<span><span class="co">#&gt;       n is the number of positives, ntot the full sample</span></span></code></pre></div>
 <p>We see that with 250 participants, the confidence interval would be from 59% (<code>lwr</code>) to 86% (<code>upr</code>).</p>
 <p>Note that Wilson’s method of calculating confidence intervals adjusts the point estimate to allow the calculation of a symmetrical CI. This is the <code>sensadj</code> variable. For some measures there are multiple methods available. In the case of <code>prec_sens</code> (as well as <code>prec_spec</code> and <code>prec_prop</code>), there are four different approaches for creating confidence intervals, each yielding slightly different results.</p>
 <p>For specificity, we use the <code>prec_spec</code> function instead. For demonstration purposes, we can also change the method used to calculate the CI.</p>
@@ -127,7 +128,8 @@
 <span><span class="co">#&gt;   spec specadj   n prev ntot conf.width conf.level       lwr      upr</span></span>
 <span><span class="co">#&gt; 1 0.75      NA 213 0.15  250  0.1203922       0.95 0.6862538 0.806646</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; NOTE: specadj is the adjusted specificity, from which the ci is calculated.</span></span></code></pre></div>
+<span><span class="co">#&gt; NOTE: specadj is the adjusted specificity, from which the ci is calculated.</span></span>
+<span><span class="co">#&gt;       n is the number of negatives, ntot the full sample.</span></span></code></pre></div>
 <p>Using the other functions in <code>presize</code> is the same. For instance the precision of a mean of 60 with an SD of 10 and 40 observations is calculated as follows.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/prec_mean.html">prec_mean</a></span><span class="op">(</span><span class="fl">60</span>, sd <span class="op">=</span> <span class="fl">10</span>, n <span class="op">=</span> <span class="fl">40</span><span class="op">)</span></span>
@@ -154,7 +156,8 @@
 <span><span class="co">#&gt;         upr</span></span>
 <span><span class="co">#&gt; 1 0.7966814</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; NOTE: sensadj is the adjusted sensitivity, from which the ci is calculated.</span></span></code></pre></div>
+<span><span class="co">#&gt; NOTE: sensadj is the adjusted sensitivity, from which the ci is calculated.</span></span>
+<span><span class="co">#&gt;       n is the number of positives, ntot the full sample</span></span></code></pre></div>
 <p>Under this scenario, 1904 participants (of which approximately 286 would have the condition) will yield a CI width of 0.1 (10%), on average.</p>
 <p>Most of the functions in <code>presize</code> have similar options, although the sample size argument is generally <code>n</code> instead of <code>ntot</code> (<code>prec_sens</code> and <code>prec_spec</code> are special in that you can pass either a number of individuals with a condition to be detected with <code>n</code>, or you pass <code>ntot</code> and <code>prev</code> to get the CI width for a mixed group in which case <code>n</code> is derived from <code>ntot</code> and <code>prev</code>). The calculations for sensitivity can also be preformed if the number of cases rather than the total number and prevalence are available. For instance, if we have 50 individuals with the condition and we expect a sensitivity of 60%, we can put those values in instead.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -165,7 +168,8 @@
 <span><span class="co">#&gt;   sens   sensadj  n prev ntot conf.width conf.level       lwr       upr</span></span>
 <span><span class="co">#&gt; 1  0.6 0.5928652 50   NA   NA  0.2621017       0.95 0.4618144 0.7239161</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; NOTE: sensadj is the adjusted sensitivity, from which the ci is calculated.</span></span></code></pre></div>
+<span><span class="co">#&gt; NOTE: sensadj is the adjusted sensitivity, from which the ci is calculated.</span></span>
+<span><span class="co">#&gt;       n is the number of positives, ntot the full sample</span></span></code></pre></div>
 <p>Sensitivities and specificities are just proportions so <code>prec_prop</code> can also be used for this latter example.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/prec_prop.html">prec_prop</a></span><span class="op">(</span><span class="fl">.6</span>, n <span class="op">=</span> <span class="fl">50</span>, method <span class="op">=</span> <span class="st">"wilson"</span><span class="op">)</span></span>
@@ -211,7 +215,8 @@
 <span><span class="co">#&gt; 9  0.90 0.8632761 38 0.15  250  0.1960769       0.95 0.7652376 0.9613145</span></span>
 <span><span class="co">#&gt; 10 0.95 0.9086856 38 0.15  250  0.1557928       0.95 0.8307891 0.9865820</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; NOTE: sensadj is the adjusted sensitivity, from which the ci is calculated.</span></span></code></pre></div>
+<span><span class="co">#&gt; NOTE: sensadj is the adjusted sensitivity, from which the ci is calculated.</span></span>
+<span><span class="co">#&gt;       n is the number of positives, ntot the full sample</span></span></code></pre></div>
 <p>We can also use <code>expand.grid</code> to pass scenarios varying multiple parameters simultaneously. Below we vary sensitivity, prevalence and sample size.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">scenarios</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>sens <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.95</span>, <span class="fl">.1</span><span class="op">)</span>,</span>
@@ -239,7 +244,8 @@
 <span><span class="co">#&gt; 10  0.9 0.8604396 35 0.14  250  0.2046081       0.95 0.7581356 0.9627436</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  [Output truncated at 10 of 30 rows]</span></span>
-<span><span class="co">#&gt; NOTE: sensadj is the adjusted sensitivity, from which the ci is calculated.</span></span></code></pre></div>
+<span><span class="co">#&gt; NOTE: sensadj is the adjusted sensitivity, from which the ci is calculated.</span></span>
+<span><span class="co">#&gt;       n is the number of positives, ntot the full sample</span></span></code></pre></div>
 <p>From the print method, we see the details of the individual scenarios. The default print method for <code>presize</code> objects only prints the first 10 rows, but there are in fact 30 rows (there is also a <code>print</code> function, with an <code>n</code> option to define how many rows to print, e.g. <code>print(scenario_data, n = 5)</code> can be used to print the first five rows).</p>
 <p>Using the <code>as.data.frame</code> method, we can convert the list returned by <code>prec_sens</code> to a dataframe from which we can create tables or figures. Where multiple scenarios are calculated, plotting them can be particularly informative. <code>ggplot2</code>, for example, is particularly useful for this. Below we show CI width as a function of sensitivity, but the other parameters could be chosen instead.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
@@ -307,12 +313,12 @@
 <span>    style <span class="op">=</span> <span class="st">"padding-left:12;padding-right:12;"</span>,</span>
 <span>    locations <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_body.html" class="external-link">cells_body</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<div id="qncjikheuh" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="olpjbseioc" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#qncjikheuh .gt_table {
+#olpjbseioc .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -337,7 +343,7 @@
   border-left-color: #D3D3D3;
 }
 
-#qncjikheuh .gt_heading {
+#olpjbseioc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -349,7 +355,7 @@
   border-right-color: #D3D3D3;
 }
 
-#qncjikheuh .gt_title {
+#olpjbseioc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -361,7 +367,7 @@
   border-bottom-width: 0;
 }
 
-#qncjikheuh .gt_subtitle {
+#olpjbseioc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -373,13 +379,13 @@
   border-top-width: 0;
 }
 
-#qncjikheuh .gt_bottom_border {
+#olpjbseioc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#qncjikheuh .gt_col_headings {
+#olpjbseioc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -394,7 +400,7 @@
   border-right-color: #D3D3D3;
 }
 
-#qncjikheuh .gt_col_heading {
+#olpjbseioc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -414,7 +420,7 @@
   overflow-x: hidden;
 }
 
-#qncjikheuh .gt_column_spanner_outer {
+#olpjbseioc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -426,15 +432,15 @@
   padding-right: 4px;
 }
 
-#qncjikheuh .gt_column_spanner_outer:first-child {
+#olpjbseioc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#qncjikheuh .gt_column_spanner_outer:last-child {
+#olpjbseioc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#qncjikheuh .gt_column_spanner {
+#olpjbseioc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -446,7 +452,7 @@
   width: 100%;
 }
 
-#qncjikheuh .gt_group_heading {
+#olpjbseioc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -471,7 +477,7 @@
   vertical-align: middle;
 }
 
-#qncjikheuh .gt_empty_group_heading {
+#olpjbseioc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -486,15 +492,15 @@
   vertical-align: middle;
 }
 
-#qncjikheuh .gt_from_md > :first-child {
+#olpjbseioc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#qncjikheuh .gt_from_md > :last-child {
+#olpjbseioc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#qncjikheuh .gt_row {
+#olpjbseioc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -513,7 +519,7 @@
   overflow-x: hidden;
 }
 
-#qncjikheuh .gt_stub {
+#olpjbseioc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -526,7 +532,7 @@
   padding-right: 5px;
 }
 
-#qncjikheuh .gt_stub_row_group {
+#olpjbseioc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -540,11 +546,11 @@
   vertical-align: top;
 }
 
-#qncjikheuh .gt_row_group_first td {
+#olpjbseioc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#qncjikheuh .gt_summary_row {
+#olpjbseioc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -554,16 +560,16 @@
   padding-right: 5px;
 }
 
-#qncjikheuh .gt_first_summary_row {
+#olpjbseioc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#qncjikheuh .gt_first_summary_row.thick {
+#olpjbseioc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#qncjikheuh .gt_last_summary_row {
+#olpjbseioc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -573,7 +579,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#qncjikheuh .gt_grand_summary_row {
+#olpjbseioc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -583,7 +589,7 @@
   padding-right: 5px;
 }
 
-#qncjikheuh .gt_first_grand_summary_row {
+#olpjbseioc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -593,11 +599,11 @@
   border-top-color: #D3D3D3;
 }
 
-#qncjikheuh .gt_striped {
+#olpjbseioc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#qncjikheuh .gt_table_body {
+#olpjbseioc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -606,7 +612,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#qncjikheuh .gt_footnotes {
+#olpjbseioc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -620,7 +626,7 @@
   border-right-color: #D3D3D3;
 }
 
-#qncjikheuh .gt_footnote {
+#olpjbseioc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -629,7 +635,7 @@
   padding-right: 5px;
 }
 
-#qncjikheuh .gt_sourcenotes {
+#olpjbseioc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -643,7 +649,7 @@
   border-right-color: #D3D3D3;
 }
 
-#qncjikheuh .gt_sourcenote {
+#olpjbseioc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -651,64 +657,64 @@
   padding-right: 5px;
 }
 
-#qncjikheuh .gt_left {
+#olpjbseioc .gt_left {
   text-align: left;
 }
 
-#qncjikheuh .gt_center {
+#olpjbseioc .gt_center {
   text-align: center;
 }
 
-#qncjikheuh .gt_right {
+#olpjbseioc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#qncjikheuh .gt_font_normal {
+#olpjbseioc .gt_font_normal {
   font-weight: normal;
 }
 
-#qncjikheuh .gt_font_bold {
+#olpjbseioc .gt_font_bold {
   font-weight: bold;
 }
 
-#qncjikheuh .gt_font_italic {
+#olpjbseioc .gt_font_italic {
   font-style: italic;
 }
 
-#qncjikheuh .gt_super {
+#olpjbseioc .gt_super {
   font-size: 65%;
 }
 
-#qncjikheuh .gt_footnote_marks {
+#olpjbseioc .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#qncjikheuh .gt_asterisk {
+#olpjbseioc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#qncjikheuh .gt_indent_1 {
+#olpjbseioc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#qncjikheuh .gt_indent_2 {
+#olpjbseioc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#qncjikheuh .gt_indent_3 {
+#olpjbseioc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#qncjikheuh .gt_indent_4 {
+#olpjbseioc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#qncjikheuh .gt_indent_5 {
+#olpjbseioc .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
