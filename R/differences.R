@@ -24,8 +24,13 @@
 #' @param sd2 standard deviation in group 2.
 #' @param n1 number of patients in group 1.
 #' @param r allocation ratio (relative size of group 2 and group 1 (n2 / n1)).
-#' @param variance \code{equal} (\emph{default}) or \code{unequal} variance.
+#' @param variance \code{equal} (\emph{default}), \code{unequal} variance, or \code{paired} for paired tests.
 #' @inheritParams prec_riskdiff
+#' @details If \code{variance} is \code{paired}, this means that we're attempting a paired test,
+#'   and the standard deviation in \code{sd1} is the standard deviation of the differences. As such,
+#'   \code{delta} will also be the mean differences. If this option is selected, \code{r} has to be 1 and
+#'   \code{sd2} has to be equal to \code{sd1} (\emph{default}) since we only use \code{sd1} and \code{n1}
+#'   for the computation.
 #' @return Object of class "presize", a list of arguments (including the
 #'   computed one) augmented with method and note elements.
 #' @examples
@@ -34,10 +39,12 @@
 #' # mean difference of 5, SD of 2.5, number of participants for a CI width of 3,
 #' #  assuming equal variances
 #' prec_meandiff(delta = 5, sd1 = 2.5, conf.width = 3, var = "equal")
+#' # paired t-test using sd1 to specify the standard dev. of differences
+#' prec_meandiff(delta = 2, sd1 = 2.5, conf.width = 0.5, variance = "paired")
 #' @export
 prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
                           conf.width = NULL, conf.level = 0.95,
-                          variance = c("equal", "unequal"),
+                          variance = c("equal", "unequal", "paired"),
                           ...) {
   if (!is.null(delta) && !is.numeric(delta))
     stop("'delta' must be numeric")
@@ -78,12 +85,12 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
     message("more than one variance was chosen. Variance was changed to ", variance)
   }
 
-  variances <- c("equal", "unequal")
+  variances <- c("equal", "unequal", "paired")
   id <- pmatch(variance, variances)
   var <- variances[id]
 
   if (is.na(id)) {
-    stop("variance is not correctly specified. Specify it as either 'equal' or 'unequal'.")
+    stop("variance is not correctly specified. Specify it as either 'equal', 'unequal', or 'paired'.")
   }
 
 
@@ -136,6 +143,30 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
       } else {
         n1 <- try(mapply(un, sd1 = sd1, sd2 = sd2, r = r, alpha = alpha, prec = prec), silent = TRUE)
         if(inherits(n1,"try-error")) stop("'conf.width' too wide")
+      }
+    }
+  }
+
+  if (var == "paired"){
+    if (r != 1) stop("Paired t-test requires sample sizes to be equal")
+    if (sd1 != sd2) message("'sd2' will not be used since the standard dev. of differences is specified in `sd1`")
+    md_paired <- quote({
+      v <- n1 - 1
+      t <- qt(1 - alpha/2, v)
+      t * sd1/sqrt(n1)
+    })
+    if (is.null(conf.width)){
+      prec <- eval(md_paired)
+    }
+    if (is.null(n1)){
+      pair <- function(r, sd1, sd2, alpha, prec) uniroot(function(n1) eval(md_paired) - prec,
+                                                      c(2, 1e+07), ...)$root
+      if (conf.width<min(sd1)){
+        n1 <- try(mapply(pair, r = r, sd1 = sd1, sd2 = sd2, alpha=alpha, prec = prec), silent=TRUE)
+        if (inherits(n1, "try-error")) stop("'conf.width' too small")
+      } else {
+        n1 <- try(mapply(pair, r = r, sd1 = sd1, sd2 = sd2, alpha = alpha, prec = prec), silent=TRUE)
+        if (inherits(n1, "try-error")) stop("'conf.width' too wide")
       }
     }
   }

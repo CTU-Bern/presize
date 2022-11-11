@@ -12,7 +12,7 @@ prec_meandiff(
   r = 1,
   conf.width = NULL,
   conf.level = 0.95,
-  variance = c("equal", "unequal"),
+  variance = c("equal", "unequal", "paired"),
   ...
 )
 }
@@ -31,7 +31,7 @@ prec_meandiff(
 
 \item{conf.level}{confidence level.}
 
-\item{variance}{\code{equal} (\emph{default}) or \code{unequal} variance.}
+\item{variance}{\code{equal} (\emph{default}), \code{unequal} variance, or \code{paired} for paired tests.}
 
 \item{...}{other options to uniroot (e.g. \code{tol})}
 }
@@ -46,6 +46,12 @@ provided mean difference and standard deviations.
 \details{
 Exactly one of the parameters \code{n} or \code{conf.width} must be passed as NULL,
 and that parameter is determined from the other.
+
+If \code{variance} is \code{paired}, this means that we're attempting a paired test,
+  and the standard deviation in \code{sd1} is the standard deviation of the differences. As such,
+  \code{delta} will also be the mean differences. If this option is selected, \code{r} has to be 1 and
+  \code{sd2} has to be equal to \code{sd1} (\emph{default}) since we only use \code{sd1} and \code{n1}
+  for the computation.
 }
 \examples{
 # mean difference of 5, SD of 2.5, CI width with 20 participants assuming equal variances
@@ -53,4 +59,6 @@ prec_meandiff(delta = 5, sd1 = 2.5, n1 = 20, var = "equal")
 # mean difference of 5, SD of 2.5, number of participants for a CI width of 3,
 #  assuming equal variances
 prec_meandiff(delta = 5, sd1 = 2.5, conf.width = 3, var = "equal")
+# paired t-test using sd1 to specify the standard dev. of differences
+prec_meandiff(delta = 2, sd1 = 2.5, conf.width = 0.5, variance = "paired")
 }
