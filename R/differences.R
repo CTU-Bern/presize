@@ -13,7 +13,8 @@
 #' Sample size or precision for a mean difference
 #'
 #' \code{prec_meandiff} returns the sample size or the precision for the
-#' provided mean difference and standard deviations.
+#' provided mean difference and standard deviations. For paired differences, use
+#' \code{prec_mean}, as it is equivalent to a simple mean.
 #'
 #' Exactly one of the parameters \code{n} or \code{conf.width} must be passed as NULL,
 #' and that parameter is determined from the other.
