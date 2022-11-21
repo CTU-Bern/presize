@@ -453,3 +453,96 @@ prec_kappa <- function(kappa,
 
 }
 
+
+
+# This would need to be merged with the "correlation measures" file
+
+# Cronbach’s alpha ---------------
+#' Sample size or precision for Cronbach’s alpha
+#'
+#' \code{prec_cronb} returns the sample size or the precision for the given
+#' Cronbach’s alpha.
+#'
+#' Exactly one of the parameters \code{n} or \code{conf.width} must be passed as NULL,
+#' and that parameter is determined from the other.
+#'
+#' Sample size or precision is calculated according to the formula & code and
+#' provided in Bonett and Wright (2014).
+#'
+#' n is rounded up to the next whole number using \code{ceiling}.
+#'
+#' \code{\link[stats]{uniroot}} is used to solve n.
+#' @references Bonett, D. G. and Wright, T. A. (2015) \emph{Cronbach's alpha reliability: Interval estimation, hypothesis testing, and sample size planning} J. Organiz. Behav., 36, pages 3– 15. \doi{10.1002/job.1960}.
+
+#'  # k= number of items
+# n = Sample size used
+# conf.level
+#' @param calpha desired Cronbach’s alpha.
+#' @param n sample size.
+#' @param conf.width precision (the full width of the confidence interval).
+#' @param conf.level confidence level.
+#' @param k number of measurements/items.
+#'
+#' @inheritParams prec_riskdiff
+#' @export
+#' @return Object of class "presize", a list of arguments (including the
+#'   computed one) augmented with method and note elements.
+#' @examples
+#' # calculate confidence interval width...
+#' prec_cronb (k=5,calpha=0.7,n= 349,conf.level= 0.95, conf.width= NULL)
+#' # calculate N required for a given confidence interval width...
+#' prec_cronb (k=5,calpha=0.7,n= NULL,conf.level= 0.95, conf.width= 0.1)
+
+prec_cronb <- function(k,calpha,n= NULL,conf.level= 0.95, conf.width= NULL)  {
+
+  #. Few checks
+  #Check if either n or conf.width are not null
+  if (sum(sapply(list(n, conf.width), is.null)) != 1)
+    stop("exactly one of 'n', and 'conf.width' must be NULL")
+
+  #Check the range of the parameters
+  numrange_check_lt(calpha,1)
+  numrange_check(conf.level)
+  if(!is.null(n)) numrange_check_gt(n)
+  if(!is.null(conf.width)) numrange_check_gt(conf.width)
+  numrange_check_gt(k)
+
+  #.Estimation
+  #..Alpha & z
+  alpha <- 1 - conf.level
+  z <- qnorm(1 - alpha / 2)
+
+  #..Calculate the expected CI
+  if (is.null(conf.width)) {
+    est <- "precision"
+    #lwr = 1 - exp(log(1 - calpha) + z * sqrt(2 * k / ((k - 1) * (n - 2))))
+    #upr = 1 - exp(log(1 - calpha) - z * sqrt(2 * k / ((k - 1) * (n - 2))))
+
+    #with ln[n/(n-1)]  a bias adjustment proposed by Bonett (2010)
+    b<- log(n/(n - 1))
+    lwr <- 1 - exp(log(1 - calpha) - b + z*sqrt(2*k/((k - 1)*(n - 2))))
+    upr <- 1 - exp(log(1 - calpha) - b - z*sqrt(2*k/((k - 1)*(n - 2))))
+    conf.width <-  upr - lwr}
+
+  #..Calculate n
+  if (is.null(n)) {
+    est <- "sample size"
+    n0 <- ceiling((8*k/(k - 1))*(1 - calpha)^2*(z/conf.width)^2 + 2)
+    b <- log(n0/(n0 - 1))
+    lwr <- 1 - exp(log(1 - calpha) - b + z*sqrt(2*k/((k - 1)*(n0 - 2))))
+    upr <- 1 - exp(log(1 - calpha) - b - z*sqrt(2*k/((k - 1)*(n0 - 2))))
+    w0 <- upr - lwr
+    n <- ceiling((n0 - 2)*(w0/conf.width)^2 + 2)}
+
+  #.Report the results
+  structure(list(calpha = calpha,
+                 n = n,
+                 conf.width = conf.width,
+                 conf.level = conf.level,
+                 lwr = lwr,
+                 upr = upr,
+                 method = paste(est, "for Cronbach’s alpha")),
+            class = "presize")
+
+
+}

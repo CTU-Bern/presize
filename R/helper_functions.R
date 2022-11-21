@@ -12,6 +12,12 @@ numrange_check_gt <- function(x, lo = 0) {
     stop(paste0("'", param, "' must be numeric greater than ", lo))
 }
 
+numrange_check_lt <- function(x, hi = 1) {
+  param <- substitute(x)
+  if (any(!is.null(x) && !is.numeric(x) || any(x > hi)))
+    stop(paste0("'", param, "' must be numeric lower than or equal to ", hi))
+}
+
 # # calculate the z-value of standard normal distribution
 # calc_zval <- function(conf.level) qnorm((1 + conf.level) / 2)
 
