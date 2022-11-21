@@ -471,9 +471,7 @@ prec_kappa <- function(kappa,
 #'
 #' n is rounded up to the next whole number using \code{ceiling}.
 #'
-#' \code{\link[stats]{uniroot}} is used to solve n.
 #' @references Bonett, D. G. and Wright, T. A. (2015) \emph{Cronbach's alpha reliability: Interval estimation, hypothesis testing, and sample size planning} J. Organiz. Behav., 36, pages 3– 15. \doi{10.1002/job.1960}.
-
 #'  # k= number of items
 # n = Sample size used
 # conf.level

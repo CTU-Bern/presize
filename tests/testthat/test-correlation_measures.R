@@ -70,11 +70,11 @@ test_that("Limit of agreement, Bland Altman - The Lancet 1986 - example", {
   sd <- sqrt(var(group1-group2))
   # CI width from the papaer's example
   length.cw <- 114.3-45.1
-  
+
   ex <- prec_lim_agree(n = 17)
   expect_equal(ex$conf.width , length.cw/sd , tolerance = .2, scale = 1)
   expect_equal(ex$conf.width , 2*1.96*sqrt(3/n) , tolerance = .01, scale = 1)
-  
+
   # reverse
   ex <- prec_lim_agree(conf.width = 1.65)
   expect_equal(ceiling(ex$n), 17 , tolerance = 1, scale = 1)
@@ -104,4 +104,5 @@ test_that("kappa", {
   expect_equal(pk1$conf.width, pk2$conf.width)
 })
 
-
+# Cronbach’s alpha
+expect_error(prec_cronb (k=5,calpha=1.1,n= 10,conf.level= 0.95, conf.width= NULL))
