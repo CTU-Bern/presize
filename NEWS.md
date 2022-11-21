@@ -1,3 +1,8 @@
+presize 0.3.5
+-----------------------------------------
+
+* notes in helpfile for `prec_mean` and `prec_meandiff` that the former is suitable for paired mean differences. Comparable changes in the shiny app.
+
 presize 0.3.4
 -----------------------------------------
 

@@ -20,6 +20,9 @@
 #' confidence interval calculated as \eqn{t(n - 1) * sd / sqrt(n)}, with t(n-1)
 #' from the t-distribution with n-1 degrees of freedom.
 #'
+#' This function is also suitable for a difference in paired means, as this reduces
+#' to a single value per individual - the difference.
+#'
 #' \code{\link[stats]{uniroot}} is used to solve \code{n}.
 #'
 #' @param mean mean.
