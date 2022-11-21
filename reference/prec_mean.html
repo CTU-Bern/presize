@@ -18,7 +18,7 @@ mean and standard deviation."><meta property="og:image" content="/logo.png"><!--
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">presize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.5</span>
       </span>
     </div>
 
@@ -115,6 +115,8 @@ and that parameter is determined from the other.</p>
 <p>The precision is defined as the full width of the confidence interval. The
 confidence interval calculated as \(t(n - 1) * sd / sqrt(n)\), with t(n-1)
 from the t-distribution with n-1 degrees of freedom.</p>
+<p>This function is also suitable for a difference in paired means, as this reduces
+to a single value per individual - the difference.</p>
 <p><code><a href="https://rdrr.io/r/stats/uniroot.html" class="external-link">uniroot</a></code> is used to solve <code>n</code>.</p>
     </div>
 
