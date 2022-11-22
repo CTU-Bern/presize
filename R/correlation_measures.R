@@ -456,11 +456,11 @@ prec_kappa <- function(kappa,
 
 
 
-# Cronbach’s alpha ---------------
-#' Sample size or precision for Cronbach’s alpha
+# Cronbach's alpha ---------------
+#' Sample size or precision for Cronbach's alpha
 #'
 #' \code{prec_cronb} returns the sample size or the precision for the given
-#' Cronbach’s alpha.
+#' Cronbach's alpha.
 #'
 #' Exactly one of the parameters \code{n} or \code{conf.width} must be passed as NULL,
 #' and that parameter is determined from the other.
@@ -474,7 +474,7 @@ prec_kappa <- function(kappa,
 #'  # k= number of items
 # n = Sample size used
 # conf.level
-#' @param calpha desired Cronbach’s alpha.
+#' @param calpha desired Cronbach's alpha.
 #' @param n sample size.
 #' @param conf.width precision (the full width of the confidence interval).
 #' @param conf.level confidence level.
@@ -538,7 +538,7 @@ prec_cronb <- function(k,calpha,n= NULL,conf.level= 0.95, conf.width= NULL)  {
                  conf.level = conf.level,
                  lwr = lwr,
                  upr = upr,
-                 method = paste(est, "for Cronbach’s alpha")),
+                 method = paste(est, "for Cronbach's alpha")),
             class = "presize")
 
 
