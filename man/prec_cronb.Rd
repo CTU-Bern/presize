@@ -2,14 +2,14 @@
 % Please edit documentation in R/correlation_measures.R
 \name{prec_cronb}
 \alias{prec_cronb}
-\title{Sample size or precision for Cronbach’s alpha}
+\title{Sample size or precision for Cronbach's alpha}
 \usage{
 prec_cronb(k, calpha, n = NULL, conf.level = 0.95, conf.width = NULL)
 }
 \arguments{
 \item{k}{number of measurements/items.}
 
-\item{calpha}{desired Cronbach’s alpha.}
+\item{calpha}{desired Cronbach's alpha.}
 
 \item{n}{sample size.}
 
@@ -23,7 +23,7 @@ Object of class "presize", a list of arguments (including the
 }
 \description{
 \code{prec_cronb} returns the sample size or the precision for the given
-Cronbach’s alpha.
+Cronbach's alpha.
 }
 \details{
 Exactly one of the parameters \code{n} or \code{conf.width} must be passed as NULL,
