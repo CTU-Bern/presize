@@ -455,7 +455,6 @@ prec_kappa <- function(kappa,
 
 
 
-# This would need to be merged with the "correlation measures" file
 
 # Cronbach’s alpha ---------------
 #' Sample size or precision for Cronbach’s alpha

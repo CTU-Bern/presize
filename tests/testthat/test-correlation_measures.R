@@ -106,3 +106,9 @@ test_that("kappa", {
 
 # Cronbach’s alpha
 expect_error(prec_cronb (k=5,calpha=1.1,n= 10,conf.level= 0.95, conf.width= NULL))
+expect_error(prec_cronb (k=5,calpha=0.5,n= 10,conf.level= 0.95, conf.width= 0.2))
+expect_error(prec_cronb (k=5,calpha=0.5,n= 10,conf.level= 0.95, conf.width= 0.2))
+expect_error(prec_cronb (k=5,calpha=0.5,n= NULL,conf.level= 0.95, conf.width= NULL))
+
+expect_equal(prec_cronb (k=7,calpha=0.8,n= NULL,conf.level= 0.95, conf.width= 0.1)[["n" ]],147)
+
