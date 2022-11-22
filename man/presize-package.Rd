@@ -31,6 +31,7 @@ Authors:
 Other contributors:
 \itemize{
   \item Odile Stalder \email{odile.stalder@ctu.unibe.ch} [contributor]
+  \item Marie Roumet \email{marie.roumet@ctu.unibe.ch} [contributor]
 }
 
 }
