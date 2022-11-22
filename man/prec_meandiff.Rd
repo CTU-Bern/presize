@@ -41,7 +41,8 @@ Object of class "presize", a list of arguments (including the
 }
 \description{
 \code{prec_meandiff} returns the sample size or the precision for the
-provided mean difference and standard deviations.
+provided mean difference and standard deviations. For paired differences, use
+\code{prec_mean}, as it is equivalent to a simple mean.
 }
 \details{
 Exactly one of the parameters \code{n} or \code{conf.width} must be passed as NULL,

@@ -2,7 +2,7 @@
 # UI ----
 meandiffpage <- tabItem(tabName = "meandiff",
         h2("Precision of a mean difference"),
-        "Enter the mean difference and standard deviations you expect. If you intend to use uneven allocation ratios (e.g. 2 allocated to group 1 for each participant allocated to group 2), adjust the allocation ratio accordingly. To estimate the confidence interval width from a number of events, enter the number of events in 'Number of events'. To estimate the number of observations required to get a confidence interval width of X, enter the width in 'Confidence interval width'.",
+        "Enter the mean difference and standard deviations you expect. If you intend to use uneven allocation ratios (e.g. 2 allocated to group 1 for each participant allocated to group 2), adjust the allocation ratio accordingly. To estimate the confidence interval width expected with a particular number of observations, enter the number of observations in 'Number of observations'. To estimate the number of observations required to get a confidence interval width of X, enter the width in 'Confidence interval width'. For the difference between paired observations, use the routine for a simple mean.",
         tags$br(),
         h4("Please enter the following"),
         numericInput("meandiff_delta", "Mean difference",
