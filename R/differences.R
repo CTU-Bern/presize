@@ -95,7 +95,7 @@ prec_meandiff <- function(delta, sd1, sd2 = sd1, n1 = NULL, r = 1,
 
     md <- quote({
       n2 <- n1 * r
-      s <- sqrt(((n1 - 1) * sd1 ^ 2 + (n2 - 1) * sd2 ^ 2) / (n1 + n2 + 2))
+      s <- sqrt(((n1 - 1) * sd1 ^ 2 + (n2 - 1) * sd2 ^ 2) / (n1 + n2 - 2))
       se <- s * sqrt(1/n1 + 1/n2)
       t <- qt(1 - alpha / 2, n1 + n2 - 2)
       t * se
