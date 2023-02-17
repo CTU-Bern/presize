@@ -46,7 +46,8 @@ ui <- dashboardPage(skin = "red",
                           menuItem("Correlation coefficient", tabName = "cor", icon = icon),
                           menuItem("Intraclass correlation coefficient (ICC)", tabName = "icc", icon = icon),
                           menuItem("Limit of agreement", tabName = "limit", icon = icon),
-                          menuItem("Cohen's kappa", tabName = "kappa", icon = icon)
+                          menuItem("Cohen's kappa", tabName = "kappa", icon = icon),
+                          menuItem("Cronbach's alpha", tabName = "calpha", icon = icon)
 
                  ),
                  menuItem("Diagnostic measures",
@@ -85,6 +86,7 @@ ui <- dashboardPage(skin = "red",
                       iccpage,
                       limitpage,
                       kappapage,
+                      calphapage,
                       senspage,
                       specpage,
                       aucpage,
@@ -358,6 +360,24 @@ server <- function(input, output, session) {
         div(id=letters[(times %% length(letters)) + 1],
             numericInput("kappa_n", "Sample size", min = 0, value = NULL),
             numericInput("kappa_ciwidth", "Confidence interval width", min = 0, value = NULL)
+        )
+    })
+
+    # cronbachs alpha ----
+    output$calpha_out <- renderPrint(calpha_fn(input))
+    output$calpha_code <- renderPrint(calpha_fn(input, TRUE))
+    output$calpha_tab <- renderTable({
+        tmp <- calpha_fn(input)
+        tmp1 <- res_vars[res_vars$column %in% c(names(tmp), "cronk"),]
+        tmp1 <- tmp1[-which(tmp1$column == "k"), ]
+        tmp1$column[tmp1$column == "cronk"] <- "k"
+        print(tmp1)
+    })
+    output$calpha_resetable_input <- renderUI({
+        times <- input$calpha_reset_input
+        div(id=letters[(times %% length(letters)) + 1],
+            numericInput("calpha_n", "Sample size", min = 0, value = NULL),
+            numericInput("calpha_ciwidth", "Confidence interval width", min = 0, value = NULL)
         )
     })
 

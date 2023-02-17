@@ -54,6 +54,8 @@ res_vars <- c(mean = "mean", "sd" = "standard deviation",
               lr = "likelihood ratio",
               lr_p1 = "proportion in group 1",
               lr_p2 = "proportion in group 2",
-              prec.level = "ratio of upper to lower confidence interval limit"
+              prec.level = "ratio of upper to lower confidence interval limit",
+              calpha = "Cronbachs alpha",
+              cronk = "number of measurements/items in test"
               )
 res_vars <- data.frame(column = names(res_vars), meaning = res_vars)
