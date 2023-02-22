@@ -111,8 +111,8 @@ test_that("mean diff n = stata", {
   #   N per group =     1,108
   
   ex <- prec_meandiff(delta = 5, sd1 = 3, sd2 = 3, r = 1, conf.width = .5, conf.level = 0.95, variance = 'equal')
-  expect_equal(ex$n1 , 1108 , tolerance = 3, scale = 1)
-  
+  expect_equal(ex$n1 , 1108 , tolerance = 1, scale = 1)
+
   ex <- prec_meandiff(delta = 5, sd1 = 3, sd2 = 3, r = 1, n = 1108, conf.level = 0.95, variance = 'equal')
   expect_equal(ex$conf.width , .5 , tolerance = .001, scale = 1)
 })

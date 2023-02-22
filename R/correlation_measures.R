@@ -500,6 +500,7 @@ prec_cronb <- function(k,calpha,n= NULL,conf.level= 0.95, conf.width= NULL)  {
   #Check the range of the parameters
   numrange_check_lt(calpha,1)
   numrange_check(conf.level)
+  numrange_check(conf.width)
   if(!is.null(n)) numrange_check_gt(n)
   if(!is.null(conf.width)) numrange_check_gt(conf.width)
   numrange_check_gt(k)
@@ -533,6 +534,7 @@ prec_cronb <- function(k,calpha,n= NULL,conf.level= 0.95, conf.width= NULL)  {
 
   #.Report the results
   structure(list(calpha = calpha,
+                 k = k,
                  n = n,
                  conf.width = conf.width,
                  conf.level = conf.level,

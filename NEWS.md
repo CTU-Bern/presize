@@ -1,3 +1,8 @@
+## presize 0.3.7
+
+-   BUG-FIX - `perc_meandiff` calculated the degree of freedom incorrectly for equal variance differences (see #106)
+-   addition of Cronbach's alpha to the shiny app
+
 ## presize 0.3.6
 
 -   addition of Cronbach's alpha method
