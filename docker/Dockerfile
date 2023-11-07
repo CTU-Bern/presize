@@ -1,6 +1,8 @@
 # Base image https://hub.docker.com/u/rocker/
 FROM rocker/shiny:latest
 
+LABEL maintainer="Alan Haynes <alan.haynes@unibe.ch>"
+
 # system libraries of general use
 ## install debian packages
 RUN apt-get update -qq && apt-get -y --no-install-recommends install \
@@ -12,23 +14,21 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
     libssh2-1-dev \
     unixodbc-dev \
     libcurl4-openssl-dev \
-    libssl-dev
-
-## update system libraries
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get clean
+    libssl-dev && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /tmp/*
 
 # copy necessary files
 # start in at level above package
 ## app folder
-COPY presize/inst/shinyApp ./app
-COPY presize ./presize
+COPY --chown -R shiny:shiny presize/inst/shinyApp ./app
+COPY --chown -R shiny:shiny presize ./presize
 
 # install deps
-RUN Rscript -e 'install.packages("remotes")'
-RUN Rscript -e 'remotes::install_deps("presize", dependencies = TRUE)'
-RUN Rscript -e 'remotes::install_local("presize")'
+RUN Rscript -e 'install.packages("remotes");remotes::install_deps("presize", dependencies = TRUE);remotes::install_local("presize")'
+
+USER shiny
 
 # expose port
 EXPOSE 3838
