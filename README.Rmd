@@ -43,7 +43,7 @@ install.packages("presize")
 You can install the development version of `presize` with:
 
 ```{r gh-installation, eval = FALSE}
-install.packages('presize', repos = 'https://ctu-bern.r-universe.dev')
+install.packages('presize', repos = c('https://ctu-bern.r-universe.dev', 'https://cloud.r-project.org'))
 ```
 
 ## Overview
