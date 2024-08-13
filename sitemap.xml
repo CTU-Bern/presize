@@ -1,87 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>/articles/presize.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/pull_request_template.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/launch_presize_app.html</loc>
-  </url>
-  <url>
-    <loc>/reference/prec_auc.html</loc>
-  </url>
-  <url>
-    <loc>/reference/prec_cor.html</loc>
-  </url>
-  <url>
-    <loc>/reference/prec_cronb.html</loc>
-  </url>
-  <url>
-    <loc>/reference/prec_icc.html</loc>
-  </url>
-  <url>
-    <loc>/reference/prec_kappa.html</loc>
-  </url>
-  <url>
-    <loc>/reference/prec_lim_agree.html</loc>
-  </url>
-  <url>
-    <loc>/reference/prec_lr.html</loc>
-  </url>
-  <url>
-    <loc>/reference/prec_mean.html</loc>
-  </url>
-  <url>
-    <loc>/reference/prec_meandiff.html</loc>
-  </url>
-  <url>
-    <loc>/reference/prec_or.html</loc>
-  </url>
-  <url>
-    <loc>/reference/prec_prop.html</loc>
-  </url>
-  <url>
-    <loc>/reference/prec_rate.html</loc>
-  </url>
-  <url>
-    <loc>/reference/prec_rateratio.html</loc>
-  </url>
-  <url>
-    <loc>/reference/prec_riskdiff.html</loc>
-  </url>
-  <url>
-    <loc>/reference/prec_riskratio.html</loc>
-  </url>
-  <url>
-    <loc>/reference/presize-package.html</loc>
-  </url>
-  <url>
-    <loc>/reference/sensspec.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/CONTRIBUTING.html</loc></url>
+<url><loc>/LICENSE-text.html</loc></url>
+<url><loc>/articles/index.html</loc></url>
+<url><loc>/articles/presize.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/news/index.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/launch_presize_app.html</loc></url>
+<url><loc>/reference/prec_auc.html</loc></url>
+<url><loc>/reference/prec_cor.html</loc></url>
+<url><loc>/reference/prec_cronb.html</loc></url>
+<url><loc>/reference/prec_icc.html</loc></url>
+<url><loc>/reference/prec_kappa.html</loc></url>
+<url><loc>/reference/prec_lim_agree.html</loc></url>
+<url><loc>/reference/prec_lr.html</loc></url>
+<url><loc>/reference/prec_mean.html</loc></url>
+<url><loc>/reference/prec_meandiff.html</loc></url>
+<url><loc>/reference/prec_or.html</loc></url>
+<url><loc>/reference/prec_prop.html</loc></url>
+<url><loc>/reference/prec_rate.html</loc></url>
+<url><loc>/reference/prec_rateratio.html</loc></url>
+<url><loc>/reference/prec_riskdiff.html</loc></url>
+<url><loc>/reference/prec_riskratio.html</loc></url>
+<url><loc>/reference/presize-package.html</loc></url>
+<url><loc>/reference/sensspec.html</loc></url>
 </urlset>
+

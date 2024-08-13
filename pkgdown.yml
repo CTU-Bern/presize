@@ -1,7 +1,6 @@
 pandoc: 2.7.3
-pkgdown: 2.0.6
+pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
   presize: presize.html
-last_built: 2022-11-22T09:18Z
-
+last_built: 2024-08-13T12:18Z
