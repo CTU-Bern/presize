@@ -5,7 +5,6 @@
 
 [![](https://www.r-pkg.org/badges/version/presize?color=green)](https://cran.r-project.org/package=presize)
 [![](https://img.shields.io/badge/dev%20version-0.3.7-blue.svg)](https://github.com/CTU-Bern/presize)
-[![](https://img.shields.io/badge/shiny%20app-0.2.3-silver.svg)](https://shiny.ctu.unibe.ch/presize)
 [![Actions
 Status](https://github.com/CTU-Bern/presize/workflows/R-CMD-fullcheck/badge.svg)](https://github.com/CTU-Bern/presize/actions)
 [![Codecov test
@@ -32,7 +31,7 @@ install.packages("presize")
 You can install the development version of `presize` with:
 
 ``` r
-install.packages('presize', repos = 'https://ctu-bern.r-universe.dev')
+install.packages('presize', repos = c('https://ctu-bern.r-universe.dev', 'https://cloud.r-project.org'))
 ```
 
 ## Overview
