@@ -4,5 +4,4 @@ template:
   light-switch: true
 navbar:
   structure:
-    left: [reference, news]
     right: [search, github]

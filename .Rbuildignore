@@ -13,3 +13,4 @@
 ^docker
 ^LICENSE
 ^codecov\.yml$
+pkgdown/*
