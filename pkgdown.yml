@@ -3,7 +3,7 @@ pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
   presize: presize.html
-last_built: 2024-08-15T13:15Z
+last_built: 2024-08-15T13:30Z
 urls:
   reference: https://ctu-bern.github.io/SwissASR/reference
   article: https://ctu-bern.github.io/SwissASR/articles
