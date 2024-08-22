@@ -51,6 +51,10 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@v2
 
+      - name: Setup r2u
+        if: runner.os == 'ubuntu'
+        uses: eddelbuettel/github-actions/r2u-setup@master
+
       - name: Query dependencies
         run: |
           install.packages('remotes')
