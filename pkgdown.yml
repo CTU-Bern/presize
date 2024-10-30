@@ -3,7 +3,7 @@ pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   presize: presize.html
-last_built: 2024-10-30T12:52Z
+last_built: 2024-10-30T12:53Z
 urls:
   reference: https://ctu-bern.github.io/presize/reference
   article: https://ctu-bern.github.io/presize/articles
