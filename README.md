@@ -61,8 +61,8 @@ install.packages('presize', repos = c('https://ctu-bern.r-universe.dev', 'https:
 | Sensitivity<sup>1</sup>               | `prec_sens`      | As per `prec_prop`                                                                                                       |
 | Specificity<sup>1</sup>               | `prec_spec`      | As per `prec_prop`                                                                                                       |
 | Area under the curve                  | `prec_auc`       | Hanley and McNeil (1982)                                                                                                 |
-| Negative likelilood ratio<sup>2</sup> | `preg_neg_lr`    | Simel, Samsa, and Matchar (1991)                                                                                         |
-| Positive likelilood ratio<sup>2</sup> | `preg_pos_lr`    | Simel, Samsa, and Matchar (1991)                                                                                         |
+| Negative likelihood ratio<sup>2</sup> | `prec_neg_lr`    | Simel, Samsa, and Matchar (1991)                                                                                         |
+| Positive likelihood ratio<sup>2</sup> | `prec_pos_lr`    | Simel, Samsa, and Matchar (1991)                                                                                         |
 | Generic likelilood ratio              | `preg_lr`        | Simel, Samsa, and Matchar (1991)                                                                                         |
 
 <sup>1</sup> Simple wrappers for `prec_prop`.
