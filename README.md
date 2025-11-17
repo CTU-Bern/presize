@@ -4,7 +4,7 @@
 # presize <img src='man/figures/logo.png' align="right" width="200">
 
 [![](https://www.r-pkg.org/badges/version/presize?color=green)](https://cran.r-project.org/package=presize)
-[![](https://img.shields.io/badge/dev%20version-0.3.8-blue.svg)](https://github.com/CTU-Bern/presize)
+[![](https://img.shields.io/badge/dev%20version-0.3.9-blue.svg)](https://github.com/CTU-Bern/presize)
 [![Actions
 Status](https://github.com/CTU-Bern/presize/workflows/R-CMD-fullcheck/badge.svg)](https://github.com/CTU-Bern/presize/actions)
 [![Codecov test
