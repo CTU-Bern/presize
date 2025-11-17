@@ -1,9 +1,9 @@
 pandoc: 2.7.3
-pkgdown: 2.1.1
+pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   presize: presize.html
-last_built: 2024-10-30T12:53Z
+last_built: 2025-11-17T09:39Z
 urls:
   reference: https://ctu-bern.github.io/presize/reference
   article: https://ctu-bern.github.io/presize/articles
