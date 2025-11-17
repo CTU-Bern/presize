@@ -5,3 +5,38 @@ template:
 navbar:
   structure:
     right: [search, github]
+reference:
+- title: Descriptive measures
+  contents:
+  - prec_mean
+  - prec_prop
+  - prec_rate
+- title: Absolute differences
+  contents:
+  - prec_meandiff
+  - prec_riskdiff
+- title: Relative differences
+  contents:
+  - prec_or
+  - prec_riskratio
+  - prec_rateratio
+- title: Correlation measures
+  contents:
+  - prec_cor
+  - prec_icc
+  - prec_lim_agree
+  - prec_kappa
+  - prec_cronb
+- title: Diagnostic measures
+  contents:
+  - prec_sens
+  - prec_spec
+  - prec_auc
+  - prec_neg_lr
+  - prec_pos_lr
+  - prec_lr
+
+- title: Shiny app
+  contents:
+  - launch_presize_app
+
