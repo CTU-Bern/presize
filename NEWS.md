@@ -1,3 +1,7 @@
+## presize 0.3.9
+
+-   Update email addresses
+
 ## presize 0.3.8
 
 -   Small change to syntax for including the figure on the shiny app helppage (required by CRAN)

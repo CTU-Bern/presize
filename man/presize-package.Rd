@@ -20,18 +20,18 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Alan G. Haynes \email{alan.haynes@ctu.unibe.ch}
+\strong{Maintainer}: Alan G. Haynes \email{alan.haynes@unibe.ch}
 
 Authors:
 \itemize{
-  \item Armando Lenz \email{armando.lenz@ctu.unibe.ch}
-  \item Andreas Limacher \email{andreas.limacher@ctu.unibe.ch}
+  \item Armando Lenz
+  \item Andreas Limacher \email{andreas.limacher@paraplegie.ch}
 }
 
 Other contributors:
 \itemize{
-  \item Odile Stalder \email{odile.stalder@ctu.unibe.ch} [contributor]
-  \item Marie Roumet \email{marie.roumet@ctu.unibe.ch} [contributor]
+  \item Odile Stalder \email{odile.stalder@unibe.ch} [contributor]
+  \item Marie Roumet \email{marie.roumet@unibe.ch} [contributor]
 }
 
 }
