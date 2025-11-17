@@ -19,16 +19,16 @@ Useful links:
 
 ## Author
 
-**Maintainer**: Alan G. Haynes <alan.haynes@ctu.unibe.ch>
+**Maintainer**: Alan G. Haynes <alan.haynes@unibe.ch>
 
 Authors:
 
-  - Armando Lenz <armando.lenz@ctu.unibe.ch>
+  - Armando Lenz
 
-  - Andreas Limacher <andreas.limacher@ctu.unibe.ch>
+  - Andreas Limacher <andreas.limacher@paraplegie.ch>
 
 Other contributors:
 
-  - Odile Stalder <odile.stalder@ctu.unibe.ch> \[contributor\]
+  - Odile Stalder <odile.stalder@unibe.ch> \[contributor\]
 
-  - Marie Roumet <marie.roumet@ctu.unibe.ch> \[contributor\]
+  - Marie Roumet <marie.roumet@unibe.ch> \[contributor\]
